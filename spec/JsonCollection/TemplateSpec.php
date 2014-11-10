@@ -72,7 +72,7 @@ class TemplateSpec extends ObjectBehavior
             ]
         );
     }
-    
+
     /**
      * @param \JsonCollection\Data $data1
      * @param \JsonCollection\Data $data2
