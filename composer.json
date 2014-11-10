@@ -1,15 +1,18 @@
 {
     "name": "mvieira/JsonCollection",
     "description": "PHP implementation of the Collection.next+JSON Media Type",
+    "version": "0.0.1",
+    "type": "library",
+    "homepage": "https://github.com/mickaelvieira/JsonCollection",
     "minimum-stability": "stable",
-    "license": "GPL",
     "keywords": [
         "Hypermedia", "RESTful", "HTTP", "JSON", "REST", "HATEOAS"
     ],
     "authors": [
         {
             "name": "Mickael Vieira",
-            "email": "contact@mickael-vieira.com"
+            "email": "contact@mickael-vieira.com",
+            "homepage": "http://mickael-vieira.com"
         }
     ],
     "require": {
