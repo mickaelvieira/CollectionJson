@@ -75,7 +75,7 @@ class Item extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = array();
+        $data = [];
         if (!is_null($this->href)) {
             $data = array_filter(
                 $this->getSortedObjectVars(),

@@ -63,7 +63,7 @@ class Option extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = array();
+        $data = [];
         if (!is_null($this->value)) {
             $data = array_filter(
                 $this->getSortedObjectVars(),

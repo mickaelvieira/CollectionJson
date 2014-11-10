@@ -157,7 +157,7 @@ class Data extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = array();
+        $data = [];
         if (!is_null($this->name)) {
             array_walk(
                 $this->getSortedObjectVars(),

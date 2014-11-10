@@ -48,7 +48,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     abstract protected function getObjectData();
 }

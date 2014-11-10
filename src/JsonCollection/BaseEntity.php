@@ -14,11 +14,14 @@ class BaseEntity extends DataExtraction implements DataInjectable
     /**
      * @param array $data
      */
-    public function __construct(array $data = array())
+    public function __construct(array $data = [])
     {
         $this->inject($data);
     }
 
+    /**
+     * @return array
+     */
     protected function getSortedObjectVars()
     {
         $data = get_object_vars($this);

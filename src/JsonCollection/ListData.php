@@ -77,7 +77,7 @@ class ListData extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = array();
+        $data = [];
         if (!empty($this->options)) {
             $data = array_filter(
                 $this->getSortedObjectVars(),

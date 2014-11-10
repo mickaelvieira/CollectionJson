@@ -161,7 +161,7 @@ class Link extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = array();
+        $data = [];
 
         if (!is_null($this->href) && !is_null($this->rel)) {
             $data = array_filter(
