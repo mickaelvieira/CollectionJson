@@ -30,6 +30,34 @@ class BaseEntity extends DataExtraction implements DataInjectable
     }
 
     /**
+     * @param array $data
+     * @return array
+     */
+    protected function filterEmptyArrays(array $data)
+    {
+        return array_filter(
+            $data,
+            function ($value) {
+                return !(is_array($value) && empty($value));
+            }
+        );
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function filterNullValues(array $data)
+    {
+        return array_filter(
+            $data,
+            function ($value) {
+                return !is_null($value);
+            }
+        );
+    }
+
+    /**
      * @return array
      */
     protected function getObjectData()
