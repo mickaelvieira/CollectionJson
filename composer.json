@@ -1,8 +1,11 @@
 {
     "name": "mvieira/JsonCollection",
-    "description": "PHP implementation of the Collection+JSON Media Type",
+    "description": "PHP implementation of the Collection.next+JSON Media Type",
     "minimum-stability": "stable",
     "license": "GPL",
+    "keywords": [
+        "Hypermedia", "RESTful", "HTTP", "JSON", "REST", "HATEOAS",
+    ],
     "authors": [
         {
             "name": "Mickael Vieira",
