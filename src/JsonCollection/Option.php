@@ -65,12 +65,8 @@ class Option extends BaseEntity
     {
         $data = [];
         if (!is_null($this->value)) {
-            $data = array_filter(
-                $this->getSortedObjectVars(),
-                function ($value) {
-                    return !is_null($value);
-                }
-            );
+            $data = $this->getSortedObjectVars();
+            $data = $this->filterNullValues($data);
         }
         return $data;
     }

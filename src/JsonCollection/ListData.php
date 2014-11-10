@@ -79,16 +79,9 @@ class ListData extends BaseEntity
     {
         $data = [];
         if (!empty($this->options)) {
-            $data = array_filter(
-                $this->getSortedObjectVars(),
-                function ($value) {
-                    return !is_null($value);
-                }
-            );
+            $data = $this->getSortedObjectVars();
+            $data = $this->filterNullValues($data);
         }
-
-        //var_dump($data);
-
         return $data;
     }
 }

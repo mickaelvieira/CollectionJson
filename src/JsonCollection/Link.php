@@ -164,12 +164,8 @@ class Link extends BaseEntity
         $data = [];
 
         if (!is_null($this->href) && !is_null($this->rel)) {
-            $data = array_filter(
-                $this->getSortedObjectVars(),
-                function ($value) {
-                    return !is_null($value);
-                }
-            );
+            $data = $this->getSortedObjectVars();
+            $data = $this->filterNullValues($data);
         }
         return $data;
     }

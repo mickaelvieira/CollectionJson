@@ -77,15 +77,8 @@ class Item extends BaseEntity
     {
         $data = [];
         if (!is_null($this->href)) {
-            $data = array_filter(
-                $this->getSortedObjectVars(),
-                function ($value) {
-                    if (is_array($value)) {
-                        return !empty($value);
-                    }
-                    return $value;
-                }
-            );
+            $data = $this->getSortedObjectVars();
+            $data = $this->filterEmptyArrays($data);
         }
         return $data;
     }
