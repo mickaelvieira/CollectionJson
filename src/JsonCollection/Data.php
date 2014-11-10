@@ -137,6 +137,22 @@ class Data extends BaseEntity
     }
 
     /**
+     * @return ListData
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param ListData $list
+     */
+    public function setList(ListData $list)
+    {
+        $this->list = $list;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getObjectData()

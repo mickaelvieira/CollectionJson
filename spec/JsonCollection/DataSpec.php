@@ -75,4 +75,44 @@ class DataSpec extends ObjectBehavior
             )
         );
     }
+
+    /**
+     * @param \JsonCollection\ListData $list
+     */
+    function it_should_extract_the_list($list)
+    {
+        $list->toArray()->willReturn(
+            array(
+                'multiple' => true,
+                'options' => array(
+                    array(
+                        'value' => 'value 1'
+                    ),
+                    array(
+                        'value' => 'value 1'
+                    )
+                )
+            )
+        );
+
+        $this->setName('Name');
+        $this->setList($list);
+        $this->toArray()->shouldBeEqualTo(
+            array(
+                'list' => array(
+                    'multiple' => true,
+                    'options' => array(
+                        array(
+                            'value' => 'value 1'
+                        ),
+                        array(
+                            'value' => 'value 1'
+                        )
+                    )
+                ),
+                'name' => 'Name',
+                'value' => null
+            )
+        );
+    }
 }
