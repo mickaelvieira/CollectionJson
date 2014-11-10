@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JsonCollection\\": "src/"
+            "JsonCollection\\": "src/JsonCollection/"
         }
     }
 }
