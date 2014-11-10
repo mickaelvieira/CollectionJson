@@ -24,11 +24,23 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
     public function toArray()
     {
         $data = $this->getObjectData();
+        $data = $this->recursiveToArray($data);
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function recursiveToArray(array $data)
+    {
         array_walk(
             $data,
             function (&$value) {
                 if (is_object($value) && $value instanceof ArrayConvertible) {
                     $value = $value->toArray();
+                } elseif (is_array($value)) {
+                    $value = $this->recursiveToArray($value);
                 }
             }
         );
