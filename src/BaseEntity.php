@@ -19,11 +19,18 @@ class BaseEntity extends DataExtraction implements DataInjectable
         $this->inject($data);
     }
 
+    protected function getSortedObjectVars()
+    {
+        $data = get_object_vars($this);
+        ksort($data);
+        return $data;
+    }
+
     /**
      * @return array
      */
     protected function getObjectData()
     {
-        return get_object_vars($this);
+        return $this->getSortedObjectVars();
     }
 }
