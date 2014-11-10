@@ -48,4 +48,31 @@ class ErrorSpec extends ObjectBehavior
         $this->setMessage('My Message');
         $this->toArray()->shouldBeEqualTo(['message' => 'My Message']);
     }
+
+    /**
+     * @param \JsonCollection\Message $message
+     */
+    function it_should_extract_the_messages_list($message)
+    {
+        $message->toArray()->willReturn(
+            [
+                'message' => 'Error Message'
+            ]
+        );
+
+        $this->setTitle('Error Title');
+        $this->setCode('Error Code');
+        $this->addMessage($message);
+        $this->toArray()->shouldBeEqualTo(
+            [
+                'code' => 'Error Code',
+                'messages' => [
+                    [
+                        'message' => 'Error Message'
+                    ]
+                ],
+                'title' => 'Error Title'
+            ]
+        );
+    }
 }
