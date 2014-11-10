@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "license": "GPL",
     "keywords": [
-        "Hypermedia", "RESTful", "HTTP", "JSON", "REST", "HATEOAS",
+        "Hypermedia", "RESTful", "HTTP", "JSON", "REST", "HATEOAS"
     ],
     "authors": [
         {
