@@ -25,7 +25,7 @@ trait DataInjection
      * @param string $key
      * @return string
      */
-    protected function underscoreToCamelCase($key)
+    private function underscoreToCamelCase($key)
     {
         return implode(
             "",
