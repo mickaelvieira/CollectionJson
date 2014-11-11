@@ -32,7 +32,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
      * @param array $data
      * @return array
      */
-    protected function recursiveToArray(array $data)
+    private function recursiveToArray(array $data)
     {
         array_walk(
             $data,
