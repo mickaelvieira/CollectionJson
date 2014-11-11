@@ -1,5 +1,5 @@
 {
-    "name": "mvieira/JsonCollection",
+    "name": "mvieira/json-collection",
     "description": "PHP implementation of the Collection.next+JSON Media Type",
     "version": "0.0.1",
     "type": "library",
