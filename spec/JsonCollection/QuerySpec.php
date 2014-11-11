@@ -67,12 +67,10 @@ class QuerySpec extends ObjectBehavior
     {
         $this->setRel('Rel value');
         $this->setHref('Href value');
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'href'   => 'Href value',
-                'rel'    => 'Rel value',
-            ]
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'href'   => 'Href value',
+            'rel'    => 'Rel value',
+        ]);
     }
 
     /**
@@ -88,16 +86,14 @@ class QuerySpec extends ObjectBehavior
         $this->addData($data2);
         $this->setRel('Rel value');
         $this->setHref('Href value');
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'data'   => [
-                    ['value' => 'value 1'],
-                    ['value' => 'value 2'],
-                ],
-                'href'   => 'Href value',
-                'rel'    => 'Rel value'
-            ]
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'data'   => [
+                ['value' => 'value 1'],
+                ['value' => 'value 2'],
+            ],
+            'href'   => 'Href value',
+            'rel'    => 'Rel value'
+        ]);
     }
 
     /**
@@ -114,15 +110,13 @@ class QuerySpec extends ObjectBehavior
         ]);
         $this->setRel('Rel value');
         $this->setHref('Href value');
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'data'   => [
-                    ['value' => 'value 1'],
-                    ['value' => 'value 2'],
-                ],
-                'href'   => 'Href value',
-                'rel'    => 'Rel value'
-            ]
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'data'   => [
+                ['value' => 'value 1'],
+                ['value' => 'value 2'],
+            ],
+            'href'   => 'Href value',
+            'rel'    => 'Rel value'
+        ]);
     }
 }

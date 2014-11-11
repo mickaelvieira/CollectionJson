@@ -14,14 +14,14 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_inject_data()
     {
-        $data = array(
+        $data = [
             'href'   => 'Link Href',
             'rel'    => 'Link Rel',
             'type'   => 'Link Type',
             'name'   => 'Link Name',
             'render' => 'image',
             'prompt' => 'Link Prompt'
-        );
+        ];
         $this->inject($data);
         $this->getHref()->shouldBeEqualTo('Link Href');
         $this->getRel()->shouldBeEqualTo('Link Rel');
@@ -75,25 +75,23 @@ class LinkSpec extends ObjectBehavior
     function it_should_extract_an_empty_array_when_the_href_field_is_null()
     {
         $this->setRel('Rel value');
-        $this->toArray()->shouldBeEqualTo(array());
+        $this->toArray()->shouldBeEqualTo([]);
     }
 
     function it_should_extract_an_empty_array_when_the_rel_field_is_null()
     {
         $this->setHref('Href value');
-        $this->toArray()->shouldBeEqualTo(array());
+        $this->toArray()->shouldBeEqualTo([]);
     }
 
     function it_should_not_extract_null_fields()
     {
         $this->setRel('Rel value');
         $this->setHref('Href value');
-        $this->toArray()->shouldBeEqualTo(
-            array(
-                'href'   => 'Href value',
-                'rel'    => 'Rel value',
-                'render' => 'link'
-            )
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'href'   => 'Href value',
+            'rel'    => 'Rel value',
+            'render' => 'link'
+        ]);
     }
 }

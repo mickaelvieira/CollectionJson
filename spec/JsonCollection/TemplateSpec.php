@@ -31,18 +31,16 @@ class TemplateSpec extends ObjectBehavior
             ]
         ]);
         $this->setMethod($method);
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'method' => [
-                    'options' => [
-                        [
-                            'value' => 'Value 1',
-                            'prompt' => 'Prompt 1'
-                        ]
+        $this->toArray()->shouldBeEqualTo([
+            'method' => [
+                'options' => [
+                    [
+                        'value' => 'Value 1',
+                        'prompt' => 'Prompt 1'
                     ]
                 ]
             ]
-        );
+        ]);
     }
 
     /**
@@ -59,18 +57,16 @@ class TemplateSpec extends ObjectBehavior
             ]
         ]);
         $this->setEnctype($enctype);
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'enctype' => [
-                    'options' => [
-                        [
-                            'value' => 'Value 1',
-                            'prompt' => 'Prompt 1'
-                        ]
+        $this->toArray()->shouldBeEqualTo([
+            'enctype' => [
+                'options' => [
+                    [
+                        'value' => 'Value 1',
+                        'prompt' => 'Prompt 1'
                     ]
                 ]
             ]
-        );
+        ]);
     }
 
     /**
@@ -84,14 +80,12 @@ class TemplateSpec extends ObjectBehavior
 
         $this->addData($data1);
         $this->addData($data2);
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'data'   => [
-                    ['value' => 'value 1'],
-                    ['value' => 'value 2'],
-                ]
+        $this->toArray()->shouldBeEqualTo([
+            'data'   => [
+                ['value' => 'value 1'],
+                ['value' => 'value 2'],
             ]
-        );
+        ]);
     }
 
     /**
@@ -106,13 +100,11 @@ class TemplateSpec extends ObjectBehavior
         $this->addDataSet([
             $data1, $data2, new \stdClass()
         ]);
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'data'   => [
-                    ['value' => 'value 1'],
-                    ['value' => 'value 2'],
-                ]
+        $this->toArray()->shouldBeEqualTo([
+            'data'   => [
+                ['value' => 'value 1'],
+                ['value' => 'value 2'],
             ]
-        );
+        ]);
     }
 }

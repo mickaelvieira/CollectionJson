@@ -14,13 +14,13 @@ class DataSpec extends ObjectBehavior
 
     function it_should_inject_data()
     {
-        $data = array(
+        $data = [
             'name'     => 'Data Name',
             'prompt'   => 'Data Prompt',
             'type'     => 'Data Type',
             'value'    => 'Data Value',
             'required' => true
-        );
+        ];
         $this->inject($data);
         $this->getName()->shouldBeEqualTo('Data Name');
         $this->getPrompt()->shouldBeEqualTo('Data Prompt');
@@ -62,18 +62,16 @@ class DataSpec extends ObjectBehavior
     function it_should_extract_an_empty_array_when_the_name_field_is_null()
     {
         $this->setValue('Value');
-        $this->toArray()->shouldBeEqualTo(array());
+        $this->toArray()->shouldBeEqualTo([]);
     }
 
     function it_should_not_extract_empty_array_and_null_properties_apart_from_the_value_field()
     {
         $this->setName('Name');
-        $this->toArray()->shouldBeEqualTo(
-            array(
-                'name' => 'Name',
-                'value' => null
-            )
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'name' => 'Name',
+            'value' => null
+        ]);
     }
 
     /**
@@ -81,38 +79,34 @@ class DataSpec extends ObjectBehavior
      */
     function it_should_extract_the_list($list)
     {
-        $list->toArray()->willReturn(
-            array(
-                'multiple' => true,
-                'options' => array(
-                    array(
-                        'value' => 'value 1'
-                    ),
-                    array(
-                        'value' => 'value 1'
-                    )
-                )
-            )
-        );
+        $list->toArray()->willReturn([
+            'multiple' => true,
+            'options' => [
+                [
+                    'value' => 'value 1'
+                ],
+                [
+                    'value' => 'value 1'
+                ]
+            ]
+        ]);
 
         $this->setName('Name');
         $this->setList($list);
-        $this->toArray()->shouldBeEqualTo(
-            array(
-                'list' => array(
-                    'multiple' => true,
-                    'options' => array(
-                        array(
-                            'value' => 'value 1'
-                        ),
-                        array(
-                            'value' => 'value 1'
-                        )
-                    )
-                ),
-                'name' => 'Name',
-                'value' => null
-            )
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'list' => [
+                'multiple' => true,
+                'options' => [
+                    [
+                        'value' => 'value 1'
+                    ],
+                    [
+                        'value' => 'value 1'
+                    ]
+                ]
+            ],
+            'name' => 'Name',
+            'value' => null
+        ]);
     }
 }

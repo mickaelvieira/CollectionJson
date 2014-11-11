@@ -54,25 +54,21 @@ class ErrorSpec extends ObjectBehavior
      */
     function it_should_extract_the_messages_list($message)
     {
-        $message->toArray()->willReturn(
-            [
-                'message' => 'Error Message'
-            ]
-        );
+        $message->toArray()->willReturn([
+            'message' => 'Error Message'
+        ]);
 
         $this->setTitle('Error Title');
         $this->setCode('Error Code');
         $this->addMessage($message);
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'code' => 'Error Code',
-                'messages' => [
-                    [
-                        'message' => 'Error Message'
-                    ]
-                ],
-                'title' => 'Error Title'
-            ]
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'code' => 'Error Code',
+            'messages' => [
+                [
+                    'message' => 'Error Message'
+                ]
+            ],
+            'title' => 'Error Title'
+        ]);
     }
 }

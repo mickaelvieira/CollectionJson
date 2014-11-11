@@ -136,11 +136,11 @@ class ItemSpec extends ObjectBehavior
             'render' => 'link2'
         ]);
 
-        $this->addLinkSet(
-            [
-                $link1, $link2, new \stdClass()
-            ]
-        );
+        $this->addLinkSet([
+            $link1,
+            $link2,
+            new \stdClass()
+        ]);
         $this->setHref('uri');
         $this->toArray()->shouldBeEqualTo([
             'href' => 'uri',

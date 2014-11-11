@@ -14,10 +14,10 @@ class ListDataSpec extends ObjectBehavior
 
     function it_should_inject_data()
     {
-        $data = array(
+        $data = [
             'multiple' => true,
             'default'    => 'Default Value'
-        );
+        ];
         $this->inject($data);
         $this->getDefault()->shouldBeEqualTo('Default Value');
         $this->shouldBeMultiple();
@@ -39,7 +39,7 @@ class ListDataSpec extends ObjectBehavior
     {
         $this->setMultiple(true);
         $this->setDefault('Default Value');
-        $this->toArray()->shouldBeEqualTo(array());
+        $this->toArray()->shouldBeEqualTo([]);
     }
 
     /**
@@ -47,20 +47,17 @@ class ListDataSpec extends ObjectBehavior
      */
     function it_should_not_extract_null_fields($option)
     {
-        $option->toArray()->willReturn(array(
+        $option->toArray()->willReturn([
             'value' => 'test'
-        ));
+        ]);
 
         $this->addOption($option);
-        $this->toArray()->shouldBeEqualTo(
-            array(
-                'options' => array(
-                    array(
-                        'value' => 'test'
-                    )
-                )
-            )
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'options' => [
+                [
+                    'value' => 'test'
+                ]
+            ]
+        ]);
     }
-
 }

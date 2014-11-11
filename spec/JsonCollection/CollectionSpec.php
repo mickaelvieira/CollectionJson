@@ -14,13 +14,11 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_not_extract_null_and_empty_array_fields()
     {
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'collection' => [
-                    'version' => '1.0'
-                ]
+        $this->toArray()->shouldBeEqualTo([
+            'collection' => [
+                'version' => '1.0'
             ]
-        );
+        ]);
     }
 
     /**
@@ -68,11 +66,11 @@ class CollectionSpec extends ObjectBehavior
             'render' => 'link2'
         ]);
 
-        $this->addLinkSet(
-            [
-                $link1, $link2, new \stdClass()
-            ]
-        );
+        $this->addLinkSet([
+            $link1,
+            $link2,
+            new \stdClass()
+        ]);
         $this->setHref('uri');
         $this->toArray()->shouldBeEqualTo([
             'collection' => [

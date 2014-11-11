@@ -14,10 +14,10 @@ class OptionSpec extends ObjectBehavior
 
     function it_should_inject_data()
     {
-        $data = array(
+        $data = [
             'prompt'   => 'Data Prompt',
             'value'    => 'Data Value'
-        );
+        ];
         $this->inject($data);
         $this->getPrompt()->shouldBeEqualTo('Data Prompt');
         $this->getValue()->shouldBeEqualTo('Data Value');
@@ -38,16 +38,14 @@ class OptionSpec extends ObjectBehavior
     function it_should_extract_an_empty_array_when_the_value_field_is_null()
     {
         $this->setPrompt('The Value');
-        $this->toArray()->shouldBeEqualTo(array());
+        $this->toArray()->shouldBeEqualTo([]);
     }
 
     function it_should_not_extract_null_fields()
     {
         $this->setValue('Value');
-        $this->toArray()->shouldBeEqualTo(
-            array(
-                'value' => 'Value'
-            )
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'value' => 'Value'
+        ]);
     }
 }
