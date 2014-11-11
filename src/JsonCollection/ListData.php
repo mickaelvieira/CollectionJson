@@ -8,8 +8,11 @@ namespace JsonCollection;
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
-class ListData extends BaseEntity
+class ListData extends BaseEntity implements OptionAware
 {
+
+    use OptionContainer;
+
     /**
      * @var bool
      * @link http://code.ge/media-types/collection-next-json/#property-multiple
@@ -21,12 +24,6 @@ class ListData extends BaseEntity
      * @link http://code.ge/media-types/collection-next-json/#property-default
      */
     protected $default;
-
-    /**
-     * @var array
-     * @link http://code.ge/media-types/collection-next-json/#array-options
-     */
-    protected $options = [];
 
     /**
      * @param boolean $multiple
@@ -62,14 +59,6 @@ class ListData extends BaseEntity
     public function getDefault()
     {
         return $this->default;
-    }
-
-    /**
-     * @param Option $option
-     */
-    public function addOption(Option $option)
-    {
-        array_push($this->options, $option);
     }
 
     /**
