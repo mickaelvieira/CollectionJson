@@ -79,13 +79,39 @@ class QuerySpec extends ObjectBehavior
      * @param \JsonCollection\Data $data1
      * @param \JsonCollection\Data $data2
      */
-    function it_should_not_extract_the_data_list($data1, $data2)
+    function it_should_extract_the_data_list($data1, $data2)
     {
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
         $this->addData($data1);
         $this->addData($data2);
+        $this->setRel('Rel value');
+        $this->setHref('Href value');
+        $this->toArray()->shouldBeEqualTo(
+            [
+                'data'   => [
+                    ['value' => 'value 1'],
+                    ['value' => 'value 2'],
+                ],
+                'href'   => 'Href value',
+                'rel'    => 'Rel value'
+            ]
+        );
+    }
+
+    /**
+     * @param \JsonCollection\Data $data1
+     * @param \JsonCollection\Data $data2
+     */
+    function it_should_add_a_data_set($data1, $data2)
+    {
+        $data1->toArray()->willReturn(['value' => 'value 1']);
+        $data2->toArray()->willReturn(['value' => 'value 2']);
+
+        $this->addDataSet([
+            $data1, $data2, new \stdClass()
+        ]);
         $this->setRel('Rel value');
         $this->setHref('Href value');
         $this->toArray()->shouldBeEqualTo(

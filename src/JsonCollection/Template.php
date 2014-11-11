@@ -8,13 +8,10 @@ namespace JsonCollection;
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
-class Template extends BaseEntity
+class Template extends BaseEntity implements DataAware
 {
-    /**
-     * @var array
-     * @link http://amundsen.com/media-types/collection/format/#arrays-data
-     */
-    protected $data = [];
+
+    use DataContainer;
 
     /**
      * @var Method
@@ -27,22 +24,6 @@ class Template extends BaseEntity
      * @link http://code.ge/media-types/collection-next-json/#object-enctype
      */
     protected $enctype;
-
-    /**
-     * @param Data $data
-     */
-    public function addData(Data $data)
-    {
-        array_push($this->data, $data);
-    }
-
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
 
     /**
      * @param Method $method
