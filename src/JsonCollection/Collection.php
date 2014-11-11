@@ -8,8 +8,11 @@ namespace JsonCollection;
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
-class Collection extends BaseEntity
+class Collection extends BaseEntity implements LinkAware
 {
+
+    use LinkContainer;
+
     /**
      * @link http://amundsen.com/media-types/collection/format/#properties-version
      */
@@ -20,12 +23,6 @@ class Collection extends BaseEntity
      * @link http://amundsen.com/media-types/collection/format/#properties-href
      */
     protected $href;
-
-    /**
-     * @var array
-     * @link http://amundsen.com/media-types/collection/format/#arrays-links
-     */
-    protected $links = [];
 
     /**
      * @var array
@@ -73,14 +70,6 @@ class Collection extends BaseEntity
     public function getHref()
     {
         return $this->href;
-    }
-
-    /**
-     * @param Link $link
-     */
-    public function addLink(Link $link)
-    {
-        array_push($this->links, $link);
     }
 
     /**
