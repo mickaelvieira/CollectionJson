@@ -8,21 +8,10 @@ namespace JsonCollection;
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
-class Enctype extends BaseEntity
+class Enctype extends BaseEntity implements OptionAware
 {
-    /**
-     * @var array
-     * @link http://code.ge/media-types/collection-next-json/#array-options
-     */
-    protected $options = [];
 
-    /**
-     * @param Option $option
-     */
-    public function addOption(Option $option)
-    {
-        array_push($this->options, $option);
-    }
+     use OptionContainer;
 
     /**
      * {@inheritdoc}
