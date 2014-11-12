@@ -15,11 +15,16 @@ trait OptionContainer
     protected $options = [];
 
     /**
-     * @param Option $option
+     * @param \JsonCollection\Option|array $option
      */
-    public function addOption(Option $option)
+    public function addOption($option)
     {
-        array_push($this->options, $option);
+        if (is_array($option)) {
+            $option = new Option($option);
+        }
+        if ($option instanceof Option) {
+            array_push($this->options, $option);
+        }
     }
 
     /**
@@ -29,9 +34,7 @@ trait OptionContainer
     public function addOptionSet(array $set)
     {
         foreach ($set as $option) {
-            if ($option instanceof Option) {
-                $this->addOption($option);
-            }
+            $this->addOption($option);
         }
     }
 

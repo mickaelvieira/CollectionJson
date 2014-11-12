@@ -9,9 +9,9 @@ namespace JsonCollection;
 interface OptionAware
 {
     /**
-     * @param Option $option
+     * @param \JsonCollection\Option|array $option
      */
-    public function addOption(Option $option);
+    public function addOption($option);
 
     /**
      * @param array $set
