@@ -40,7 +40,7 @@ class ListData extends BaseEntity implements OptionAware
      */
     public function isMultiple()
     {
-        return (bool)$this->multiple;
+        return $this->multiple;
     }
 
     /**

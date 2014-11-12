@@ -122,18 +122,7 @@ class DataSpec extends ObjectBehavior
         ]);
 
         $this->getList()->shouldHaveType('JsonCollection\ListData');
-        $this->toArray()->shouldBeEqualTo([
-            'list' => [
-                'options' => [
-                    [
-                        'prompt' => 'option prompt',
-                        'value' => 'option value'
-                    ]
-                ]
-            ],
-            'name' => 'Data Name',
-            'value' => null
-        ]);
+        $this->getList()->getOptionSet()->shouldHaveCount(1);
     }
 
     /**
@@ -149,18 +138,7 @@ class DataSpec extends ObjectBehavior
 
         $this->addOption($option);
         $this->getList()->shouldHaveType('JsonCollection\ListData');
-        $this->toArray()->shouldBeEqualTo([
-            'list' => [
-                'options' => [
-                    [
-                        'prompt' => 'option prompt',
-                        'value' => 'option value'
-                    ]
-                ]
-            ],
-            'name' => 'Data Name',
-            'value' => null
-        ]);
+        $this->getList()->getOptionSet()->shouldHaveCount(1);
     }
 
     /**
@@ -168,10 +146,6 @@ class DataSpec extends ObjectBehavior
      */
     function it_should_add_multiple_options_with_default_properties($option)
     {
-        $option->toArray()->willReturn([
-            'value' => 'option2 value'
-        ]);
-
         $options = [
             [
                 'prompt' => 'option1 prompt',
@@ -180,25 +154,12 @@ class DataSpec extends ObjectBehavior
             $option
         ];
 
-        $this->setName('Data Name');
         $this->addOptions($options);
 
         $this->getList()->shouldHaveType('JsonCollection\ListData');
-        $this->toArray()->shouldBeEqualTo([
-            'list' => [
-                'options' => [
-                    [
-                        'prompt' => 'option1 prompt',
-                        'value' => 'option1 value'
-                    ],
-                    [
-                        'value' => 'option2 value'
-                    ]
-                ]
-            ],
-            'name' => 'Data Name',
-            'value' => null
-        ]);
+        $this->getList()->isMultiple()->shouldBeNull();
+        $this->getList()->getDefault()->shouldBeNull();
+        $this->getList()->getOptionSet()->shouldHaveCount(2);
     }
 
     /**
@@ -206,10 +167,6 @@ class DataSpec extends ObjectBehavior
      */
     function it_should_add_multiple_options_with_new_properties($option)
     {
-        $option->toArray()->willReturn([
-            'value' => 'option2 value'
-        ]);
-
         $options = [
             [
                 'prompt' => 'option1 prompt',
@@ -218,26 +175,11 @@ class DataSpec extends ObjectBehavior
             $option
         ];
 
-        $this->setName('Data Name');
         $this->addOptions($options, true, 'default value');
 
         $this->getList()->shouldHaveType('JsonCollection\ListData');
-        $this->toArray()->shouldBeEqualTo([
-            'list' => [
-                'default' => 'default value',
-                'multiple' => true,
-                'options' => [
-                    [
-                        'prompt' => 'option1 prompt',
-                        'value' => 'option1 value'
-                    ],
-                    [
-                        'value' => 'option2 value'
-                    ]
-                ]
-            ],
-            'name' => 'Data Name',
-            'value' => null
-        ]);
+        $this->getList()->shouldBeMultiple();
+        $this->getList()->getDefault()->shouldBeEqualTo('default value');
+        $this->getList()->getOptionSet()->shouldHaveCount(2);
     }
 }
