@@ -24,6 +24,8 @@ class TemplateSpec extends ObjectBehavior
     {
         $this->setMethod($method)->shouldHaveType('JsonCollection\Template');
         $this->setEnctype($enctype)->shouldHaveType('JsonCollection\Template');
+        $this->addData([])->shouldHaveType('JsonCollection\Template');
+        $this->addDataSet([])->shouldHaveType('JsonCollection\Template');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()

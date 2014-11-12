@@ -16,6 +16,7 @@ trait DataContainer
 
     /**
      * @param \JsonCollection\Data|array $data
+     * @return mixed
      */
     public function addData($data)
     {
@@ -25,16 +26,19 @@ trait DataContainer
         if ($data instanceof Data) {
             array_push($this->data, $data);
         }
+        return $this;
     }
 
     /**
      * @param array $set
+     * @return mixed
      */
     public function addDataSet(array $set)
     {
         foreach ($set as $data) {
             $this->addData($data);
         }
+        return $this;
     }
 
     /**

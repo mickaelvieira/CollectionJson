@@ -22,6 +22,8 @@ class QuerySpec extends ObjectBehavior
         $this->setRel('value')->shouldHaveType('JsonCollection\Query');
         $this->setName('value')->shouldHaveType('JsonCollection\Query');
         $this->setPrompt('value')->shouldHaveType('JsonCollection\Query');
+        $this->addData([])->shouldHaveType('JsonCollection\Query');
+        $this->addDataSet([])->shouldHaveType('JsonCollection\Query');
     }
 
     function it_should_inject_data()

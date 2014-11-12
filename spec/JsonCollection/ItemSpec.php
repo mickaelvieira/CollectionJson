@@ -22,6 +22,8 @@ class ItemSpec extends ObjectBehavior
         $this->setHref('value')->shouldHaveType('JsonCollection\Item');
         $this->addLink([])->shouldHaveType('JsonCollection\Item');
         $this->addLinkSet([])->shouldHaveType('JsonCollection\Item');
+        $this->addData([])->shouldHaveType('JsonCollection\Item');
+        $this->addDataSet([])->shouldHaveType('JsonCollection\Item');
     }
 
     function it_should_inject_data()
