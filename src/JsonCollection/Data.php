@@ -170,4 +170,21 @@ class Data extends BaseEntity
         }
         return $data;
     }
+
+    /**
+     * @param string      $value
+     * @param null|string $prompt
+     */
+    public function addOption($value, $prompt = null)
+    {
+        if (is_null($this->list)) {
+            $this->list = new ListData();
+        }
+
+        $option = new Option([
+            'value' => $value,
+            'prompt' => $prompt
+        ]);
+        $this->list->addOption($option);
+    }
 }

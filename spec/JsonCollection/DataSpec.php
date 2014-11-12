@@ -112,4 +112,24 @@ class DataSpec extends ObjectBehavior
             'value' => null
         ]);
     }
+
+    function it_should_add_an_option_to_the_list()
+    {
+        $this->setName('Data Name');
+        $this->addOption('option value', 'option prompt');
+
+        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->toArray()->shouldBeEqualTo([
+            'list' => [
+                'options' => [
+                    [
+                        'prompt' => 'option prompt',
+                        'value' => 'option value'
+                    ]
+                ]
+            ],
+            'name' => 'Data Name',
+            'value' => null
+        ]);
+    }
 }

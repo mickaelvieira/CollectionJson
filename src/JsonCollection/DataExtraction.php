@@ -25,6 +25,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
     {
         $data = $this->getObjectData();
         $data = $this->recursiveToArray($data);
+//        var_dump($data);
         return $data;
     }
 
