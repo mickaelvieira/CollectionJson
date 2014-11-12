@@ -11,11 +11,18 @@ use JsonSerializable;
 abstract class DataExtraction implements JsonSerializable, ArrayConvertible
 {
     /**
+     * @var string
+     */
+    private $envelope;
+
+    /**
      * @return array
      */
     public function jsonSerialize()
     {
-        return $this->getObjectData();
+        $data = $this->getObjectData();
+        $data = $this->addEnvelope($data);
+        return $data;
     }
 
     /**
@@ -25,7 +32,31 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
     {
         $data = $this->getObjectData();
         $data = $this->recursiveToArray($data);
+        $data = $this->addEnvelope($data);
 //        var_dump($data);
+        return $data;
+    }
+
+    /**
+     * @param string $envelope
+     */
+    public function setEnvelope($envelope)
+    {
+        $this->envelope = $envelope;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function addEnvelope(array $data)
+    {
+        if (is_string($this->envelope)) {
+            $data = [
+                $this->envelope => $data
+            ];
+            return $data;
+        }
         return $data;
     }
 

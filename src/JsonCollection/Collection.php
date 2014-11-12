@@ -141,6 +141,8 @@ class Collection extends BaseEntity implements LinkAware
      */
     protected function getObjectData()
     {
+        $this->setEnvelope('collection');
+
         $data = [
             'version' => self::VERSION
         ];
@@ -148,8 +150,6 @@ class Collection extends BaseEntity implements LinkAware
         $data = $this->filterEmptyArrays($data);
         $data = $this->filterNullValues($data);
 
-        return [
-            'collection' => $data
-        ];
+        return $data;
     }
 }

@@ -113,6 +113,24 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
+     * @param \JsonCollection\Data $data
+     */
+    function it_should_add_an_envelope($data)
+    {
+        $data->toArray()->willReturn(['value' => 'value 1']);
+
+        $this->addData($data);
+        $this->setEnvelope('template');
+        $this->toArray()->shouldBeEqualTo([
+            'template' => [
+                'data' => [
+                    ['value' => 'value 1']
+                ]
+            ]
+        ]);
+    }
+
+    /**
      * @param \JsonCollection\Data $data1
      * @param \JsonCollection\Data $data2
      */
@@ -130,5 +148,15 @@ class TemplateSpec extends ObjectBehavior
     function it_should_return_null_when_data_is_not_the_set()
     {
         $this->getDataByName('name1')->shouldBeNull(null);
+    }
+
+    function it_should_return_a_method_entity()
+    {
+        $this->getMethod()->shouldHaveType('JsonCollection\Method');
+    }
+
+    function it_should_return_a_enctype_entity()
+    {
+        $this->getEnctype()->shouldHaveType('JsonCollection\Enctype');
     }
 }

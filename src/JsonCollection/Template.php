@@ -38,6 +38,9 @@ class Template extends BaseEntity implements DataAware
      */
     public function getMethod()
     {
+        if (is_null($this->method)) {
+            $this->method = new Method();
+        }
         return $this->method;
     }
 
@@ -54,6 +57,9 @@ class Template extends BaseEntity implements DataAware
      */
     public function getEnctype()
     {
+        if (is_null($this->enctype)) {
+            $this->enctype = new Enctype();
+        }
         return $this->enctype;
     }
 
