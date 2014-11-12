@@ -56,16 +56,18 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param string $href
+     * @return \JsonCollection\Collection
      */
     public function setHref($href)
     {
         if (is_string($href)) {
             $this->href = $href;
         }
+        return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getHref()
     {
@@ -74,30 +76,36 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param \JsonCollection\Item $item
+     * @return \JsonCollection\Collection
      */
     public function addItem(Item $item)
     {
         array_push($this->items, $item);
+        return $this;
     }
 
     /**
      * @param \JsonCollection\Query $query
+     * @return \JsonCollection\Collection
      */
     public function addQuery(Query $query)
     {
         array_push($this->queries, $query);
+        return $this;
     }
 
     /**
      * @param \JsonCollection\Error $error
+     * @return \JsonCollection\Collection
      */
     public function setError(Error $error)
     {
         $this->error = $error;
+        return $this;
     }
 
     /**
-     * @return \JsonCollection\Error
+     * @return \JsonCollection\Error|null
      */
     public function getError()
     {
@@ -106,14 +114,16 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param \JsonCollection\Status $status
+     * @return \JsonCollection\Collection
      */
     public function setStatus(Status $status)
     {
         $this->status = $status;
+        return $this;
     }
 
     /**
-     * @return \JsonCollection\Status
+     * @return \JsonCollection\Status|null
      */
     public function getStatus()
     {
@@ -122,14 +132,16 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param \JsonCollection\Template $template
+     * @return \JsonCollection\Collection
      */
     public function setTemplate(Template $template)
     {
         $this->template = $template;
+        return $this;
     }
 
     /**
-     * @return \JsonCollection\Template
+     * @return \JsonCollection\Template|null
      */
     public function getTemplate()
     {

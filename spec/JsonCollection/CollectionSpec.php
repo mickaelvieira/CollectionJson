@@ -15,6 +15,23 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    /**
+     * @param \JsonCollection\Item $item
+     * @param \JsonCollection\Query $query
+     * @param \JsonCollection\Error $error
+     * @param \JsonCollection\Status $status
+     * @param \JsonCollection\Template $template
+     */
+    function it_should_be_chainable($item, $query, $error, $status, $template)
+    {
+        $this->setHref('href')->shouldHaveType('JsonCollection\Collection');
+        $this->addItem($item)->shouldHaveType('JsonCollection\Collection');
+        $this->addQuery($query)->shouldHaveType('JsonCollection\Collection');
+        $this->setError($error)->shouldHaveType('JsonCollection\Collection');
+        $this->setStatus($status)->shouldHaveType('JsonCollection\Collection');
+        $this->setTemplate($template)->shouldHaveType('JsonCollection\Collection');
+    }
+
     function it_should_not_extract_null_and_empty_array_fields()
     {
         $this->toArray()->shouldBeEqualTo([
