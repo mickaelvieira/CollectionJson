@@ -58,4 +58,12 @@ trait DataContainer
         }
         return $entity;
     }
+
+    /**
+     * @return int
+     */
+    public function countData()
+    {
+        return count($this->data);
+    }
 }

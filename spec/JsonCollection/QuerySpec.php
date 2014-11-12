@@ -110,7 +110,7 @@ class QuerySpec extends ObjectBehavior
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
         $this->addDataSet([$data1, $data2, new \stdClass()]);
-        $this->getDataSet()->shouldHaveCount(2);
+        $this->countData()->shouldBeEqualTo(2);
     }
 
     /**

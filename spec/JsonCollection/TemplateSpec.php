@@ -101,15 +101,8 @@ class TemplateSpec extends ObjectBehavior
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
-        $this->addDataSet([
-            $data1, $data2, new \stdClass()
-        ]);
-        $this->toArray()->shouldBeEqualTo([
-            'data'   => [
-                ['value' => 'value 1'],
-                ['value' => 'value 2'],
-            ]
-        ]);
+        $this->addDataSet([$data1, $data2, new \stdClass()]);
+        $this->countData()->shouldBeEqualTo(2);
     }
 
     /**
