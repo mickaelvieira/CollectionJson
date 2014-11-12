@@ -113,10 +113,13 @@ class DataSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_add_an_option_to_the_list()
+    function it_should_add_an_option_to_the_list_when_passing_an_array()
     {
         $this->setName('Data Name');
-        $this->addOption('option value', 'option prompt');
+        $this->addOption([
+            'value' => 'option value',
+            'prompt' => 'option prompt'
+        ]);
 
         $this->getList()->shouldHaveType('JsonCollection\ListData');
         $this->toArray()->shouldBeEqualTo([
@@ -125,6 +128,111 @@ class DataSpec extends ObjectBehavior
                     [
                         'prompt' => 'option prompt',
                         'value' => 'option value'
+                    ]
+                ]
+            ],
+            'name' => 'Data Name',
+            'value' => null
+        ]);
+    }
+
+    /**
+     * @param \JsonCollection\Option $option
+     */
+    function it_should_add_an_option_to_the_list_when_passing_an_option_entity($option)
+    {
+        $this->setName('Data Name');
+        $option->toArray()->willReturn([
+            'prompt' => 'option prompt',
+            'value' => 'option value'
+        ]);
+
+        $this->addOption($option);
+        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->toArray()->shouldBeEqualTo([
+            'list' => [
+                'options' => [
+                    [
+                        'prompt' => 'option prompt',
+                        'value' => 'option value'
+                    ]
+                ]
+            ],
+            'name' => 'Data Name',
+            'value' => null
+        ]);
+    }
+
+    /**
+     * @param \JsonCollection\Option $option
+     */
+    function it_should_add_multiple_options_with_default_properties($option)
+    {
+        $option->toArray()->willReturn([
+            'value' => 'option2 value'
+        ]);
+
+        $options = [
+            [
+                'prompt' => 'option1 prompt',
+                'value' => 'option1 value'
+            ],
+            $option
+        ];
+
+        $this->setName('Data Name');
+        $this->addOptions($options);
+
+        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->toArray()->shouldBeEqualTo([
+            'list' => [
+                'options' => [
+                    [
+                        'prompt' => 'option1 prompt',
+                        'value' => 'option1 value'
+                    ],
+                    [
+                        'value' => 'option2 value'
+                    ]
+                ]
+            ],
+            'name' => 'Data Name',
+            'value' => null
+        ]);
+    }
+
+    /**
+     * @param \JsonCollection\Option $option
+     */
+    function it_should_add_multiple_options_with_new_properties($option)
+    {
+        $option->toArray()->willReturn([
+            'value' => 'option2 value'
+        ]);
+
+        $options = [
+            [
+                'prompt' => 'option1 prompt',
+                'value' => 'option1 value'
+            ],
+            $option
+        ];
+
+        $this->setName('Data Name');
+        $this->addOptions($options, true, 'default value');
+
+        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->toArray()->shouldBeEqualTo([
+            'list' => [
+                'default' => 'default value',
+                'multiple' => true,
+                'options' => [
+                    [
+                        'prompt' => 'option1 prompt',
+                        'value' => 'option1 value'
+                    ],
+                    [
+                        'value' => 'option2 value'
                     ]
                 ]
             ],

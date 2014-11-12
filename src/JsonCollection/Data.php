@@ -141,6 +141,9 @@ class Data extends BaseEntity
      */
     public function getList()
     {
+        if (is_null($this->list)) {
+            $this->list = new ListData();
+        }
         return $this->list;
     }
 
@@ -172,19 +175,30 @@ class Data extends BaseEntity
     }
 
     /**
-     * @param string      $value
-     * @param null|string $prompt
+     * @param array|\JsonCollection\Option $option
      */
-    public function addOption($value, $prompt = null)
+    public function addOption($option)
     {
-        if (is_null($this->list)) {
-            $this->list = new ListData();
+        $list = $this->getList();
+        if (is_array($option)) {
+            $option = new Option($option);
         }
+        $list->addOption($option);
+    }
 
-        $option = new Option([
-            'value' => $value,
-            'prompt' => $prompt
-        ]);
-        $this->list->addOption($option);
+    /**
+     * @param array       $options
+     * @param null|bool   $multiple
+     * @param null|string $default
+     */
+    public function addOptions(array $options, $multiple = null, $default = null)
+    {
+        $list = $this->getList();
+        $list->setMultiple($multiple);
+        $list->setDefault($default);
+
+        foreach ($options as $option) {
+            $this->addOption($option);
+        }
     }
 }
