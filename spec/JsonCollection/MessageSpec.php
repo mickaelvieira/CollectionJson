@@ -10,6 +10,9 @@ class MessageSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('JsonCollection\Message');
+        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_inject_data()

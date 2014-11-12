@@ -10,6 +10,9 @@ class CollectionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('JsonCollection\Collection');
+        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()

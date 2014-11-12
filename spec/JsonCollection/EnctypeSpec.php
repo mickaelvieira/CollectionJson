@@ -10,6 +10,9 @@ class EnctypeSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('JsonCollection\Enctype');
+        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_extract_an_empty_array()
