@@ -65,19 +65,19 @@ class QuerySpec extends ObjectBehavior
         $this->getPrompt()->shouldBeNull();
     }
 
-    function it_should_extract_an_empty_array_when_the_href_field_is_null()
+    function it_should_return_an_empty_array_when_the_href_field_is_null()
     {
         $this->setRel('Rel value');
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_extract_an_empty_array_when_the_rel_field_is_null()
+    function it_should_return_an_empty_array_when_the_rel_field_is_null()
     {
         $this->setHref('Href value');
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_not_extract_null_and_empty_array_fields()
+    function it_should_not_return_null_values_and_empty_arrays()
     {
         $this->setRel('Rel value');
         $this->setHref('Href value');
@@ -90,13 +90,13 @@ class QuerySpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Data $data
      */
-    function it_should_add_data($data)
+    function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
         $this->addData($data);
         $this->countData()->shouldBeEqualTo(1);
     }
 
-    function it_should_add_data_when_passed_as_a_array()
+    function it_should_add_data_when_it_is_passed_as_an_array()
     {
         $this->addData(['value' => 'value 1']);
         $this->countData()->shouldBeEqualTo(1);
@@ -115,7 +115,7 @@ class QuerySpec extends ObjectBehavior
      * @param \JsonCollection\Data $data1
      * @param \JsonCollection\Data $data2
      */
-    function it_should_extract_the_data_set($data1, $data2)
+    function it_should_return_an_array_with_the_data_list($data1, $data2)
     {
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);

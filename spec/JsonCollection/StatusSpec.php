@@ -44,7 +44,7 @@ class StatusSpec extends ObjectBehavior
         $this->getMessage()->shouldBeNull();
     }
 
-    function it_should_not_extract_null_fields()
+    function it_should_not_return_null_values()
     {
         $this->setMessage('My Message');
         $this->toArray()->shouldBeEqualTo(['message' => 'My Message']);

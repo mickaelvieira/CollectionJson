@@ -60,7 +60,7 @@ class ItemSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Data $data
      */
-    function it_should_not_extract_empty_array_fields($data)
+    function it_should_not_return_empty_array($data)
     {
         $data->toArray()->willReturn(
             [
@@ -87,13 +87,13 @@ class ItemSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Data $data
      */
-    function it_should_add_data($data)
+    function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
         $this->addData($data);
         $this->countData()->shouldBeEqualTo(1);
     }
 
-    function it_should_add_data_when_passed_as_a_array()
+    function it_should_add_data_when_it_is_passed_as_an_array()
     {
         $this->addData(['value' => 'value 1']);
         $this->countData()->shouldBeEqualTo(1);
@@ -131,19 +131,13 @@ class ItemSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Link $link
      */
-    function it_should_add_a_link($link)
+    function it_should_add_a_link_when_it_is_passed_as_an_object($link)
     {
-        $link->toArray()->willReturn([
-            'href'   => 'Href value',
-            'rel'    => 'Rel value',
-            'render' => 'link'
-        ]);
-
         $this->addLink($link);
         $this->countLinks()->shouldBeEqualTo(1);
     }
 
-    function it_should_add_a_link_when_passing_an_array()
+    function it_should_add_a_link_when_it_is_passed_as_an_array()
     {
         $this->addLink([
             'href'   => 'Href value',
@@ -155,9 +149,8 @@ class ItemSpec extends ObjectBehavior
 
     /**
      * @param \JsonCollection\Link $link1
-     * @param \JsonCollection\Link $link2
      */
-    function it_should_add_a_link_set($link1, $link2)
+    function it_should_add_a_link_set($link1)
     {
         $this->addLinkSet([
             $link1,

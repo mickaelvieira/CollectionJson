@@ -66,7 +66,7 @@ class ErrorSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Message $message
      */
-    function it_should_extract_the_messages_list($message)
+    function it_should_return_an_array_with_the_messages_list($message)
     {
         $message->toArray()->willReturn([
             'message' => 'Error Message'

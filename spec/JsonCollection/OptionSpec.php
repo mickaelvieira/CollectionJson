@@ -50,7 +50,7 @@ class OptionSpec extends ObjectBehavior
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_not_extract_null_fields()
+    function it_should_not_return_null_values()
     {
         $this->setValue('Value');
         $this->toArray()->shouldBeEqualTo([

@@ -53,13 +53,13 @@ class MessageSpec extends ObjectBehavior
         $this->getMessage()->shouldBeNull();
     }
 
-    function it_should_extract_an_empty_array_when_the_message_field_is_null()
+    function it_should_return_an_empty_array_when_the_message_field_is_null()
     {
         $this->setCode('Message Code');
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_not_extract_null_fields()
+    function it_should_not_return_null_fields()
     {
         $this->setMessage('My Message');
         $this->toArray()->shouldBeEqualTo(['message' => 'My Message']);

@@ -45,19 +45,11 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
         $this->envelope = $envelope;
     }
 
+
     /**
-     * @param array $data
      * @return array
      */
-    private function addEnvelope(array $data)
-    {
-        if (is_string($this->envelope)) {
-            $data = [
-                $this->envelope => $data
-            ];
-        }
-        return $data;
-    }
+    abstract protected function getObjectData();
 
     /**
      * @param array $data
@@ -77,9 +69,17 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
         );
         return $data;
     }
-
     /**
+     * @param array $data
      * @return array
      */
-    abstract protected function getObjectData();
+    private function addEnvelope(array $data)
+    {
+        if (is_string($this->envelope)) {
+            $data = [
+                $this->envelope => $data
+            ];
+        }
+        return $data;
+    }
 }

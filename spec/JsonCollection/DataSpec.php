@@ -76,16 +76,16 @@ class DataSpec extends ObjectBehavior
     function it_should_not_set_required_if_it_is_not_boolean()
     {
         $this->setRequired(1);
-        $this->shouldNotBeRequired();
+        $this->isRequired()->shouldBeNull();
     }
 
-    function it_should_extract_an_empty_array_when_the_name_field_is_null()
+    function it_should_return_an_empty_array_when_the_name_field_is_null()
     {
         $this->setValue('Value');
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_not_extract_empty_array_and_null_properties_apart_from_the_value_field()
+    function it_should_not_return_empty_arrays_and_null_properties_apart_from_the_value_field()
     {
         $this->setName('Name');
         $this->toArray()->shouldBeEqualTo([
@@ -97,7 +97,7 @@ class DataSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\ListData $list
      */
-    function it_should_extract_the_list($list)
+    function it_should_return_an_array_with_the_options_list($list)
     {
         $list->toArray()->willReturn([
             'multiple' => true,
@@ -106,7 +106,7 @@ class DataSpec extends ObjectBehavior
                     'value' => 'value 1'
                 ],
                 [
-                    'value' => 'value 1'
+                    'value' => 'value 2'
                 ]
             ]
         ]);
@@ -121,7 +121,7 @@ class DataSpec extends ObjectBehavior
                         'value' => 'value 1'
                     ],
                     [
-                        'value' => 'value 1'
+                        'value' => 'value 2'
                     ]
                 ]
             ],
@@ -130,7 +130,7 @@ class DataSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_add_an_option_to_the_list_when_passing_an_array()
+    function it_should_add_an_option_to_the_list_when_it_is_passed_as_an_array()
     {
         $this->setName('Data Name');
         $this->addOption([
@@ -145,7 +145,7 @@ class DataSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Option $option
      */
-    function it_should_add_an_option_to_the_list_when_passing_an_option_entity($option)
+    function it_should_add_an_option_to_the_list_when_it_is_passed_as_an_object($option)
     {
         $this->setName('Data Name');
         $option->toArray()->willReturn([
@@ -161,7 +161,7 @@ class DataSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Option $option
      */
-    function it_should_add_multiple_options_with_default_properties($option)
+    function it_should_add_multiple_options_and_set_the_default_values_to_the_list($option)
     {
         $options = [
             [
@@ -182,7 +182,7 @@ class DataSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Option $option
      */
-    function it_should_add_multiple_options_with_new_properties($option)
+    function it_should_add_multiple_options_and_set_values_to_the_list($option)
     {
         $options = [
             [

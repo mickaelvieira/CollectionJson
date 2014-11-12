@@ -48,12 +48,6 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_add_a_link($link)
     {
-        $link->toArray()->willReturn([
-            'href'   => 'Href value',
-            'rel'    => 'Rel value',
-            'render' => 'link'
-        ]);
-
         $this->addLink($link);
         $this->countLinks()->shouldBeEqualTo(1);
     }

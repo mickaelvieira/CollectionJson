@@ -143,7 +143,7 @@ class Data extends BaseEntity
      */
     public function isRequired()
     {
-        return (bool)$this->required;
+        return $this->required;
     }
 
     /**

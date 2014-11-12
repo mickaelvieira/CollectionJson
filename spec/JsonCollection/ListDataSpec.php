@@ -56,7 +56,7 @@ class ListDataSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Option $option
      */
-    function it_should_not_extract_null_fields($option)
+    function it_should_not_return_null_values($option)
     {
         $option->toArray()->willReturn([
             'value' => 'test'
@@ -77,7 +77,7 @@ class ListDataSpec extends ObjectBehavior
      * @param \JsonCollection\Option $option1
      * @param \JsonCollection\Option $option2
      */
-    function it_should_extract_the_options_list($option1, $option2)
+    function it_should_return_an_array_with_the_options_list($option1, $option2)
     {
         $option1->toArray()->willReturn([
             'value' => 'Value 1',
@@ -107,13 +107,13 @@ class ListDataSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Option $option1
      */
-    function it_should_add_option($option1)
+    function it_should_add_option_when_it_is_passed_as_an_object($option1)
     {
         $this->addOption($option1);
         $this->countOptions()->shouldBeEqualTo(1);
     }
 
-    function it_should_add_option_when_passed_as_an_array()
+    function it_should_add_option_when_it_is_passed_as_an_array()
     {
         $this->addOption([
             'value' => 'Value 2',

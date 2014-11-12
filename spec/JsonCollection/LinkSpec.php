@@ -85,19 +85,19 @@ class LinkSpec extends ObjectBehavior
         $this->getPrompt()->shouldBeNull();
     }
 
-    function it_should_extract_an_empty_array_when_the_href_field_is_null()
+    function it_should_return_an_empty_array_when_the_href_field_is_null()
     {
         $this->setRel('Rel value');
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_extract_an_empty_array_when_the_rel_field_is_null()
+    function it_should_return_an_empty_array_when_the_rel_field_is_null()
     {
         $this->setHref('Href value');
         $this->toArray()->shouldBeEqualTo([]);
     }
 
-    function it_should_not_extract_null_fields()
+    function it_should_not_return_null_values()
     {
         $this->setRel('Rel value');
         $this->setHref('Href value');
