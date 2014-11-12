@@ -36,12 +36,14 @@ class Error extends BaseEntity
 
     /**
      * @param string $code
+     * @return \JsonCollection\Error
      */
     public function setCode($code)
     {
         if (is_string($code)) {
             $this->code = $code;
         }
+        return $this;
     }
 
     /**
@@ -54,12 +56,14 @@ class Error extends BaseEntity
 
     /**
      * @param string $message
+     * @return \JsonCollection\Error
      */
     public function setMessage($message)
     {
         if (is_string($message)) {
             $this->message = $message;
         }
+        return $this;
     }
 
     /**
@@ -72,12 +76,14 @@ class Error extends BaseEntity
 
     /**
      * @param string $title
+     * @return \JsonCollection\Error
      */
     public function setTitle($title)
     {
         if (is_string($title)) {
             $this->title = $title;
         }
+        return $this;
     }
 
     /**
@@ -90,10 +96,12 @@ class Error extends BaseEntity
 
     /**
      * @param \JsonCollection\Message $message
+     * @return \JsonCollection\Error
      */
     public function addMessage(Message $message)
     {
         array_push($this->messages, $message);
+        return $this;
     }
 
     /**

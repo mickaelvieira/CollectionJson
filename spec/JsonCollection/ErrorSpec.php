@@ -15,6 +15,17 @@ class ErrorSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    /**
+     * @param \JsonCollection\Message $message
+     */
+    function it_should_be_chainable($message)
+    {
+        $this->setCode('value')->shouldHaveType('JsonCollection\Error');
+        $this->setMessage('value')->shouldHaveType('JsonCollection\Error');
+        $this->setTitle('value')->shouldHaveType('JsonCollection\Error');
+        $this->addMessage($message)->shouldHaveType('JsonCollection\Error');
+    }
+
     function it_should_inject_data()
     {
         $data = [
