@@ -10,6 +10,10 @@ class QuerySpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('JsonCollection\Query');
+        $this->shouldImplement('JsonCollection\DataAware');
+        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_inject_data()
@@ -118,5 +122,25 @@ class QuerySpec extends ObjectBehavior
             'href'   => 'Href value',
             'rel'    => 'Rel value'
         ]);
+    }
+
+    /**
+     * @param \JsonCollection\Data $data1
+     * @param \JsonCollection\Data $data2
+     */
+    function it_should_retrieve_the_data_by_name($data1, $data2)
+    {
+        $data1->getName()->willReturn('name1');
+        $data2->getName()->willReturn('name2');
+
+        $this->addDataSet([$data1, $data2]);
+
+        $this->getDataByName('name1')->shouldBeEqualTo($data1);
+        $this->getDataByName('name2')->shouldBeEqualTo($data2);
+    }
+
+    function it_should_return_null_when_data_is_not_the_set()
+    {
+        $this->getDataByName('name1')->shouldBeNull(null);
     }
 }

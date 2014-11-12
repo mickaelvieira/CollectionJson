@@ -10,6 +10,10 @@ class TemplateSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('JsonCollection\Template');
+        $this->shouldImplement('JsonCollection\DataAware');
+        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -106,5 +110,25 @@ class TemplateSpec extends ObjectBehavior
                 ['value' => 'value 2'],
             ]
         ]);
+    }
+
+    /**
+     * @param \JsonCollection\Data $data1
+     * @param \JsonCollection\Data $data2
+     */
+    function it_should_retrieve_the_data_by_name($data1, $data2)
+    {
+        $data1->getName()->willReturn('name1');
+        $data2->getName()->willReturn('name2');
+
+        $this->addDataSet([$data1, $data2]);
+
+        $this->getDataByName('name1')->shouldBeEqualTo($data1);
+        $this->getDataByName('name2')->shouldBeEqualTo($data2);
+    }
+
+    function it_should_return_null_when_data_is_not_the_set()
+    {
+        $this->getDataByName('name1')->shouldBeNull(null);
     }
 }

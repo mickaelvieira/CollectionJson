@@ -15,7 +15,7 @@ trait DataContainer
     protected $data = [];
 
     /**
-     * @param Data $data
+     * @param \JsonCollection\Data $data
      */
     public function addData(Data $data)
     {
@@ -40,5 +40,22 @@ trait DataContainer
     public function getDataSet()
     {
         return $this->data;
+    }
+
+    /**
+     * @param string $name
+     * @return null|\JsonCollection\Data
+     */
+    public function getDataByName($name)
+    {
+        $entity = null;
+        foreach ($this->getDataSet() as $data) {
+            /** @var \JsonCollection\Data $data */
+            if ($data->getName() === $name) {
+                $entity = $data;
+                break;
+            }
+        }
+        return $entity;
     }
 }
