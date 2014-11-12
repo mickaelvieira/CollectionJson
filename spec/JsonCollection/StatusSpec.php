@@ -15,6 +15,12 @@ class StatusSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->setCode('value')->shouldHaveType('JsonCollection\Status');
+        $this->setMessage('value')->shouldHaveType('JsonCollection\Status');
+    }
+
     function it_should_inject_data()
     {
         $data = [

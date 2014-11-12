@@ -24,12 +24,14 @@ class Status extends BaseEntity
 
     /**
      * @param string $code
+     * @return \JsonCollection\Status
      */
     public function setCode($code)
     {
         if (is_string($code)) {
             $this->code = $code;
         }
+        return $this;
     }
 
     /**
@@ -42,12 +44,14 @@ class Status extends BaseEntity
 
     /**
      * @param string $message
+     * @return \JsonCollection\Status
      */
     public function setMessage($message)
     {
         if (is_string($message)) {
             $this->message = $message;
         }
+        return $this;
     }
 
     /**
