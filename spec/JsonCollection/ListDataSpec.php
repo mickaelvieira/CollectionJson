@@ -15,6 +15,12 @@ class ListDataSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->setMultiple('value')->shouldHaveType('JsonCollection\ListData');
+        $this->setDefault('value')->shouldHaveType('JsonCollection\ListData');
+    }
+
     function it_should_inject_data()
     {
         $data = [

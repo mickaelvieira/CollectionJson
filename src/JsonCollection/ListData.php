@@ -27,12 +27,14 @@ class ListData extends BaseEntity implements OptionAware
 
     /**
      * @param boolean $multiple
+     * @return \JsonCollection\ListData
      */
     public function setMultiple($multiple)
     {
         if (is_bool($multiple)) {
             $this->multiple = $multiple;
         }
+        return $this;
     }
 
     /**
@@ -45,12 +47,14 @@ class ListData extends BaseEntity implements OptionAware
 
     /**
      * @param string $default
+     * @return \JsonCollection\ListData
      */
     public function setDefault($default)
     {
         if (is_string($default)) {
             $this->default = $default;
         }
+        return $this;
     }
 
     /**
