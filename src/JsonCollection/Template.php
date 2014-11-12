@@ -14,19 +14,19 @@ class Template extends BaseEntity implements DataAware
     use DataContainer;
 
     /**
-     * @var Method
+     * @var \JsonCollection\Method
      * @link http://code.ge/media-types/collection-next-json/#object-method
      */
     protected $method;
 
     /**
-     * @var Enctype
+     * @var \JsonCollection\Enctype
      * @link http://code.ge/media-types/collection-next-json/#object-enctype
      */
     protected $enctype;
 
     /**
-     * @param Method $method
+     * @param \JsonCollection\Method $method
      */
     public function setMethod(Method $method)
     {
@@ -34,7 +34,7 @@ class Template extends BaseEntity implements DataAware
     }
 
     /**
-     * @return Method
+     * @return \JsonCollection\Method
      */
     public function getMethod()
     {
@@ -45,7 +45,7 @@ class Template extends BaseEntity implements DataAware
     }
 
     /**
-     * @param Enctype $enctype
+     * @param \JsonCollection\Enctype $enctype
      */
     public function setEnctype(Enctype $enctype)
     {
@@ -53,7 +53,7 @@ class Template extends BaseEntity implements DataAware
     }
 
     /**
-     * @return Enctype
+     * @return \JsonCollection\Enctype
      */
     public function getEnctype()
     {

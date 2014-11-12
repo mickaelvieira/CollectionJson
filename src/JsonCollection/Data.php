@@ -41,7 +41,7 @@ class Data extends BaseEntity
     protected $required;
 
     /**
-     * @var ListData
+     * @var \JsonCollection\ListData
      * @link http://code.ge/media-types/collection-next-json/#object-list
      */
     protected $list;
@@ -137,7 +137,7 @@ class Data extends BaseEntity
     }
 
     /**
-     * @return ListData
+     * @return \JsonCollection\ListData
      */
     public function getList()
     {
@@ -148,7 +148,7 @@ class Data extends BaseEntity
     }
 
     /**
-     * @param ListData $list
+     * @param \JsonCollection\ListData $list
      */
     public function setList(ListData $list)
     {
@@ -156,26 +156,7 @@ class Data extends BaseEntity
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function getObjectData()
-    {
-        $data = [];
-        if (!is_null($this->name)) {
-            array_walk(
-                $this->getSortedObjectVars(),
-                function ($value, $key) use (&$data) {
-                    if (!is_null($value) || $key === 'value') {
-                        $data[$key] = $value;
-                    }
-                }
-            );
-        }
-        return $data;
-    }
-
-    /**
-     * @param array|\JsonCollection\Option $option
+     * @param \JsonCollection\Option|array $option
      */
     public function addOption($option)
     {
@@ -200,5 +181,24 @@ class Data extends BaseEntity
         foreach ($options as $option) {
             $this->addOption($option);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getObjectData()
+    {
+        $data = [];
+        if (!is_null($this->name)) {
+            array_walk(
+                $this->getSortedObjectVars(),
+                function ($value, $key) use (&$data) {
+                    if (!is_null($value) || $key === 'value') {
+                        $data[$key] = $value;
+                    }
+                }
+            );
+        }
+        return $data;
     }
 }

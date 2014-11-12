@@ -89,7 +89,7 @@ class Error extends BaseEntity
     }
 
     /**
-     * @param Message $message
+     * @param \JsonCollection\Message $message
      */
     public function addMessage(Message $message)
     {

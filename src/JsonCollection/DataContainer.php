@@ -15,7 +15,7 @@ trait DataContainer
     protected $data = [];
 
     /**
-     * @param \JsonCollection\Data $data|array
+     * @param \JsonCollection\Data|array $data
      */
     public function addData($data)
     {
@@ -47,7 +47,7 @@ trait DataContainer
 
     /**
      * @param string $name
-     * @return null|\JsonCollection\Data
+     * @return \JsonCollection\Data|null
      */
     public function getDataByName($name)
     {

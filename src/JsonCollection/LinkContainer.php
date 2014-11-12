@@ -15,7 +15,7 @@ trait LinkContainer
     protected $links = [];
 
     /**
-     * @param Link|array $link
+     * @param \JsonCollection\Link|array $link
      */
     public function addLink($link)
     {
