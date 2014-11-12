@@ -35,7 +35,7 @@ class ListDataSpec extends ObjectBehavior
     function it_should_not_set_the_multiple_field_if_it_is_not_a_boolean()
     {
         $this->setMultiple(1);
-        $this->shouldNotBeMultiple();
+        $this->isMultiple()->shouldBeNull();
     }
 
     function it_should_extract_an_empty_array_when_there_is_no_option()
