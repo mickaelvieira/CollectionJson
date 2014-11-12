@@ -15,6 +15,23 @@ class DataSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    /**
+     * @param \JsonCollection\ListData $list
+     */
+    function it_should_be_chainable($list)
+    {
+        $this->setName('value')->shouldHaveType('JsonCollection\Data');
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Data');
+        $this->setValue('value')->shouldHaveType('JsonCollection\Data');
+        $this->setType('value')->shouldHaveType('JsonCollection\Data');
+        $this->setRequired('value')->shouldHaveType('JsonCollection\Data');
+        $this->setList($list)->shouldHaveType('JsonCollection\Data');
+        $this->addOption([])->shouldHaveType('JsonCollection\Data');
+        $this->addOptions([])->shouldHaveType('JsonCollection\Data');
+
+
+    }
+
     function it_should_inject_data()
     {
         $data = [

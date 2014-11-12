@@ -48,12 +48,14 @@ class Data extends BaseEntity
 
     /**
      * @param string $name
+     * @return \JsonCollection\Data
      */
     public function setName($name)
     {
         if (is_string($name)) {
             $this->name = $name;
         }
+        return $this;
     }
 
     /**
@@ -66,12 +68,14 @@ class Data extends BaseEntity
 
     /**
      * @param string $prompt
+     * @return \JsonCollection\Data
      */
     public function setPrompt($prompt)
     {
         if (is_string($prompt)) {
             $this->prompt = $prompt;
         }
+        return $this;
     }
 
     /**
@@ -84,12 +88,14 @@ class Data extends BaseEntity
 
     /**
      * @param string $value
+     * @return \JsonCollection\Data
      */
     public function setValue($value)
     {
         if (is_string($value)) {
             $this->value = $value;
         }
+        return $this;
     }
 
     /**
@@ -102,12 +108,14 @@ class Data extends BaseEntity
 
     /**
      * @param string $type
+     * @return \JsonCollection\Data
      */
     public function setType($type)
     {
         if (is_string($type)) {
             $this->type = $type;
         }
+        return $this;
     }
 
     /**
@@ -120,12 +128,14 @@ class Data extends BaseEntity
 
     /**
      * @param boolean $required
+     * @return \JsonCollection\Data
      */
     public function setRequired($required)
     {
         if (is_bool($required)) {
             $this->required = $required;
         }
+        return $this;
     }
 
     /**
@@ -149,14 +159,17 @@ class Data extends BaseEntity
 
     /**
      * @param \JsonCollection\ListData $list
+     * @return \JsonCollection\Data
      */
     public function setList(ListData $list)
     {
         $this->list = $list;
+        return $this;
     }
 
     /**
      * @param \JsonCollection\Option|array $option
+     * @return \JsonCollection\Data
      */
     public function addOption($option)
     {
@@ -165,12 +178,15 @@ class Data extends BaseEntity
             $option = new Option($option);
         }
         $list->addOption($option);
+        return $this;
     }
 
     /**
      * @param array       $options
      * @param null|bool   $multiple
      * @param null|string $default
+     * 
+     * @return \JsonCollection\Data
      */
     public function addOptions(array $options, $multiple = null, $default = null)
     {
@@ -181,6 +197,7 @@ class Data extends BaseEntity
         foreach ($options as $option) {
             $this->addOption($option);
         }
+        return $this;
     }
 
     /**
