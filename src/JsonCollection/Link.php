@@ -50,12 +50,14 @@ class Link extends BaseEntity
 
     /**
      * @param string $href
+     * @return \JsonCollection\Link
      */
     public function setHref($href)
     {
         if (is_string($href)) {
             $this->href = $href;
         }
+        return $this;
     }
 
     /**
@@ -68,12 +70,14 @@ class Link extends BaseEntity
 
     /**
      * @param string $rel
+     * @return \JsonCollection\Link
      */
     public function setRel($rel)
     {
         if (is_string($rel)) {
             $this->rel = $rel;
         }
+        return $this;
     }
 
     /**
@@ -86,12 +90,14 @@ class Link extends BaseEntity
 
     /**
      * @param string $type
+     * @return \JsonCollection\Link
      */
     public function setType($type)
     {
         if (is_string($type)) {
             $this->type = $type;
         }
+        return $this;
     }
 
     /**
@@ -104,12 +110,14 @@ class Link extends BaseEntity
 
     /**
      * @param string $name
+     * @return \JsonCollection\Link
      */
     public function setName($name)
     {
         if (is_string($name)) {
             $this->name = $name;
         }
+        return $this;
     }
 
     /**
@@ -122,12 +130,14 @@ class Link extends BaseEntity
 
     /**
      * @param string $prompt
+     * @return \JsonCollection\Link
      */
     public function setPrompt($prompt)
     {
         if (is_string($prompt)) {
             $this->prompt = $prompt;
         }
+        return $this;
     }
 
     /**
@@ -140,12 +150,14 @@ class Link extends BaseEntity
 
     /**
      * @param string $render
+     * @return \JsonCollection\Link
      */
     public function setRender($render)
     {
         if ($render === RenderType::LINK || $render === RenderType::IMAGE) {
             $this->render = $render;
         }
+        return $this;
     }
 
     /**
