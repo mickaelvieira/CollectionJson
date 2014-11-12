@@ -16,6 +16,14 @@ class QuerySpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->setHref('value')->shouldHaveType('JsonCollection\Query');
+        $this->setRel('value')->shouldHaveType('JsonCollection\Query');
+        $this->setName('value')->shouldHaveType('JsonCollection\Query');
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Query');
+    }
+
     function it_should_inject_data()
     {
         $data = [

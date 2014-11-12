@@ -41,12 +41,14 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $href
+     * @return \JsonCollection\Query
      */
     public function setHref($href)
     {
         if (is_string($href)) {
             $this->href = $href;
         }
+        return $this;
     }
 
     /**
@@ -59,12 +61,14 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $name
+     * @return \JsonCollection\Query
      */
     public function setName($name)
     {
         if (is_string($name)) {
             $this->name = $name;
         }
+        return $this;
     }
 
     /**
@@ -77,12 +81,14 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $prompt
+     * @return \JsonCollection\Query
      */
     public function setPrompt($prompt)
     {
         if (is_string($prompt)) {
             $this->prompt = $prompt;
         }
+        return $this;
     }
 
     /**
@@ -95,12 +101,14 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $rel
+     * @return \JsonCollection\Query
      */
     public function setRel($rel)
     {
         if (is_string($rel)) {
             $this->rel = $rel;
         }
+        return $this;
     }
 
     /**
