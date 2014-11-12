@@ -16,6 +16,7 @@ trait LinkContainer
 
     /**
      * @param \JsonCollection\Link|array $link
+     * @return mixed
      */
     public function addLink($link)
     {
@@ -25,6 +26,7 @@ trait LinkContainer
         if ($link instanceof Link) {
             array_push($this->links, $link);
         }
+        return $this;
     }
 
     /**
@@ -36,6 +38,7 @@ trait LinkContainer
         foreach ($set as $link) {
             $this->addLink($link);
         }
+        return $this;
     }
 
     /**

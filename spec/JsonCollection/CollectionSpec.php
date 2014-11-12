@@ -30,6 +30,8 @@ class CollectionSpec extends ObjectBehavior
         $this->setError($error)->shouldHaveType('JsonCollection\Collection');
         $this->setStatus($status)->shouldHaveType('JsonCollection\Collection');
         $this->setTemplate($template)->shouldHaveType('JsonCollection\Collection');
+        $this->addLink([])->shouldHaveType('JsonCollection\Collection');
+        $this->addLinkSet([])->shouldHaveType('JsonCollection\Collection');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()

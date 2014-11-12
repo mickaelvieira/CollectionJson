@@ -20,6 +20,8 @@ class ItemSpec extends ObjectBehavior
     function it_should_be_chainable()
     {
         $this->setHref('value')->shouldHaveType('JsonCollection\Item');
+        $this->addLink([])->shouldHaveType('JsonCollection\Item');
+        $this->addLinkSet([])->shouldHaveType('JsonCollection\Item');
     }
 
     function it_should_inject_data()
