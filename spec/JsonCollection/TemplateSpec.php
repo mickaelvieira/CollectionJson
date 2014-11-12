@@ -16,6 +16,16 @@ class TemplateSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    /**
+     * @param \JsonCollection\Method $method
+     * @param \JsonCollection\Enctype $enctype
+     */
+    function it_should_be_chainable($method, $enctype)
+    {
+        $this->setMethod($method)->shouldHaveType('JsonCollection\Template');
+        $this->setEnctype($enctype)->shouldHaveType('JsonCollection\Template');
+    }
+
     function it_should_not_extract_null_and_empty_array_fields()
     {
         $this->toArray()->shouldBeEqualTo([]);

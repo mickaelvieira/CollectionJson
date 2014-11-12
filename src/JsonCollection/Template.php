@@ -27,10 +27,12 @@ class Template extends BaseEntity implements DataAware
 
     /**
      * @param \JsonCollection\Method $method
+     * @return \JsonCollection\Template
      */
     public function setMethod(Method $method)
     {
         $this->method = $method;
+        return $this;
     }
 
     /**
@@ -46,10 +48,12 @@ class Template extends BaseEntity implements DataAware
 
     /**
      * @param \JsonCollection\Enctype $enctype
+     * @return \JsonCollection\Template
      */
     public function setEnctype(Enctype $enctype)
     {
         $this->enctype = $enctype;
+        return $this;
     }
 
     /**
