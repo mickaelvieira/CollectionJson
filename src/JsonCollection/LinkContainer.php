@@ -15,11 +15,16 @@ trait LinkContainer
     protected $links = [];
 
     /**
-     * @param Link $link
+     * @param Link|array $link
      */
-    public function addLink(Link $link)
+    public function addLink($link)
     {
-        array_push($this->links, $link);
+        if (is_array($link)) {
+            $link = new Link($link);
+        }
+        if ($link instanceof Link) {
+            array_push($this->links, $link);
+        }
     }
 
     /**
@@ -29,9 +34,7 @@ trait LinkContainer
     public function addLinkSet(array $set)
     {
         foreach ($set as $link) {
-            if ($link instanceof Link) {
-                $this->addLink($link);
-            }
+            $this->addLink($link);
         }
     }
 

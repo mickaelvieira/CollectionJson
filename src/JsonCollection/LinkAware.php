@@ -9,9 +9,9 @@ namespace JsonCollection;
 interface LinkAware
 {
     /**
-     * @param Link $link
+     * @param Link|array $link
      */
-    public function addLink(Link $link);
+    public function addLink($link);
 
     /**
      * @param array $set

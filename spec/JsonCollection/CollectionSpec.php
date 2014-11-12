@@ -39,26 +39,28 @@ class CollectionSpec extends ObjectBehavior
         $this->countLinks()->shouldBeEqualTo(1);
     }
 
+    function it_should_add_a_link_when_passing_an_array()
+    {
+        $this->addLink([
+            'href'   => 'Href value',
+            'rel'    => 'Rel value',
+            'render' => 'link'
+        ]);
+        $this->countLinks()->shouldBeEqualTo(1);
+    }
+
     /**
      * @param \JsonCollection\Link $link1
-     * @param \JsonCollection\Link $link2
      */
-    function it_should_add_a_link_set($link1, $link2)
+    function it_should_add_a_link_set($link1)
     {
-        $link1->toArray()->willReturn([
-            'href'   => 'Href value1',
-            'rel'    => 'Rel value1',
-            'render' => 'link1'
-        ]);
-        $link2->toArray()->willReturn([
-            'href'   => 'Href value2',
-            'rel'    => 'Rel value2',
-            'render' => 'link2'
-        ]);
-
         $this->addLinkSet([
             $link1,
-            $link2,
+            [
+                'href'   => 'Href value2',
+                'rel'    => 'Rel value2',
+                'render' => 'link2'
+            ],
             new \stdClass()
         ]);
         $this->countLinks()->shouldBeEqualTo(2);
