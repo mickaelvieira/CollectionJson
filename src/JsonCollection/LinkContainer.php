@@ -42,4 +42,12 @@ trait LinkContainer
     {
         return $this->links;
     }
+
+    /**
+     * @return int
+     */
+    public function countLinks()
+    {
+        return count($this->links);
+    }
 }

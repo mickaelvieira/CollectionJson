@@ -36,20 +36,7 @@ class CollectionSpec extends ObjectBehavior
         ]);
 
         $this->addLink($link);
-        $this->setHref('uri');
-        $this->toArray()->shouldBeEqualTo([
-            'collection' => [
-                'version' => '1.0',
-                'href' => 'uri',
-                'links' => [
-                    [
-                        'href'   => 'Href value',
-                        'rel'    => 'Rel value',
-                        'render' => 'link'
-                    ]
-                ]
-            ]
-        ]);
+        $this->countLinks()->shouldBeEqualTo(1);
     }
 
     /**
@@ -74,24 +61,6 @@ class CollectionSpec extends ObjectBehavior
             $link2,
             new \stdClass()
         ]);
-        $this->setHref('uri');
-        $this->toArray()->shouldBeEqualTo([
-            'collection' => [
-                'version' => '1.0',
-                'href' => 'uri',
-                'links' => [
-                    [
-                        'href'   => 'Href value1',
-                        'rel'    => 'Rel value1',
-                        'render' => 'link1'
-                    ],
-                    [
-                        'href'   => 'Href value2',
-                        'rel'    => 'Rel value2',
-                        'render' => 'link2'
-                    ]
-                ]
-            ]
-        ]);
+        $this->countLinks()->shouldBeEqualTo(2);
     }
 }
