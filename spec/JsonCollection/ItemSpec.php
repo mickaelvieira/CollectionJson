@@ -17,6 +17,11 @@ class ItemSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->setHref('value')->shouldHaveType('JsonCollection\Item');
+    }
+
     function it_should_inject_data()
     {
         $data = [

@@ -23,12 +23,14 @@ class Item extends BaseEntity implements LinkAware, DataAware
 
     /**
      * @param string $href
+     * @return \JsonCollection\Item
      */
     public function setHref($href)
     {
         if (is_string($href)) {
             $this->href = $href;
         }
+        return $this;
     }
 
     /**
