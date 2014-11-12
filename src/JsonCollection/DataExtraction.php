@@ -55,7 +55,6 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
             $data = [
                 $this->envelope => $data
             ];
-            return $data;
         }
         return $data;
     }
