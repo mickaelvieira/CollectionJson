@@ -15,6 +15,12 @@ class MethodSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->addOption([])->shouldHaveType('JsonCollection\Method');
+        $this->addOptionSet([])->shouldHaveType('JsonCollection\Method');
+    }
+
     function it_should_extract_an_empty_array()
     {
         $this->toArray()->shouldBeEqualTo([]);

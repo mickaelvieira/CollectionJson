@@ -16,6 +16,7 @@ trait OptionContainer
 
     /**
      * @param \JsonCollection\Option|array $option
+     * @return mixed
      */
     public function addOption($option)
     {
@@ -25,6 +26,7 @@ trait OptionContainer
         if ($option instanceof Option) {
             array_push($this->options, $option);
         }
+        return $this;
     }
 
     /**
@@ -36,6 +38,7 @@ trait OptionContainer
         foreach ($set as $option) {
             $this->addOption($option);
         }
+        return $this;
     }
 
     /**

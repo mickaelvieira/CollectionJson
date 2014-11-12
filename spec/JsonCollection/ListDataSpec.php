@@ -19,6 +19,8 @@ class ListDataSpec extends ObjectBehavior
     {
         $this->setMultiple('value')->shouldHaveType('JsonCollection\ListData');
         $this->setDefault('value')->shouldHaveType('JsonCollection\ListData');
+        $this->addOption([])->shouldHaveType('JsonCollection\ListData');
+        $this->addOptionSet([])->shouldHaveType('JsonCollection\ListData');
     }
 
     function it_should_inject_data()

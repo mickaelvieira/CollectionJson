@@ -15,6 +15,12 @@ class EnctypeSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->addOption([])->shouldHaveType('JsonCollection\Enctype');
+        $this->addOptionSet([])->shouldHaveType('JsonCollection\Enctype');
+    }
+
     function it_should_extract_an_empty_array()
     {
         $this->toArray()->shouldBeEqualTo([]);
