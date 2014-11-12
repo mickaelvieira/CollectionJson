@@ -30,12 +30,14 @@ class Message extends BaseEntity
 
     /**
      * @param string $code
+     * @return \JsonCollection\Message
      */
     public function setCode($code)
     {
         if (is_string($code)) {
             $this->code = $code;
         }
+        return $this;
     }
 
     /**
@@ -48,12 +50,14 @@ class Message extends BaseEntity
 
     /**
      * @param string $message
+     * @return \JsonCollection\Message
      */
     public function setMessage($message)
     {
         if (is_string($message)) {
             $this->message = $message;
         }
+        return $this;
     }
 
     /**
@@ -66,12 +70,14 @@ class Message extends BaseEntity
 
     /**
      * @param string $name
+     * @return \JsonCollection\Message
      */
     public function setName($name)
     {
         if (is_string($name)) {
             $this->name = $name;
         }
+        return $this;
     }
 
     /**

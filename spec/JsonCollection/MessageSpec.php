@@ -15,6 +15,13 @@ class MessageSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->setCode('value')->shouldHaveType('JsonCollection\Message');
+        $this->setMessage('value')->shouldHaveType('JsonCollection\Message');
+        $this->setName('value')->shouldHaveType('JsonCollection\Message');
+    }
+
     function it_should_inject_data()
     {
         $data = [
