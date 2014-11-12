@@ -15,11 +15,16 @@ trait DataContainer
     protected $data = [];
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Data $data|array
      */
-    public function addData(Data $data)
+    public function addData($data)
     {
-        array_push($this->data, $data);
+        if (is_array($data)) {
+            $data = new Data($data);
+        }
+        if ($data instanceof Data) {
+            array_push($this->data, $data);
+        }
     }
 
     /**
@@ -28,9 +33,7 @@ trait DataContainer
     public function addDataSet(array $set)
     {
         foreach ($set as $data) {
-            if ($data instanceof Data) {
-                $this->addData($data);
-            }
+            $this->addData($data);
         }
     }
 

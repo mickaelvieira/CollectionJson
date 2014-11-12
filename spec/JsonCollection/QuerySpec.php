@@ -78,10 +78,34 @@ class QuerySpec extends ObjectBehavior
     }
 
     /**
+     * @param \JsonCollection\Data $data
+     */
+    function it_should_add_data($data)
+    {
+        $this->addData($data);
+        $this->countData()->shouldBeEqualTo(1);
+    }
+
+    function it_should_add_data_when_passed_as_a_array()
+    {
+        $this->addData(['value' => 'value 1']);
+        $this->countData()->shouldBeEqualTo(1);
+    }
+
+    /**
+     * @param \JsonCollection\Data $data
+     */
+    function it_should_add_a_data_set($data)
+    {
+        $this->addDataSet([$data, ['value' => 'value 2'], new \stdClass()]);
+        $this->countData()->shouldBeEqualTo(2);
+    }
+
+    /**
      * @param \JsonCollection\Data $data1
      * @param \JsonCollection\Data $data2
      */
-    function it_should_extract_the_data_list($data1, $data2)
+    function it_should_extract_the_data_set($data1, $data2)
     {
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
@@ -98,19 +122,6 @@ class QuerySpec extends ObjectBehavior
             'href'   => 'Href value',
             'rel'    => 'Rel value'
         ]);
-    }
-
-    /**
-     * @param \JsonCollection\Data $data1
-     * @param \JsonCollection\Data $data2
-     */
-    function it_should_add_a_data_set($data1, $data2)
-    {
-        $data1->toArray()->willReturn(['value' => 'value 1']);
-        $data2->toArray()->willReturn(['value' => 'value 2']);
-
-        $this->addDataSet([$data1, $data2, new \stdClass()]);
-        $this->countData()->shouldBeEqualTo(2);
     }
 
     /**
