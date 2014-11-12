@@ -109,19 +109,8 @@ class QuerySpec extends ObjectBehavior
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
-        $this->addDataSet([
-            $data1, $data2, new \stdClass()
-        ]);
-        $this->setRel('Rel value');
-        $this->setHref('Href value');
-        $this->toArray()->shouldBeEqualTo([
-            'data'   => [
-                ['value' => 'value 1'],
-                ['value' => 'value 2'],
-            ],
-            'href'   => 'Href value',
-            'rel'    => 'Rel value'
-        ]);
+        $this->addDataSet([$data1, $data2, new \stdClass()]);
+        $this->getDataSet()->shouldHaveCount(2);
     }
 
     /**
