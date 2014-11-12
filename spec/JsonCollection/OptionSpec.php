@@ -15,6 +15,12 @@ class OptionSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_be_chainable()
+    {
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Option');
+        $this->setValue('value')->shouldHaveType('JsonCollection\Option');
+    }
+
     function it_should_inject_data()
     {
         $data = [

@@ -24,12 +24,14 @@ class Option extends BaseEntity
 
     /**
      * @param string $prompt
+     * @return \JsonCollection\Option
      */
     public function setPrompt($prompt)
     {
         if (is_string($prompt)) {
             $this->prompt = $prompt;
         }
+        return $this;
     }
 
     /**
@@ -42,12 +44,14 @@ class Option extends BaseEntity
 
     /**
      * @param string $value
+     * @return \JsonCollection\Option
      */
     public function setValue($value)
     {
         if (is_string($value)) {
             $this->value = $value;
         }
+        return $this;
     }
 
     /**
