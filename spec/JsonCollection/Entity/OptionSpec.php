@@ -10,7 +10,7 @@ class OptionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('JsonCollection\Entity\Option');
-        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

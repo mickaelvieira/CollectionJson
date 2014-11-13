@@ -11,7 +11,7 @@ class QuerySpec extends ObjectBehavior
     {
         $this->shouldHaveType('JsonCollection\Entity\Query');
         $this->shouldImplement('JsonCollection\DataAware');
-        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

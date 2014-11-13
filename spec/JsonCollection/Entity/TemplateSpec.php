@@ -11,7 +11,7 @@ class TemplateSpec extends ObjectBehavior
     {
         $this->shouldHaveType('JsonCollection\Entity\Template');
         $this->shouldImplement('JsonCollection\DataAware');
-        $this->shouldImplement('JsonCollection\DataInjectable');
+        $this->shouldImplement('JsonCollection\ArrayInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

@@ -18,7 +18,7 @@ use JsonSerializable;
  * Class DataExtraction
  * @package JsonCollection
  */
-abstract class DataExtraction implements JsonSerializable, ArrayConvertible
+abstract class Extraction implements JsonSerializable, ArrayConvertible
 {
     /**
      * @var string
@@ -54,7 +54,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
     {
         $this->envelope = $envelope;
     }
-    
+
     /**
      * @return array
      */

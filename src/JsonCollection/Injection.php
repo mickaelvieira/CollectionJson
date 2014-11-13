@@ -16,7 +16,7 @@ namespace JsonCollection;
  * Class DataInjection
  * @package JsonCollection
  */
-trait DataInjection
+trait Injection
 {
     /**
      * @param array $data

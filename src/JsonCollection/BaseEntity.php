@@ -16,10 +16,10 @@ namespace JsonCollection;
  * Class BaseEntity
  * @package JsonCollection
  */
-class BaseEntity extends DataExtraction implements DataInjectable
+class BaseEntity extends Extraction implements ArrayInjectable
 {
 
-    use DataInjection;
+    use Injection;
 
     /**
      * @param array $data

@@ -16,7 +16,7 @@ namespace JsonCollection;
  * Interface DataInjectable
  * @package JsonCollection
  */
-interface DataInjectable
+interface ArrayInjectable
 {
     /**
      * @param array $data
