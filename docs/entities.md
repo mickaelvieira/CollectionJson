@@ -16,7 +16,6 @@ use JsonCollection\Template;
 use JsonCollection\Link;
 
 $collection = new Collection();
-
 $collection->setHref('uri');
 $collection->addItem(new Item());
 $collection->addQuery(new Query());
@@ -36,7 +35,7 @@ use JsonCollection\Error;
 $error = new Error();
 $error->setTitle('error title');
 $error->setCode('error code');
-$error->setMessage('error message'); // use addMessage() to add a message as an object instead
+$error->setMessage('error message');    // use addMessage() to add a message as an object instead
 ```
 
 ### Template
@@ -87,7 +86,7 @@ $data->setValue('data value');
 $data->setType(Input::DATETIME);
 $data->setRequired(true);
 $data->setList(new ListData());
-$data->addOption(new Option()); // add option to the list
+$data->addOption(new Option());     // add option to the list
 ```
 
 ### Query
@@ -119,7 +118,7 @@ use JsonCollection\Type\Relation;
 
 $link = new Link();
 $link->setName('link name');
-$link->setHref('/uri');
+$link->setHref('uri');
 $link->setPrompt('prompt value');
 $link->setRel(Relation::ITEM);
 $link->setType(Media::JPEG);
@@ -199,10 +198,11 @@ $enctype->addOption($option);
 ```php
 $error = new Error();
 $error->setCode('error code');
-$message = new Message([
-    'code' => 'Code message',
-    'name' => 'Name message',
-    'message' => 'Error message'
-]);
-$error->addMessage($message); // use setMessage() to set a message as a string instead
+
+$message = new Message();
+$message->setCode('Code message');
+$message->setMessage('Name message');
+$message->setName('Error message');
+
+$error->addMessage($message);   // use setMessage() to set a message as a string instead
 ```
