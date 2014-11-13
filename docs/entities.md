@@ -111,7 +111,7 @@ $query->addData(new Data());
 [http://amundsen.com/media-types/collection/format/#arrays-links](http://amundsen.com/media-types/collection/format/#arrays-links)
 
 ```php
-use JsonCollection\Entity\Link
+use JsonCollection\Entity\Link;
 use JsonCollection\Entity\Type\Media;
 use JsonCollection\Entity\Type\Render;
 use JsonCollection\Entity\Type\Relation;
@@ -146,7 +146,7 @@ $list->addOption(new Option());
 [http://code.ge/media-types/collection-next-json/#array-options](http://code.ge/media-types/collection-next-json/#array-options)
 
 ```php
-use JsonCollection\Entity\Option
+use JsonCollection\Entity\Option;
 
 $option = new Option();
 $option->setPrompt('option prompt');
@@ -158,7 +158,7 @@ $option->setValue('option value');
 [http://code.ge/media-types/collection-next-json/#object-status](http://code.ge/media-types/collection-next-json/#object-status)
 
 ```php
-use JsonCollection\Entity\Status
+use JsonCollection\Entity\Status;
 
 $status = new Status();
 $status->setCode('status code');
@@ -170,8 +170,8 @@ $status->setMessage('status message');
 [http://code.ge/media-types/collection-next-json/#object-method](http://code.ge/media-types/collection-next-json/#object-method)
 
 ```php
-use JsonCollection\Entity\Option
-use JsonCollection\Entity\Method
+use JsonCollection\Entity\Option;
+use JsonCollection\Entity\Method;
 
 $option = new Option();
 $method = new Method();
@@ -183,8 +183,8 @@ $method->addOption($option);
 [http://code.ge/media-types/collection-next-json/#object-enctype](http://code.ge/media-types/collection-next-json/#object-enctype)
 
 ```php
-use JsonCollection\Entity\Option
-use JsonCollection\Entity\Enctype
+use JsonCollection\Entity\Option;
+use JsonCollection\Entity\Enctype;
 
 $option = new Option();
 $enctype = new Enctype();
@@ -196,8 +196,8 @@ $enctype->addOption($option);
 [http://code.ge/media-types/collection-next-json/#array-messages](http://code.ge/media-types/collection-next-json/#array-messages)
 
 ```php
-use JsonCollection\Entity\Error
-use JsonCollection\Entity\Message
+use JsonCollection\Entity\Error;
+use JsonCollection\Entity\Message;
 
 $error = new Error();
 $error->setCode('error code');
