@@ -16,6 +16,6 @@ Specification:
 
 ## Docs
 
-[Documentation](https://github.com/mickaelvieira/JsonCollection/blob/master/docs/index.md)
-[Entities reference](https://github.com/mickaelvieira/JsonCollection/blob/master/docs/entities.md)
+- [Documentation](https://github.com/mickaelvieira/JsonCollection/blob/master/docs/index.md)
+- [Entities reference](https://github.com/mickaelvieira/JsonCollection/blob/master/docs/entities.md)
     
