@@ -43,7 +43,7 @@ print json_encode($collection);
 }
 ```
 
-## Extracting
+## Print the data
 
 ### Print a JSON representation
 
@@ -199,7 +199,7 @@ $next->setName('email');
 $next->setValue('email value');
 ```
 
-See the [entities documentation](/entities/) for the detail of each entity.
+See the [entities documentation](https://github.com/mickaelvieira/JsonCollection/blob/master/docs/entities.md) for the detail of each entity.
 
 ## Working with data, links and options
 
