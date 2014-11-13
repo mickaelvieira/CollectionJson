@@ -115,6 +115,26 @@ class Error extends BaseEntity
     }
 
     /**
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param array $messages
+     * @return \JsonCollection\Error
+     */
+    public function addMessages(array $messages)
+    {
+        foreach ($messages as $message) {
+            $this->addMessage($message);
+        }
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getObjectData()

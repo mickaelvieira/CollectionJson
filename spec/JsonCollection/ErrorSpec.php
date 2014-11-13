@@ -24,6 +24,7 @@ class ErrorSpec extends ObjectBehavior
         $this->setMessage('value')->shouldHaveType('JsonCollection\Error');
         $this->setTitle('value')->shouldHaveType('JsonCollection\Error');
         $this->addMessage($message)->shouldHaveType('JsonCollection\Error');
+        $this->addMessages([$message])->shouldHaveType('JsonCollection\Error');
     }
 
     function it_should_inject_data()
@@ -61,6 +62,25 @@ class ErrorSpec extends ObjectBehavior
     {
         $this->setMessage('My Message');
         $this->toArray()->shouldBeEqualTo(['message' => 'My Message']);
+    }
+
+    /**
+     * @param \JsonCollection\Message $message
+     */
+    function it_should_add_a_message($message)
+    {
+        $this->addMessage($message);
+        $this->getMessages()->shouldHaveCount(1);
+    }
+
+    /**
+     * @param \JsonCollection\Message $message1
+     * @param \JsonCollection\Message $message2
+     */
+    function it_should_add_multiple_messages($message1, $message2)
+    {
+        $this->addMessages([$message1, $message2]);
+        $this->getMessages()->shouldHaveCount(2);
     }
 
     /**
