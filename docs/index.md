@@ -43,7 +43,7 @@ print json_encode($collection);
 }
 ```
 
-## Print the data
+## Printing the data
 
 ### Print a JSON representation
 
@@ -60,23 +60,10 @@ print json_encode($collection);
     "collection": {
         "version": "1.0",
         "items": [
-            {
-                "data": [
-                    {
-                        "name": "title",
-                        "value": "Cool picture"
-                    }
-                ],
-                "href": "/item/1"
-            }
+            ...
         ],
         "links": [
-            {
-                "href": "/collection?page=1",
-                "prompt": "Prev Page",
-                "rel": "prev",
-                "render": "link"
-            }
+            ...
         ]
     }
 }
@@ -99,35 +86,10 @@ Array
         (
             [version] => 1.0
             [items] => Array
-                (
-                    [0] => Array
-                        (
-                            [data] => Array
-                                (
-                                    [0] => Array
-                                        (
-                                            [name] => title
-                                            [value] => Cool picture
-                                        )
-
-                                )
-
-                            [href] => /item/1
-                        )
-
-                )
+                ...
 
             [links] => Array
-                (
-                    [0] => Array
-                        (
-                            [href] => /collection?page=1
-                            [prompt] => Prev Page
-                            [rel] => prev
-                            [render] => link
-                        )
-
-                )
+                ...
 
         )
 
