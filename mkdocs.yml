@@ -1,0 +1,11 @@
+site_name: Json Collection
+repo_url: https://github.com/mickaelvieira/JsonCollection
+site_description: PHP implementation of the Collection.next+JSON Media Type
+site_author: Mickaël Vieira
+theme: flatly
+docs_dir: docs
+site_dir: ../github-pages/allthedocs/json-collection
+pages:
+- ['index.md', 'JsonCollection']
+- ['entities.md', 'Entities reference']
+
