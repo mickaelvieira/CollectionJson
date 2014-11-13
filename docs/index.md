@@ -1,6 +1,6 @@
 # JsonCollection
 
-For full documentation visit [JsonCollection](https://github.com/mickaelvieira/JsonCollection).
+PHP implementation of the Collection.next+JSON Media Type
 
 ## Installation
 

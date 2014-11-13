@@ -1,4 +1,4 @@
-# Entity types
+# Entities reference
 
 ## Collection+Json types
 
