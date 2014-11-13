@@ -95,6 +95,26 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param array $items
+     * @return \JsonCollection\Collection
+     */
+    public function addItems(array $items)
+    {
+        foreach ($items as $item) {
+            $this->addItem($item);
+        }
+        return $this;
+    }
+
+    /**
      * @param \JsonCollection\Query $query
      * @return \JsonCollection\Collection
      */
