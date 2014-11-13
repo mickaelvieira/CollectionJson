@@ -6,11 +6,33 @@
 
 [http://amundsen.com/media-types/collection/format/#objects-collection](http://amundsen.com/media-types/collection/format/#objects-collection)
 
+```php
+use JsonCollection\Collection;
+use JsonCollection\Item;
+use JsonCollection\Query;
+use JsonCollection\Error;
+use JsonCollection\Status;
+use JsonCollection\Template;
+use JsonCollection\Link;
+
+$collection = new Collection();
+
+$collection->setHref('uri');
+$collection->addItem(new Item());
+$collection->addQuery(new Query());
+$collection->setError(new Error());
+$collection->setStatus(new Status());
+$collection->setTemplate(new Template);
+$collection->addLink(new Link());
+```
+
 ### Error
 
 [http://amundsen.com/media-types/collection/format/#objects-error](http://amundsen.com/media-types/collection/format/#objects-error)
 
 ```php
+use JsonCollection\Error;
+
 $error = new Error();
 $error->setTitle('error title');
 $error->setCode('error code');
@@ -21,11 +43,27 @@ $error->setMessage('error message'); // use addMessage() to add a message as an 
 
 [http://amundsen.com/media-types/collection/format/#objects-template](http://amundsen.com/media-types/collection/format/#objects-template)
 
+```php
+use JsonCollection\Template;
+use JsonCollection\Enctype;
+use JsonCollection\Method;
+use JsonCollection\Data;
+
+$template = new Template();
+$template->setMethod(new Method());
+$template->setEnctype(new Enctype());
+$template->addData(new Data());
+```
+
 ### Item
 
 [http://amundsen.com/media-types/collection/format/#arrays-items](http://amundsen.com/media-types/collection/format/#arrays-items)
 
 ```php
+use JsonCollection\Item;
+use JsonCollection\Data;
+use JsonCollection\Link;
+
 $item = new Item();
 $item->setHref('/uri');
 $item->addData(new Data());
@@ -56,6 +94,19 @@ $data->addOption(new Option()); // add option to the list
 
 [http://amundsen.com/media-types/collection/format/#arrays-queries](http://amundsen.com/media-types/collection/format/#arrays-queries)
 
+```php
+use JsonCollection\Query;
+use JsonCollection\Data;
+use JsonCollection\Type\Relation;
+
+$query = new Query();
+$query->setHref('uri');
+$query->setRel(Relation::SEARCH);
+$query->setName('value');
+$query->setPrompt('value');
+$query->addData(new Data());
+```
+
 ### Link
 
 [http://amundsen.com/media-types/collection/format/#arrays-links](http://amundsen.com/media-types/collection/format/#arrays-links)
@@ -80,6 +131,16 @@ $link->setRender(Render::IMAGE); // default Render::LINK
 ### List
 
 [http://code.ge/media-types/collection-next-json/#object-list](http://code.ge/media-types/collection-next-json/#object-list)
+
+```php
+use JsonCollection\ListData;
+use JsonCollection\Option;
+
+$list = new ListData();
+$list->setMultiple(true);
+$list->setDefault('Default value');
+$list->addOption(new Option());
+```
 
 ### Option
 

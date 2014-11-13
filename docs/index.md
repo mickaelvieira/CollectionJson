@@ -45,7 +45,7 @@ print json_encode($collection);
 
 ## Printing the data
 
-### Print a JSON representation
+### Printing a JSON representation
 
 All entities implement the [JsonSerializable](http://php.net/manual/en/class.jsonserializable.php) interface,
 you can therefore call at any time the method ```json_encode()```.
@@ -69,7 +69,7 @@ print json_encode($collection);
 }
 ```
 
-### Print an Array representation
+### Printing an Array representation
 
 All entities implement a custom interface ```ArrayConvertible```,
 you can therefore call at any time the method ```toArray()```.
@@ -96,7 +96,7 @@ Array
 )
 ```
 
-### Add an envelope
+### Adding an envelope
 
 The ```JsonCollection\Collection``` entity will be by default wrapped within an envelope.
 
