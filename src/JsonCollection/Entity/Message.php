@@ -10,7 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
 
 /**
  * Class Message
@@ -40,7 +42,7 @@ class Message extends BaseEntity
 
     /**
      * @param string $code
-     * @return \JsonCollection\Message
+     * @return \JsonCollection\Entity\Message
      */
     public function setCode($code)
     {
@@ -60,7 +62,7 @@ class Message extends BaseEntity
 
     /**
      * @param string $message
-     * @return \JsonCollection\Message
+     * @return \JsonCollection\Entity\Message
      */
     public function setMessage($message)
     {
@@ -80,7 +82,7 @@ class Message extends BaseEntity
 
     /**
      * @param string $name
-     * @return \JsonCollection\Message
+     * @return \JsonCollection\Entity\Message
      */
     public function setName($name)
     {

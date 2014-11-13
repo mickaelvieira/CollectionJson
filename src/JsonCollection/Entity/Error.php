@@ -10,7 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
 
 /**
  * Class Error
@@ -46,7 +48,7 @@ class Error extends BaseEntity
 
     /**
      * @param string $code
-     * @return \JsonCollection\Error
+     * @return \JsonCollection\Entity\Error
      */
     public function setCode($code)
     {
@@ -66,7 +68,7 @@ class Error extends BaseEntity
 
     /**
      * @param string $message
-     * @return \JsonCollection\Error
+     * @return \JsonCollection\Entity\Error
      */
     public function setMessage($message)
     {
@@ -86,7 +88,7 @@ class Error extends BaseEntity
 
     /**
      * @param string $title
-     * @return \JsonCollection\Error
+     * @return \JsonCollection\Entity\Error
      */
     public function setTitle($title)
     {
@@ -105,8 +107,8 @@ class Error extends BaseEntity
     }
 
     /**
-     * @param \JsonCollection\Message $message
-     * @return \JsonCollection\Error
+     * @param \JsonCollection\Entity\Message $message
+     * @return \JsonCollection\Entity\Error
      */
     public function addMessage(Message $message)
     {
@@ -124,7 +126,7 @@ class Error extends BaseEntity
 
     /**
      * @param array $messages
-     * @return \JsonCollection\Error
+     * @return \JsonCollection\Entity\Error
      */
     public function addMessages(array $messages)
     {

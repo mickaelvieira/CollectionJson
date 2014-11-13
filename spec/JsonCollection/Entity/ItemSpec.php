@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class ItemSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Item');
+        $this->shouldHaveType('JsonCollection\Entity\Item');
         $this->shouldImplement('JsonCollection\DataAware');
         $this->shouldImplement('JsonCollection\LinkAware');
         $this->shouldImplement('JsonCollection\DataInjectable');
@@ -19,11 +19,11 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('value')->shouldHaveType('JsonCollection\Item');
-        $this->addLink([])->shouldHaveType('JsonCollection\Item');
-        $this->addLinkSet([])->shouldHaveType('JsonCollection\Item');
-        $this->addData([])->shouldHaveType('JsonCollection\Item');
-        $this->addDataSet([])->shouldHaveType('JsonCollection\Item');
+        $this->setHref('value')->shouldHaveType('JsonCollection\Entity\Item');
+        $this->addLink([])->shouldHaveType('JsonCollection\Entity\Item');
+        $this->addLinkSet([])->shouldHaveType('JsonCollection\Entity\Item');
+        $this->addData([])->shouldHaveType('JsonCollection\Entity\Item');
+        $this->addDataSet([])->shouldHaveType('JsonCollection\Entity\Item');
     }
 
     function it_should_inject_data()
@@ -42,7 +42,7 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_return_an_empty_array_when_the_href_field_is_not_defined($data)
     {
@@ -58,7 +58,7 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_not_return_empty_array($data)
     {
@@ -85,7 +85,7 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
@@ -100,7 +100,7 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_a_data_set($data)
     {
@@ -109,8 +109,8 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data1
-     * @param \JsonCollection\Data $data2
+     * @param \JsonCollection\Entity\Data $data1
+     * @param \JsonCollection\Entity\Data $data2
      */
     function it_should_retrieve_the_data_by_name($data1, $data2)
     {
@@ -129,7 +129,7 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Link $link
+     * @param \JsonCollection\Entity\Link $link
      */
     function it_should_add_a_link_when_it_is_passed_as_an_object($link)
     {
@@ -148,7 +148,7 @@ class ItemSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Link $link1
+     * @param \JsonCollection\Entity\Link $link1
      */
     function it_should_add_a_link_set($link1)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class TemplateSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Template');
+        $this->shouldHaveType('JsonCollection\Entity\Template');
         $this->shouldImplement('JsonCollection\DataAware');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
@@ -17,15 +17,15 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Method $method
-     * @param \JsonCollection\Enctype $enctype
+     * @param \JsonCollection\Entity\Method $method
+     * @param \JsonCollection\Entity\Enctype $enctype
      */
     function it_should_be_chainable($method, $enctype)
     {
-        $this->setMethod($method)->shouldHaveType('JsonCollection\Template');
-        $this->setEnctype($enctype)->shouldHaveType('JsonCollection\Template');
-        $this->addData([])->shouldHaveType('JsonCollection\Template');
-        $this->addDataSet([])->shouldHaveType('JsonCollection\Template');
+        $this->setMethod($method)->shouldHaveType('JsonCollection\Entity\Template');
+        $this->setEnctype($enctype)->shouldHaveType('JsonCollection\Entity\Template');
+        $this->addData([])->shouldHaveType('JsonCollection\Entity\Template');
+        $this->addDataSet([])->shouldHaveType('JsonCollection\Entity\Template');
     }
 
     function it_should_not_return_null_values_and_empty_arrays()
@@ -34,7 +34,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Method $method
+     * @param \JsonCollection\Entity\Method $method
      */
     function it_should_return_an_array_with_the_method($method)
     {
@@ -60,7 +60,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Enctype $enctype
+     * @param \JsonCollection\Entity\Enctype $enctype
      */
     function it_should_return_an_array_with_the_enctype($enctype)
     {
@@ -86,7 +86,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
@@ -101,7 +101,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_a_data_set($data)
     {
@@ -110,8 +110,8 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data1
-     * @param \JsonCollection\Data $data2
+     * @param \JsonCollection\Entity\Data $data1
+     * @param \JsonCollection\Entity\Data $data2
      */
     function it_should_return_an_array_with_the_data_list($data1, $data2)
     {
@@ -129,7 +129,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_an_envelope($data)
     {
@@ -147,8 +147,8 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data1
-     * @param \JsonCollection\Data $data2
+     * @param \JsonCollection\Entity\Data $data1
+     * @param \JsonCollection\Entity\Data $data2
      */
     function it_should_retrieve_the_data_by_name($data1, $data2)
     {
@@ -168,11 +168,11 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_return_a_method_entity()
     {
-        $this->getMethod()->shouldHaveType('JsonCollection\Method');
+        $this->getMethod()->shouldHaveType('JsonCollection\Entity\Method');
     }
 
     function it_should_return_a_enctype_entity()
     {
-        $this->getEnctype()->shouldHaveType('JsonCollection\Enctype');
+        $this->getEnctype()->shouldHaveType('JsonCollection\Entity\Enctype');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class StatusSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Status');
+        $this->shouldHaveType('JsonCollection\Entity\Status');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
@@ -17,8 +17,8 @@ class StatusSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setCode('value')->shouldHaveType('JsonCollection\Status');
-        $this->setMessage('value')->shouldHaveType('JsonCollection\Status');
+        $this->setCode('value')->shouldHaveType('JsonCollection\Entity\Status');
+        $this->setMessage('value')->shouldHaveType('JsonCollection\Entity\Status');
     }
 
     function it_should_inject_data()

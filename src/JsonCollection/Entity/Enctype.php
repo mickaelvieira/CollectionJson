@@ -10,7 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
+use JsonCollection\OptionAware;
+use JsonCollection\OptionContainer;
 
 /**
  * Class Method

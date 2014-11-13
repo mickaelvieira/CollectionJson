@@ -12,6 +12,8 @@
 
 namespace JsonCollection;
 
+use JsonCollection\Entity\Option;
+
 /**
  * Class OptionContainer
  * @package JsonCollection
@@ -25,7 +27,7 @@ trait OptionContainer
     protected $options = [];
 
     /**
-     * @param \JsonCollection\Option|array $option
+     * @param \JsonCollection\Entity\Option|array $option
      * @return mixed
      */
     public function addOption($option)

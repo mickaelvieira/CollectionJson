@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class OptionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Option');
+        $this->shouldHaveType('JsonCollection\Entity\Option');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
@@ -17,8 +17,8 @@ class OptionSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setPrompt('value')->shouldHaveType('JsonCollection\Option');
-        $this->setValue('value')->shouldHaveType('JsonCollection\Option');
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Entity\Option');
+        $this->setValue('value')->shouldHaveType('JsonCollection\Entity\Option');
     }
 
     function it_should_inject_data()

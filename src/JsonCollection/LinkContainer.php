@@ -12,6 +12,8 @@
 
 namespace JsonCollection;
 
+use JsonCollection\Entity\Link;
+
 /**
  * Class LinkContainer
  * @package JsonCollection
@@ -25,7 +27,7 @@ trait LinkContainer
     protected $links = [];
 
     /**
-     * @param \JsonCollection\Link|array $link
+     * @param \JsonCollection\Entity\Link|array $link
      * @return mixed
      */
     public function addLink($link)

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class ListDataSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\ListData');
+        $this->shouldHaveType('JsonCollection\Entity\ListData');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
@@ -17,10 +17,10 @@ class ListDataSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setMultiple('value')->shouldHaveType('JsonCollection\ListData');
-        $this->setDefault('value')->shouldHaveType('JsonCollection\ListData');
-        $this->addOption([])->shouldHaveType('JsonCollection\ListData');
-        $this->addOptionSet([])->shouldHaveType('JsonCollection\ListData');
+        $this->setMultiple('value')->shouldHaveType('JsonCollection\Entity\ListData');
+        $this->setDefault('value')->shouldHaveType('JsonCollection\Entity\ListData');
+        $this->addOption([])->shouldHaveType('JsonCollection\Entity\ListData');
+        $this->addOptionSet([])->shouldHaveType('JsonCollection\Entity\ListData');
     }
 
     function it_should_inject_data()
@@ -54,7 +54,7 @@ class ListDataSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Option $option
+     * @param \JsonCollection\Entity\Option $option
      */
     function it_should_not_return_null_values($option)
     {
@@ -74,8 +74,8 @@ class ListDataSpec extends ObjectBehavior
 
 
     /**
-     * @param \JsonCollection\Option $option1
-     * @param \JsonCollection\Option $option2
+     * @param \JsonCollection\Entity\Option $option1
+     * @param \JsonCollection\Entity\Option $option2
      */
     function it_should_return_an_array_with_the_options_list($option1, $option2)
     {
@@ -105,7 +105,7 @@ class ListDataSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Option $option1
+     * @param \JsonCollection\Entity\Option $option1
      */
     function it_should_add_option_when_it_is_passed_as_an_object($option1)
     {
@@ -123,8 +123,8 @@ class ListDataSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Option $option1
-     * @param \JsonCollection\Option $option2
+     * @param \JsonCollection\Entity\Option $option1
+     * @param \JsonCollection\Entity\Option $option2
      */
     function it_should_add_option_set($option1, $option2)
     {

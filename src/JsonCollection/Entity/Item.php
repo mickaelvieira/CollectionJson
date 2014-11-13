@@ -10,7 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
+use JsonCollection\LinkAware;
+use JsonCollection\DataAware;
+use JsonCollection\LinkContainer;
+use JsonCollection\DataContainer;
 
 /**
  * Class Item
@@ -33,7 +39,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
 
     /**
      * @param string $href
-     * @return \JsonCollection\Item
+     * @return \JsonCollection\Entity\Item
      */
     public function setHref($href)
     {

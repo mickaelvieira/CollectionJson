@@ -19,7 +19,7 @@ namespace JsonCollection;
 interface OptionAware
 {
     /**
-     * @param \JsonCollection\Option|array $option
+     * @param \JsonCollection\Entity\Option|array $option
      */
     public function addOption($option);
 

@@ -10,11 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
 
 /**
  * Class Option
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
@@ -34,7 +36,7 @@ class Option extends BaseEntity
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Option
+     * @return \JsonCollection\Entity\Option
      */
     public function setPrompt($prompt)
     {
@@ -54,7 +56,7 @@ class Option extends BaseEntity
 
     /**
      * @param string $value
-     * @return \JsonCollection\Option
+     * @return \JsonCollection\Entity\Option
      */
     public function setValue($value)
     {

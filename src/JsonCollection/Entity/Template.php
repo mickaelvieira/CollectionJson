@@ -10,11 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
+use JsonCollection\DataAware;
+use JsonCollection\DataContainer;
 
 /**
  * Class Template
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
@@ -24,20 +28,20 @@ class Template extends BaseEntity implements DataAware
     use DataContainer;
 
     /**
-     * @var \JsonCollection\Method
+     * @var \JsonCollection\Entity\Method
      * @link http://code.ge/media-types/collection-next-json/#object-method
      */
     protected $method;
 
     /**
-     * @var \JsonCollection\Enctype
+     * @var \JsonCollection\Entity\Enctype
      * @link http://code.ge/media-types/collection-next-json/#object-enctype
      */
     protected $enctype;
 
     /**
-     * @param \JsonCollection\Method $method
-     * @return \JsonCollection\Template
+     * @param \JsonCollection\Entity\Method $method
+     * @return \JsonCollection\Entity\Template
      */
     public function setMethod(Method $method)
     {
@@ -46,7 +50,7 @@ class Template extends BaseEntity implements DataAware
     }
 
     /**
-     * @return \JsonCollection\Method
+     * @return \JsonCollection\Entity\Method
      */
     public function getMethod()
     {
@@ -57,8 +61,8 @@ class Template extends BaseEntity implements DataAware
     }
 
     /**
-     * @param \JsonCollection\Enctype $enctype
-     * @return \JsonCollection\Template
+     * @param \JsonCollection\Entity\Enctype $enctype
+     * @return \JsonCollection\Entity\Template
      */
     public function setEnctype(Enctype $enctype)
     {
@@ -67,7 +71,7 @@ class Template extends BaseEntity implements DataAware
     }
 
     /**
-     * @return \JsonCollection\Enctype
+     * @return \JsonCollection\Entity\Enctype
      */
     public function getEnctype()
     {

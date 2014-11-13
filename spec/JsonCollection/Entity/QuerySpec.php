@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class QuerySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Query');
+        $this->shouldHaveType('JsonCollection\Entity\Query');
         $this->shouldImplement('JsonCollection\DataAware');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
@@ -18,12 +18,12 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('value')->shouldHaveType('JsonCollection\Query');
-        $this->setRel('value')->shouldHaveType('JsonCollection\Query');
-        $this->setName('value')->shouldHaveType('JsonCollection\Query');
-        $this->setPrompt('value')->shouldHaveType('JsonCollection\Query');
-        $this->addData([])->shouldHaveType('JsonCollection\Query');
-        $this->addDataSet([])->shouldHaveType('JsonCollection\Query');
+        $this->setHref('value')->shouldHaveType('JsonCollection\Entity\Query');
+        $this->setRel('value')->shouldHaveType('JsonCollection\Entity\Query');
+        $this->setName('value')->shouldHaveType('JsonCollection\Entity\Query');
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Entity\Query');
+        $this->addData([])->shouldHaveType('JsonCollection\Entity\Query');
+        $this->addDataSet([])->shouldHaveType('JsonCollection\Entity\Query');
     }
 
     function it_should_inject_data()
@@ -88,7 +88,7 @@ class QuerySpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
@@ -103,7 +103,7 @@ class QuerySpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data
+     * @param \JsonCollection\Entity\Data $data
      */
     function it_should_add_a_data_set($data)
     {
@@ -112,8 +112,8 @@ class QuerySpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data1
-     * @param \JsonCollection\Data $data2
+     * @param \JsonCollection\Entity\Data $data1
+     * @param \JsonCollection\Entity\Data $data2
      */
     function it_should_return_an_array_with_the_data_list($data1, $data2)
     {
@@ -135,8 +135,8 @@ class QuerySpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Data $data1
-     * @param \JsonCollection\Data $data2
+     * @param \JsonCollection\Entity\Data $data1
+     * @param \JsonCollection\Entity\Data $data2
      */
     function it_should_retrieve_the_data_by_name($data1, $data2)
     {

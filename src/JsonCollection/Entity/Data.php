@@ -10,7 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
 
 /**
  * Class Data
@@ -51,14 +53,14 @@ class Data extends BaseEntity
     protected $required;
 
     /**
-     * @var \JsonCollection\ListData
+     * @var \JsonCollection\Entity\ListData
      * @link http://code.ge/media-types/collection-next-json/#object-list
      */
     protected $list;
 
     /**
      * @param string $name
-     * @return \JsonCollection\Data
+     * @return \JsonCollection\Entity\Data
      */
     public function setName($name)
     {
@@ -78,7 +80,7 @@ class Data extends BaseEntity
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Data
+     * @return \JsonCollection\Entity\Data
      */
     public function setPrompt($prompt)
     {
@@ -98,7 +100,7 @@ class Data extends BaseEntity
 
     /**
      * @param string $value
-     * @return \JsonCollection\Data
+     * @return \JsonCollection\Entity\Data
      */
     public function setValue($value)
     {
@@ -118,7 +120,7 @@ class Data extends BaseEntity
 
     /**
      * @param string $type
-     * @return \JsonCollection\Data
+     * @return \JsonCollection\Entity\Data
      */
     public function setType($type)
     {
@@ -138,7 +140,7 @@ class Data extends BaseEntity
 
     /**
      * @param boolean $required
-     * @return \JsonCollection\Data
+     * @return \JsonCollection\Entity\Data
      */
     public function setRequired($required)
     {
@@ -157,7 +159,7 @@ class Data extends BaseEntity
     }
 
     /**
-     * @return \JsonCollection\ListData
+     * @return \JsonCollection\Entity\ListData
      */
     public function getList()
     {
@@ -168,8 +170,8 @@ class Data extends BaseEntity
     }
 
     /**
-     * @param \JsonCollection\ListData $list
-     * @return \JsonCollection\Data
+     * @param \JsonCollection\Entity\ListData $list
+     * @return \JsonCollection\Entity\Data
      */
     public function setList(ListData $list)
     {
@@ -178,8 +180,8 @@ class Data extends BaseEntity
     }
 
     /**
-     * @param \JsonCollection\Option|array $option
-     * @return \JsonCollection\Data
+     * @param \JsonCollection\Entity\Option|array $option
+     * @return \JsonCollection\Entity\Data
      */
     public function addOption($option)
     {
@@ -196,7 +198,7 @@ class Data extends BaseEntity
      * @param null|bool   $multiple
      * @param null|string $default
      * 
-     * @return \JsonCollection\Data
+     * @return \JsonCollection\Entity\Data
      */
     public function addOptions(array $options, $multiple = null, $default = null)
     {

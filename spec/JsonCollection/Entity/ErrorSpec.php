@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,22 +9,22 @@ class ErrorSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Error');
+        $this->shouldHaveType('JsonCollection\Entity\Error');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     /**
-     * @param \JsonCollection\Message $message
+     * @param \JsonCollection\Entity\Message $message
      */
     function it_should_be_chainable($message)
     {
-        $this->setCode('value')->shouldHaveType('JsonCollection\Error');
-        $this->setMessage('value')->shouldHaveType('JsonCollection\Error');
-        $this->setTitle('value')->shouldHaveType('JsonCollection\Error');
-        $this->addMessage($message)->shouldHaveType('JsonCollection\Error');
-        $this->addMessages([$message])->shouldHaveType('JsonCollection\Error');
+        $this->setCode('value')->shouldHaveType('JsonCollection\Entity\Error');
+        $this->setMessage('value')->shouldHaveType('JsonCollection\Entity\Error');
+        $this->setTitle('value')->shouldHaveType('JsonCollection\Entity\Error');
+        $this->addMessage($message)->shouldHaveType('JsonCollection\Entity\Error');
+        $this->addMessages([$message])->shouldHaveType('JsonCollection\Entity\Error');
     }
 
     function it_should_inject_data()
@@ -65,7 +65,7 @@ class ErrorSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Message $message
+     * @param \JsonCollection\Entity\Message $message
      */
     function it_should_add_a_message($message)
     {
@@ -74,8 +74,8 @@ class ErrorSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Message $message1
-     * @param \JsonCollection\Message $message2
+     * @param \JsonCollection\Entity\Message $message1
+     * @param \JsonCollection\Entity\Message $message2
      */
     function it_should_add_multiple_messages($message1, $message2)
     {
@@ -84,7 +84,7 @@ class ErrorSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Message $message
+     * @param \JsonCollection\Entity\Message $message
      */
     function it_should_return_an_array_with_the_messages_list($message)
     {

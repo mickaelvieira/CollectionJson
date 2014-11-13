@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,30 +9,30 @@ class CollectionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Collection');
+        $this->shouldHaveType('JsonCollection\Entity\Collection');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     /**
-     * @param \JsonCollection\Item $item
-     * @param \JsonCollection\Query $query
-     * @param \JsonCollection\Error $error
-     * @param \JsonCollection\Status $status
-     * @param \JsonCollection\Template $template
+     * @param \JsonCollection\Entity\Item $item
+     * @param \JsonCollection\Entity\Query $query
+     * @param \JsonCollection\Entity\Error $error
+     * @param \JsonCollection\Entity\Status $status
+     * @param \JsonCollection\Entity\Template $template
      */
     function it_should_be_chainable($item, $query, $error, $status, $template)
     {
-        $this->setHref('href')->shouldHaveType('JsonCollection\Collection');
-        $this->addItem($item)->shouldHaveType('JsonCollection\Collection');
-        $this->addItems([$item])->shouldHaveType('JsonCollection\Collection');
-        $this->addQuery($query)->shouldHaveType('JsonCollection\Collection');
-        $this->setError($error)->shouldHaveType('JsonCollection\Collection');
-        $this->setStatus($status)->shouldHaveType('JsonCollection\Collection');
-        $this->setTemplate($template)->shouldHaveType('JsonCollection\Collection');
-        $this->addLink([])->shouldHaveType('JsonCollection\Collection');
-        $this->addLinkSet([])->shouldHaveType('JsonCollection\Collection');
+        $this->setHref('href')->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addItem($item)->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addItems([$item])->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addQuery($query)->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->setError($error)->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->setStatus($status)->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->setTemplate($template)->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addLink([])->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addLinkSet([])->shouldHaveType('JsonCollection\Entity\Collection');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -45,7 +45,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Item $item
+     * @param \JsonCollection\Entity\Item $item
      */
     function it_should_add_a_item($item)
     {
@@ -54,17 +54,17 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Item $item1
-     * @param \JsonCollection\Item $item2
+     * @param \JsonCollection\Entity\Item $item1
+     * @param \JsonCollection\Entity\Item $item2
      */
     function it_should_add_multiple_items($item1, $item2)
     {
         $this->addItems([$item1, $item2]);
         $this->getItems()->shouldHaveCount(2);
     }
-    
+
     /**
-     * @param \JsonCollection\Link $link
+     * @param \JsonCollection\Entity\Link $link
      */
     function it_should_add_a_link($link)
     {
@@ -83,7 +83,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Link $link1
+     * @param \JsonCollection\Entity\Link $link1
      */
     function it_should_add_a_link_set($link1)
     {

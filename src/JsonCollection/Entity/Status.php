@@ -10,11 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
 
 /**
  * Class Status
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
@@ -34,7 +36,7 @@ class Status extends BaseEntity
 
     /**
      * @param string $code
-     * @return \JsonCollection\Status
+     * @return \JsonCollection\Entity\Status
      */
     public function setCode($code)
     {
@@ -54,7 +56,7 @@ class Status extends BaseEntity
 
     /**
      * @param string $message
-     * @return \JsonCollection\Status
+     * @return \JsonCollection\Entity\Status
      */
     public function setMessage($message)
     {

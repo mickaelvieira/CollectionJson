@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,25 +9,25 @@ class DataSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Data');
+        $this->shouldHaveType('JsonCollection\Entity\Data');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     /**
-     * @param \JsonCollection\ListData $list
+     * @param \JsonCollection\Entity\ListData $list
      */
     function it_should_be_chainable($list)
     {
-        $this->setName('value')->shouldHaveType('JsonCollection\Data');
-        $this->setPrompt('value')->shouldHaveType('JsonCollection\Data');
-        $this->setValue('value')->shouldHaveType('JsonCollection\Data');
-        $this->setType('value')->shouldHaveType('JsonCollection\Data');
-        $this->setRequired('value')->shouldHaveType('JsonCollection\Data');
-        $this->setList($list)->shouldHaveType('JsonCollection\Data');
-        $this->addOption([])->shouldHaveType('JsonCollection\Data');
-        $this->addOptions([])->shouldHaveType('JsonCollection\Data');
+        $this->setName('value')->shouldHaveType('JsonCollection\Entity\Data');
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Entity\Data');
+        $this->setValue('value')->shouldHaveType('JsonCollection\Entity\Data');
+        $this->setType('value')->shouldHaveType('JsonCollection\Entity\Data');
+        $this->setRequired('value')->shouldHaveType('JsonCollection\Entity\Data');
+        $this->setList($list)->shouldHaveType('JsonCollection\Entity\Data');
+        $this->addOption([])->shouldHaveType('JsonCollection\Entity\Data');
+        $this->addOptions([])->shouldHaveType('JsonCollection\Entity\Data');
 
 
     }
@@ -95,7 +95,7 @@ class DataSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\ListData $list
+     * @param \JsonCollection\Entity\ListData $list
      */
     function it_should_return_an_array_with_the_options_list($list)
     {
@@ -138,12 +138,12 @@ class DataSpec extends ObjectBehavior
             'prompt' => 'option prompt'
         ]);
 
-        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->getOptionSet()->shouldHaveCount(1);
     }
 
     /**
-     * @param \JsonCollection\Option $option
+     * @param \JsonCollection\Entity\Option $option
      */
     function it_should_add_an_option_to_the_list_when_it_is_passed_as_an_object($option)
     {
@@ -154,12 +154,12 @@ class DataSpec extends ObjectBehavior
         ]);
 
         $this->addOption($option);
-        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->getOptionSet()->shouldHaveCount(1);
     }
 
     /**
-     * @param \JsonCollection\Option $option
+     * @param \JsonCollection\Entity\Option $option
      */
     function it_should_add_multiple_options_and_set_the_default_values_to_the_list($option)
     {
@@ -173,14 +173,14 @@ class DataSpec extends ObjectBehavior
 
         $this->addOptions($options);
 
-        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->isMultiple()->shouldBeNull();
         $this->getList()->getDefault()->shouldBeNull();
         $this->getList()->getOptionSet()->shouldHaveCount(2);
     }
 
     /**
-     * @param \JsonCollection\Option $option
+     * @param \JsonCollection\Entity\Option $option
      */
     function it_should_add_multiple_options_and_set_values_to_the_list($option)
     {
@@ -194,7 +194,7 @@ class DataSpec extends ObjectBehavior
 
         $this->addOptions($options, true, 'default value');
 
-        $this->getList()->shouldHaveType('JsonCollection\ListData');
+        $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->shouldBeMultiple();
         $this->getList()->getDefault()->shouldBeEqualTo('default value');
         $this->getList()->getOptionSet()->shouldHaveCount(2);

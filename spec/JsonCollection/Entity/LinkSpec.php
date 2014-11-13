@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class LinkSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Link');
+        $this->shouldHaveType('JsonCollection\Entity\Link');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
@@ -17,12 +17,12 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('value')->shouldHaveType('JsonCollection\Link');
-        $this->setRel('value')->shouldHaveType('JsonCollection\Link');
-        $this->setType('value')->shouldHaveType('JsonCollection\Link');
-        $this->setName('value')->shouldHaveType('JsonCollection\Link');
-        $this->setPrompt('value')->shouldHaveType('JsonCollection\Link');
-        $this->setRender('value')->shouldHaveType('JsonCollection\Link');
+        $this->setHref('value')->shouldHaveType('JsonCollection\Entity\Link');
+        $this->setRel('value')->shouldHaveType('JsonCollection\Entity\Link');
+        $this->setType('value')->shouldHaveType('JsonCollection\Entity\Link');
+        $this->setName('value')->shouldHaveType('JsonCollection\Entity\Link');
+        $this->setPrompt('value')->shouldHaveType('JsonCollection\Entity\Link');
+        $this->setRender('value')->shouldHaveType('JsonCollection\Entity\Link');
     }
 
     function it_should_inject_data()

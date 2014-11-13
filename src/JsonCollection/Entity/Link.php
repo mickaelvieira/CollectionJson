@@ -10,8 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
 
+use JsonCollection\BaseEntity;
 use JsonCollection\Type\Render as RenderType;
 
 /**
@@ -60,7 +61,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $href
-     * @return \JsonCollection\Link
+     * @return \JsonCollection\Entity\Link
      */
     public function setHref($href)
     {
@@ -80,7 +81,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $rel
-     * @return \JsonCollection\Link
+     * @return \JsonCollection\Entity\Link
      */
     public function setRel($rel)
     {
@@ -100,7 +101,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $type
-     * @return \JsonCollection\Link
+     * @return \JsonCollection\Entity\Link
      */
     public function setType($type)
     {
@@ -120,7 +121,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $name
-     * @return \JsonCollection\Link
+     * @return \JsonCollection\Entity\Link
      */
     public function setName($name)
     {
@@ -140,7 +141,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Link
+     * @return \JsonCollection\Entity\Link
      */
     public function setPrompt($prompt)
     {
@@ -160,7 +161,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $render
-     * @return \JsonCollection\Link
+     * @return \JsonCollection\Entity\Link
      */
     public function setRender($render)
     {

@@ -19,7 +19,7 @@ namespace JsonCollection;
 interface DataAware
 {
     /**
-     * @param \JsonCollection\Data|array $data
+     * @param \JsonCollection\Entity\Data|array $data
      */
     public function addData($data);
 

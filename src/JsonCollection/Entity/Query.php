@@ -10,13 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
 
-use JsonCollection;
+use JsonCollection\BaseEntity;
+use JsonCollection\DataAware;
+use JsonCollection\DataContainer;
 
 /**
  * Class Query
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
  */
@@ -51,7 +53,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $href
-     * @return \JsonCollection\Query
+     * @return \JsonCollection\Entity\Query
      */
     public function setHref($href)
     {
@@ -71,7 +73,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $name
-     * @return \JsonCollection\Query
+     * @return \JsonCollection\Entity\Query
      */
     public function setName($name)
     {
@@ -91,7 +93,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Query
+     * @return \JsonCollection\Entity\Query
      */
     public function setPrompt($prompt)
     {
@@ -111,7 +113,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $rel
-     * @return \JsonCollection\Query
+     * @return \JsonCollection\Entity\Query
      */
     public function setRel($rel)
     {

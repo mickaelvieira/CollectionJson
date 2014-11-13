@@ -10,7 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace JsonCollection\Entity;
+
+use JsonCollection\BaseEntity;
+use JsonCollection\OptionAware;
+use JsonCollection\OptionContainer;
 
 /**
  * Class ListData
@@ -37,7 +41,7 @@ class ListData extends BaseEntity implements OptionAware
 
     /**
      * @param boolean $multiple
-     * @return \JsonCollection\ListData
+     * @return \JsonCollection\Entity\ListData
      */
     public function setMultiple($multiple)
     {
@@ -57,7 +61,7 @@ class ListData extends BaseEntity implements OptionAware
 
     /**
      * @param string $default
-     * @return \JsonCollection\ListData
+     * @return \JsonCollection\Entity\ListData
      */
     public function setDefault($default)
     {

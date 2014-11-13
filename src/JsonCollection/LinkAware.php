@@ -19,7 +19,7 @@ namespace JsonCollection;
 interface LinkAware
 {
     /**
-     * @param \JsonCollection\Link|array $link
+     * @param \JsonCollection\Entity\Link|array $link
      */
     public function addLink($link);
 

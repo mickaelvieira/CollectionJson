@@ -12,6 +12,8 @@
 
 namespace JsonCollection;
 
+use JsonCollection\Entity\Data;
+
 /**
  * Class DataContainer
  * @package JsonCollection
@@ -25,7 +27,7 @@ trait DataContainer
     protected $data = [];
 
     /**
-     * @param \JsonCollection\Data|array $data
+     * @param \JsonCollection\Entity\Data|array $data
      * @return mixed
      */
     public function addData($data)
@@ -61,13 +63,13 @@ trait DataContainer
 
     /**
      * @param string $name
-     * @return \JsonCollection\Data|null
+     * @return \JsonCollection\Entity\Data|null
      */
     public function getDataByName($name)
     {
         $entity = null;
         foreach ($this->getDataSet() as $data) {
-            /** @var \JsonCollection\Data $data */
+            /** @var \JsonCollection\Entity\Data $data */
             if ($data->getName() === $name) {
                 $entity = $data;
                 break;

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\JsonCollection\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class MessageSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Message');
+        $this->shouldHaveType('JsonCollection\Entity\Message');
         $this->shouldImplement('JsonCollection\DataInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
@@ -17,9 +17,9 @@ class MessageSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setCode('value')->shouldHaveType('JsonCollection\Message');
-        $this->setMessage('value')->shouldHaveType('JsonCollection\Message');
-        $this->setName('value')->shouldHaveType('JsonCollection\Message');
+        $this->setCode('value')->shouldHaveType('JsonCollection\Entity\Message');
+        $this->setMessage('value')->shouldHaveType('JsonCollection\Entity\Message');
+        $this->setName('value')->shouldHaveType('JsonCollection\Entity\Message');
     }
 
     function it_should_inject_data()
