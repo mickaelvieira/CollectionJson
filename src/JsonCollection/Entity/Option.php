@@ -19,6 +19,7 @@ use JsonCollection\BaseEntity;
  * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://code.ge/media-types/collection-next-json/#array-options
  */
 class Option extends BaseEntity
 {

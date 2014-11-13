@@ -197,7 +197,7 @@ $item->addDataSet([
 ]);
 
 // ...is similar to 
-$data1 = new addDataSet([
+$data1 = new Data([
     'name' => 'email',
     'value' => 'email value'
 ]);

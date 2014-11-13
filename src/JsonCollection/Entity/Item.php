@@ -20,9 +20,10 @@ use JsonCollection\DataContainer;
 
 /**
  * Class Item
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://amundsen.com/media-types/collection/format/#arrays-items
  */
 class Item extends BaseEntity implements LinkAware, DataAware
 {

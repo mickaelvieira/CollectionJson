@@ -16,9 +16,10 @@ use JsonCollection\BaseEntity;
 
 /**
  * Class Data
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://amundsen.com/media-types/collection/format/#arrays-data
  */
 class Data extends BaseEntity
 {

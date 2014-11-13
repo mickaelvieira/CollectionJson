@@ -17,9 +17,10 @@ use JsonCollection\Type\Render as RenderType;
 
 /**
  * Class Link
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://amundsen.com/media-types/collection/format/#arrays-links
  */
 class Link extends BaseEntity
 {

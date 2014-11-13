@@ -16,9 +16,10 @@ use JsonCollection\BaseEntity;
 
 /**
  * Class Message
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://code.ge/media-types/collection-next-json/#array-messages
  */
 class Message extends BaseEntity
 {

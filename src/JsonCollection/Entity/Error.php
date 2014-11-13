@@ -16,9 +16,10 @@ use JsonCollection\BaseEntity;
 
 /**
  * Class Error
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://amundsen.com/media-types/collection/format/#objects-error
  */
 class Error extends BaseEntity
 {

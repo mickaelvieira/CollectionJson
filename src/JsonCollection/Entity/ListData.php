@@ -18,9 +18,10 @@ use JsonCollection\OptionContainer;
 
 /**
  * Class ListData
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://code.ge/media-types/collection-next-json/#object-list
  */
 class ListData extends BaseEntity implements OptionAware
 {

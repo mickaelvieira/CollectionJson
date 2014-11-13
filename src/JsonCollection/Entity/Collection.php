@@ -18,9 +18,10 @@ use JsonCollection\LinkContainer;
 
 /**
  * Class Collection
- * @package JsonCollection
+ * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://code.ge/media-types/collection-next-json/
+ * @link http://amundsen.com/media-types/collection/format/#objects-collection
  */
 class Collection extends BaseEntity implements LinkAware
 {
