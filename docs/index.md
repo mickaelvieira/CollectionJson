@@ -17,8 +17,8 @@ Install JsonCollection with [Composer](https://getcomposer.org/):
 ## Get Started
 
 ```php
-use JsonCollection\Collection;
-use JsonCollection\Item;
+use JsonCollection\Entity\Collection;
+use JsonCollection\Entity\Item;
 
 $collection = new Collection();
 
@@ -98,7 +98,7 @@ Array
 
 ### Adding an envelope
 
-The ```JsonCollection\Collection``` entity will be by default wrapped within an envelope.
+The ```JsonCollection\Entity\Collection``` entity will be by default wrapped within an envelope.
 
 ```php
 echo json_encode($collection);

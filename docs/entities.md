@@ -7,13 +7,13 @@
 [http://amundsen.com/media-types/collection/format/#objects-collection](http://amundsen.com/media-types/collection/format/#objects-collection)
 
 ```php
-use JsonCollection\Collection;
-use JsonCollection\Item;
-use JsonCollection\Query;
-use JsonCollection\Error;
-use JsonCollection\Status;
-use JsonCollection\Template;
-use JsonCollection\Link;
+use JsonCollection\Entity\Collection;
+use JsonCollection\Entity\Item;
+use JsonCollection\Entity\Query;
+use JsonCollection\Entity\Error;
+use JsonCollection\Entity\Status;
+use JsonCollection\Entity\Template;
+use JsonCollection\Entity\Link;
 
 $collection = new Collection();
 $collection->setHref('uri');
@@ -30,7 +30,7 @@ $collection->addLink(new Link());
 [http://amundsen.com/media-types/collection/format/#objects-error](http://amundsen.com/media-types/collection/format/#objects-error)
 
 ```php
-use JsonCollection\Error;
+use JsonCollection\Entity\Error;
 
 $error = new Error();
 $error->setTitle('error title');
@@ -43,10 +43,10 @@ $error->setMessage('error message');    // use addMessage() to add a message as 
 [http://amundsen.com/media-types/collection/format/#objects-template](http://amundsen.com/media-types/collection/format/#objects-template)
 
 ```php
-use JsonCollection\Template;
-use JsonCollection\Enctype;
-use JsonCollection\Method;
-use JsonCollection\Data;
+use JsonCollection\Entity\Template;
+use JsonCollection\Entity\Enctype;
+use JsonCollection\Entity\Method;
+use JsonCollection\Entity\Data;
 
 $template = new Template();
 $template->setMethod(new Method());
@@ -59,9 +59,9 @@ $template->addData(new Data());
 [http://amundsen.com/media-types/collection/format/#arrays-items](http://amundsen.com/media-types/collection/format/#arrays-items)
 
 ```php
-use JsonCollection\Item;
-use JsonCollection\Data;
-use JsonCollection\Link;
+use JsonCollection\Entity\Item;
+use JsonCollection\Entity\Data;
+use JsonCollection\Entity\Link;
 
 $item = new Item();
 $item->setHref('/uri');
@@ -74,10 +74,10 @@ $item->addLink(new Link());
 [http://amundsen.com/media-types/collection/format/#arrays-data](http://amundsen.com/media-types/collection/format/#arrays-data)
 
 ```php
-use JsonCollection\Data;
-use JsonCollection\ListData;
-use JsonCollection\Option;
-use JsonCollection\Type\Input;
+use JsonCollection\Entity\Data;
+use JsonCollection\Entity\ListData;
+use JsonCollection\Entity\Option;
+use JsonCollection\Entity\Type\Input;
 
 $data = new Data();
 $data->setName('data name');
@@ -94,9 +94,9 @@ $data->addOption(new Option());     // add option to the list
 [http://amundsen.com/media-types/collection/format/#arrays-queries](http://amundsen.com/media-types/collection/format/#arrays-queries)
 
 ```php
-use JsonCollection\Query;
-use JsonCollection\Data;
-use JsonCollection\Type\Relation;
+use JsonCollection\Entity\Query;
+use JsonCollection\Entity\Data;
+use JsonCollection\Entity\Type\Relation;
 
 $query = new Query();
 $query->setHref('uri');
@@ -111,10 +111,10 @@ $query->addData(new Data());
 [http://amundsen.com/media-types/collection/format/#arrays-links](http://amundsen.com/media-types/collection/format/#arrays-links)
 
 ```php
-use JsonCollection\Link
-use JsonCollection\Type\Media;
-use JsonCollection\Type\Render;
-use JsonCollection\Type\Relation;
+use JsonCollection\Entity\Link
+use JsonCollection\Entity\Type\Media;
+use JsonCollection\Entity\Type\Render;
+use JsonCollection\Entity\Type\Relation;
 
 $link = new Link();
 $link->setName('link name');
@@ -132,8 +132,8 @@ $link->setRender(Render::IMAGE); // default Render::LINK
 [http://code.ge/media-types/collection-next-json/#object-list](http://code.ge/media-types/collection-next-json/#object-list)
 
 ```php
-use JsonCollection\ListData;
-use JsonCollection\Option;
+use JsonCollection\Entity\ListData;
+use JsonCollection\Entity\Option;
 
 $list = new ListData();
 $list->setMultiple(true);
@@ -146,7 +146,7 @@ $list->addOption(new Option());
 [http://code.ge/media-types/collection-next-json/#array-options](http://code.ge/media-types/collection-next-json/#array-options)
 
 ```php
-use JsonCollection\Option
+use JsonCollection\Entity\Option
 
 $option = new Option();
 $option->setPrompt('option prompt');
@@ -158,7 +158,7 @@ $option->setValue('option value');
 [http://code.ge/media-types/collection-next-json/#object-status](http://code.ge/media-types/collection-next-json/#object-status)
 
 ```php
-use JsonCollection\Status
+use JsonCollection\Entity\Status
 
 $status = new Status();
 $status->setCode('status code');
@@ -170,8 +170,8 @@ $status->setMessage('status message');
 [http://code.ge/media-types/collection-next-json/#object-method](http://code.ge/media-types/collection-next-json/#object-method)
 
 ```php
-use JsonCollection\Option
-use JsonCollection\Method
+use JsonCollection\Entity\Option
+use JsonCollection\Entity\Method
 
 $option = new Option();
 $method = new Method();
@@ -183,8 +183,8 @@ $method->addOption($option);
 [http://code.ge/media-types/collection-next-json/#object-enctype](http://code.ge/media-types/collection-next-json/#object-enctype)
 
 ```php
-use JsonCollection\Option
-use JsonCollection\Enctype
+use JsonCollection\Entity\Option
+use JsonCollection\Entity\Enctype
 
 $option = new Option();
 $enctype = new Enctype();
@@ -196,6 +196,9 @@ $enctype->addOption($option);
 [http://code.ge/media-types/collection-next-json/#array-messages](http://code.ge/media-types/collection-next-json/#array-messages)
 
 ```php
+use JsonCollection\Entity\Error
+use JsonCollection\Entity\Message
+
 $error = new Error();
 $error->setCode('error code');
 

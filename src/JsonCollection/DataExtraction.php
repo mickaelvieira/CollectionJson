@@ -43,7 +43,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
         $data = $this->getObjectData();
         $data = $this->recursiveToArray($data);
         $data = $this->addEnvelope($data);
-//        var_dump($data);
+
         return $data;
     }
 
@@ -54,8 +54,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
     {
         $this->envelope = $envelope;
     }
-
-
+    
     /**
      * @return array
      */
@@ -79,6 +78,7 @@ abstract class DataExtraction implements JsonSerializable, ArrayConvertible
         );
         return $data;
     }
+
     /**
      * @param array $data
      * @return array
