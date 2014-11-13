@@ -22,4 +22,7 @@ final class Input
     const DATETIME = "datetime";
     const MONTH    = "month";
     const TEL      = "tel";
+
+    const INTEGER  = 'integer';
+    const BOOLEAN  = 'boolean';
 }
