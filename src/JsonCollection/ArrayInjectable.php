@@ -22,5 +22,5 @@ interface ArrayInjectable
      * @param array $data
      * @return mixed
      */
-    public function inject(array $data = []);
+    public function inject(array $data);
 }

@@ -21,7 +21,7 @@ trait Injection
     /**
      * @param array $data
      */
-    public function inject(array $data = [])
+    public function inject(array $data)
     {
         foreach ($data as $key => $value) {
             $setter = "set" . $this->underscoreToCamelCase($key);
