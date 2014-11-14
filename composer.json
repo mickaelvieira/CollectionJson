@@ -1,12 +1,16 @@
 {
     "name": "mvieira/json-collection",
     "description": "PHP implementation of the Collection.next+JSON Media Type",
-    "version": "0.0.1",
+    "license": "MIT",
     "type": "library",
     "homepage": "https://github.com/mickaelvieira/JsonCollection",
     "minimum-stability": "stable",
     "keywords": [
-        "Hypermedia", "RESTful", "HTTP", "JSON", "REST", "HATEOAS"
+        "Hypermedia",
+        "RESTful",
+        "HTTP", "JSON",
+        "REST",
+        "HATEOAS"
     ],
     "authors": [
         {
