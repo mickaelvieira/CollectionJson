@@ -49,7 +49,6 @@ print json_encode($collection);
 
 All entities implement the [JsonSerializable](http://php.net/manual/en/class.jsonserializable.php) interface,
 you can therefore call at any time the method ```json_encode()```.
-This method will be recursively called on all nested entities.
 
 ```php
 print json_encode($collection);
@@ -161,7 +160,7 @@ $next->setName('email');
 $next->setValue('email value');
 ```
 
-See the [entities documentation](https://github.com/mickaelvieira/JsonCollection/blob/master/docs/entities.md) for the detail of each entity.
+See the [entities documentation](entities.md) for the detail of each entity.
 
 ## Working with data, links and options
 
