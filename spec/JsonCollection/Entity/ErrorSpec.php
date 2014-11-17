@@ -24,7 +24,7 @@ class ErrorSpec extends ObjectBehavior
         $this->setMessage('value')->shouldHaveType('JsonCollection\Entity\Error');
         $this->setTitle('value')->shouldHaveType('JsonCollection\Entity\Error');
         $this->addMessage($message)->shouldHaveType('JsonCollection\Entity\Error');
-        $this->addMessages([$message])->shouldHaveType('JsonCollection\Entity\Error');
+        $this->addMessageSet([$message])->shouldHaveType('JsonCollection\Entity\Error');
     }
 
     function it_should_inject_data()
@@ -67,20 +67,37 @@ class ErrorSpec extends ObjectBehavior
     /**
      * @param \JsonCollection\Entity\Message $message
      */
-    function it_should_add_a_message($message)
+    function it_should_add_a_message_when_it_is_passed_as_an_object($message)
     {
         $this->addMessage($message);
-        $this->getMessages()->shouldHaveCount(1);
+        $this->getMessageSet()->shouldHaveCount(1);
+    }
+
+    function it_should_add_a_message_when_it_is_passed_as_an_array()
+    {
+        $this->addMessage([
+            'name'    => 'Message Name',
+            'code'    => 'Message Code',
+            'message' => 'Message Message'
+        ]);
+        $this->getMessageSet()->shouldHaveCount(1);
     }
 
     /**
      * @param \JsonCollection\Entity\Message $message1
-     * @param \JsonCollection\Entity\Message $message2
      */
-    function it_should_add_multiple_messages($message1, $message2)
+    function it_should_add_multiple_messages($message1)
     {
-        $this->addMessages([$message1, $message2]);
-        $this->getMessages()->shouldHaveCount(2);
+        $this->addMessageSet([
+            $message1,
+            [
+                'name'    => 'Message Name',
+                'code'    => 'Message Code',
+                'message' => 'Message Message'
+            ],
+            new \stdClass()
+        ]);
+        $this->getMessageSet()->shouldHaveCount(2);
     }
 
     /**

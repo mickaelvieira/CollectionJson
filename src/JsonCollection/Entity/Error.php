@@ -108,19 +108,24 @@ class Error extends BaseEntity
     }
 
     /**
-     * @param \JsonCollection\Entity\Message $message
+     * @param \JsonCollection\Entity\Message|array $message
      * @return \JsonCollection\Entity\Error
      */
-    public function addMessage(Message $message)
+    public function addMessage($message)
     {
-        array_push($this->messages, $message);
+        if (is_array($message)) {
+            $message = new Message($message);
+        }
+        if ($message instanceof Message) {
+            array_push($this->messages, $message);
+        }
         return $this;
     }
 
     /**
      * @return array
      */
-    public function getMessages()
+    public function getMessageSet()
     {
         return $this->messages;
     }
@@ -129,7 +134,7 @@ class Error extends BaseEntity
      * @param array $messages
      * @return \JsonCollection\Entity\Error
      */
-    public function addMessages(array $messages)
+    public function addMessageSet(array $messages)
     {
         foreach ($messages as $message) {
             $this->addMessage($message);
