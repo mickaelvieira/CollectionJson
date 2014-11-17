@@ -12,6 +12,7 @@ class ErrorSpec extends ObjectBehavior
         $this->shouldHaveType('JsonCollection\Entity\Error');
         $this->shouldImplement('JsonCollection\ArrayInjectable');
         $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldImplement('JsonCollection\MessageAware');
         $this->shouldImplement('JsonSerializable');
     }
 

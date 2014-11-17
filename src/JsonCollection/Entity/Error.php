@@ -13,6 +13,7 @@
 namespace JsonCollection\Entity;
 
 use JsonCollection\BaseEntity;
+use JsonCollection\MessageAware;
 
 /**
  * Class Error
@@ -21,7 +22,7 @@ use JsonCollection\BaseEntity;
  * @link http://code.ge/media-types/collection-next-json/
  * @link http://amundsen.com/media-types/collection/format/#objects-error
  */
-class Error extends BaseEntity
+class Error extends BaseEntity implements MessageAware
 {
     /**
      * @var string
