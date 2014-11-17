@@ -69,7 +69,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_link($link)
     {
         $this->addLink($link);
-        $this->countLinks()->shouldBeEqualTo(1);
+        $this->getLinkSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_when_passing_an_array()
@@ -79,7 +79,7 @@ class CollectionSpec extends ObjectBehavior
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);
-        $this->countLinks()->shouldBeEqualTo(1);
+        $this->getLinkSet()->shouldHaveCount(1);
     }
 
     /**
@@ -96,6 +96,6 @@ class CollectionSpec extends ObjectBehavior
             ],
             new \stdClass()
         ]);
-        $this->countLinks()->shouldBeEqualTo(2);
+        $this->getLinkSet()->shouldHaveCount(2);
     }
 }

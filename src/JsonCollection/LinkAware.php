@@ -33,9 +33,4 @@ interface LinkAware
      * @return array
      */
     public function getLinkSet();
-
-    /**
-     * @return int
-     */
-    public function countLinks();
 }

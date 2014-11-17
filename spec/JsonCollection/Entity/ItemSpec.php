@@ -134,7 +134,7 @@ class ItemSpec extends ObjectBehavior
     function it_should_add_a_link_when_it_is_passed_as_an_object($link)
     {
         $this->addLink($link);
-        $this->countLinks()->shouldBeEqualTo(1);
+        $this->getLinkSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_when_it_is_passed_as_an_array()
@@ -144,7 +144,7 @@ class ItemSpec extends ObjectBehavior
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);
-        $this->countLinks()->shouldBeEqualTo(1);
+        $this->getLinkSet()->shouldHaveCount(1);
     }
 
     /**
@@ -162,6 +162,6 @@ class ItemSpec extends ObjectBehavior
             new \stdClass()
         ]);
         $this->setHref('uri');
-        $this->countLinks()->shouldBeEqualTo(2);
+        $this->getLinkSet()->shouldHaveCount(2);
     }
 }
