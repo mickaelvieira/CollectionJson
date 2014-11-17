@@ -32,9 +32,4 @@ interface DataAware
      * @return array
      */
     public function getDataSet();
-
-    /**
-     * @return int
-     */
-    public function countData();
 }

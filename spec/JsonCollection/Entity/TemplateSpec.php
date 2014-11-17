@@ -91,13 +91,13 @@ class TemplateSpec extends ObjectBehavior
     function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
         $this->addData($data);
-        $this->countData()->shouldBeEqualTo(1);
+        $this->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
         $this->addData(['value' => 'value 1']);
-        $this->countData()->shouldBeEqualTo(1);
+        $this->getDataSet()->shouldHaveCount(1);
     }
 
     /**
@@ -106,7 +106,7 @@ class TemplateSpec extends ObjectBehavior
     function it_should_add_a_data_set($data)
     {
         $this->addDataSet([$data, ['value' => 'value 2'], new \stdClass()]);
-        $this->countData()->shouldBeEqualTo(2);
+        $this->getDataSet()->shouldHaveCount(2);
     }
 
     /**
