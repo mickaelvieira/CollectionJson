@@ -16,6 +16,26 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
+     * @param \JsonCollection\Entity\Error $error
+     * @param \JsonCollection\Entity\Status $status
+     * @param \JsonCollection\Entity\Template $template
+     */
+    function it_should_inject_data($error, $status, $template)
+    {
+        $data = [
+            'href'     => 'uri',
+            'error'    => $error,
+            'status'   => $status,
+            'template' => $template
+        ];
+        $this->inject($data);
+        $this->getHref()->shouldBeEqualTo('uri');
+        $this->getError()->shouldBeEqualTo($error);
+        $this->getStatus()->shouldBeEqualTo($status);
+        $this->getTemplate()->shouldBeEqualTo($template);
+    }
+
+    /**
      * @param \JsonCollection\Entity\Item $item
      * @param \JsonCollection\Entity\Query $query
      * @param \JsonCollection\Entity\Error $error
@@ -97,5 +117,36 @@ class CollectionSpec extends ObjectBehavior
             new \stdClass()
         ]);
         $this->getLinkSet()->shouldHaveCount(2);
+    }
+
+    /**
+     * @param \JsonCollection\Entity\Status $status
+     */
+    function it_should_set_the_status($status)
+    {
+        $status->getCode()->willReturn("status code");
+        $this->setStatus($status);
+        $this->getStatus()->shouldBeAnInstanceOf('JsonCollection\Entity\Status');
+        $this->getStatus()->getCode()->shouldBeEqualTo("status code");
+    }
+
+    /**
+     * @param \JsonCollection\Entity\Error $error
+     */
+    function it_should_set_the_error($error)
+    {
+        $error->getCode()->willReturn("error code");
+        $this->setError($error);
+        $this->getError()->shouldBeAnInstanceOf('JsonCollection\Entity\Error');
+        $this->getError()->getCode()->shouldBeEqualTo("error code");
+    }
+
+    /**
+     * @param \JsonCollection\Entity\Template $template
+     */
+    function it_should_set_the_template($template)
+    {
+        $this->setTemplate($template);
+        $this->getTemplate()->shouldBeAnInstanceOf('JsonCollection\Entity\Template');
     }
 }

@@ -28,8 +28,6 @@ class DataSpec extends ObjectBehavior
         $this->setList($list)->shouldHaveType('JsonCollection\Entity\Data');
         $this->addOption([])->shouldHaveType('JsonCollection\Entity\Data');
         $this->addOptions([])->shouldHaveType('JsonCollection\Entity\Data');
-
-
     }
 
     function it_should_inject_data()
