@@ -4,6 +4,8 @@ PHP implementation of the Collection.next+JSON Media Type
 
 ## Installation
 
+JsonCollection requires php>=5.4
+
 Install JsonCollection with [Composer](https://getcomposer.org/):
 
 ```json
@@ -171,9 +173,9 @@ $next->setValue('email value');
 
 See the [entities documentation](entities.md) for the detail of each entity.
 
-## Working with data, links and options
+## Working with data, links, options and messages
 
-In order to work with JsonCollection Arrays Data, Links, Options and Messages the API provides 4 interfaces that implement the same kind of logic.
+In order to work with JsonCollection Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), [Options](http://code.ge/media-types/collection-next-json/#array-options) and [Messages](http://code.ge/media-types/collection-next-json/#array-messages) the API provides 4 interfaces that implement the same logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
 provides the methods ```addData```, ```addDataSet``` and ```getDataSet```
