@@ -1,4 +1,4 @@
 vendor/
-reports/
+coverage/
 bin/
 composer.lock

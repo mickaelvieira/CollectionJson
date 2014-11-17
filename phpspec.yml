@@ -6,4 +6,4 @@ code_coverage:
     format:
         - html
     output:
-        html: reports/coverage
+        html: coverage
