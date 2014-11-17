@@ -33,9 +33,4 @@ interface OptionAware
      * @return array
      */
     public function getOptionSet();
-
-    /**
-     * @return int
-     */
-    public function countOptions();
 }

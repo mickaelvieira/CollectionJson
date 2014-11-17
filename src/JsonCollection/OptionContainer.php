@@ -60,12 +60,4 @@ trait OptionContainer
     {
         return $this->options;
     }
-
-    /**
-     * @return int
-     */
-    public function countOptions()
-    {
-        return count($this->options);
-    }
 }

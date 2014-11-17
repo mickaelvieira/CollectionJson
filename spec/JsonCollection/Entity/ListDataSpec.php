@@ -110,7 +110,7 @@ class ListDataSpec extends ObjectBehavior
     function it_should_add_option_when_it_is_passed_as_an_object($option1)
     {
         $this->addOption($option1);
-        $this->countOptions()->shouldBeEqualTo(1);
+        $this->getOptionSet()->shouldHaveCount(1);
     }
 
     function it_should_add_option_when_it_is_passed_as_an_array()
@@ -119,7 +119,7 @@ class ListDataSpec extends ObjectBehavior
             'value' => 'Value 2',
             'prompt' => 'Prompt 2'
         ]);
-        $this->countOptions()->shouldBeEqualTo(1);
+        $this->getOptionSet()->shouldHaveCount(1);
     }
 
     /**
@@ -129,6 +129,6 @@ class ListDataSpec extends ObjectBehavior
     function it_should_add_option_set($option1, $option2)
     {
         $this->addOptionSet([$option1, $option2, new \stdClass()]);
-        $this->countOptions()->shouldBeEqualTo(2);
+        $this->getOptionSet()->shouldHaveCount(2);
     }
 }
