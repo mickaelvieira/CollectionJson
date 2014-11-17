@@ -100,14 +100,6 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
      * @param array $items
      * @return \JsonCollection\Entity\Collection
      */
@@ -120,6 +112,14 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
      * @param \JsonCollection\Entity\Query $query
      * @return \JsonCollection\Entity\Collection
      */
@@ -127,6 +127,26 @@ class Collection extends BaseEntity implements LinkAware
     {
         array_push($this->queries, $query);
         return $this;
+    }
+
+    /**
+     * @param array $queries
+     * @return \JsonCollection\Entity\Collection
+     */
+    public function addQueries(array $queries)
+    {
+        foreach ($queries as $query) {
+            $this->addQuery($query);
+        }
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQueries()
+    {
+        return $this->queries;
     }
 
     /**

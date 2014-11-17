@@ -48,6 +48,7 @@ class CollectionSpec extends ObjectBehavior
         $this->addItem($item)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addItems([$item])->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addQuery($query)->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addQueries([$query])->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setError($error)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setStatus($status)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setTemplate($template)->shouldHaveType('JsonCollection\Entity\Collection');
@@ -81,6 +82,25 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->addItems([$item1, $item2]);
         $this->getItems()->shouldHaveCount(2);
+    }
+
+    /**
+     * @param \JsonCollection\Entity\Query $query
+     */
+    function it_should_add_a_query($query)
+    {
+        $this->addQuery($query);
+        $this->getQueries()->shouldHaveCount(1);
+    }
+
+    /**
+     * @param \JsonCollection\Entity\Query $query1
+     * @param \JsonCollection\Entity\Query $query2
+     */
+    function it_should_add_multiple_queries($query1, $query2)
+    {
+        $this->addQueries([$query1, $query2]);
+        $this->getQueries()->shouldHaveCount(2);
     }
 
     /**
