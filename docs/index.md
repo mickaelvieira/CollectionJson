@@ -32,14 +32,14 @@ print json_encode($collection);
 
 ```json
 {
-  "collection": {
-    "version": "1.0",
-    "items": [
-      {
-        "href": "/item/1"
-      }
-    ]
-  }
+    "collection": {
+        "version": "1.0",
+        "items": [
+            {
+                "href": "/item/1"
+            }
+        ]
+    }
 }
 ```
 
@@ -70,9 +70,8 @@ print json_encode($collection);
 
 ### Printing an Array representation
 
-All entities implement a custom interface ```ArrayConvertible```,
-you can therefore call at any time the method ```toArray()```.
-This method will be recursively called on all nested entities.
+All entities implement a custom interface named ```ArrayConvertible```, so you can call at any time the method ```toArray()```.
+This method will be called recursively on all nested entities.
 
 ```php
 print_r($collection->toArray());
@@ -97,7 +96,7 @@ Array
 
 ### Adding an envelope
 
-The ```JsonCollection\Entity\Collection``` entity will be by default wrapped within an envelope.
+Beside the ```JsonCollection\Entity\Collection``` entity will be by default wrapped within an envelope...
 
 ```php
 echo json_encode($collection);
@@ -105,12 +104,12 @@ echo json_encode($collection);
 
 ```json
 {
-  "collection": {
-    "version": "1.0"
-  }
+    "collection": {
+        "version": "1.0"
+     }
 }
 ```
-Others entities will not be wrapped within an envelope.
+...others entities will not be wrapped within an envelope.
 
 ```php
 echo json_encode($template);
@@ -118,9 +117,9 @@ echo json_encode($template);
 
 ```json
 {
-  "data": [
-    ...
-  ]
+    "data": [
+        ...
+    ]
 }
 ```
 
@@ -133,11 +132,11 @@ echo json_encode($template);
 
 ```json
 {
-  "template": {
-    "data": [
-      ...
-    ]
-  }
+    "template": {
+        "data": [
+            ...
+        ]
+    }
 }
 ```
 
@@ -147,6 +146,16 @@ All entities can be created by passing an array in the constructor...
 
 ```php
 $data = new Data([
+    'name' => 'email',
+    'value' => 'email value'
+]);
+```
+
+...or inject the data later on
+
+```php
+$data = new Data();
+$data->inject([
     'name' => 'email',
     'value' => 'email value'
 ]);
@@ -164,8 +173,18 @@ See the [entities documentation](entities.md) for the detail of each entity.
 
 ## Working with data, links and options
 
+In order to work with JsonCollection Arrays Data, Links, Options and Messages the API provides 4 interfaces that implement the same kind of logic.
+
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
-provides the methods ```addData``` and ```addDataSet```
+provides the methods ```addData```, ```addDataSet``` and ```getDataSet```
+- The interface ```LinkAware``` implemented by ```Collection``` and ```Item``` entities,
+provides the methods```addLink```, ```addLinkSet``` and ```getLinkSet```
+- The interface ```OptionAware``` implemented by ```Enctype```, ```ListData``` and ```Method``` entities,
+provides the methods ```addOption```, ```addOptionSet``` and ```getOptionSet```
+- The interface ```MessageAware``` implemented by the ```Error``` entity,
+provides the methods ```addMessage```, ```addMessageSet``` and ```getMessageSet```
+
+They allows you to add the corresponding entities to objects that implement them.
 
 ```php
 $item = new Item();
@@ -186,12 +205,12 @@ $item->addData($data);
 // and that...
 $item->addDataSet([
     [
-       'name' => 'email',
-       'value' => 'email value'
+        'name' => 'email',
+        'value' => 'email value'
     ],
     [
-       'name' => 'tel',
-       'value' => 'tel value'
+        'name' => 'tel',
+        'value' => 'tel value'
     ]
 ]);
 
@@ -210,94 +229,7 @@ $item->addDataSet([
 ]);
 ```
 
-- The interface ```LinkAware``` implemented by ```Collection``` and ```Item``` entities,
-provides the methods```addLink``` and ```addLinkSet```
 
-```php
-$collection = new Collection();
 
-// this...
-$collection->addLink([
-    'href' => 'uri',
-    'rel' => 'prev'
-]);
 
-// ...is similar to 
-$link = new Link([
-    'href' => 'uri',
-    'rel' => 'prev'
-]);
-$collection->addLink($link);
 
-// and that...
-$collection->addLinkSet([
-    [
-        'href' => 'uri',
-        'rel' => 'prev'
-    ],
-    [
-        'href' => 'uri',
-        'rel' => 'next'
-    ]
-]);
-
-// ...is similar to 
-$link1 = new Link([
-    'href' => 'uri',
-    'rel' => 'prev'
-]);
-$link2 = new Link([
-    'href' => 'uri',
-    'rel' => 'next'
-]);
-$collection->addLinkSet([
-    $link1,
-    $link2
-]);
-```
-
-- The interface ```OptionAware``` implemented by ```Enctype```, ```ListData``` and ```Method``` entities,
-provides the methods ```addOption``` and ```addOptionSet```
-
-```php
-$list = new ListData();
-
-// this...
-$list->addOption([
-    'prompt' => 'option prompt',
-    'value' => 'option value'
-]);
-
-// ...is similar to 
-$option = new Option([
-    'prompt' => 'option prompt',
-    'value' => 'option value'
-]);
-$list->addOption($option);
-
-// and that...
-$list->addOptionSet([
-    [
-        'prompt' => 'option 1 prompt',
-        'value' => 'option 1 value'
-    ],
-    [
-        'prompt' => 'option 2 prompt',
-        'value' => 'option 2 value'
-    ]
-]);
-
-// ...is similar to 
-$option1 = new Option([
-    'prompt' => 'option 1 prompt',
-    'value' => 'option 1 value'
-]);
-$option2 = new Option([
-    'prompt' => 'option 2 prompt',
-    'value' => 'option 2 value'
-]);
-$list->addOptionSet([
-    $option1,
-    $option2
-]);
-```
