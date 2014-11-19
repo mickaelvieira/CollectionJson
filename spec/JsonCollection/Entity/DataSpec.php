@@ -26,8 +26,8 @@ class DataSpec extends ObjectBehavior
         $this->setType('value')->shouldHaveType('JsonCollection\Entity\Data');
         $this->setRequired('value')->shouldHaveType('JsonCollection\Entity\Data');
         $this->setList($list)->shouldHaveType('JsonCollection\Entity\Data');
-        $this->addOption([])->shouldHaveType('JsonCollection\Entity\Data');
-        $this->addOptions([])->shouldHaveType('JsonCollection\Entity\Data');
+        $this->addOptionToList([])->shouldHaveType('JsonCollection\Entity\Data');
+        $this->addOptionsToList([])->shouldHaveType('JsonCollection\Entity\Data');
     }
 
     function it_should_inject_data()
@@ -161,7 +161,7 @@ class DataSpec extends ObjectBehavior
     function it_should_add_an_option_to_the_list_when_it_is_passed_as_an_array()
     {
         $this->setName('Data Name');
-        $this->addOption([
+        $this->addOptionToList([
             'value' => 'option value',
             'prompt' => 'option prompt'
         ]);
@@ -181,7 +181,7 @@ class DataSpec extends ObjectBehavior
             'value' => 'option value'
         ]);
 
-        $this->addOption($option);
+        $this->addOptionToList($option);
         $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->getOptionSet()->shouldHaveCount(1);
     }
@@ -199,7 +199,7 @@ class DataSpec extends ObjectBehavior
             $option
         ];
 
-        $this->addOptions($options);
+        $this->addOptionsToList($options);
 
         $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->isMultiple()->shouldBeNull();
@@ -220,7 +220,7 @@ class DataSpec extends ObjectBehavior
             $option
         ];
 
-        $this->addOptions($options, true, 'default value');
+        $this->addOptionsToList($options, true, 'default value');
 
         $this->getList()->shouldHaveType('JsonCollection\Entity\ListData');
         $this->getList()->shouldBeMultiple();

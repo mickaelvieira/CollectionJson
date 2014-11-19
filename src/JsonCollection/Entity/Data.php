@@ -184,7 +184,7 @@ class Data extends BaseEntity
      * @param \JsonCollection\Entity\Option|array $option
      * @return \JsonCollection\Entity\Data
      */
-    public function addOption($option)
+    public function addOptionToList($option)
     {
         $list = $this->getList();
         if (is_array($option)) {
@@ -201,14 +201,14 @@ class Data extends BaseEntity
      * 
      * @return \JsonCollection\Entity\Data
      */
-    public function addOptions(array $options, $multiple = null, $default = null)
+    public function addOptionsToList(array $options, $multiple = null, $default = null)
     {
         $list = $this->getList();
         $list->setMultiple($multiple);
         $list->setDefault($default);
 
         foreach ($options as $option) {
-            $this->addOption($option);
+            $this->addOptionToList($option);
         }
         return $this;
     }

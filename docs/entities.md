@@ -86,7 +86,7 @@ $data->setValue('data value');
 $data->setType(Input::DATETIME);
 $data->setRequired(true);
 $data->setList(new ListData());
-$data->addOption(new Option());     // add option to the list
+$data->addOptionToList(new Option());     // add option to the list
 ```
 
 ### Query
