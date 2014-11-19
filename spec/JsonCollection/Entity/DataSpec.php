@@ -65,10 +65,40 @@ class DataSpec extends ObjectBehavior
         $this->getType()->shouldBeNull();
     }
 
-    function it_should_not_set_the_value_if_it_is_not_string()
+    function it_should_set_the_value_if_it_is_a_boolean()
     {
-        $this->setValue(true);
-        $this->getValue()->shouldBeNull();
+        $this->setValue(false);
+        $this->getValue()->shouldBeEqualTo(false);
+    }
+
+    function it_should_set_the_value_if_it_is_a_string()
+    {
+        $this->setValue("string value");
+        $this->getValue()->shouldBeEqualTo("string value");
+    }
+
+    function it_should_set_the_value_if_it_is_a_number()
+    {
+        $this->setValue(42);
+        $this->getValue()->shouldBeEqualTo(42);
+    }
+
+    function it_should_set_the_value_if_it_is_a_null()
+    {
+        $this->setValue(null);
+        $this->getValue()->shouldBeEqualTo(null);
+    }
+
+    function it_should_set_the_value_if_it_is_an_array()
+    {
+        $this->setValue([]);
+        $this->getValue()->shouldBeNull(null);
+    }
+
+    function it_should_set_the_value_if_it_is_an_object()
+    {
+        $this->setValue(new \stdClass());
+        $this->getValue()->shouldBeNull(null);
     }
 
     function it_should_not_set_required_if_it_is_not_boolean()
