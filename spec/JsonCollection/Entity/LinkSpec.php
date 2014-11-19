@@ -28,7 +28,7 @@ class LinkSpec extends ObjectBehavior
     function it_should_inject_data()
     {
         $data = [
-            'href'   => 'Link Href',
+            'href'   => 'http://example.com',
             'rel'    => 'Link Rel',
             'type'   => 'Link Type',
             'name'   => 'Link Name',
@@ -36,7 +36,7 @@ class LinkSpec extends ObjectBehavior
             'prompt' => 'Link Prompt'
         ];
         $this->inject($data);
-        $this->getHref()->shouldBeEqualTo('Link Href');
+        $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getRel()->shouldBeEqualTo('Link Rel');
         $this->getType()->shouldBeEqualTo('Link Type');
         $this->getName()->shouldBeEqualTo('Link Name');
@@ -47,6 +47,12 @@ class LinkSpec extends ObjectBehavior
     function it_should_not_set_the_href_field_if_it_is_not_a_string()
     {
         $this->setHref(true);
+        $this->getHref()->shouldBeNull();
+    }
+
+    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
+    {
+        $this->setHref('uri');
         $this->getHref()->shouldBeNull();
     }
 
@@ -100,9 +106,9 @@ class LinkSpec extends ObjectBehavior
     function it_should_not_return_null_values()
     {
         $this->setRel('Rel value');
-        $this->setHref('Href value');
+        $this->setHref('http://example.com');
         $this->toArray()->shouldBeEqualTo([
-            'href'   => 'Href value',
+            'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);

@@ -23,16 +23,28 @@ class CollectionSpec extends ObjectBehavior
     function it_should_inject_data($error, $status, $template)
     {
         $data = [
-            'href'     => 'uri',
+            'href'     => 'http://example.com',
             'error'    => $error,
             'status'   => $status,
             'template' => $template
         ];
         $this->inject($data);
-        $this->getHref()->shouldBeEqualTo('uri');
+        $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getError()->shouldBeEqualTo($error);
         $this->getStatus()->shouldBeEqualTo($status);
         $this->getTemplate()->shouldBeEqualTo($template);
+    }
+
+    function it_should_not_set_the_href_field_if_it_is_not_a_string()
+    {
+        $this->setHref(true);
+        $this->getHref()->shouldBeNull();
+    }
+
+    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
+    {
+        $this->setHref('uri');
+        $this->getHref()->shouldBeNull();
     }
 
     /**

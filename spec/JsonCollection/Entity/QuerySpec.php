@@ -29,13 +29,13 @@ class QuerySpec extends ObjectBehavior
     function it_should_inject_data()
     {
         $data = [
-            'href'   => 'Query Href',
+            'href'   => 'http://example.com',
             'rel'    => 'Query Rel',
             'name'   => 'Query Name',
             'prompt' => 'Query Prompt'
         ];
         $this->inject($data);
-        $this->getHref()->shouldBeEqualTo('Query Href');
+        $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getRel()->shouldBeEqualTo('Query Rel');
         $this->getName()->shouldBeEqualTo('Query Name');
         $this->getPrompt()->shouldBeEqualTo('Query Prompt');
@@ -44,6 +44,12 @@ class QuerySpec extends ObjectBehavior
     function it_should_not_set_the_href_field_if_it_is_not_a_string()
     {
         $this->setHref(true);
+        $this->getHref()->shouldBeNull();
+    }
+
+    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
+    {
+        $this->setHref('uri');
         $this->getHref()->shouldBeNull();
     }
 
@@ -80,9 +86,9 @@ class QuerySpec extends ObjectBehavior
     function it_should_not_return_null_values_and_empty_arrays()
     {
         $this->setRel('Rel value');
-        $this->setHref('Href value');
+        $this->setHref('http://example.com');
         $this->toArray()->shouldBeEqualTo([
-            'href'   => 'Href value',
+            'href'   => 'http://example.com',
             'rel'    => 'Rel value',
         ]);
     }
@@ -123,13 +129,13 @@ class QuerySpec extends ObjectBehavior
         $this->addData($data1);
         $this->addData($data2);
         $this->setRel('Rel value');
-        $this->setHref('Href value');
+        $this->setHref('http://example.com');
         $this->toArray()->shouldBeEqualTo([
             'data'   => [
                 ['value' => 'value 1'],
                 ['value' => 'value 2'],
             ],
-            'href'   => 'Href value',
+            'href'   => 'http://example.com',
             'rel'    => 'Rel value'
         ]);
     }

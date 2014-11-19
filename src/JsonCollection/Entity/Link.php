@@ -66,7 +66,7 @@ class Link extends BaseEntity
      */
     public function setHref($href)
     {
-        if (is_string($href)) {
+        if (is_string($href) && filter_var($href, FILTER_VALIDATE_URL)) {
             $this->href = $href;
         }
         return $this;

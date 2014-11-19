@@ -29,15 +29,21 @@ class ItemSpec extends ObjectBehavior
     function it_should_inject_data()
     {
         $data = [
-            'href' => 'Link Href'
+            'href' => 'http://example.com'
         ];
         $this->inject($data);
-        $this->getHref()->shouldBeEqualTo('Link Href');
+        $this->getHref()->shouldBeEqualTo('http://example.com');
     }
 
     function it_should_not_set_the_href_field_if_it_is_not_a_string()
     {
         $this->setHref(true);
+        $this->getHref()->shouldBeNull();
+    }
+
+    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
+    {
+        $this->setHref('uri');
         $this->getHref()->shouldBeNull();
     }
 
@@ -69,7 +75,7 @@ class ItemSpec extends ObjectBehavior
             ]
         );
 
-        $this->setHref('uri');
+        $this->setHref('http://example.com');
         $this->addData($data);
         $this->toArray()->shouldBeEqualTo(
             [
@@ -79,7 +85,7 @@ class ItemSpec extends ObjectBehavior
                         'value' => null
                     ]
                 ],
-                'href' => 'uri',
+                'href' => 'http://example.com',
             ]
         );
     }
