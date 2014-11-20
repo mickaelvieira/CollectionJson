@@ -54,9 +54,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->setHref('href')->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addItem($item)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addItems([$item])->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addItemSet([$item])->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addQuery($query)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addQueries([$query])->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->addQuerySet([$query])->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setError($error)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setTemplate($template)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addLink([])->shouldHaveType('JsonCollection\Entity\Collection');
@@ -78,7 +78,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_item($item)
     {
         $this->addItem($item);
-        $this->getItems()->shouldHaveCount(1);
+        $this->getItemSet()->shouldHaveCount(1);
     }
 
     /**
@@ -87,8 +87,8 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_add_multiple_items($item1, $item2)
     {
-        $this->addItems([$item1, $item2]);
-        $this->getItems()->shouldHaveCount(2);
+        $this->addItemSet([$item1, $item2]);
+        $this->getItemSet()->shouldHaveCount(2);
     }
 
     /**
@@ -97,7 +97,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_query($query)
     {
         $this->addQuery($query);
-        $this->getQueries()->shouldHaveCount(1);
+        $this->getQuerySet()->shouldHaveCount(1);
     }
 
     /**
@@ -106,8 +106,8 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_add_multiple_queries($query1, $query2)
     {
-        $this->addQueries([$query1, $query2]);
-        $this->getQueries()->shouldHaveCount(2);
+        $this->addQuerySet([$query1, $query2]);
+        $this->getQuerySet()->shouldHaveCount(2);
     }
 
     /**

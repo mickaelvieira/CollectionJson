@@ -218,7 +218,7 @@ $collection = new Collection();
 $collection->setHref('http://www.example.com');
 
 $collection->addItem(new Item());
-$collection->addItems([
+$collection->addItemSet([
     new Item(),
     new Item()
 ]);
@@ -230,7 +230,7 @@ $collection->addLinkSet([
 ]);
 
 $collection->addQuery(new Query());
-$collection->addQueries([
+$collection->addQuerySet([
     new Query(),
     new Query()
 ]);

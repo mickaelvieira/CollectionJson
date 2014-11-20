@@ -96,7 +96,7 @@ class Collection extends BaseEntity implements LinkAware
      * @param array $items
      * @return \JsonCollection\Entity\Collection
      */
-    public function addItems(array $items)
+    public function addItemSet(array $items)
     {
         foreach ($items as $item) {
             $this->addItem($item);
@@ -107,7 +107,7 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * @return array
      */
-    public function getItems()
+    public function getItemSet()
     {
         return $this->items;
     }
@@ -126,7 +126,7 @@ class Collection extends BaseEntity implements LinkAware
      * @param array $queries
      * @return \JsonCollection\Entity\Collection
      */
-    public function addQueries(array $queries)
+    public function addQuerySet(array $queries)
     {
         foreach ($queries as $query) {
             $this->addQuery($query);
@@ -137,7 +137,7 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * @return array
      */
-    public function getQueries()
+    public function getQuerySet()
     {
         return $this->queries;
     }
