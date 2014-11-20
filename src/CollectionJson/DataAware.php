@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,27 +10,26 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace CollectionJson;
 
 /**
- * Class LinkAware
- * @package JsonCollection
+ * Interface DataAware
+ * @package CollectionJson
  */
-interface LinkAware
+interface DataAware
 {
     /**
-     * @param \JsonCollection\Entity\Link|array $link
+     * @param \CollectionJson\Entity\Data|array $data
      */
-    public function addLink($link);
+    public function addData($data);
 
     /**
      * @param array $set
-     * @return mixed
      */
-    public function addLinkSet(array $set);
+    public function addDataSet(array $set);
 
     /**
      * @return array
      */
-    public function getLinkSet();
+    public function getDataSet();
 }

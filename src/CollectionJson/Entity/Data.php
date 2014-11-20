@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection\Entity;
+namespace CollectionJson\Entity;
 
-use JsonCollection\BaseEntity;
+use CollectionJson\BaseEntity;
 
 /**
  * Class Data
- * @package JsonCollection\Entity
+ * @package CollectionJson\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#arrays-data
  */
@@ -42,7 +42,7 @@ class Data extends BaseEntity
 
     /**
      * @param string $name
-     * @return \JsonCollection\Entity\Data
+     * @return \CollectionJson\Entity\Data
      */
     public function setName($name)
     {
@@ -62,7 +62,7 @@ class Data extends BaseEntity
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Entity\Data
+     * @return \CollectionJson\Entity\Data
      */
     public function setPrompt($prompt)
     {
@@ -82,7 +82,7 @@ class Data extends BaseEntity
 
     /**
      * @param string $value
-     * @return \JsonCollection\Entity\Data
+     * @return \CollectionJson\Entity\Data
      */
     public function setValue($value)
     {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,17 +10,17 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection\Entity;
+namespace CollectionJson\Entity;
 
-use JsonCollection\BaseEntity;
-use JsonCollection\LinkAware;
-use JsonCollection\DataAware;
-use JsonCollection\LinkContainer;
-use JsonCollection\DataContainer;
+use CollectionJson\BaseEntity;
+use CollectionJson\LinkAware;
+use CollectionJson\DataAware;
+use CollectionJson\LinkContainer;
+use CollectionJson\DataContainer;
 
 /**
  * Class Item
- * @package JsonCollection\Entity
+ * @package CollectionJson\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#arrays-items
  */
@@ -39,7 +39,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
 
     /**
      * @param string $href
-     * @return \JsonCollection\Entity\Item
+     * @return \CollectionJson\Entity\Item
      */
     public function setHref($href)
     {

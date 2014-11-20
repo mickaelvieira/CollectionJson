@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection\Entity;
+namespace CollectionJson\Entity;
 
-use JsonCollection\BaseEntity;
-use JsonCollection\Type\Render as RenderType;
+use CollectionJson\BaseEntity;
+use CollectionJson\Type\Render as RenderType;
 
 /**
  * Class Link
- * @package JsonCollection\Entity
+ * @package CollectionJson\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#arrays-links
  */
@@ -55,7 +55,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $href
-     * @return \JsonCollection\Entity\Link
+     * @return \CollectionJson\Entity\Link
      */
     public function setHref($href)
     {
@@ -75,7 +75,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $rel
-     * @return \JsonCollection\Entity\Link
+     * @return \CollectionJson\Entity\Link
      */
     public function setRel($rel)
     {
@@ -95,7 +95,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $name
-     * @return \JsonCollection\Entity\Link
+     * @return \CollectionJson\Entity\Link
      */
     public function setName($name)
     {
@@ -115,7 +115,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Entity\Link
+     * @return \CollectionJson\Entity\Link
      */
     public function setPrompt($prompt)
     {
@@ -135,7 +135,7 @@ class Link extends BaseEntity
 
     /**
      * @param string $render
-     * @return \JsonCollection\Entity\Link
+     * @return \CollectionJson\Entity\Link
      */
     public function setRender($render)
     {

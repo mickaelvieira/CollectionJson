@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection;
+namespace spec\CollectionJson;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class BaseEntitySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\BaseEntity');
+        $this->shouldHaveType('CollectionJson\BaseEntity');
     }
 
     function it_should_not_inject_any_data()

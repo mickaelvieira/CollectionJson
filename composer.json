@@ -3,7 +3,7 @@
     "description": "PHP implementation of the Collection+JSON Media Type",
     "license": "MIT",
     "type": "library",
-    "homepage": "https://github.com/mickaelvieira/JsonCollection",
+    "homepage": "https://github.com/mickaelvieira/CollectionJson",
     "minimum-stability": "stable",
     "keywords": [
         "Hypermedia",
@@ -31,7 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JsonCollection\\": "src/JsonCollection/"
+            "CollectionJson\\": "src/CollectionJson/"
         }
     }
 }

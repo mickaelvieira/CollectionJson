@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace CollectionJson;
 
 use JsonSerializable;
 
 /**
  * Class DataExtraction
- * @package JsonCollection
+ * @package CollectionJson
  */
 abstract class Extraction implements JsonSerializable, ArrayConvertible
 {

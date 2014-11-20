@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,15 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection\Entity;
+namespace CollectionJson\Entity;
 
-use JsonCollection\BaseEntity;
-use JsonCollection\LinkAware;
-use JsonCollection\LinkContainer;
+use CollectionJson\BaseEntity;
+use CollectionJson\LinkAware;
+use CollectionJson\LinkContainer;
 
 /**
  * Class Collection
- * @package JsonCollection\Entity
+ * @package CollectionJson\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#objects-collection
  */
@@ -51,20 +51,20 @@ class Collection extends BaseEntity implements LinkAware
     protected $queries = [];
 
     /**
-     * @var \JsonCollection\Entity\Error
+     * @var \CollectionJson\Entity\Error
      * @link http://amundsen.com/media-types/collection/format/#objects-error
      */
     protected $error;
 
     /**
-     * @var \JsonCollection\Entity\Template
+     * @var \CollectionJson\Entity\Template
      * @link http://amundsen.com/media-types/collection/format/#ojects-template
      */
     protected $template;
 
     /**
      * @param string $href
-     * @return \JsonCollection\Entity\Collection
+     * @return \CollectionJson\Entity\Collection
      */
     public function setHref($href)
     {
@@ -83,8 +83,8 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \JsonCollection\Entity\Item $item
-     * @return \JsonCollection\Entity\Collection
+     * @param \CollectionJson\Entity\Item $item
+     * @return \CollectionJson\Entity\Collection
      */
     public function addItem(Item $item)
     {
@@ -94,7 +94,7 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param array $items
-     * @return \JsonCollection\Entity\Collection
+     * @return \CollectionJson\Entity\Collection
      */
     public function addItemSet(array $items)
     {
@@ -113,8 +113,8 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \JsonCollection\Entity\Query $query
-     * @return \JsonCollection\Entity\Collection
+     * @param \CollectionJson\Entity\Query $query
+     * @return \CollectionJson\Entity\Collection
      */
     public function addQuery(Query $query)
     {
@@ -124,7 +124,7 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param array $queries
-     * @return \JsonCollection\Entity\Collection
+     * @return \CollectionJson\Entity\Collection
      */
     public function addQuerySet(array $queries)
     {
@@ -143,8 +143,8 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \JsonCollection\Entity\Error $error
-     * @return \JsonCollection\Entity\Collection
+     * @param \CollectionJson\Entity\Error $error
+     * @return \CollectionJson\Entity\Collection
      */
     public function setError(Error $error)
     {
@@ -153,7 +153,7 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return \JsonCollection\Entity\Error|null
+     * @return \CollectionJson\Entity\Error|null
      */
     public function getError()
     {
@@ -161,8 +161,8 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \JsonCollection\Entity\Template $template
-     * @return \JsonCollection\Entity\Collection
+     * @param \CollectionJson\Entity\Template $template
+     * @return \CollectionJson\Entity\Collection
      */
     public function setTemplate(Template $template)
     {
@@ -171,7 +171,7 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return \JsonCollection\Entity\Template|null
+     * @return \CollectionJson\Entity\Template|null
      */
     public function getTemplate()
     {

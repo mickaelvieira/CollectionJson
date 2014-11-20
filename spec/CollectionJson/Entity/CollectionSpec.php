@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection\Entity;
+namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,15 +9,15 @@ class CollectionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->shouldImplement('JsonCollection\ArrayInjectable');
-        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->shouldImplement('CollectionJson\ArrayInjectable');
+        $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     /**
-     * @param \JsonCollection\Entity\Error $error
-     * @param \JsonCollection\Entity\Template $template
+     * @param \CollectionJson\Entity\Error $error
+     * @param \CollectionJson\Entity\Template $template
      */
     function it_should_inject_data($error, $template)
     {
@@ -45,22 +45,22 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Item $item
-     * @param \JsonCollection\Entity\Query $query
-     * @param \JsonCollection\Entity\Error $error
-     * @param \JsonCollection\Entity\Template $template
+     * @param \CollectionJson\Entity\Item $item
+     * @param \CollectionJson\Entity\Query $query
+     * @param \CollectionJson\Entity\Error $error
+     * @param \CollectionJson\Entity\Template $template
      */
     function it_should_be_chainable($item, $query, $error, $template)
     {
-        $this->setHref('href')->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addItem($item)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addItemSet([$item])->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addQuery($query)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addQuerySet([$query])->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->setError($error)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->setTemplate($template)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addLink([])->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->addLinkSet([])->shouldHaveType('JsonCollection\Entity\Collection');
+        $this->setHref('href')->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addItem($item)->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addItemSet([$item])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addQuery($query)->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addQuerySet([$query])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->setError($error)->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->setTemplate($template)->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addLink([])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addLinkSet([])->shouldHaveType('CollectionJson\Entity\Collection');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -73,7 +73,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Item $item
+     * @param \CollectionJson\Entity\Item $item
      */
     function it_should_add_a_item($item)
     {
@@ -82,8 +82,8 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Item $item1
-     * @param \JsonCollection\Entity\Item $item2
+     * @param \CollectionJson\Entity\Item $item1
+     * @param \CollectionJson\Entity\Item $item2
      */
     function it_should_add_multiple_items($item1, $item2)
     {
@@ -92,7 +92,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Query $query
+     * @param \CollectionJson\Entity\Query $query
      */
     function it_should_add_a_query($query)
     {
@@ -101,8 +101,8 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Query $query1
-     * @param \JsonCollection\Entity\Query $query2
+     * @param \CollectionJson\Entity\Query $query1
+     * @param \CollectionJson\Entity\Query $query2
      */
     function it_should_add_multiple_queries($query1, $query2)
     {
@@ -111,7 +111,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Link $link
+     * @param \CollectionJson\Entity\Link $link
      */
     function it_should_add_a_link($link)
     {
@@ -130,7 +130,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Link $link1
+     * @param \CollectionJson\Entity\Link $link1
      */
     function it_should_add_a_link_set($link1)
     {
@@ -147,22 +147,22 @@ class CollectionSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Error $error
+     * @param \CollectionJson\Entity\Error $error
      */
     function it_should_set_the_error($error)
     {
         $error->getCode()->willReturn("error code");
         $this->setError($error);
-        $this->getError()->shouldBeAnInstanceOf('JsonCollection\Entity\Error');
+        $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
         $this->getError()->getCode()->shouldBeEqualTo("error code");
     }
 
     /**
-     * @param \JsonCollection\Entity\Template $template
+     * @param \CollectionJson\Entity\Template $template
      */
     function it_should_set_the_template($template)
     {
         $this->setTemplate($template);
-        $this->getTemplate()->shouldBeAnInstanceOf('JsonCollection\Entity\Template');
+        $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
     }
 }

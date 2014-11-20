@@ -7,9 +7,9 @@ Specification:
 
 ## Installation
 
-JsonCollection requires php >= 5.4
+CollectionJson requires php >= 5.4
 
-Install JsonCollection with [Composer](https://getcomposer.org/)
+Install CollectionJson with [Composer](https://getcomposer.org/)
 
 ```json
 {
@@ -22,8 +22,8 @@ Install JsonCollection with [Composer](https://getcomposer.org/)
 ## Contributing
 
 ```sh
-$ git clone git@github.com:mickaelvieira/JsonCollection.git
-$ cd JsonCollection
+$ git clone git@github.com:mickaelvieira/CollectionJson.git
+$ cd CollectionJson
 $ composer install
 ```
 
@@ -48,8 +48,8 @@ $ ./bin/phpcs --standard=PSR2 ./src/
 ### Creating a collection
 
 ```php
-use JsonCollection\Entity\Collection;
-use JsonCollection\Entity\Item;
+use CollectionJson\Entity\Collection;
+use CollectionJson\Entity\Item;
 
 $collection = new Collection();
 
@@ -129,7 +129,7 @@ Array
 
 #### Adding an envelope
 
-The ```JsonCollection\Entity\Collection``` entity will be wrapped within an envelope...
+The ```CollectionJson\Entity\Collection``` entity will be wrapped within an envelope...
 
 ```php
 echo json_encode($collection);
@@ -207,12 +207,12 @@ $next->setValue('email value');
 [http://amundsen.com/media-types/collection/format/#objects-collection](http://amundsen.com/media-types/collection/format/#objects-collection)
 
 ```php
-use JsonCollection\Entity\Collection;
-use JsonCollection\Entity\Item;
-use JsonCollection\Entity\Query;
-use JsonCollection\Entity\Error;
-use JsonCollection\Entity\Template;
-use JsonCollection\Entity\Link;
+use CollectionJson\Entity\Collection;
+use CollectionJson\Entity\Item;
+use CollectionJson\Entity\Query;
+use CollectionJson\Entity\Error;
+use CollectionJson\Entity\Template;
+use CollectionJson\Entity\Link;
 
 $collection = new Collection();
 $collection->setHref('http://www.example.com');
@@ -244,9 +244,9 @@ $collection->setTemplate(new Template());
 [http://amundsen.com/media-types/collection/format/#arrays-items](http://amundsen.com/media-types/collection/format/#arrays-items)
 
 ```php
-use JsonCollection\Entity\Item;
-use JsonCollection\Entity\Data;
-use JsonCollection\Entity\Link;
+use CollectionJson\Entity\Item;
+use CollectionJson\Entity\Data;
+use CollectionJson\Entity\Link;
 
 $item = new Item();
 $item->setHref('http://www.example.com');
@@ -270,9 +270,9 @@ $item->addLinkSet([
 [http://amundsen.com/media-types/collection/format/#arrays-links](http://amundsen.com/media-types/collection/format/#arrays-links)
 
 ```php
-use JsonCollection\Entity\Link;
-use JsonCollection\Entity\Type\Render;
-use JsonCollection\Entity\Type\Relation;
+use CollectionJson\Entity\Link;
+use CollectionJson\Entity\Type\Render;
+use CollectionJson\Entity\Type\Relation;
 
 $link = new Link();
 $link->setName('link name');
@@ -287,9 +287,9 @@ $link->setRender(Render::IMAGE); // default Render::LINK
 [http://amundsen.com/media-types/collection/format/#arrays-queries](http://amundsen.com/media-types/collection/format/#arrays-queries)
 
 ```php
-use JsonCollection\Entity\Query;
-use JsonCollection\Entity\Data;
-use JsonCollection\Entity\Type\Relation;
+use CollectionJson\Entity\Query;
+use CollectionJson\Entity\Data;
+use CollectionJson\Entity\Type\Relation;
 
 $query = new Query();
 $query->setHref('http://www.example.com');
@@ -309,7 +309,7 @@ $query->addDataSet([
 [http://amundsen.com/media-types/collection/format/#objects-error](http://amundsen.com/media-types/collection/format/#objects-error)
 
 ```php
-use JsonCollection\Entity\Error;
+use CollectionJson\Entity\Error;
 
 $error = new Error();
 $error->setTitle('error title');
@@ -322,8 +322,8 @@ $error->setMessage('error message');
 [http://amundsen.com/media-types/collection/format/#objects-template](http://amundsen.com/media-types/collection/format/#objects-template)
 
 ```php
-use JsonCollection\Entity\Template;
-use JsonCollection\Entity\Data;
+use CollectionJson\Entity\Template;
+use CollectionJson\Entity\Data;
 
 $template = new Template();
 
@@ -340,10 +340,10 @@ $template->addDataSet([
 [http://amundsen.com/media-types/collection/format/#arrays-data](http://amundsen.com/media-types/collection/format/#arrays-data)
 
 ```php
-use JsonCollection\Entity\Data;
-use JsonCollection\Entity\ListData;
-use JsonCollection\Entity\Option;
-use JsonCollection\Entity\Type\Input;
+use CollectionJson\Entity\Data;
+use CollectionJson\Entity\ListData;
+use CollectionJson\Entity\Option;
+use CollectionJson\Entity\Type\Input;
 
 $data = new Data();
 $data->setName('data name');
@@ -353,7 +353,7 @@ $data->setValue('data value');
 
 ### Working with data and links
 
-In order to work with JsonCollection Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement the same logic.
+In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement the same logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
 provides the methods ```addData```, ```addDataSet``` and ```getDataSet```

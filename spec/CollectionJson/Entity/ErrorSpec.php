@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection\Entity;
+namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,17 +9,17 @@ class ErrorSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Entity\Error');
-        $this->shouldImplement('JsonCollection\ArrayInjectable');
-        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldHaveType('CollectionJson\Entity\Error');
+        $this->shouldImplement('CollectionJson\ArrayInjectable');
+        $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_be_chainable()
     {
-        $this->setCode('value')->shouldHaveType('JsonCollection\Entity\Error');
-        $this->setMessage('value')->shouldHaveType('JsonCollection\Entity\Error');
-        $this->setTitle('value')->shouldHaveType('JsonCollection\Entity\Error');
+        $this->setCode('value')->shouldHaveType('CollectionJson\Entity\Error');
+        $this->setMessage('value')->shouldHaveType('CollectionJson\Entity\Error');
+        $this->setTitle('value')->shouldHaveType('CollectionJson\Entity\Error');
     }
 
     function it_should_inject_data()

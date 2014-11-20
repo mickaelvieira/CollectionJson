@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection\Entity;
+namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,17 +9,17 @@ class TemplateSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Entity\Template');
-        $this->shouldImplement('JsonCollection\DataAware');
-        $this->shouldImplement('JsonCollection\ArrayInjectable');
-        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldHaveType('CollectionJson\Entity\Template');
+        $this->shouldImplement('CollectionJson\DataAware');
+        $this->shouldImplement('CollectionJson\ArrayInjectable');
+        $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_be_chainable()
     {
-        $this->addData([])->shouldHaveType('JsonCollection\Entity\Template');
-        $this->addDataSet([])->shouldHaveType('JsonCollection\Entity\Template');
+        $this->addData([])->shouldHaveType('CollectionJson\Entity\Template');
+        $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Template');
     }
 
     function it_should_not_return_null_values_and_empty_arrays()
@@ -28,7 +28,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Data $data
+     * @param \CollectionJson\Entity\Data $data
      */
     function it_should_add_data_when_it_is_passed_as_an_object($data)
     {
@@ -43,7 +43,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Data $data
+     * @param \CollectionJson\Entity\Data $data
      */
     function it_should_add_a_data_set($data)
     {
@@ -52,8 +52,8 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Data $data1
-     * @param \JsonCollection\Entity\Data $data2
+     * @param \CollectionJson\Entity\Data $data1
+     * @param \CollectionJson\Entity\Data $data2
      */
     function it_should_return_an_array_with_the_data_list($data1, $data2)
     {
@@ -71,7 +71,7 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Data $data
+     * @param \CollectionJson\Entity\Data $data
      */
     function it_should_add_an_envelope($data)
     {
@@ -89,8 +89,8 @@ class TemplateSpec extends ObjectBehavior
     }
 
     /**
-     * @param \JsonCollection\Entity\Data $data1
-     * @param \JsonCollection\Entity\Data $data2
+     * @param \CollectionJson\Entity\Data $data1
+     * @param \CollectionJson\Entity\Data $data2
      */
     function it_should_retrieve_the_data_by_name($data1, $data2)
     {

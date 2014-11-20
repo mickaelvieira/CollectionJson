@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,15 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection\Entity;
+namespace CollectionJson\Entity;
 
-use JsonCollection\BaseEntity;
-use JsonCollection\DataAware;
-use JsonCollection\DataContainer;
+use CollectionJson\BaseEntity;
+use CollectionJson\DataAware;
+use CollectionJson\DataContainer;
 
 /**
  * Class Query
- * @package JsonCollection\Entity
+ * @package CollectionJson\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#arrays-queries
  */
@@ -53,7 +53,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $href
-     * @return \JsonCollection\Entity\Query
+     * @return \CollectionJson\Entity\Query
      */
     public function setHref($href)
     {
@@ -73,7 +73,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $name
-     * @return \JsonCollection\Entity\Query
+     * @return \CollectionJson\Entity\Query
      */
     public function setName($name)
     {
@@ -93,7 +93,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $prompt
-     * @return \JsonCollection\Entity\Query
+     * @return \CollectionJson\Entity\Query
      */
     public function setPrompt($prompt)
     {
@@ -113,7 +113,7 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $rel
-     * @return \JsonCollection\Entity\Query
+     * @return \CollectionJson\Entity\Query
      */
     public function setRel($rel)
     {

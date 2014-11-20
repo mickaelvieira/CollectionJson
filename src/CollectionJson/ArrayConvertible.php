@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,17 +10,16 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace CollectionJson;
 
 /**
- * Interface DataInjectable
- * @package JsonCollection
+ * Interface ArrayConvertible
+ * @package CollectionJson
  */
-interface ArrayInjectable
+interface ArrayConvertible
 {
     /**
-     * @param array $data
-     * @return mixed
+     * @return array
      */
-    public function inject(array $data);
+    public function toArray();
 }

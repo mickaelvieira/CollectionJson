@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\JsonCollection\Entity;
+namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,17 +9,17 @@ class DataSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('JsonCollection\Entity\Data');
-        $this->shouldImplement('JsonCollection\ArrayInjectable');
-        $this->shouldImplement('JsonCollection\ArrayConvertible');
+        $this->shouldHaveType('CollectionJson\Entity\Data');
+        $this->shouldImplement('CollectionJson\ArrayInjectable');
+        $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
 
     function it_should_be_chainable()
     {
-        $this->setName('value')->shouldHaveType('JsonCollection\Entity\Data');
-        $this->setPrompt('value')->shouldHaveType('JsonCollection\Entity\Data');
-        $this->setValue('value')->shouldHaveType('JsonCollection\Entity\Data');
+        $this->setName('value')->shouldHaveType('CollectionJson\Entity\Data');
+        $this->setPrompt('value')->shouldHaveType('CollectionJson\Entity\Data');
+        $this->setValue('value')->shouldHaveType('CollectionJson\Entity\Data');
     }
 
     function it_should_inject_data()

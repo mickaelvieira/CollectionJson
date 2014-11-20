@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace CollectionJson;
 
-use JsonCollection\Entity\Data;
+use CollectionJson\Entity\Data;
 
 /**
  * Class DataContainer
- * @package JsonCollection
+ * @package CollectionJson
  */
 trait DataContainer
 {
@@ -27,7 +27,7 @@ trait DataContainer
     protected $data = [];
 
     /**
-     * @param \JsonCollection\Entity\Data|array $data
+     * @param \CollectionJson\Entity\Data|array $data
      * @return mixed
      */
     public function addData($data)
@@ -63,13 +63,13 @@ trait DataContainer
 
     /**
      * @param string $name
-     * @return \JsonCollection\Entity\Data|null
+     * @return \CollectionJson\Entity\Data|null
      */
     public function getDataByName($name)
     {
         $entity = null;
         foreach ($this->getDataSet() as $data) {
-            /** @var \JsonCollection\Entity\Data $data */
+            /** @var \CollectionJson\Entity\Data $data */
             if ($data->getName() === $name) {
                 $entity = $data;
                 break;

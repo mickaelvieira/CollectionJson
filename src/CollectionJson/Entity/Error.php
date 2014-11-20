@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection\Entity;
+namespace CollectionJson\Entity;
 
-use JsonCollection\BaseEntity;
+use CollectionJson\BaseEntity;
 
 /**
  * Class Error
- * @package JsonCollection\Entity
+ * @package CollectionJson\Entity
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#objects-error
  */
@@ -42,7 +42,7 @@ class Error extends BaseEntity
 
     /**
      * @param string $code
-     * @return \JsonCollection\Entity\Error
+     * @return \CollectionJson\Entity\Error
      */
     public function setCode($code)
     {
@@ -62,7 +62,7 @@ class Error extends BaseEntity
 
     /**
      * @param string $message
-     * @return \JsonCollection\Entity\Error
+     * @return \CollectionJson\Entity\Error
      */
     public function setMessage($message)
     {
@@ -82,7 +82,7 @@ class Error extends BaseEntity
 
     /**
      * @param string $title
-     * @return \JsonCollection\Entity\Error
+     * @return \CollectionJson\Entity\Error
      */
     public function setTitle($title)
     {

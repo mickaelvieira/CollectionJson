@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of JsonCollection, a php implementation
+ * This file is part of CollectionJson, a php implementation
  * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace JsonCollection;
+namespace CollectionJson;
 
-use JsonCollection\Entity\Link;
+use CollectionJson\Entity\Link;
 
 /**
  * Class LinkContainer
- * @package JsonCollection
+ * @package CollectionJson
  */
 trait LinkContainer
 {
@@ -27,7 +27,7 @@ trait LinkContainer
     protected $links = [];
 
     /**
-     * @param \JsonCollection\Entity\Link|array $link
+     * @param \CollectionJson\Entity\Link|array $link
      * @return mixed
      */
     public function addLink($link)
