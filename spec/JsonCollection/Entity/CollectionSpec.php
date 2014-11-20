@@ -17,21 +17,18 @@ class CollectionSpec extends ObjectBehavior
 
     /**
      * @param \JsonCollection\Entity\Error $error
-     * @param \JsonCollection\Entity\Status $status
      * @param \JsonCollection\Entity\Template $template
      */
-    function it_should_inject_data($error, $status, $template)
+    function it_should_inject_data($error, $template)
     {
         $data = [
             'href'     => 'http://example.com',
             'error'    => $error,
-            'status'   => $status,
             'template' => $template
         ];
         $this->inject($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getError()->shouldBeEqualTo($error);
-        $this->getStatus()->shouldBeEqualTo($status);
         $this->getTemplate()->shouldBeEqualTo($template);
     }
 
@@ -51,10 +48,9 @@ class CollectionSpec extends ObjectBehavior
      * @param \JsonCollection\Entity\Item $item
      * @param \JsonCollection\Entity\Query $query
      * @param \JsonCollection\Entity\Error $error
-     * @param \JsonCollection\Entity\Status $status
      * @param \JsonCollection\Entity\Template $template
      */
-    function it_should_be_chainable($item, $query, $error, $status, $template)
+    function it_should_be_chainable($item, $query, $error, $template)
     {
         $this->setHref('href')->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addItem($item)->shouldHaveType('JsonCollection\Entity\Collection');
@@ -62,7 +58,6 @@ class CollectionSpec extends ObjectBehavior
         $this->addQuery($query)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addQueries([$query])->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setError($error)->shouldHaveType('JsonCollection\Entity\Collection');
-        $this->setStatus($status)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->setTemplate($template)->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addLink([])->shouldHaveType('JsonCollection\Entity\Collection');
         $this->addLinkSet([])->shouldHaveType('JsonCollection\Entity\Collection');
@@ -149,17 +144,6 @@ class CollectionSpec extends ObjectBehavior
             new \stdClass()
         ]);
         $this->getLinkSet()->shouldHaveCount(2);
-    }
-
-    /**
-     * @param \JsonCollection\Entity\Status $status
-     */
-    function it_should_set_the_status($status)
-    {
-        $status->getCode()->willReturn("status code");
-        $this->setStatus($status);
-        $this->getStatus()->shouldBeAnInstanceOf('JsonCollection\Entity\Status');
-        $this->getStatus()->getCode()->shouldBeEqualTo("status code");
     }
 
     /**

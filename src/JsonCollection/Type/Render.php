@@ -2,7 +2,7 @@
 
 /*
  * This file is part of JsonCollection, a php implementation
- * of the Collection.next+JSON Media Type
+ * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
  *

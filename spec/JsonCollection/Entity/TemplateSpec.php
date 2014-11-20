@@ -16,14 +16,8 @@ class TemplateSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
-    /**
-     * @param \JsonCollection\Entity\Method $method
-     * @param \JsonCollection\Entity\Enctype $enctype
-     */
-    function it_should_be_chainable($method, $enctype)
+    function it_should_be_chainable()
     {
-        $this->setMethod($method)->shouldHaveType('JsonCollection\Entity\Template');
-        $this->setEnctype($enctype)->shouldHaveType('JsonCollection\Entity\Template');
         $this->addData([])->shouldHaveType('JsonCollection\Entity\Template');
         $this->addDataSet([])->shouldHaveType('JsonCollection\Entity\Template');
     }
@@ -31,58 +25,6 @@ class TemplateSpec extends ObjectBehavior
     function it_should_not_return_null_values_and_empty_arrays()
     {
         $this->toArray()->shouldBeEqualTo([]);
-    }
-
-    /**
-     * @param \JsonCollection\Entity\Method $method
-     */
-    function it_should_return_an_array_with_the_method($method)
-    {
-        $method->toArray()->willReturn([
-            'options' => [
-                [
-                    'value' => 'Value 1',
-                    'prompt' => 'Prompt 1'
-                ]
-            ]
-        ]);
-        $this->setMethod($method);
-        $this->toArray()->shouldBeEqualTo([
-            'method' => [
-                'options' => [
-                    [
-                        'value' => 'Value 1',
-                        'prompt' => 'Prompt 1'
-                    ]
-                ]
-            ]
-        ]);
-    }
-
-    /**
-     * @param \JsonCollection\Entity\Enctype $enctype
-     */
-    function it_should_return_an_array_with_the_enctype($enctype)
-    {
-        $enctype->toArray()->willReturn([
-            'options' => [
-                [
-                    'value' => 'Value 1',
-                    'prompt' => 'Prompt 1'
-                ]
-            ]
-        ]);
-        $this->setEnctype($enctype);
-        $this->toArray()->shouldBeEqualTo([
-            'enctype' => [
-                'options' => [
-                    [
-                        'value' => 'Value 1',
-                        'prompt' => 'Prompt 1'
-                    ]
-                ]
-            ]
-        ]);
     }
 
     /**
@@ -164,15 +106,5 @@ class TemplateSpec extends ObjectBehavior
     function it_should_return_null_when_data_is_not_the_set()
     {
         $this->getDataByName('name1')->shouldBeNull(null);
-    }
-
-    function it_should_return_a_method_entity()
-    {
-        $this->getMethod()->shouldHaveType('JsonCollection\Entity\Method');
-    }
-
-    function it_should_return_a_enctype_entity()
-    {
-        $this->getEnctype()->shouldHaveType('JsonCollection\Entity\Enctype');
     }
 }

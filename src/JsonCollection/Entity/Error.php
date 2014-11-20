@@ -2,7 +2,7 @@
 
 /*
  * This file is part of JsonCollection, a php implementation
- * of the Collection.next+JSON Media Type
+ * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
  *
@@ -13,16 +13,14 @@
 namespace JsonCollection\Entity;
 
 use JsonCollection\BaseEntity;
-use JsonCollection\MessageAware;
 
 /**
  * Class Error
  * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
- * @link http://code.ge/media-types/collection-next-json/
  * @link http://amundsen.com/media-types/collection/format/#objects-error
  */
-class Error extends BaseEntity implements MessageAware
+class Error extends BaseEntity
 {
     /**
      * @var string
@@ -41,12 +39,6 @@ class Error extends BaseEntity implements MessageAware
      * @link http://amundsen.com/media-types/collection/format/#property-message
      */
     protected $message;
-
-    /**
-     * @var array
-     * @link http://code.ge/media-types/collection-next-json/#array-messages
-     */
-    protected $messages = [];
 
     /**
      * @param string $code
@@ -106,41 +98,6 @@ class Error extends BaseEntity implements MessageAware
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * @param \JsonCollection\Entity\Message|array $message
-     * @return \JsonCollection\Entity\Error
-     */
-    public function addMessage($message)
-    {
-        if (is_array($message)) {
-            $message = new Message($message);
-        }
-        if ($message instanceof Message) {
-            array_push($this->messages, $message);
-        }
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMessageSet()
-    {
-        return $this->messages;
-    }
-
-    /**
-     * @param array $messages
-     * @return \JsonCollection\Entity\Error
-     */
-    public function addMessageSet(array $messages)
-    {
-        foreach ($messages as $message) {
-            $this->addMessage($message);
-        }
-        return $this;
     }
 
     /**

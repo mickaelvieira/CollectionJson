@@ -1,6 +1,6 @@
 {
     "name": "mvieira/json-collection",
-    "description": "PHP implementation of the Collection.next+JSON Media Type",
+    "description": "PHP implementation of the Collection+JSON Media Type",
     "license": "MIT",
     "type": "library",
     "homepage": "https://github.com/mickaelvieira/JsonCollection",

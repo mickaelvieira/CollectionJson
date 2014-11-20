@@ -2,7 +2,7 @@
 
 /*
  * This file is part of JsonCollection, a php implementation
- * of the Collection.next+JSON Media Type
+ * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
  *
@@ -19,7 +19,6 @@ use JsonCollection\Type\Render as RenderType;
  * Class Link
  * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
- * @link http://code.ge/media-types/collection-next-json/
  * @link http://amundsen.com/media-types/collection/format/#arrays-links
  */
 class Link extends BaseEntity
@@ -35,12 +34,6 @@ class Link extends BaseEntity
      * @link http://amundsen.com/media-types/collection/format/#properties-rel
      */
     protected $rel;
-
-    /**
-     * @var string
-     * @link http://code.ge/media-types/collection-next-json/#property-type
-     */
-    protected $type;
 
     /**
      * @var string
@@ -98,26 +91,6 @@ class Link extends BaseEntity
     public function getRel()
     {
         return $this->rel;
-    }
-
-    /**
-     * @param string $type
-     * @return \JsonCollection\Entity\Link
-     */
-    public function setType($type)
-    {
-        if (is_string($type)) {
-            $this->type = $type;
-        }
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

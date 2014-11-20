@@ -19,7 +19,6 @@ class LinkSpec extends ObjectBehavior
     {
         $this->setHref('value')->shouldHaveType('JsonCollection\Entity\Link');
         $this->setRel('value')->shouldHaveType('JsonCollection\Entity\Link');
-        $this->setType('value')->shouldHaveType('JsonCollection\Entity\Link');
         $this->setName('value')->shouldHaveType('JsonCollection\Entity\Link');
         $this->setPrompt('value')->shouldHaveType('JsonCollection\Entity\Link');
         $this->setRender('value')->shouldHaveType('JsonCollection\Entity\Link');
@@ -30,7 +29,6 @@ class LinkSpec extends ObjectBehavior
         $data = [
             'href'   => 'http://example.com',
             'rel'    => 'Link Rel',
-            'type'   => 'Link Type',
             'name'   => 'Link Name',
             'render' => 'image',
             'prompt' => 'Link Prompt'
@@ -38,7 +36,6 @@ class LinkSpec extends ObjectBehavior
         $this->inject($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getRel()->shouldBeEqualTo('Link Rel');
-        $this->getType()->shouldBeEqualTo('Link Type');
         $this->getName()->shouldBeEqualTo('Link Name');
         $this->getRender()->shouldBeEqualTo('image');
         $this->getPrompt()->shouldBeEqualTo('Link Prompt');
@@ -60,12 +57,6 @@ class LinkSpec extends ObjectBehavior
     {
         $this->setRel(true);
         $this->getRel()->shouldBeNull();
-    }
-
-    function it_should_not_set_the_type_field_if_it_is_not_a_string()
-    {
-        $this->setType(true);
-        $this->getType()->shouldBeNull();
     }
 
     function it_should_not_set_the_name_field_if_it_is_not_a_string()

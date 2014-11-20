@@ -2,7 +2,7 @@
 
 /*
  * This file is part of JsonCollection, a php implementation
- * of the Collection.next+JSON Media Type
+ * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
  *
@@ -20,7 +20,6 @@ use JsonCollection\LinkContainer;
  * Class Collection
  * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
- * @link http://code.ge/media-types/collection-next-json/
  * @link http://amundsen.com/media-types/collection/format/#objects-collection
  */
 class Collection extends BaseEntity implements LinkAware
@@ -56,12 +55,6 @@ class Collection extends BaseEntity implements LinkAware
      * @link http://amundsen.com/media-types/collection/format/#objects-error
      */
     protected $error;
-
-    /**
-     * @var \JsonCollection\Entity\Status
-     * @link http://code.ge/media-types/collection-next-json/#object-status
-     */
-    protected $status;
 
     /**
      * @var \JsonCollection\Entity\Template

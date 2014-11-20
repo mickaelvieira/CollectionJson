@@ -1,10 +1,9 @@
 # Json Collection
 
-PHP implementation of the Collection.next+JSON Media Type
+PHP implementation of the Collection+JSON Media Type
 
 Specification: 
 - [http://amundsen.com/media-types/collection/](http://amundsen.com/media-types/collection/)
-- [http://code.ge/media-types/collection-next-json/](http://code.ge/media-types/collection-next-json/)
 
 ## Documentation
 
@@ -34,10 +33,4 @@ This project follows the coding style guide [PSR2](https://github.com/php-fig/fi
 
 ```sh
 $ ./bin/phpcs --standard=PSR2 ./src/
-```
-
-### PHP Mess Detector
-
-```sh
-$ ./bin/phpmd ./src/ html codesize, controversial, design, naming, unusedcode
 ```

@@ -2,7 +2,7 @@
 
 /*
  * This file is part of JsonCollection, a php implementation
- * of the Collection.next+JSON Media Type
+ * of the Collection+JSON Media Type
  *
  * (c) Mickaël Vieira <contact@mickael-vieira.com>
  *
@@ -22,7 +22,6 @@ use JsonCollection\DataContainer;
  * Class Item
  * @package JsonCollection\Entity
  * @link http://amundsen.com/media-types/collection/format/
- * @link http://code.ge/media-types/collection-next-json/
  * @link http://amundsen.com/media-types/collection/format/#arrays-items
  */
 class Item extends BaseEntity implements LinkAware, DataAware
