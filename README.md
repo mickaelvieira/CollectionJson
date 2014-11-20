@@ -1,4 +1,4 @@
-# Json Collection
+# Collection Json
 
 PHP implementation of the Collection+JSON Media Type
 
