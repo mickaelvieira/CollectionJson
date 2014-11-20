@@ -9,7 +9,7 @@ Specification:
 
 JsonCollection requires php >= 5.4
 
-Install JsonCollection with [Composer](https://getcomposer.org/):
+Install JsonCollection with [Composer](https://getcomposer.org/)
 
 ```json
 {
@@ -173,7 +173,6 @@ echo json_encode($template);
     }
 }
 ```
-
 ### Creating an entity
 
 All entities can be created by passing an array in the constructor...
@@ -203,11 +202,158 @@ $next->setName('email');
 $next->setValue('email value');
 ```
 
-See the [entities documentation](entities.md) for the detail of each entity.
+#### Collection
+
+[http://amundsen.com/media-types/collection/format/#objects-collection](http://amundsen.com/media-types/collection/format/#objects-collection)
+
+```php
+use JsonCollection\Entity\Collection;
+use JsonCollection\Entity\Item;
+use JsonCollection\Entity\Query;
+use JsonCollection\Entity\Error;
+use JsonCollection\Entity\Template;
+use JsonCollection\Entity\Link;
+
+$collection = new Collection();
+$collection->setHref('http://www.example.com');
+
+$collection->addItem(new Item());
+$collection->addItems([
+    new Item(),
+    new Item()
+]);
+
+$collection->addLink(new Link());
+$collection->addLinkSet([
+    new Link(),
+    new Link()
+]);
+
+$collection->addQuery(new Query());
+$collection->addQueries([
+    new Query(),
+    new Query()
+]);
+
+$collection->setError(new Error());
+$collection->setTemplate(new Template());
+```
+
+#### Item
+
+[http://amundsen.com/media-types/collection/format/#arrays-items](http://amundsen.com/media-types/collection/format/#arrays-items)
+
+```php
+use JsonCollection\Entity\Item;
+use JsonCollection\Entity\Data;
+use JsonCollection\Entity\Link;
+
+$item = new Item();
+$item->setHref('http://www.example.com');
+
+$item->addData(new Data());
+$item->addDataSet([
+    new Data(),
+    new Data()
+]);
+
+$item->addLink(new Link());
+$item->addLinkSet([
+    new Link(),
+    new Link()
+]);
+
+```
+
+#### Link
+
+[http://amundsen.com/media-types/collection/format/#arrays-links](http://amundsen.com/media-types/collection/format/#arrays-links)
+
+```php
+use JsonCollection\Entity\Link;
+use JsonCollection\Entity\Type\Render;
+use JsonCollection\Entity\Type\Relation;
+
+$link = new Link();
+$link->setName('link name');
+$link->setHref('http://www.example.com');
+$link->setPrompt('prompt value');
+$link->setRel(Relation::ITEM);
+$link->setRender(Render::IMAGE); // default Render::LINK
+```
+
+#### Query
+
+[http://amundsen.com/media-types/collection/format/#arrays-queries](http://amundsen.com/media-types/collection/format/#arrays-queries)
+
+```php
+use JsonCollection\Entity\Query;
+use JsonCollection\Entity\Data;
+use JsonCollection\Entity\Type\Relation;
+
+$query = new Query();
+$query->setHref('http://www.example.com');
+$query->setRel(Relation::SEARCH);
+$query->setName('value');
+$query->setPrompt('value');
+
+$query->addData(new Data());
+$query->addDataSet([
+    new Data(),
+    new Data()
+]);
+```
+
+#### Error
+
+[http://amundsen.com/media-types/collection/format/#objects-error](http://amundsen.com/media-types/collection/format/#objects-error)
+
+```php
+use JsonCollection\Entity\Error;
+
+$error = new Error();
+$error->setTitle('error title');
+$error->setCode('error code');
+$error->setMessage('error message');
+```
+
+#### Template
+
+[http://amundsen.com/media-types/collection/format/#objects-template](http://amundsen.com/media-types/collection/format/#objects-template)
+
+```php
+use JsonCollection\Entity\Template;
+use JsonCollection\Entity\Data;
+
+$template = new Template();
+
+$template->addData(new Data());
+$template->addDataSet([
+    new Data(),
+    new Data()
+]);
+
+```
+
+#### Data
+
+[http://amundsen.com/media-types/collection/format/#arrays-data](http://amundsen.com/media-types/collection/format/#arrays-data)
+
+```php
+use JsonCollection\Entity\Data;
+use JsonCollection\Entity\ListData;
+use JsonCollection\Entity\Option;
+use JsonCollection\Entity\Type\Input;
+
+$data = new Data();
+$data->setName('data name');
+$data->setPrompt('data prompt');
+$data->setValue('data value');
+```
 
 ### Working with data and links
 
-In order to work with JsonCollection Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), [Options](http://code.ge/media-types/collection-next-json/#array-options) and [Messages](http://code.ge/media-types/collection-next-json/#array-messages) the API provides 4 interfaces that implement the same logic.
+In order to work with JsonCollection Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement the same logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
 provides the methods ```addData```, ```addDataSet``` and ```getDataSet```
