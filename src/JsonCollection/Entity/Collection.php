@@ -161,24 +161,6 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \JsonCollection\Entity\Status $status
-     * @return \JsonCollection\Entity\Collection
-     */
-    public function setStatus(Status $status)
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    /**
-     * @return \JsonCollection\Entity\Status|null
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
      * @param \JsonCollection\Entity\Template $template
      * @return \JsonCollection\Entity\Collection
      */
