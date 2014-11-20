@@ -71,13 +71,13 @@ class DataSpec extends ObjectBehavior
         $this->getValue()->shouldBeEqualTo(null);
     }
 
-    function it_should_set_the_value_if_it_is_an_array()
+    function it_should_not_set_the_value_if_it_is_an_array()
     {
         $this->setValue([]);
         $this->getValue()->shouldBeNull(null);
     }
 
-    function it_should_set_the_value_if_it_is_an_object()
+    function it_should_not_set_the_value_if_it_is_an_object()
     {
         $this->setValue(new \stdClass());
         $this->getValue()->shouldBeNull(null);
