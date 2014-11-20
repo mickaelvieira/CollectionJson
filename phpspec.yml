@@ -1,9 +1,0 @@
-formatter.name: nyan.cat
-extensions:
-    - PhpSpec\NyanFormattersExtension\Extension
-    - PhpSpec\Extension\CodeCoverageExtension
-code_coverage:
-    format:
-        - html
-    output:
-        html: coverage
