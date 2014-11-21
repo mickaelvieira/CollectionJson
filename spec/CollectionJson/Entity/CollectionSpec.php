@@ -178,4 +178,18 @@ class CollectionSpec extends ObjectBehavior
         $this->setTemplate($template);
         $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
     }
+
+    function it_should_set_the_template_when_passing_an_array()
+    {
+        $this->setTemplate([
+            'data' => [
+                [
+                    'name' => 'name 1',
+                    'value' => 'value 1'
+                ]
+            ]
+        ]);
+        $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
+        $this->getTemplate()->getDataSet()->shouldHaveCount(1);
+    }
 }

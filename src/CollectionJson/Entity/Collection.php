@@ -166,12 +166,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \CollectionJson\Entity\Template $template
+     * @param \CollectionJson\Entity\Template|array $template
      * @return \CollectionJson\Entity\Collection
      */
-    public function setTemplate(Template $template)
+    public function setTemplate($template)
     {
-        $this->template = $template;
+        if (is_array($template)) {
+            $template = new Template($template);
+        }
+        if ($template instanceof Template) {
+            $this->template = $template;
+        }
         return $this;
     }
 
