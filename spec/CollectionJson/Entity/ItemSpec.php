@@ -26,13 +26,29 @@ class ItemSpec extends ObjectBehavior
         $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Item');
     }
 
-    function it_should_inject_data()
+    /**
+     * @param \CollectionJson\Entity\Data $data2
+     */
+    function it_should_inject_data($data2)
     {
+        $data2->getName()->willReturn('name 2');
+        $data2->getValue()->willReturn('value 2');
+
         $data = [
-            'href' => 'http://example.com'
+            'href' => 'http://example.com',
+            'data' => [
+                [
+                    'name' => 'name 1',
+                    'value' => 'value 1'
+                ],
+                $data2
+            ]
         ];
         $this->inject($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_not_set_the_href_field_if_it_is_not_a_string()
