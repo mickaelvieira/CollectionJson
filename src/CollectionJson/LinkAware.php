@@ -27,10 +27,10 @@ interface LinkAware
      * @param array $set
      * @return mixed
      */
-    public function addLinkSet(array $set);
+    public function addLinksSet(array $set);
 
     /**
      * @return array
      */
-    public function getLinkSet();
+    public function getLinksSet();
 }

@@ -21,7 +21,7 @@ class ItemSpec extends ObjectBehavior
     {
         $this->setHref('value')->shouldHaveType('CollectionJson\Entity\Item');
         $this->addLink([])->shouldHaveType('CollectionJson\Entity\Item');
-        $this->addLinkSet([])->shouldHaveType('CollectionJson\Entity\Item');
+        $this->addLinksSet([])->shouldHaveType('CollectionJson\Entity\Item');
         $this->addData([])->shouldHaveType('CollectionJson\Entity\Item');
         $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Item');
     }
@@ -156,7 +156,7 @@ class ItemSpec extends ObjectBehavior
     function it_should_add_a_link_when_it_is_passed_as_an_object($link)
     {
         $this->addLink($link);
-        $this->getLinkSet()->shouldHaveCount(1);
+        $this->getLinksSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_when_it_is_passed_as_an_array()
@@ -166,7 +166,7 @@ class ItemSpec extends ObjectBehavior
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);
-        $this->getLinkSet()->shouldHaveCount(1);
+        $this->getLinksSet()->shouldHaveCount(1);
     }
 
     /**
@@ -174,7 +174,7 @@ class ItemSpec extends ObjectBehavior
      */
     function it_should_add_a_link_set($link1)
     {
-        $this->addLinkSet([
+        $this->addLinksSet([
             $link1,
             [
                 'href'   => 'Href value2',
@@ -184,6 +184,6 @@ class ItemSpec extends ObjectBehavior
             new \stdClass()
         ]);
         $this->setHref('uri');
-        $this->getLinkSet()->shouldHaveCount(2);
+        $this->getLinksSet()->shouldHaveCount(2);
     }
 }

@@ -45,7 +45,7 @@ trait LinkContainer
      * @param array $set
      * @return mixed
      */
-    public function addLinkSet(array $set)
+    public function addLinksSet(array $set)
     {
         foreach ($set as $link) {
             $this->addLink($link);
@@ -56,7 +56,7 @@ trait LinkContainer
     /**
      * @return array
      */
-    public function getLinkSet()
+    public function getLinksSet()
     {
         return $this->links;
     }

@@ -60,7 +60,7 @@ class CollectionSpec extends ObjectBehavior
         $this->setError($error)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->setTemplate($template)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addLink([])->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addLinkSet([])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addLinksSet([])->shouldHaveType('CollectionJson\Entity\Collection');
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -116,7 +116,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_link($link)
     {
         $this->addLink($link);
-        $this->getLinkSet()->shouldHaveCount(1);
+        $this->getLinksSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_when_passing_an_array()
@@ -126,7 +126,7 @@ class CollectionSpec extends ObjectBehavior
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);
-        $this->getLinkSet()->shouldHaveCount(1);
+        $this->getLinksSet()->shouldHaveCount(1);
     }
 
     /**
@@ -134,7 +134,7 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_add_a_link_set($link1)
     {
-        $this->addLinkSet([
+        $this->addLinksSet([
             $link1,
             [
                 'href'   => 'Href value2',
@@ -143,7 +143,7 @@ class CollectionSpec extends ObjectBehavior
             ],
             new \stdClass()
         ]);
-        $this->getLinkSet()->shouldHaveCount(2);
+        $this->getLinksSet()->shouldHaveCount(2);
     }
 
     /**
