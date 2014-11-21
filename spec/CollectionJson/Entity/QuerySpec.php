@@ -26,19 +26,36 @@ class QuerySpec extends ObjectBehavior
         $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Query');
     }
 
-    function it_should_inject_data()
+    /**
+     * @param \CollectionJson\Entity\Data $data2
+     */
+    function it_should_inject_data($data2)
     {
+        $data2->getName()->willReturn('name 2');
+        $data2->getValue()->willReturn('value 2');
+
         $data = [
             'href'   => 'http://example.com',
             'rel'    => 'Query Rel',
             'name'   => 'Query Name',
-            'prompt' => 'Query Prompt'
+            'prompt' => 'Query Prompt',
+            'data' => [
+                [
+                    'name' => 'name 1',
+                    'value' => 'value 1'
+                ],
+                $data2
+            ]
         ];
+
         $this->inject($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getRel()->shouldBeEqualTo('Query Rel');
         $this->getName()->shouldBeEqualTo('Query Name');
         $this->getPrompt()->shouldBeEqualTo('Query Prompt');
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_not_set_the_href_field_if_it_is_not_a_string()
