@@ -33,7 +33,7 @@ class LinkSpec extends ObjectBehavior
             'render' => 'image',
             'prompt' => 'Link Prompt'
         ];
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getRel()->shouldBeEqualTo('Link Rel');
         $this->getName()->shouldBeEqualTo('Link Name');

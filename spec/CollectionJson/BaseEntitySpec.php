@@ -14,7 +14,7 @@ class BaseEntitySpec extends ObjectBehavior
 
     function it_should_not_inject_any_data()
     {
-        $this->inject(['prop' => 'test']);
+        $this->beConstructedWith(['prop' => 'test']);
         $this->toArray()->shouldBeEqualTo([]);
     }
 

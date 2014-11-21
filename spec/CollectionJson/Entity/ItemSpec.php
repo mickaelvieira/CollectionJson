@@ -44,7 +44,7 @@ class ItemSpec extends ObjectBehavior
                 $data2
             ]
         ];
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getDataSet()->shouldHaveCount(2);
         $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');

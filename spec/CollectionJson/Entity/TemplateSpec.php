@@ -33,7 +33,7 @@ class TemplateSpec extends ObjectBehavior
                 $data
             ]
         ];
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getDataSet()->shouldHaveCount(2);
         $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
         $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');

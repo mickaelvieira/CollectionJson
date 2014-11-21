@@ -48,7 +48,7 @@ class QuerySpec extends ObjectBehavior
             ]
         ];
 
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
         $this->getRel()->shouldBeEqualTo('Query Rel');
         $this->getName()->shouldBeEqualTo('Query Name');

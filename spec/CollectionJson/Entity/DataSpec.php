@@ -29,7 +29,7 @@ class DataSpec extends ObjectBehavior
             'prompt'   => 'Data Prompt',
             'value'    => 'Data Value'
         ];
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getName()->shouldBeEqualTo('Data Name');
         $this->getPrompt()->shouldBeEqualTo('Data Prompt');
         $this->getValue()->shouldBeEqualTo('Data Value');

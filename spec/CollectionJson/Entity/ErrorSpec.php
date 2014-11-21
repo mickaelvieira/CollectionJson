@@ -29,7 +29,7 @@ class ErrorSpec extends ObjectBehavior
             'code'    => 'Error Code',
             'message' => 'Error Message'
         ];
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getTitle()->shouldBeEqualTo('Error Title');
         $this->getCode()->shouldBeEqualTo('Error Code');
         $this->getMessage()->shouldBeEqualTo('Error Message');
