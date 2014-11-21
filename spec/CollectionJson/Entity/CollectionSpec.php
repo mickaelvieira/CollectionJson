@@ -15,21 +15,65 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
-    /**
-     * @param \CollectionJson\Entity\Error $error
-     * @param \CollectionJson\Entity\Template $template
-     */
-    function it_should_inject_data($error, $template)
+    function it_should_inject_data()
     {
         $data = [
-            'href'     => 'http://example.com',
-            'error'    => $error,
-            'template' => $template
+            'error'    => [
+                'code' => "error code",
+                'message' => "message code",
+                'title' => "title code",
+            ],
+            'href' => 'http://example.com',
+            'items' => [
+                [
+                    'data' => [
+                        [
+                            'name' => 'name 1',
+                            'value' => 'value 1'
+                        ]
+                    ],
+                    'href' => 'http://www.example1.com',
+                ],
+                [
+                    'data' => [
+                        [
+                            'name' => 'name 2',
+                            'value' => 'value 2'
+                        ]
+                    ],
+                    'href' => 'http://www.example2.com'
+                ]
+            ],
+            'links' => [
+                [
+                    'href'   => 'http://www.example1.com',
+                    'rel'    => 'Rel value 1',
+                    'render' => 'link'
+                ],
+                [
+                    'href'   => 'http://www.example2.com',
+                    'rel'    => 'Rel value 2',
+                    'render' => 'link'
+                ]
+            ],
+            'template' => [
+                'data' => [
+                    [
+                        'name' => 'name 1',
+                        'value' => 'value 1'
+                    ]
+                ]
+            ]
         ];
-        $this->inject($data);
+        $this->beConstructedWith($data);
         $this->getHref()->shouldBeEqualTo('http://example.com');
-        $this->getError()->shouldBeEqualTo($error);
-        $this->getTemplate()->shouldBeEqualTo($template);
+        $this->getError()->shouldHaveType('CollectionJson\Entity\Error');
+        $this->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
+        $this->getItemsSet()->shouldHaveCount(2);
+        $this->getLinksSet()->shouldHaveCount(2);
+        $this->toArray()->shouldBeEqualTo([
+            'collection' => array_merge(['version' => '1.0'], $data)
+        ]);
     }
 
     function it_should_not_set_the_href_field_if_it_is_not_a_string()
