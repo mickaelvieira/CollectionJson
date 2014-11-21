@@ -54,7 +54,7 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->setHref('href')->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addItem($item)->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addItemSet([$item])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addItemsSet([$item])->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addQuery($query)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addQuerySet([$query])->shouldHaveType('CollectionJson\Entity\Collection');
         $this->setError($error)->shouldHaveType('CollectionJson\Entity\Collection');
@@ -78,7 +78,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_item($item)
     {
         $this->addItem($item);
-        $this->getItemSet()->shouldHaveCount(1);
+        $this->getItemsSet()->shouldHaveCount(1);
     }
 
     /**
@@ -87,8 +87,8 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_add_multiple_items($item1, $item2)
     {
-        $this->addItemSet([$item1, $item2]);
-        $this->getItemSet()->shouldHaveCount(2);
+        $this->addItemsSet([$item1, $item2]);
+        $this->getItemsSet()->shouldHaveCount(2);
     }
 
     /**
