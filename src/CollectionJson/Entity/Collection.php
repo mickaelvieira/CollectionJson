@@ -83,12 +83,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \CollectionJson\Entity\Item $item
+     * @param \CollectionJson\Entity\Item|array $item
      * @return \CollectionJson\Entity\Collection
      */
-    public function addItem(Item $item)
+    public function addItem($item)
     {
-        array_push($this->items, $item);
+        if (is_array($item)) {
+            $item = new Item($item);
+        }
+        if ($item instanceof Item) {
+            array_push($this->items, $item);
+        }
         return $this;
     }
 

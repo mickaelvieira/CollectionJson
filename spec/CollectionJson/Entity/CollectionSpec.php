@@ -81,6 +81,15 @@ class CollectionSpec extends ObjectBehavior
         $this->getItemsSet()->shouldHaveCount(1);
     }
 
+    function it_should_add_a_item_when_passing_array()
+    {
+        $this->addItem([
+            'href' => 'http://www.example.com'
+        ]);
+        $this->getItemsSet()->shouldHaveCount(1);
+    }
+
+
     /**
      * @param \CollectionJson\Entity\Item $item1
      * @param \CollectionJson\Entity\Item $item2
