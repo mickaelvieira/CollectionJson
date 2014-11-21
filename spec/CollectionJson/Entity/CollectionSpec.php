@@ -169,7 +169,7 @@ class CollectionSpec extends ObjectBehavior
         $this->getError()->getTitle()->shouldBeEqualTo("title code");
         $this->getError()->getCode()->shouldBeEqualTo("error code");
     }
-    
+
     /**
      * @param \CollectionJson\Entity\Template $template
      */

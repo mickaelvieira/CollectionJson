@@ -16,6 +16,29 @@ class TemplateSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    /**
+     * @param \CollectionJson\Entity\Data $data
+     */
+    function it_should_inject_data($data)
+    {
+        $data->getName()->willReturn('name 2');
+        $data->getValue()->willReturn('value 2');
+
+        $data = [
+            'data' => [
+                [
+                    'name' => 'name 1',
+                    'value' => 'value 1'
+                ],
+                $data
+            ]
+        ];
+        $this->inject($data);
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+    }
+
     function it_should_be_chainable()
     {
         $this->addData([])->shouldHaveType('CollectionJson\Entity\Template');

@@ -28,6 +28,10 @@ trait Injection
             if (method_exists($this, $setter)) {
                 $this->$setter($value);
             }
+            $setter = "add" . ucfirst($key) . "Set";
+            if (method_exists($this, $setter)) {
+                $this->$setter($value);
+            }
         }
     }
 
