@@ -56,7 +56,7 @@ class CollectionSpec extends ObjectBehavior
         $this->addItem($item)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addItemsSet([$item])->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addQuery($query)->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addQuerySet([$query])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->addQueriesSet([$query])->shouldHaveType('CollectionJson\Entity\Collection');
         $this->setError($error)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->setTemplate($template)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addLink([])->shouldHaveType('CollectionJson\Entity\Collection');
@@ -97,7 +97,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_query($query)
     {
         $this->addQuery($query);
-        $this->getQuerySet()->shouldHaveCount(1);
+        $this->getQueriesSet()->shouldHaveCount(1);
     }
 
     /**
@@ -106,8 +106,8 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_add_multiple_queries($query1, $query2)
     {
-        $this->addQuerySet([$query1, $query2]);
-        $this->getQuerySet()->shouldHaveCount(2);
+        $this->addQueriesSet([$query1, $query2]);
+        $this->getQueriesSet()->shouldHaveCount(2);
     }
 
     /**

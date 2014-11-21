@@ -126,7 +126,7 @@ class Collection extends BaseEntity implements LinkAware
      * @param array $queries
      * @return \CollectionJson\Entity\Collection
      */
-    public function addQuerySet(array $queries)
+    public function addQueriesSet(array $queries)
     {
         foreach ($queries as $query) {
             $this->addQuery($query);
@@ -137,7 +137,7 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * @return array
      */
-    public function getQuerySet()
+    public function getQueriesSet()
     {
         return $this->queries;
     }
