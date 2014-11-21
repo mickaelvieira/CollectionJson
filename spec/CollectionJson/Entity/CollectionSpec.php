@@ -157,6 +157,19 @@ class CollectionSpec extends ObjectBehavior
         $this->getError()->getCode()->shouldBeEqualTo("error code");
     }
 
+    function it_should_set_the_error_when_passing_an_array()
+    {
+        $this->setError([
+            'message' => "message code",
+            'title' => "title code",
+            'code' => "error code",
+        ]);
+        $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
+        $this->getError()->getMessage()->shouldBeEqualTo("message code");
+        $this->getError()->getTitle()->shouldBeEqualTo("title code");
+        $this->getError()->getCode()->shouldBeEqualTo("error code");
+    }
+    
     /**
      * @param \CollectionJson\Entity\Template $template
      */

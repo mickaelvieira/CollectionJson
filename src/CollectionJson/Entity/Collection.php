@@ -143,12 +143,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \CollectionJson\Entity\Error $error
+     * @param \CollectionJson\Entity\Error|array $error
      * @return \CollectionJson\Entity\Collection
      */
-    public function setError(Error $error)
+    public function setError($error)
     {
-        $this->error = $error;
+        if (is_array($error)) {
+            $error = new Error($error);
+        }
+        if ($error instanceof Error) {
+            $this->error = $error;
+        }
         return $this;
     }
 
