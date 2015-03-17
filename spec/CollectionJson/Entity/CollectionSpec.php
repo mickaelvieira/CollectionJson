@@ -153,6 +153,23 @@ class CollectionSpec extends ObjectBehavior
         $this->getQueriesSet()->shouldHaveCount(1);
     }
 
+    function it_should_add_a_query_when_passing_an_array()
+    {
+        $this->addQuery([
+            'href'   => 'http://example.com',
+            'rel'    => 'Query Rel',
+            'name'   => 'Query Name',
+            'prompt' => 'Query Prompt',
+            'data' => [
+                [
+                    'name' => 'name 1',
+                    'value' => 'value 1'
+                ]
+            ]
+        ]);
+        $this->getQueriesSet()->shouldHaveCount(1);
+    }
+
     /**
      * @param \CollectionJson\Entity\Query $query1
      * @param \CollectionJson\Entity\Query $query2

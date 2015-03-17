@@ -118,12 +118,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \CollectionJson\Entity\Query $query
+     * @param \CollectionJson\Entity\Query|array $query
      * @return \CollectionJson\Entity\Collection
      */
-    public function addQuery(Query $query)
+    public function addQuery($query)
     {
-        array_push($this->queries, $query);
+        if (is_array($query)) {
+            $query = new Query($query);
+        }
+        if ($query instanceof Query) {
+            array_push($this->queries, $query);
+        }
         return $this;
     }
 
