@@ -32,7 +32,7 @@ $ composer install
 The test suite has been written with [PHPSpec](http://phpspec.net/)
 
 ```sh
-./bin/phpspec run
+$ ./bin/phpspec run
 ```
 
 ### PHP Code Sniffer
