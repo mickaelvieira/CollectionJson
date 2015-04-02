@@ -27,8 +27,14 @@ use CollectionJson\DataContainer;
 class Item extends BaseEntity implements LinkAware, DataAware
 {
 
+    /**
+     * @see \CollectionJson\LinkContainer
+     */
     use LinkContainer;
 
+    /**
+     * @see \CollectionJson\DataContainer
+     */
     use DataContainer;
 
     /**

@@ -24,7 +24,9 @@ use CollectionJson\LinkContainer;
  */
 class Collection extends BaseEntity implements LinkAware
 {
-
+    /**
+     * @see \CollectionJson\LinkContainer
+     */
     use LinkContainer;
 
     /**

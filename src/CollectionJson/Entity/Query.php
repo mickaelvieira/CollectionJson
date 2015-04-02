@@ -24,7 +24,9 @@ use CollectionJson\DataContainer;
  */
 class Query extends BaseEntity implements DataAware
 {
-
+    /**
+     * @see \CollectionJson\DataContainer
+     */
     use DataContainer;
 
     /**
