@@ -83,10 +83,14 @@ class DataSpec extends ObjectBehavior
         $this->getValue()->shouldBeNull(null);
     }
 
-    function it_should_return_an_empty_array_when_the_name_field_is_null()
+    function it_should_throw_an_exception_during_array_conversion_when_the_field_name_is_null()
     {
-        $this->setValue('Value');
-        $this->toArray()->shouldBeEqualTo([]);
+        $this->shouldThrow('\Exception')->duringToArray();
+    }
+
+    function it_should_throw_an_exception_during_json_conversion_when_the_field_name_is_null()
+    {
+        $this->shouldThrow('\Exception')->duringJsonSerialize();
     }
 
     function it_should_not_return_empty_arrays_and_null_properties_apart_from_the_value_field()

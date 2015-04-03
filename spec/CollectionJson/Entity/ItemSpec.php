@@ -63,20 +63,14 @@ class ItemSpec extends ObjectBehavior
         $this->getHref()->shouldBeNull();
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data
-     */
-    function it_should_return_an_empty_array_when_the_href_field_is_not_defined($data)
+    function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
-        $data->toArray()->willReturn(
-            [
-                'name' => 'Name',
-                'value' => null
-            ]
-        );
+        $this->shouldThrow('\Exception')->duringToArray();
+    }
 
-        $this->addData($data);
-        $this->toArray()->shouldBeEqualTo([]);
+    function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
+    {
+        $this->shouldThrow('\Exception')->duringJsonSerialize();
     }
 
     /**

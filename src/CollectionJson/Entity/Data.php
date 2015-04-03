@@ -105,17 +105,19 @@ class Data extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = [];
-        if (!is_null($this->name)) {
-            array_walk(
-                $this->getSortedObjectVars(),
-                function ($value, $key) use (&$data) {
-                    if (!is_null($value) || $key === 'value') {
-                        $data[$key] = $value;
-                    }
-                }
-            );
+        if (is_null($this->name)) {
+            throw new \Exception(sprintf("Name is required in class %s", get_class($this)));
         }
+
+        $data = [];
+        array_walk(
+            $this->getSortedObjectVars(),
+            function ($value, $key) use (&$data) {
+                if (!is_null($value) || $key === 'value') {
+                    $data[$key] = $value;
+                }
+            }
+        );
         return $data;
     }
 }

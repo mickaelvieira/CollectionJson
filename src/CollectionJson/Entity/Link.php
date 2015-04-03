@@ -158,12 +158,16 @@ class Link extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = [];
-
-        if (!is_null($this->href) && !is_null($this->rel)) {
-            $data = $this->getSortedObjectVars();
-            $data = $this->filterNullValues($data);
+        if (is_null($this->href)) {
+            throw new \Exception(sprintf("Field href is required in class %s", get_class($this)));
         }
+        if (is_null($this->rel)) {
+            throw new \Exception(sprintf("Field rel is required in class %s", get_class($this)));
+        }
+
+        $data = $this->getSortedObjectVars();
+        $data = $this->filterNullValues($data);
+
         return $data;
     }
 }

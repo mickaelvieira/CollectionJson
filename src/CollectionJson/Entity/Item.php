@@ -68,11 +68,12 @@ class Item extends BaseEntity implements LinkAware, DataAware
      */
     protected function getObjectData()
     {
-        $data = [];
-        if (!is_null($this->href)) {
-            $data = $this->getSortedObjectVars();
-            $data = $this->filterEmptyArrays($data);
+        if (is_null($this->href)) {
+            throw new \Exception(sprintf("Field href is required in class %s", get_class($this)));
         }
+
+        $data = $this->getSortedObjectVars();
+        $data = $this->filterEmptyArrays($data);
         return $data;
     }
 }
