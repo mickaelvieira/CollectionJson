@@ -2,6 +2,7 @@
 
 namespace spec\CollectionJson\Entity;
 
+use CollectionJson\Entity\Link;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -179,6 +180,22 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->addLink($link);
         $this->getLinksSet()->shouldHaveCount(1);
+    }
+
+    function it_should_retrieve_the_link_by_relation()
+    {
+        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+
+        $this->addLinksSet([$link1, $link2]);
+
+        $this->findLinkByRelation('rel1')->shouldBeEqualTo($link1);
+        $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
+    }
+
+    function it_should_return_null_when_link_is_not_the_set()
+    {
+        $this->findLinkByRelation('rel1')->shouldBeNull(null);
     }
 
     function it_should_add_a_link_when_passing_an_array()

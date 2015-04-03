@@ -33,4 +33,10 @@ interface LinkAware
      * @return array
      */
     public function getLinksSet();
+
+    /**
+     * @param string $relation
+     * @return \CollectionJson\Entity\Link|null
+     */
+    public function findLinkByRelation($relation);
 }

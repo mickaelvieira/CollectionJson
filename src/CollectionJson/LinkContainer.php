@@ -21,7 +21,7 @@ use CollectionJson\Entity\Link;
 trait LinkContainer
 {
     /**
-     * @var array
+     * @var \CollectionJson\Entity\Link[]
      * @link http://amundsen.com/media-types/collection/format/#arrays-links
      */
     protected $links = [];
@@ -59,5 +59,18 @@ trait LinkContainer
     public function getLinksSet()
     {
         return $this->links;
+    }
+
+    /**
+     * @param string $relation
+     * @return \CollectionJson\Entity\Link|null
+     */
+    public function findLinkByRelation($relation)
+    {
+        $links = array_filter($this->links, function (Link $link) use ($relation) {
+            return ($link->getRel() === $relation);
+        });
+
+        return (current($links)) ?: null;
     }
 }
