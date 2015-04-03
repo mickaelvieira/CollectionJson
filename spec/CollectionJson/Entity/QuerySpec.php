@@ -54,8 +54,8 @@ class QuerySpec extends ObjectBehavior
         $this->getName()->shouldBeEqualTo('Query Name');
         $this->getPrompt()->shouldBeEqualTo('Query Prompt');
         $this->getDataSet()->shouldHaveCount(2);
-        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
@@ -173,12 +173,12 @@ class QuerySpec extends ObjectBehavior
 
         $this->addDataSet([$data1, $data2]);
 
-        $this->getDataByName('name1')->shouldBeEqualTo($data1);
-        $this->getDataByName('name2')->shouldBeEqualTo($data2);
+        $this->findDataByName('name1')->shouldBeEqualTo($data1);
+        $this->findDataByName('name2')->shouldBeEqualTo($data2);
     }
 
     function it_should_return_null_when_data_is_not_the_set()
     {
-        $this->getDataByName('name1')->shouldBeNull(null);
+        $this->findDataByName('name1')->shouldBeNull(null);
     }
 }

@@ -65,16 +65,12 @@ trait DataContainer
      * @param string $name
      * @return \CollectionJson\Entity\Data|null
      */
-    public function getDataByName($name)
+    public function findDataByName($name)
     {
-        $entity = null;
-        foreach ($this->getDataSet() as $data) {
-            /** @var \CollectionJson\Entity\Data $data */
-            if ($data->getName() === $name) {
-                $entity = $data;
-                break;
-            }
-        }
-        return $entity;
+        $data = array_filter($this->data, function (Data $d) use ($name) {
+            return ($d->getName() === $name);
+        });
+
+        return (current($data)) ?: null;
     }
 }

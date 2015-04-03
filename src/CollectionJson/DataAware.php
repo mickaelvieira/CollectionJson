@@ -32,4 +32,10 @@ interface DataAware
      * @return array
      */
     public function getDataSet();
+
+    /**
+     * @param string $name
+     * @return \CollectionJson\Entity\Data|null
+     */
+    public function findDataByName($name);
 }

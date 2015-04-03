@@ -110,14 +110,11 @@ class Data extends BaseEntity
         }
 
         $data = [];
-        array_walk(
-            $this->getSortedObjectVars(),
-            function ($value, $key) use (&$data) {
-                if (!is_null($value) || $key === 'value') {
-                    $data[$key] = $value;
-                }
+        array_walk($this->getSortedObjectVars(), function ($value, $key) use (&$data) {
+            if (!is_null($value) || $key === 'value') {
+                $data[$key] = $value;
             }
-        );
+        });
         return $data;
     }
 }
