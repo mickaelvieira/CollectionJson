@@ -69,6 +69,7 @@ class BaseEntity extends Extraction implements ArrayInjectable
 
     /**
      * @return array
+     * @throws \BadMethodCallException
      */
     protected function getObjectData()
     {

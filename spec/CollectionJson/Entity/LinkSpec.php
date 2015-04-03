@@ -17,7 +17,7 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('value')->shouldHaveType('CollectionJson\Entity\Link');
+        $this->setHref('http://example.com')->shouldHaveType('CollectionJson\Entity\Link');
         $this->setRel('value')->shouldHaveType('CollectionJson\Entity\Link');
         $this->setName('value')->shouldHaveType('CollectionJson\Entity\Link');
         $this->setPrompt('value')->shouldHaveType('CollectionJson\Entity\Link');
@@ -41,16 +41,9 @@ class LinkSpec extends ObjectBehavior
         $this->getPrompt()->shouldBeEqualTo('Link Prompt');
     }
 
-    function it_should_not_set_the_href_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
-        $this->setHref(true);
-        $this->getHref()->shouldBeNull();
-    }
-
-    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
-    {
-        $this->setHref('uri');
-        $this->getHref()->shouldBeNull();
+        $this->shouldThrow('\Exception')->duringSetHref('uri');
     }
 
     function it_should_not_set_the_rel_field_if_it_is_not_a_string()

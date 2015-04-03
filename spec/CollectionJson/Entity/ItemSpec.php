@@ -19,7 +19,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('value')->shouldHaveType('CollectionJson\Entity\Item');
+        $this->setHref('http://example.com')->shouldHaveType('CollectionJson\Entity\Item');
         $this->addLink([])->shouldHaveType('CollectionJson\Entity\Item');
         $this->addLinksSet([])->shouldHaveType('CollectionJson\Entity\Item');
         $this->addData([])->shouldHaveType('CollectionJson\Entity\Item');
@@ -51,16 +51,9 @@ class ItemSpec extends ObjectBehavior
         $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
-    function it_should_not_set_the_href_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
-        $this->setHref(true);
-        $this->getHref()->shouldBeNull();
-    }
-
-    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
-    {
-        $this->setHref('uri');
-        $this->getHref()->shouldBeNull();
+        $this->shouldThrow('\Exception')->duringSetHref('uri');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
@@ -156,7 +149,7 @@ class ItemSpec extends ObjectBehavior
     function it_should_add_a_link_when_it_is_passed_as_an_array()
     {
         $this->addLink([
-            'href'   => 'Href value',
+            'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);
@@ -171,13 +164,13 @@ class ItemSpec extends ObjectBehavior
         $this->addLinksSet([
             $link1,
             [
-                'href'   => 'Href value2',
+                'href'   => 'http://example.com',
                 'rel'    => 'Rel value2',
                 'render' => 'link2'
             ],
             new \stdClass()
         ]);
-        $this->setHref('uri');
+        $this->setHref('http://example.com');
         $this->getLinksSet()->shouldHaveCount(2);
     }
 }

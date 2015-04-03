@@ -76,16 +76,9 @@ class CollectionSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_not_set_the_href_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
-        $this->setHref(true);
-        $this->getHref()->shouldBeNull();
-    }
-
-    function it_should_not_set_the_href_field_if_it_is_not_a_valid_url()
-    {
-        $this->setHref('uri');
-        $this->getHref()->shouldBeNull();
+        $this->shouldThrow('\Exception')->duringSetHref('uri');
     }
 
     /**
@@ -96,7 +89,7 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_be_chainable($item, $query, $error, $template)
     {
-        $this->setHref('href')->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->setHref('http://www.example.com')->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addItem($item)->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addItemsSet([$item])->shouldHaveType('CollectionJson\Entity\Collection');
         $this->addQuery($query)->shouldHaveType('CollectionJson\Entity\Collection');
@@ -132,7 +125,6 @@ class CollectionSpec extends ObjectBehavior
         ]);
         $this->getItemsSet()->shouldHaveCount(1);
     }
-
 
     /**
      * @param \CollectionJson\Entity\Item $item1
@@ -192,7 +184,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_link_when_passing_an_array()
     {
         $this->addLink([
-            'href'   => 'Href value',
+            'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
         ]);
@@ -207,7 +199,7 @@ class CollectionSpec extends ObjectBehavior
         $this->addLinksSet([
             $link1,
             [
-                'href'   => 'Href value2',
+                'href'   => 'http://example.com',
                 'rel'    => 'Rel value2',
                 'render' => 'link2'
             ],

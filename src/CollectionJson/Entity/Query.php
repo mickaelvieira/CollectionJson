@@ -56,12 +56,15 @@ class Query extends BaseEntity implements DataAware
     /**
      * @param string $href
      * @return \CollectionJson\Entity\Query
+     * @throws \BadMethodCallException
      */
     public function setHref($href)
     {
-        if (is_string($href) && filter_var($href, FILTER_VALIDATE_URL)) {
-            $this->href = $href;
+        if (!filter_var($href, FILTER_VALIDATE_URL)) {
+            throw new \BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
         }
+        $this->href = $href;
+
         return $this;
     }
 
