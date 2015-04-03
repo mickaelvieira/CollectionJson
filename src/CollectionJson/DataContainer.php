@@ -21,7 +21,7 @@ use CollectionJson\Entity\Data;
 trait DataContainer
 {
     /**
-     * @var array
+     * @var \CollectionJson\Entity\Data[]
      * @link http://amundsen.com/media-types/collection/format/#arrays-data
      */
     protected $data = [];

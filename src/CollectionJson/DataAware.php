@@ -20,11 +20,13 @@ interface DataAware
 {
     /**
      * @param \CollectionJson\Entity\Data|array $data
+     * @return mixed
      */
     public function addData($data);
 
     /**
      * @param array $set
+     * @return mixed
      */
     public function addDataSet(array $set);
 

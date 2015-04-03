@@ -20,6 +20,7 @@ interface LinkAware
 {
     /**
      * @param \CollectionJson\Entity\Link|array $link
+     * @return mixed
      */
     public function addLink($link);
 
