@@ -65,6 +65,20 @@ class Collection extends BaseEntity implements LinkAware
     protected $template;
 
     /**
+     * @param string $json
+     * @return \CollectionJson\Entity\Collection
+     */
+    public function fromJson($json)
+    {
+        $data = json_decode($json, true);
+
+        if (array_key_exists('collection', $data)) {
+            $data = $data['collection'];
+        }
+        return new self($data);
+    }
+
+    /**
      * @param string $href
      * @return \CollectionJson\Entity\Collection
      * @throws \BadMethodCallException
