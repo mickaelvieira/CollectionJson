@@ -16,6 +16,11 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_return_the_object_type()
+    {
+        $this->getObjectType()->shouldBeEqualTo('collection');
+    }
+
     function it_should_inject_data()
     {
         $data = [

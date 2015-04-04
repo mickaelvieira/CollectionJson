@@ -16,6 +16,11 @@ class TemplateSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_return_the_object_type()
+    {
+        $this->getObjectType()->shouldBeEqualTo('template');
+    }
+
     /**
      * @param \CollectionJson\Entity\Data $data
      */

@@ -15,6 +15,11 @@ class DataSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_return_the_object_type()
+    {
+        $this->getObjectType()->shouldBeEqualTo('data');
+    }
+
     function it_should_be_chainable()
     {
         $this->setName('value')->shouldHaveType('CollectionJson\Entity\Data');

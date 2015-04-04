@@ -30,6 +30,14 @@ class BaseEntity extends Extraction implements ArrayInjectable
     }
 
     /**
+     * @return string
+     */
+    public function getObjectType()
+    {
+        return strtolower(end(explode("\\", get_class($this))));
+    }
+
+    /**
      * @return array
      */
     protected function getSortedObjectVars()

@@ -15,6 +15,11 @@ class LinkSpec extends ObjectBehavior
         $this->shouldImplement('JsonSerializable');
     }
 
+    function it_should_return_the_object_type()
+    {
+        $this->getObjectType()->shouldBeEqualTo('link');
+    }
+
     function it_should_be_chainable()
     {
         $this->setHref('http://example.com')->shouldHaveType('CollectionJson\Entity\Link');
