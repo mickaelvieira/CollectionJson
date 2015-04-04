@@ -12,6 +12,8 @@
 
 namespace CollectionJson\Entity;
 
+use LogicException;
+use BadMethodCallException;
 use CollectionJson\BaseEntity;
 use CollectionJson\DataAware;
 use CollectionJson\DataContainer;
@@ -61,7 +63,7 @@ class Query extends BaseEntity implements DataAware
     public function setHref($href)
     {
         if (!filter_var($href, FILTER_VALIDATE_URL)) {
-            throw new \BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
+            throw new BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
         }
         $this->href = $href;
 
@@ -142,10 +144,10 @@ class Query extends BaseEntity implements DataAware
     protected function getObjectData()
     {
         if (is_null($this->href)) {
-            throw new \Exception(sprintf("Field href is required in class %s", get_class($this)));
+            throw new LogicException(sprintf("Property href of object type %s is required", $this->getObjectType()));
         }
         if (is_null($this->rel)) {
-            throw new \Exception(sprintf("Field rel is required in class %s", get_class($this)));
+            throw new LogicException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
         }
 
         $data = $this->getSortedObjectVars();

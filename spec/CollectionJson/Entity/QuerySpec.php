@@ -89,25 +89,29 @@ class QuerySpec extends ObjectBehavior
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
         $this->setRel('Rel value');
-        $this->shouldThrow('\Exception')->duringToArray();
+        $this->shouldThrow(new \LogicException('Property href of object type query is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
     {
         $this->setRel('Rel value');
-        $this->shouldThrow('\Exception')->duringJsonSerialize();
+        $this->shouldThrow(
+            new \LogicException('Property href of object type query is required')
+        )->during('jsonSerialize');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_rel_is_null()
     {
         $this->setHref('http://example.com');
-        $this->shouldThrow('\Exception')->duringToArray();
+        $this->shouldThrow(new \LogicException('Property rel of object type query is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_rel_is_null()
     {
         $this->setHref('http://example.com');
-        $this->shouldThrow('\Exception')->duringJsonSerialize();
+        $this->shouldThrow(
+            new \LogicException('Property rel of object type query is required')
+        )->during('jsonSerialize');
     }
 
     function it_should_not_return_null_values_and_empty_arrays()

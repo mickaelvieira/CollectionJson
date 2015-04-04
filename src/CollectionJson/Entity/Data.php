@@ -12,6 +12,7 @@
 
 namespace CollectionJson\Entity;
 
+use LogicException;
 use CollectionJson\BaseEntity;
 
 /**
@@ -106,7 +107,7 @@ class Data extends BaseEntity
     protected function getObjectData()
     {
         if (is_null($this->name)) {
-            throw new \Exception(sprintf("Name is required in class %s", get_class($this)));
+            throw new LogicException(sprintf("Property name of object type %s is required", $this->getObjectType()));
         }
 
         $data = [];

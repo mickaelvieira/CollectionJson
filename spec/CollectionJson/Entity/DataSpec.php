@@ -90,12 +90,12 @@ class DataSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_name_is_null()
     {
-        $this->shouldThrow('\Exception')->duringToArray();
+        $this->shouldThrow(new \LogicException('Property name of object type data is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_name_is_null()
     {
-        $this->shouldThrow('\Exception')->duringJsonSerialize();
+        $this->shouldThrow(new \LogicException('Property name of object type data is required'))->during('jsonSerialize');
     }
 
     function it_should_not_return_empty_arrays_and_null_properties_apart_from_the_value_field()

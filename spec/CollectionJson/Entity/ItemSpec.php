@@ -64,12 +64,14 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
-        $this->shouldThrow('\Exception')->duringToArray();
+        $this->shouldThrow(new \LogicException('Property href of object type item is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
     {
-        $this->shouldThrow('\Exception')->duringJsonSerialize();
+        $this->shouldThrow(
+            new \LogicException('Property href of object type item is required')
+        )->during('jsonSerialize');
     }
 
     /**
