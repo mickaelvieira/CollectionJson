@@ -30,17 +30,9 @@ class BaseEntity extends Extraction implements ArrayInjectable
     }
 
     /**
-     * @return string
-     */
-    public function getObjectType()
-    {
-        return strtolower(end(explode("\\", get_class($this))));
-    }
-
-    /**
      * @return array
      */
-    protected function getSortedObjectVars()
+    final protected function getSortedObjectVars()
     {
         $data = get_object_vars($this);
         ksort($data);
@@ -51,28 +43,30 @@ class BaseEntity extends Extraction implements ArrayInjectable
      * @param array $data
      * @return array
      */
-    protected function filterEmptyArrays(array $data)
+    final protected function filterEmptyArrays(array $data)
     {
-        return array_filter(
-            $data,
-            function ($value) {
-                return !(is_array($value) && empty($value));
-            }
-        );
+        return array_filter($data, function ($value) {
+            return !(is_array($value) && empty($value));
+        });
     }
 
     /**
      * @param array $data
      * @return array
      */
-    protected function filterNullValues(array $data)
+    final protected function filterNullValues(array $data)
     {
-        return array_filter(
-            $data,
-            function ($value) {
-                return !is_null($value);
-            }
-        );
+        return array_filter($data, function ($value) {
+            return !is_null($value);
+        });
+    }
+
+    /**
+     * @return string
+     */
+    final public function getObjectType()
+    {
+        return strtolower(end(explode("\\", get_class($this))));
     }
 
     /**
