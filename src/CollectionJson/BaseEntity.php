@@ -12,14 +12,21 @@
 
 namespace CollectionJson;
 
+use JsonSerializable;
+
 /**
  * Class BaseEntity
  * @package CollectionJson
  */
-class BaseEntity extends Extraction implements ArrayInjectable
+abstract class BaseEntity implements JsonSerializable, ArrayConvertible, ArrayInjectable
 {
 
     use Injection;
+
+    /**
+     * @var string
+     */
+    private $envelope;
 
     /**
      * @param array $data
@@ -32,11 +39,46 @@ class BaseEntity extends Extraction implements ArrayInjectable
     /**
      * @return array
      */
+    public function jsonSerialize()
+    {
+        $data = $this->getObjectData();
+        $data = $this->addEnvelope($data);
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
     final protected function getSortedObjectVars()
     {
         $data = get_object_vars($this);
+
+        if (array_key_exists('envelope', $data)) {
+            unset($data['envelope']);
+        }
         ksort($data);
         return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $data = $this->getObjectData();
+        $data = $this->recursiveToArray($data);
+        $data = $this->addEnvelope($data);
+
+        return $data;
+    }
+
+    /**
+     * @param string $envelope
+     */
+    public function setEnvelope($envelope)
+    {
+        $this->envelope = $envelope;
     }
 
     /**
@@ -71,10 +113,41 @@ class BaseEntity extends Extraction implements ArrayInjectable
 
     /**
      * @return array
-     * @throws \BadMethodCallException
      */
-    protected function getObjectData()
+    abstract protected function getObjectData();
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function recursiveToArray(array $data)
     {
-        return $this->getSortedObjectVars();
+        array_walk(
+            $data,
+            function (&$value) {
+                if (is_object($value) && $value instanceof ArrayConvertible) {
+                    $value = $value->toArray();
+                } elseif (is_array($value)) {
+                    $value = $this->recursiveToArray($value);
+                }
+            }
+        );
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function addEnvelope(array $data)
+    {
+        if (is_string($this->envelope)) {
+            $data = [
+                $this->envelope => $data
+            ];
+        }
+
+        return $data;
     }
 }
