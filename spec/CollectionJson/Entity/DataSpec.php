@@ -88,6 +88,20 @@ class DataSpec extends ObjectBehavior
         $this->getValue()->shouldBeNull(null);
     }
 
+    function it_should_not_set_the_value_if_it_is_a_resource()
+    {
+        $this->setValue(imagecreate(10, 10));
+        $this->getValue()->shouldBeNull(null);
+    }
+
+    function it_should_not_set_the_value_if_it_is_a_callable()
+    {
+        $this->setValue(function () {
+
+        });
+        $this->getValue()->shouldBeNull(null);
+    }
+
     function it_should_throw_an_exception_during_array_conversion_when_the_field_name_is_null()
     {
         $this->shouldThrow(new \LogicException('Property name of object type data is required'))->during('toArray');
