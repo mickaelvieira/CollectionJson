@@ -150,7 +150,14 @@ class Query extends BaseEntity implements DataAware
             throw new LogicException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
         }
 
-        $data = $this->getSortedObjectVars();
+        $data = [
+            'data'   => $this->getDataSet(),
+            'href'   => $this->href,
+            'name'   => $this->name,
+            'prompt' => $this->prompt,
+            'rel'    => $this->rel,
+        ];
+
         $data = $this->filterEmptyArrays($data);
         $data = $this->filterNullValues($data);
 

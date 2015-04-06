@@ -105,7 +105,12 @@ class Error extends BaseEntity
      */
     protected function getObjectData()
     {
-        $data = $this->getSortedObjectVars();
+        $data = [
+            'code'    => $this->code,
+            'message' => $this->message,
+            'title'   => $this->title,
+        ];
+
         $data = $this->filterEmptyArrays($data);
         $data = $this->filterNullValues($data);
 

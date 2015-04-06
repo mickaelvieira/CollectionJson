@@ -226,9 +226,15 @@ class Collection extends BaseEntity implements LinkAware
         $this->setEnvelope('collection');
 
         $data = [
-            'version' => self::VERSION
+            'version'  => self::VERSION,
+            'error'    => $this->error,
+            'href'     => $this->href,
+            'items'    => $this->items,
+            'links'    => $this->getLinksSet(),
+            'queries'  => $this->queries,
+            'template' => $this->template,
         ];
-        $data = array_merge($data, $this->getSortedObjectVars());
+
         $data = $this->filterEmptyArrays($data);
         $data = $this->filterNullValues($data);
 

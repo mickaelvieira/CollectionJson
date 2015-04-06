@@ -50,20 +50,6 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible, ArrayIn
     /**
      * @return array
      */
-    final protected function getSortedObjectVars()
-    {
-        $data = get_object_vars($this);
-
-        if (array_key_exists('envelope', $data)) {
-            unset($data['envelope']);
-        }
-        ksort($data);
-        return $data;
-    }
-
-    /**
-     * @return array
-     */
     public function toArray()
     {
         $data = $this->getObjectData();

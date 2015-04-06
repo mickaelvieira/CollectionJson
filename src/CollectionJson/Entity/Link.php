@@ -170,7 +170,14 @@ class Link extends BaseEntity
             throw new LogicException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
         }
 
-        $data = $this->getSortedObjectVars();
+        $data = [
+            'href'   => $this->href,
+            'name'   => $this->name,
+            'prompt' => $this->prompt,
+            'rel'    => $this->rel,
+            'render' => $this->render,
+        ];
+
         $data = $this->filterNullValues($data);
 
         return $data;

@@ -77,7 +77,12 @@ class Item extends BaseEntity implements LinkAware, DataAware
             throw new LogicException(sprintf("Property href of object type %s is required", $this->getObjectType()));
         }
 
-        $data = $this->getSortedObjectVars();
+        $data = [
+            'data'  => $this->getDataSet(),
+            'href'  => $this->href,
+            'links' => $this->getLinksSet(),
+        ];
+
         $data = $this->filterEmptyArrays($data);
         return $data;
     }

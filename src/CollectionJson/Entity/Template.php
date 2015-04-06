@@ -34,7 +34,9 @@ class Template extends BaseEntity implements DataAware
      */
     protected function getObjectData()
     {
-        $data = $this->getSortedObjectVars();
+        $data = [
+            'data' => $this->getDataSet()
+        ];
         $data = $this->filterEmptyArrays($data);
         $data = $this->filterNullValues($data);
 

@@ -110,8 +110,14 @@ class Data extends BaseEntity
             throw new LogicException(sprintf("Property name of object type %s is required", $this->getObjectType()));
         }
 
+        $original = [
+            'name'   => $this->name,
+            'prompt' => $this->prompt,
+            'value'  => $this->value,
+        ];
+
         $data = [];
-        array_walk($this->getSortedObjectVars(), function ($value, $key) use (&$data) {
+        array_walk($original, function ($value, $key) use (&$data) {
             if (!is_null($value) || $key === 'value') {
                 $data[$key] = $value;
             }
