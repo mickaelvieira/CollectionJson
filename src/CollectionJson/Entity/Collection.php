@@ -69,7 +69,7 @@ class Collection extends BaseEntity implements LinkAware
      * @param string $json
      * @return \CollectionJson\Entity\Collection
      */
-    public function fromJson($json)
+    public static function fromJson($json)
     {
         $data = json_decode($json, true);
 
