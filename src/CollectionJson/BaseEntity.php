@@ -21,19 +21,27 @@ use JsonSerializable;
 abstract class BaseEntity implements JsonSerializable, ArrayConvertible, ArrayInjectable
 {
 
+    /**
+     * @see \CollectionJson\Injection
+     */
     use Injection;
 
     /**
      * @var string
      */
-    private $envelope;
+    protected $envelope;
 
     /**
      * @param array $data
+     * @param null  $envelope
      */
-    public function __construct(array $data = [])
+    public function __construct(array $data = [], $envelope = null)
     {
         $this->inject($data);
+
+        if (!is_null($envelope)) {
+            $this->envelope = $envelope;
+        }
     }
 
     /**

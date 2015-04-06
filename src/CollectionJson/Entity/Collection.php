@@ -66,6 +66,11 @@ class Collection extends BaseEntity implements LinkAware
     protected $template;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $envelope = 'collection';
+
+    /**
      * @param string $json
      * @return \CollectionJson\Entity\Collection
      */
@@ -223,8 +228,6 @@ class Collection extends BaseEntity implements LinkAware
      */
     protected function getObjectData()
     {
-        $this->setEnvelope('collection');
-
         $data = [
             'version'  => self::VERSION,
             'error'    => $this->error,
