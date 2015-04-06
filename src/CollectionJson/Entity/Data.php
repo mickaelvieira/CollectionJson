@@ -87,7 +87,7 @@ class Data extends BaseEntity
      */
     public function setValue($value)
     {
-        if (!is_array($value) && !is_object($value)) {
+        if (!is_array($value) && !is_object($value) && !is_resource($value) && !is_callable($value)) {
             $this->value = $value;
         }
         return $this;
