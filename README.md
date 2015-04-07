@@ -54,7 +54,7 @@ use CollectionJson\Entity\Item;
 $collection = new Collection();
 
 $item = new Item();
-$item->setHref('/item/1');
+$item->setHref('http://example.com/item/1');
 
 $collection->addItem($item);
 
@@ -67,7 +67,7 @@ print json_encode($collection);
         "version": "1.0",
         "items": [
             {
-                "href": "/item/1"
+                "href": "http://example.com/item/1"
             }
         ]
     }
@@ -179,16 +179,6 @@ All entities can be created by passing an array in the constructor...
 
 ```php
 $data = new Data([
-    'name' => 'email',
-    'value' => 'email value'
-]);
-```
-
-...or inject the data later on...
-
-```php
-$data = new Data();
-$data->inject([
     'name' => 'email',
     'value' => 'email value'
 ]);
