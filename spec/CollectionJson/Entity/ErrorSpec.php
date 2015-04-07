@@ -10,7 +10,6 @@ class ErrorSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('CollectionJson\Entity\Error');
-        $this->shouldImplement('CollectionJson\ArrayInjectable');
         $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

@@ -10,7 +10,6 @@ class DataSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('CollectionJson\Entity\Data');
-        $this->shouldImplement('CollectionJson\ArrayInjectable');
         $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

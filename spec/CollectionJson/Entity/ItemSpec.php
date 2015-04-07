@@ -13,7 +13,6 @@ class ItemSpec extends ObjectBehavior
         $this->shouldHaveType('CollectionJson\Entity\Item');
         $this->shouldImplement('CollectionJson\DataAware');
         $this->shouldImplement('CollectionJson\LinkAware');
-        $this->shouldImplement('CollectionJson\ArrayInjectable');
         $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

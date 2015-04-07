@@ -10,7 +10,6 @@ class LinkSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('CollectionJson\Entity\Link');
-        $this->shouldImplement('CollectionJson\ArrayInjectable');
         $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }

@@ -11,7 +11,6 @@ class CollectionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->shouldImplement('CollectionJson\ArrayInjectable');
         $this->shouldImplement('CollectionJson\ArrayConvertible');
         $this->shouldImplement('JsonSerializable');
     }
