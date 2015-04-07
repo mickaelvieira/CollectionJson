@@ -16,6 +16,7 @@ use BadMethodCallException;
 use CollectionJson\BaseEntity;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
+use CollectionJson\Validator\Uri;
 
 /**
  * Class Collection
@@ -91,7 +92,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function setHref($href)
     {
-        if (!filter_var($href, FILTER_VALIDATE_URL)) {
+        if (!Uri::isValid($href)) {
             throw new BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
         }
         $this->href = $href;

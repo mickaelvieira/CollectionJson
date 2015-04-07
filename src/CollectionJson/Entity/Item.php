@@ -19,6 +19,7 @@ use CollectionJson\LinkAware;
 use CollectionJson\DataAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\DataContainer;
+use CollectionJson\Validator\Uri;
 
 /**
  * Class Item
@@ -52,7 +53,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
      */
     public function setHref($href)
     {
-        if (!filter_var($href, FILTER_VALIDATE_URL)) {
+        if (!Uri::isValid($href)) {
             throw new BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
         }
         $this->href = $href;

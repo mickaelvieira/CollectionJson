@@ -16,6 +16,7 @@ use LogicException;
 use BadMethodCallException;
 use CollectionJson\BaseEntity;
 use CollectionJson\Type\Render as RenderType;
+use CollectionJson\Validator\Uri;
 
 /**
  * Class Link
@@ -62,7 +63,7 @@ class Link extends BaseEntity
      */
     public function setHref($href)
     {
-        if (!filter_var($href, FILTER_VALIDATE_URL)) {
+        if (!Uri::isValid($href)) {
             throw new BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
         }
         $this->href = $href;
