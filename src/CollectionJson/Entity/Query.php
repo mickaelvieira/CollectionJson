@@ -18,6 +18,7 @@ use CollectionJson\BaseEntity;
 use CollectionJson\DataAware;
 use CollectionJson\DataContainer;
 use CollectionJson\Validator\Uri;
+use CollectionJson\Validator\StringLike;
 
 /**
  * Class Query
@@ -60,6 +61,7 @@ class Query extends BaseEntity implements DataAware
      * @param string $href
      * @return \CollectionJson\Entity\Query
      * @throws \BadMethodCallException
+     * @throws \BadMethodCallException
      */
     public function setHref($href)
     {
@@ -82,12 +84,17 @@ class Query extends BaseEntity implements DataAware
     /**
      * @param string $name
      * @return \CollectionJson\Entity\Query
+     * @throws \BadMethodCallException
      */
     public function setName($name)
     {
-        if (is_string($name)) {
-            $this->name = $name;
+        if (!StringLike::isValid($name)) {
+            throw new BadMethodCallException(
+                sprintf("Property name of object type %s cannot be converted to a string", $this->getObjectType())
+            );
         }
+        $this->name = (string)$name;
+
         return $this;
     }
 
@@ -102,12 +109,17 @@ class Query extends BaseEntity implements DataAware
     /**
      * @param string $prompt
      * @return \CollectionJson\Entity\Query
+     * @throws \BadMethodCallException
      */
     public function setPrompt($prompt)
     {
-        if (is_string($prompt)) {
-            $this->prompt = $prompt;
+        if (!StringLike::isValid($prompt)) {
+            throw new BadMethodCallException(
+                sprintf("Property prompt of object type %s cannot be converted to a string", $this->getObjectType())
+            );
         }
+        $this->prompt = (string)$prompt;
+
         return $this;
     }
 
@@ -122,12 +134,17 @@ class Query extends BaseEntity implements DataAware
     /**
      * @param string $rel
      * @return \CollectionJson\Entity\Query
+     * @throws \BadMethodCallException
      */
     public function setRel($rel)
     {
-        if (is_string($rel)) {
-            $this->rel = $rel;
+        if (!StringLike::isValid($rel)) {
+            throw new BadMethodCallException(
+                sprintf("Property rel of object type %s cannot be converted to a string", $this->getObjectType())
+            );
         }
+        $this->rel = (string)$rel;
+
         return $this;
     }
 

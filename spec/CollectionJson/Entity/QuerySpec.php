@@ -68,22 +68,43 @@ class QuerySpec extends ObjectBehavior
         $this->shouldThrow('\Exception')->duringSetHref('uri');
     }
 
-    function it_should_not_set_the_rel_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_rel_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property rel of object type query cannot be converted to a string")
+        )->during('setRel', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_rel_value_to_a_string()
     {
         $this->setRel(true);
-        $this->getRel()->shouldBeNull();
+        $this->getRel()->shouldBeEqualTo('1');
     }
 
-    function it_should_not_set_the_name_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property name of object type query cannot be converted to a string")
+        )->during('setName', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_name_value_to_a_string()
     {
         $this->setName(true);
-        $this->getName()->shouldBeNull();
+        $this->getName()->shouldBeEqualTo('1');
     }
 
-    function it_should_not_set_the_prompt_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property prompt of object type query cannot be converted to a string")
+        )->during('setPrompt', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_prompt_value_to_a_string()
     {
         $this->setPrompt(true);
-        $this->getPrompt()->shouldBeNull();
+        $this->getPrompt()->shouldBeEqualTo('1');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()

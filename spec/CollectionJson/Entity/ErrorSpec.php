@@ -40,22 +40,43 @@ class ErrorSpec extends ObjectBehavior
         $this->getMessage()->shouldBeEqualTo('Error Message');
     }
 
-    function it_should_not_set_the_title_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_title_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property title of object type error cannot be converted to a string")
+        )->during('setTitle', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_title_value_to_a_string()
     {
         $this->setTitle(true);
-        $this->getTitle()->shouldBeNull();
+        $this->getTitle()->shouldBeEqualTo('1');
     }
 
-    function it_should_not_set_the_code_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_code_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property code of object type error cannot be converted to a string")
+        )->during('setCode', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_code_value_to_a_string()
     {
         $this->setCode(true);
-        $this->getCode()->shouldBeNull();
+        $this->getCode()->shouldBeEqualTo('1');
     }
 
-    function it_should_not_set_the_message_field_if_it_is_not_a_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_message_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property message of object type error cannot be converted to a string")
+        )->during('setMessage', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_message_value_to_a_string()
     {
         $this->setMessage(true);
-        $this->getMessage()->shouldBeNull();
+        $this->getMessage()->shouldBeEqualTo('1');
     }
 
     function it_should_not_extract_empty_array_and_null_fields()

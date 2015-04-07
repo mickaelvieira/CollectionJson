@@ -40,16 +40,30 @@ class DataSpec extends ObjectBehavior
         $this->getValue()->shouldBeEqualTo('Data Value');
     }
 
-    function it_should_not_set_the_name_if_it_is_not_string()
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property name of object type data cannot be converted to a string")
+        )->during('setName', [new \stdClass()]);
+    }
+
+    function it_should_convert_the_name_value_to_a_string()
     {
         $this->setName(true);
-        $this->getName()->shouldBeNull();
+        $this->getName()->shouldBeEqualTo('1');
+    }
+
+    function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException("Property prompt of object type data cannot be converted to a string")
+        )->during('setPrompt', [new \stdClass()]);
     }
 
     function it_should_not_set_the_prompt_if_it_is_not_string()
     {
         $this->setPrompt(true);
-        $this->getPrompt()->shouldBeNull();
+        $this->getPrompt()->shouldBeEqualTo('1');
     }
 
     function it_should_set_the_value_if_it_is_a_boolean()
