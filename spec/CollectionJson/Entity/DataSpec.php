@@ -84,6 +84,12 @@ class DataSpec extends ObjectBehavior
         $this->getValue()->shouldBeEqualTo(42);
     }
 
+    function it_should_set_the_value_if_it_is_a_float()
+    {
+        $this->setValue(42.10);
+        $this->getValue()->shouldBeEqualTo(42.10);
+    }
+
     function it_should_set_the_value_if_it_is_a_null()
     {
         $this->setValue(null);
@@ -92,28 +98,42 @@ class DataSpec extends ObjectBehavior
 
     function it_should_not_set_the_value_if_it_is_an_array()
     {
-        $this->setValue([]);
-        $this->getValue()->shouldBeNull(null);
+        $this->shouldThrow(
+            new \BadMethodCallException(
+                "Property value of object type data may only have types string, number, boolean or null"
+            )
+        )->during('setValue', [[]]);
     }
 
     function it_should_not_set_the_value_if_it_is_an_object()
     {
-        $this->setValue(new \stdClass());
-        $this->getValue()->shouldBeNull(null);
+        $this->shouldThrow(
+            new \BadMethodCallException(
+                "Property value of object type data may only have types string, number, boolean or null"
+            )
+        )->during('setValue', [new \stdClass()]);
     }
 
     function it_should_not_set_the_value_if_it_is_a_resource()
     {
-        $this->setValue(imagecreate(10, 10));
-        $this->getValue()->shouldBeNull(null);
+        $this->shouldThrow(
+            new \BadMethodCallException(
+                "Property value of object type data may only have types string, number, boolean or null"
+            )
+        )->during('setValue', [imagecreate(10, 10)]);
     }
 
     function it_should_not_set_the_value_if_it_is_a_callable()
     {
-        $this->setValue(function () {
+        $fn = function () {
 
-        });
-        $this->getValue()->shouldBeNull(null);
+        };
+
+        $this->shouldThrow(
+            new \BadMethodCallException(
+                "Property value of object type data may only have types string, number, boolean or null"
+            )
+        )->during('setValue', [$fn]);
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_name_is_null()
@@ -123,7 +143,9 @@ class DataSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_name_is_null()
     {
-        $this->shouldThrow(new \LogicException('Property name of object type data is required'))->during('jsonSerialize');
+        $this->shouldThrow(
+            new \LogicException('Property name of object type data is required')
+        )->during('jsonSerialize');
     }
 
     function it_should_not_return_empty_arrays_and_null_properties_apart_from_the_value_field()

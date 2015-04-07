@@ -12,6 +12,7 @@
 
 namespace CollectionJson\Entity;
 
+use CollectionJson\Validator\DataValue;
 use LogicException;
 use BadMethodCallException;
 use CollectionJson\BaseEntity;
@@ -96,12 +97,20 @@ class Data extends BaseEntity
     /**
      * @param string $value
      * @return \CollectionJson\Entity\Data
+     * @throws \BadMethodCallException
      */
     public function setValue($value)
     {
-        if (!is_array($value) && !is_object($value) && !is_resource($value) && !is_callable($value)) {
-            $this->value = $value;
+        if (!DataValue::isValid($value)) {
+            throw new BadMethodCallException(
+                sprintf(
+                    "Property value of object type %s may only have types string, number, boolean or null",
+                    $this->getObjectType()
+                )
+            );
         }
+        $this->value = $value;
+
         return $this;
     }
 
