@@ -17,6 +17,7 @@ use BadMethodCallException;
 use CollectionJson\BaseEntity;
 use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Validator\Uri;
+use CollectionJson\Validator\Render;
 use CollectionJson\Validator\StringLike;
 
 /**
@@ -158,12 +159,20 @@ class Link extends BaseEntity
     /**
      * @param string $render
      * @return \CollectionJson\Entity\Link
+     * @throws \BadMethodCallException
      */
     public function setRender($render)
     {
-        if ($render === RenderType::LINK || $render === RenderType::IMAGE) {
-            $this->render = $render;
+        if (!Render::isValid($render)) {
+            throw new \BadMethodCallException(
+                sprintf(
+                    "Property render of object type link may only be equal to link or image",
+                    $this->getObjectType()
+                )
+            );
         }
+        $this->render = $render;
+
         return $this;
     }
 

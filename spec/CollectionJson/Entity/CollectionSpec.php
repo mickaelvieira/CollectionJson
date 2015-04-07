@@ -372,7 +372,7 @@ class CollectionSpec extends ObjectBehavior
             [
                 'href'   => 'http://example.com',
                 'rel'    => 'Rel value2',
-                'render' => 'link2'
+                'render' => 'link'
             ],
             new \stdClass()
         ]);

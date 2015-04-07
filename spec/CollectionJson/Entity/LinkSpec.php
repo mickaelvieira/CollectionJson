@@ -26,7 +26,7 @@ class LinkSpec extends ObjectBehavior
         $this->setRel('value')->shouldHaveType('CollectionJson\Entity\Link');
         $this->setName('value')->shouldHaveType('CollectionJson\Entity\Link');
         $this->setPrompt('value')->shouldHaveType('CollectionJson\Entity\Link');
-        $this->setRender('value')->shouldHaveType('CollectionJson\Entity\Link');
+        $this->setRender('image')->shouldHaveType('CollectionJson\Entity\Link');
     }
 
     function it_should_inject_data()
@@ -82,9 +82,11 @@ class LinkSpec extends ObjectBehavior
         $this->getRender()->shouldBeEqualTo('link');
     }
 
-    function it_should_not_set_the_render_field_if_it_is_a_valid_render_type()
+    function it_should_throw_an_exception_when_setting_an_incorrect_render_type()
     {
-        $this->setRender("Render this");
+        $this->shouldThrow(new \BadMethodCallException(
+            "Property render of object type link may only be equal to link or image"
+        ))->during('setRender', ["Render this"]);
         $this->getRender()->shouldBeEqualTo('link');
     }
 
