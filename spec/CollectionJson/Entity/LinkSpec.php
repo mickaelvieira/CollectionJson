@@ -28,7 +28,7 @@ class LinkSpec extends ObjectBehavior
         $this->setRender('image')->shouldHaveType('CollectionJson\Entity\Link');
     }
 
-    function it_should_inject_data()
+    function it_may_be_construct_with_an_array_representation_of_the_link()
     {
         $data = [
             'href'   => 'http://example.com',

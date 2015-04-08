@@ -26,7 +26,7 @@ class DataSpec extends ObjectBehavior
         $this->setValue('value')->shouldHaveType('CollectionJson\Entity\Data');
     }
 
-    function it_should_inject_data()
+    function it_may_be_construct_with_an_array_representation_of_the_data()
     {
         $data = [
             'name'     => 'Data Name',

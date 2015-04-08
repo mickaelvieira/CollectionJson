@@ -26,7 +26,7 @@ class ErrorSpec extends ObjectBehavior
         $this->setTitle('value')->shouldHaveType('CollectionJson\Entity\Error');
     }
 
-    function it_should_inject_data()
+    function it_may_be_construct_with_an_array_representation_of_the_error()
     {
         $data = [
             'title'   => 'Error Title',

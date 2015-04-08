@@ -34,7 +34,7 @@ class ItemSpec extends ObjectBehavior
     /**
      * @param \CollectionJson\Entity\Data $data2
      */
-    function it_should_inject_data($data2)
+    function it_may_be_construct_with_an_array_representation_of_the_item($data2)
     {
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');

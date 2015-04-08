@@ -41,13 +41,13 @@ class StringLikeSpec extends ObjectBehavior
         $this->isValid([])->shouldReturn(false);
     }
 
-    function it_should_not_validate_an_object_which_cannot_be_converted_into_a_string($object)
+    function it_should_not_validate_an_object_which_cannot_be_converted_to_a_string($object)
     {
         $object->beADoubleOf('\stdClass');
         $this->isValid($object)->shouldReturn(false);
     }
 
-    function it_should_not_validate_an_object_which_can_be_converted_into_a_string($object)
+    function it_should_not_validate_an_object_which_can_be_converted_to_a_string($object)
     {
         $object->beADoubleOf('CollectionJson\StringConvertible');
         $this->isValid($object)->shouldReturn(true);

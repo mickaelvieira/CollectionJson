@@ -23,7 +23,7 @@ class TemplateSpec extends ObjectBehavior
     /**
      * @param \CollectionJson\Entity\Data $data
      */
-    function it_should_inject_data($data)
+    function it_may_be_construct_with_an_array_representation_of_the_template($data)
     {
         $data->getName()->willReturn('name 2');
         $data->getValue()->willReturn('value 2');

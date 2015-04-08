@@ -37,6 +37,7 @@ class Template extends BaseEntity implements DataAware
         $data = [
             'data' => $this->getDataSet()
         ];
+
         $data = $this->filterEmptyArrays($data);
         $data = $this->filterNullValues($data);
 

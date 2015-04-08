@@ -64,7 +64,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     /**
      * @param string $envelope
      */
-    public function setEnvelope($envelope)
+    final public function setEnvelope($envelope)
     {
         $this->envelope = $envelope;
     }

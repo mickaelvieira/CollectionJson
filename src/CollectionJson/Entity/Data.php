@@ -143,6 +143,7 @@ class Data extends BaseEntity
                 $data[$key] = $value;
             }
         });
+
         return $data;
     }
 }

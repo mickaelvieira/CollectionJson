@@ -85,6 +85,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
         ];
 
         $data = $this->filterEmptyArrays($data);
+
         return $data;
     }
 }

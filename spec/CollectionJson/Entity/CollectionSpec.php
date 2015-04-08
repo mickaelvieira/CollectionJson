@@ -20,7 +20,7 @@ class CollectionSpec extends ObjectBehavior
         $this->getObjectType()->shouldBeEqualTo('collection');
     }
 
-    function it_should_inject_data()
+    function it_may_be_construct_with_an_array_representation_of_the_collection()
     {
         $data = [
             'error'    => [
@@ -82,7 +82,7 @@ class CollectionSpec extends ObjectBehavior
     }
 
 
-    function it_can_build_a_collection_from_a_json_representation()
+    function it_may_be_construct_from_a_json_representation_of_the_collection()
     {
         $json = '
         {
@@ -232,7 +232,9 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
-        $this->shouldThrow('\Exception')->duringSetHref('uri');
+        $this->shouldThrow(
+            new \BadMethodCallException("Field href must be a valid URL, uri given")
+        )->duringSetHref('uri');
     }
 
     /**
