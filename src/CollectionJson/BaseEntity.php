@@ -96,7 +96,8 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     final public function getObjectType()
     {
-        return strtolower(end(explode("\\", get_class($this))));
+        $tree = explode("\\", get_class($this));
+        return strtolower(end($tree));
     }
 
     /**
