@@ -12,6 +12,7 @@
 
 namespace CollectionJson\Entity;
 
+use CollectionJson\Bag;
 use LogicException;
 use BadMethodCallException;
 use CollectionJson\BaseEntity;
@@ -57,6 +58,14 @@ class Query extends BaseEntity implements DataAware
      */
     protected $prompt;
 
+    /**
+     * Query constructor.
+     */
+    public function __construct()
+    {
+        $this->data = new Bag(Data::class);
+    }
+    
     /**
      * @param string $href
      * @return \CollectionJson\Entity\Query

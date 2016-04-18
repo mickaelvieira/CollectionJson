@@ -13,6 +13,7 @@
 namespace CollectionJson\Entity;
 
 use BadMethodCallException;
+use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
@@ -43,16 +44,16 @@ class Collection extends BaseEntity implements LinkAware
     protected $href;
 
     /**
-     * @var array
+     * @var \CollectionJson\Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-items
      */
-    protected $items = [];
+    protected $items;
 
     /**
-     * @var array
+     * @var \CollectionJson\Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-queries
      */
-    protected $queries = [];
+    protected $queries;
 
     /**
      * @var \CollectionJson\Entity\Error
@@ -71,6 +72,12 @@ class Collection extends BaseEntity implements LinkAware
      */
     protected $wrapper = 'collection';
 
+    public function __construct()
+    {
+        $this->items   = new Bag(Item::class);
+        $this->queries = new Bag(Query::class);
+        $this->links   = new Bag(Link::class);
+    }
 
     /**
      * @param string $href
@@ -101,12 +108,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function addItem($item)
     {
-        if (is_array($item)) {
-            $item = Item::fromArray($item);
-        }
-        if ($item instanceof Item) {
-            array_push($this->items, $item);
-        }
+        $this->items->add($item);
         return $this;
     }
 
@@ -116,9 +118,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function addItemsSet(array $items)
     {
-        foreach ($items as $item) {
-            $this->addItem($item);
-        }
+        $this->items->addSet($items);
         return $this;
     }
 
@@ -127,7 +127,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getItemsSet()
     {
-        return $this->items;
+        return $this->items->getSet();
     }
 
     /**
@@ -135,7 +135,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getFirstItem()
     {
-        return (!empty($this->items)) ? reset($this->items) : null;
+        return $this->items->getFirst();
     }
 
     /**
@@ -143,7 +143,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getLastItem()
     {
-        return (end($this->items)) ?: null;
+        return $this->items->getLast();
     }
 
     /**
@@ -152,12 +152,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function addQuery($query)
     {
-        if (is_array($query)) {
-            $query = Query::fromArray($query);
-        }
-        if ($query instanceof Query) {
-            array_push($this->queries, $query);
-        }
+        $this->queries->add($query);
         return $this;
     }
 
@@ -167,9 +162,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function addQueriesSet(array $queries)
     {
-        foreach ($queries as $query) {
-            $this->addQuery($query);
-        }
+        $this->queries->addSet($queries);
         return $this;
     }
 
@@ -178,7 +171,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getQueriesSet()
     {
-        return $this->queries;
+        return $this->queries->getSet();
     }
 
     /**
@@ -186,7 +179,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getFirstQuery()
     {
-        return (!empty($this->queries)) ? reset($this->queries) : null;
+        return $this->queries->getFirst();
     }
 
     /**
@@ -194,7 +187,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getLastQuery()
     {
-        return (end($this->queries)) ?: null;
+        return $this->queries->getLast();
     }
     
     /**
@@ -252,9 +245,9 @@ class Collection extends BaseEntity implements LinkAware
             'version'  => self::VERSION,
             'error'    => $this->error,
             'href'     => $this->href,
-            'items'    => $this->items,
+            'items'    => $this->items->getSet(),
             'links'    => $this->getLinksSet(),
-            'queries'  => $this->queries,
+            'queries'  => $this->queries->getSet(),
             'template' => $this->template,
         ];
 

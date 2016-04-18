@@ -21,10 +21,10 @@ use CollectionJson\Entity\Link;
 trait LinkContainer
 {
     /**
-     * @var \CollectionJson\Entity\Link[]
+     * @var \CollectionJson\Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-links
      */
-    protected $links = [];
+    protected $links;
 
     /**
      * @param \CollectionJson\Entity\Link|array $link
@@ -32,12 +32,7 @@ trait LinkContainer
      */
     public function addLink($link)
     {
-        if (is_array($link)) {
-            $link = Link::fromArray($link);
-        }
-        if ($link instanceof Link) {
-            array_push($this->links, $link);
-        }
+        $this->links->add($link);
         return $this;
     }
 
@@ -47,9 +42,7 @@ trait LinkContainer
      */
     public function addLinksSet(array $set)
     {
-        foreach ($set as $link) {
-            $this->addLink($link);
-        }
+        $this->links->addSet($set);
         return $this;
     }
 
@@ -58,7 +51,7 @@ trait LinkContainer
      */
     public function getLinksSet()
     {
-        return $this->links;
+        return $this->links->getSet();
     }
 
     /**
@@ -67,7 +60,7 @@ trait LinkContainer
      */
     public function findLinkByRelation($relation)
     {
-        $links = array_filter($this->links, function (Link $link) use ($relation) {
+        $links = array_filter($this->links->getSet(), function (Link $link) use ($relation) {
             return ($link->getRel() === $relation);
         });
 
@@ -79,7 +72,7 @@ trait LinkContainer
      */
     public function getFirstLink()
     {
-        return (!empty($this->links)) ? reset($this->links) : null;
+        return $this->links->getFirst();
     }
 
     /**
@@ -87,6 +80,6 @@ trait LinkContainer
      */
     public function getLastLink()
     {
-        return (end($this->links)) ?: null;
+        return $this->links->getLast();
     }
 }

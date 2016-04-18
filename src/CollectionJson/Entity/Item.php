@@ -12,6 +12,7 @@
 
 namespace CollectionJson\Entity;
 
+use CollectionJson\Bag;
 use LogicException;
 use BadMethodCallException;
 use CollectionJson\BaseEntity;
@@ -45,6 +46,15 @@ class Item extends BaseEntity implements LinkAware, DataAware
      */
     protected $href;
 
+    /**
+     * Item constructor.
+     */
+    public function __construct()
+    {
+        $this->links = new Bag(Link::class);
+        $this->data  = new Bag(Data::class);
+    }
+    
     /**
      * @param string $href
      * @return \CollectionJson\Entity\Item

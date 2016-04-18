@@ -21,10 +21,10 @@ use CollectionJson\Entity\Data;
 trait DataContainer
 {
     /**
-     * @var \CollectionJson\Entity\Data[]
+     * @var \CollectionJson\Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-data
      */
-    protected $data = [];
+    protected $data;
 
     /**
      * @param \CollectionJson\Entity\Data|array $data
@@ -32,12 +32,7 @@ trait DataContainer
      */
     public function addData($data)
     {
-        if (is_array($data)) {
-            $data = Data::fromArray($data);
-        }
-        if ($data instanceof Data) {
-            array_push($this->data, $data);
-        }
+        $this->data->add($data);
         return $this;
     }
 
@@ -47,9 +42,7 @@ trait DataContainer
      */
     public function addDataSet(array $set)
     {
-        foreach ($set as $data) {
-            $this->addData($data);
-        }
+        $this->data->addSet($set);
         return $this;
     }
 
@@ -58,7 +51,7 @@ trait DataContainer
      */
     public function getDataSet()
     {
-        return $this->data;
+        return $this->data->getSet();
     }
 
     /**
@@ -67,7 +60,7 @@ trait DataContainer
      */
     public function findDataByName($name)
     {
-        $data = array_filter($this->data, function (Data $d) use ($name) {
+        $data = array_filter($this->data->getSet(), function (Data $d) use ($name) {
             return ($d->getName() === $name);
         });
 
@@ -79,7 +72,7 @@ trait DataContainer
      */
     public function getFirstData()
     {
-        return (!empty($this->data)) ? reset($this->data) : null;
+        return $this->data->getFirst();
     }
 
     /**
@@ -87,6 +80,6 @@ trait DataContainer
      */
     public function getLastData()
     {
-        return (end($this->data)) ?: null;
+        return $this->data->getLast();
     }
 }

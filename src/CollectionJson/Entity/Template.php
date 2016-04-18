@@ -12,6 +12,7 @@
 
 namespace CollectionJson\Entity;
 
+use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
 use CollectionJson\DataAware;
 use CollectionJson\DataContainer;
@@ -28,6 +29,14 @@ class Template extends BaseEntity implements DataAware
      * @see \CollectionJson\DataContainer
      */
     use DataContainer;
+
+    /**
+     * Query constructor.
+     */
+    public function __construct()
+    {
+        $this->data = new Bag(Data::class);
+    }
 
     /**
      * {@inheritdoc}
