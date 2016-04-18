@@ -97,25 +97,7 @@ class TemplateSpec extends ObjectBehavior
             ]
         ]);
     }
-
-    function it_should_add_an_envelope_via_the_constructor()
-    {
-        $data = [
-            'data' => [
-                ['name' => 'name 1', 'value' => 'value 1']
-            ]
-        ];
-
-        $this->beConstructedWith($data, 'template');
-        $this->toArray()->shouldBeEqualTo([
-            'template' => [
-                'data' => [
-                    ['name' => 'name 1', 'value' => 'value 1']
-                ]
-            ]
-        ]);
-    }
-
+    
     /**
      * @param \CollectionJson\Entity\Data $data
      */
@@ -124,7 +106,7 @@ class TemplateSpec extends ObjectBehavior
         $data->toArray()->willReturn(['value' => 'value 1']);
 
         $this->addData($data);
-        $this->setEnvelope('template');
+        $this->wrap('template');
         $this->toArray()->shouldBeEqualTo([
             'template' => [
                 'data' => [

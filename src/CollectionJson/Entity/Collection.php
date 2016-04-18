@@ -69,7 +69,7 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * {@inheritdoc}
      */
-    protected $envelope = 'collection';
+    protected $wrapper = 'collection';
 
     /**
      * @param string $json

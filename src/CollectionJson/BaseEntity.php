@@ -23,19 +23,15 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     /**
      * @var string
      */
-    protected $envelope;
+    protected $wrapper;
 
     /**
      * @param array $data
-     * @param null  $envelope
+     * @param null  $wrapper
      */
-    public function __construct(array $data = [], $envelope = null)
+    public function __construct(array $data = [])
     {
         $this->inject($data);
-
-        if (!is_null($envelope)) {
-            $this->envelope = $envelope;
-        }
     }
 
     /**
@@ -44,7 +40,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     public function jsonSerialize()
     {
         $data = $this->getObjectData();
-        $data = $this->addEnvelope($data);
+        $data = $this->addWrapper($data);
 
         return $data;
     }
@@ -56,17 +52,17 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         $data = $this->getObjectData();
         $data = $this->recursiveToArray($data);
-        $data = $this->addEnvelope($data);
+        $data = $this->addWrapper($data);
 
         return $data;
     }
 
     /**
-     * @param string $envelope
+     * @param string $wrapper
      */
-    final public function setEnvelope($envelope)
+    final public function wrap($wrapper)
     {
-        $this->envelope = $envelope;
+        $this->wrapper = $wrapper;
     }
 
     /**
@@ -129,11 +125,11 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      * @param array $data
      * @return array
      */
-    private function addEnvelope(array $data)
+    private function addWrapper(array $data)
     {
-        if (is_string($this->envelope)) {
+        if (is_string($this->wrapper)) {
             $data = [
-                $this->envelope => $data
+                $this->wrapper => $data
             ];
         }
 

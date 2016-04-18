@@ -127,9 +127,9 @@ Array
 )
 ```
 
-#### Adding an envelope
+#### Wrapping
 
-The ```CollectionJson\Entity\Collection``` entity will be wrapped within an envelope...
+The ```CollectionJson\Entity\Collection``` entity will be wrapped...
 
 ```php
 echo json_encode($collection);
@@ -142,7 +142,7 @@ echo json_encode($collection);
      }
 }
 ```
-...however others entities will not be wrapped within an envelope when they are converted in a JSON or an Array.
+...however others entities will not be wrapped when they are converted in a JSON or an Array.
 
 ```php
 $template = new Template();
@@ -157,10 +157,10 @@ echo json_encode($template);
 }
 ```
 
-But you can add an envelope to the json and array representation by calling the method ```setEnvelope()```
+But you can wrap the json or the array representation by calling the method ```wrap()```
 
 ```php
-$template->setEnvelope('template');
+$template->wrap('template');
 echo json_encode($template);
 ```
 
