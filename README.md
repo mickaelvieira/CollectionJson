@@ -229,6 +229,30 @@ $collection->setError(new Error());
 $collection->setTemplate(new Template());
 ```
 
+
+Build the collection from a existing JSON, which means you can use the library as client API
+
+```php
+$json = '
+{
+    "collection": {
+        "version": "1.0",
+        "href": "http://example.org/friends/",
+        "links": [
+            {
+                "rel": "feed",
+                "href": "http://example.org/friends/rss"
+            }
+        ]
+    }
+}';
+
+$collection = $this::fromJson($json);
+$link = $collection->getLinksSet()[0];
+echo $link->getRel();  // feed
+echo $link->getHref(); // http://example.org/friends/rss
+```
+
 #### Item
 
 [http://amundsen.com/media-types/collection/format/#arrays-items](http://amundsen.com/media-types/collection/format/#arrays-items)
