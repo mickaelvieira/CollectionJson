@@ -175,10 +175,10 @@ echo json_encode($template);
 ```
 ### Creating an entity
 
-All entities can be created by passing an array in the constructor...
+All entities can be created by using the static method ```fromArray```...
 
 ```php
-$data = new Data([
+$data = Data::fromArray([
     'name' => 'email',
     'value' => 'email value'
 ]);
@@ -386,7 +386,7 @@ $item->addData([
 ]);
 
 // ...is similar to 
-$data = new Data([
+$data = Data::fromArray([
     'name' => 'email',
     'value' => 'email value'
 ]);
@@ -405,11 +405,11 @@ $item->addDataSet([
 ]);
 
 // ...is similar to 
-$data1 = new Data([
+$data1 = Data::fromArray([
     'name' => 'email',
     'value' => 'email value'
 ]);
-$data2 = new Data([
+$data2 = Data::fromArray([
     'name' => 'tel',
     'value' => 'tel value'
 ]);

@@ -33,7 +33,7 @@ trait LinkContainer
     public function addLink($link)
     {
         if (is_array($link)) {
-            $link = new Link($link);
+            $link = Link::fromArray($link);
         }
         if ($link instanceof Link) {
             array_push($this->links, $link);
@@ -87,7 +87,6 @@ trait LinkContainer
      */
     public function getLastLink()
     {
-        return (!empty($this->links)) ? end($this->links) : null;
+        return (end($this->links)) ?: null;
     }
-
 }

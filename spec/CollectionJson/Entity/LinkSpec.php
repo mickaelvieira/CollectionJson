@@ -37,12 +37,12 @@ class LinkSpec extends ObjectBehavior
             'render' => 'image',
             'prompt' => 'Link Prompt'
         ];
-        $this->beConstructedWith($data);
-        $this->getHref()->shouldBeEqualTo('http://example.com');
-        $this->getRel()->shouldBeEqualTo('Link Rel');
-        $this->getName()->shouldBeEqualTo('Link Name');
-        $this->getRender()->shouldBeEqualTo('image');
-        $this->getPrompt()->shouldBeEqualTo('Link Prompt');
+        $link = $this::fromArray($data);
+        $link->getHref()->shouldBeEqualTo('http://example.com');
+        $link->getRel()->shouldBeEqualTo('Link Rel');
+        $link->getName()->shouldBeEqualTo('Link Name');
+        $link->getRender()->shouldBeEqualTo('image');
+        $link->getPrompt()->shouldBeEqualTo('Link Prompt');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()

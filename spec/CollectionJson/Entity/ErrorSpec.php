@@ -33,10 +33,10 @@ class ErrorSpec extends ObjectBehavior
             'code'    => 'Error Code',
             'message' => 'Error Message'
         ];
-        $this->beConstructedWith($data);
-        $this->getTitle()->shouldBeEqualTo('Error Title');
-        $this->getCode()->shouldBeEqualTo('Error Code');
-        $this->getMessage()->shouldBeEqualTo('Error Message');
+        $error = $this::fromArray($data);
+        $error->getTitle()->shouldBeEqualTo('Error Title');
+        $error->getCode()->shouldBeEqualTo('Error Code');
+        $error->getMessage()->shouldBeEqualTo('Error Message');
     }
 
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_title_to_a_string()

@@ -71,19 +71,6 @@ class Collection extends BaseEntity implements LinkAware
      */
     protected $wrapper = 'collection';
 
-    /**
-     * @param string $json
-     * @return \CollectionJson\Entity\Collection
-     */
-    public static function fromJson($json)
-    {
-        $data = json_decode($json, true);
-
-        if (array_key_exists('collection', $data)) {
-            $data = $data['collection'];
-        }
-        return new self($data);
-    }
 
     /**
      * @param string $href
@@ -115,7 +102,7 @@ class Collection extends BaseEntity implements LinkAware
     public function addItem($item)
     {
         if (is_array($item)) {
-            $item = new Item($item);
+            $item = Item::fromArray($item);
         }
         if ($item instanceof Item) {
             array_push($this->items, $item);
@@ -166,7 +153,7 @@ class Collection extends BaseEntity implements LinkAware
     public function addQuery($query)
     {
         if (is_array($query)) {
-            $query = new Query($query);
+            $query = Query::fromArray($query);
         }
         if ($query instanceof Query) {
             array_push($this->queries, $query);
@@ -217,7 +204,7 @@ class Collection extends BaseEntity implements LinkAware
     public function setError($error)
     {
         if (is_array($error)) {
-            $error = new Error($error);
+            $error = Error::fromArray($error);
         }
         if ($error instanceof Error) {
             $this->error = $error;
@@ -240,7 +227,7 @@ class Collection extends BaseEntity implements LinkAware
     public function setTemplate($template)
     {
         if (is_array($template)) {
-            $template = new Template($template);
+            $template = Template::fromArray($template);
         }
         if ($template instanceof Template) {
             $this->template = $template;

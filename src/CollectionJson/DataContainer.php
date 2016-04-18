@@ -33,7 +33,7 @@ trait DataContainer
     public function addData($data)
     {
         if (is_array($data)) {
-            $data = new Data($data);
+            $data = Data::fromArray($data);
         }
         if ($data instanceof Data) {
             array_push($this->data, $data);
@@ -87,6 +87,6 @@ trait DataContainer
      */
     public function getLastData()
     {
-        return (!empty($this->data)) ? end($this->data) : null;
+        return (end($this->data)) ?: null;
     }
 }

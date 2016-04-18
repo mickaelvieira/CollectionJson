@@ -72,13 +72,13 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ];
-        $this->beConstructedWith($data);
-        $this->getHref()->shouldBeEqualTo('http://example.com');
-        $this->getError()->shouldHaveType('CollectionJson\Entity\Error');
-        $this->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
-        $this->getItemsSet()->shouldHaveCount(2);
-        $this->getLinksSet()->shouldHaveCount(2);
-        $this->toArray()->shouldBeEqualTo([
+        $collection = $this::fromArray($data);
+        $collection->getHref()->shouldBeEqualTo('http://example.com');
+        $collection->getError()->shouldHaveType('CollectionJson\Entity\Error');
+        $collection->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
+        $collection->getItemsSet()->shouldHaveCount(2);
+        $collection->getLinksSet()->shouldHaveCount(2);
+        $collection->toArray()->shouldBeEqualTo([
             'collection' => array_merge(['version' => '1.0'], $data)
         ]);
     }
@@ -405,8 +405,8 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_retrieve_the_link_by_relation()
     {
-        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
-        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
 
         $this->addLinksSet([$link1, $link2]);
 
@@ -448,9 +448,9 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_return_the_first_link_in_the_set()
     {
-        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
-        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
-        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+        $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
         $this->addLinksSet([$link1, $link2, $link3]);
 
@@ -464,9 +464,9 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_return_the_last_link_in_the_set()
     {
-        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
-        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
-        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+        $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
         $this->addLinksSet([$link1, $link2, $link3]);
 

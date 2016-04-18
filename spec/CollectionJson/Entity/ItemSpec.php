@@ -50,11 +50,11 @@ class ItemSpec extends ObjectBehavior
                 $data2
             ]
         ];
-        $this->beConstructedWith($data);
-        $this->getHref()->shouldBeEqualTo('http://example.com');
-        $this->getDataSet()->shouldHaveCount(2);
-        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $item = $this::fromArray($data);
+        $item->getHref()->shouldBeEqualTo('http://example.com');
+        $item->getDataSet()->shouldHaveCount(2);
+        $item->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $item->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
@@ -142,8 +142,8 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_retrieve_the_link_by_relation()
     {
-        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
-        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
 
         $this->addLinksSet([$link1, $link2]);
 
@@ -200,9 +200,9 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_return_the_first_link_in_the_set()
     {
-        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
-        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
-        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+        $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
         $this->addLinksSet([$link1, $link2, $link3]);
 
@@ -216,9 +216,9 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_return_the_last_link_in_the_set()
     {
-        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
-        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
-        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+        $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
         $this->addLinksSet([$link1, $link2, $link3]);
 
@@ -232,9 +232,9 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_return_the_first_data_in_the_set()
     {
-        $data1 = new Data(['value' => 'value1']);
-        $data2 = new Data(['value' => 'value2']);
-        $data3 = new Data(['value' => 'value3']);
+        $data1 = Data::fromArray(['value' => 'value1']);
+        $data2 = Data::fromArray(['value' => 'value2']);
+        $data3 = Data::fromArray(['value' => 'value3']);
 
         $this->addDataSet([$data1, $data2, $data3]);
 
@@ -248,9 +248,9 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_return_the_last_data_in_the_set()
     {
-        $data1 = new Data(['value' => 'value1']);
-        $data2 = new Data(['value' => 'value2']);
-        $data3 = new Data(['value' => 'value3']);
+        $data1 = Data::fromArray(['value' => 'value1']);
+        $data2 = Data::fromArray(['value' => 'value2']);
+        $data3 = Data::fromArray(['value' => 'value3']);
 
         $this->addDataSet([$data1, $data2, $data3]);
 

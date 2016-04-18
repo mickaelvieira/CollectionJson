@@ -38,10 +38,10 @@ class TemplateSpec extends ObjectBehavior
                 $data
             ]
         ];
-        $this->beConstructedWith($data);
-        $this->getDataSet()->shouldHaveCount(2);
-        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $template = $this::fromArray($data);
+        $template->getDataSet()->shouldHaveCount(2);
+        $template->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $template->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_be_chainable()
@@ -138,9 +138,9 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_return_the_first_data_in_the_set()
     {
-        $data1 = new Data(['value' => 'value1']);
-        $data2 = new Data(['value' => 'value2']);
-        $data3 = new Data(['value' => 'value3']);
+        $data1 = Data::fromArray(['value' => 'value1']);
+        $data2 = Data::fromArray(['value' => 'value2']);
+        $data3 = Data::fromArray(['value' => 'value3']);
 
         $this->addDataSet([$data1, $data2, $data3]);
 
@@ -154,9 +154,9 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_return_the_last_data_in_the_set()
     {
-        $data1 = new Data(['value' => 'value1']);
-        $data2 = new Data(['value' => 'value2']);
-        $data3 = new Data(['value' => 'value3']);
+        $data1 = Data::fromArray(['value' => 'value1']);
+        $data2 = Data::fromArray(['value' => 'value2']);
+        $data3 = Data::fromArray(['value' => 'value3']);
 
         $this->addDataSet([$data1, $data2, $data3]);
 

@@ -33,10 +33,10 @@ class DataSpec extends ObjectBehavior
             'prompt'   => 'Data Prompt',
             'value'    => 'Data Value'
         ];
-        $this->beConstructedWith($data);
-        $this->getName()->shouldBeEqualTo('Data Name');
-        $this->getPrompt()->shouldBeEqualTo('Data Prompt');
-        $this->getValue()->shouldBeEqualTo('Data Value');
+        $data = $this::fromArray($data);
+        $data->getName()->shouldBeEqualTo('Data Name');
+        $data->getPrompt()->shouldBeEqualTo('Data Prompt');
+        $data->getValue()->shouldBeEqualTo('Data Value');
     }
 
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()

@@ -27,11 +27,41 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @param array $data
-     * @param null  $wrapper
+     * @return static
      */
-    public function __construct(array $data = [])
+    public static function fromArray(array $data)
     {
-        $this->inject($data);
+        $object = new static();
+
+        $underscoreToCamelCase = function ($key) {
+            return implode("", array_map("ucfirst", preg_split("/_/", strtolower($key))));
+        };
+
+        foreach ($data as $key => $value) {
+
+            $setter = sprintf("set%s", $underscoreToCamelCase($key));
+            $adder  = sprintf("add%sSet", ucfirst($key));
+
+            if (method_exists($object, $setter)) {
+                $object->$setter($value);
+            } elseif (method_exists($object, $adder)) {
+                $object->$adder($value);
+            }
+        }
+        return $object;
+    }
+
+    /**
+     * @param string $json
+     * @return \CollectionJson\Entity\Collection
+     */
+    public static function fromJson($json)
+    {
+        $data = json_decode($json, true);
+        if (array_key_exists('collection', $data)) {
+            $data = $data['collection'];
+        }
+        return self::fromArray($data);
     }
 
     /**
@@ -132,40 +162,6 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
                 $this->wrapper => $data
             ];
         }
-
         return $data;
-    }
-
-    /**
-     * @param array $data
-     */
-    private function inject(array $data)
-    {
-        foreach ($data as $key => $value) {
-
-            $setter = sprintf("set%s", $this->underscoreToCamelCase($key));
-            $adder  = sprintf("add%sSet", ucfirst($key));
-
-            if (method_exists($this, $setter)) {
-                $this->$setter($value);
-            } elseif (method_exists($this, $adder)) {
-                $this->$adder($value);
-            }
-        }
-    }
-
-    /**
-     * @param string $key
-     * @return string
-     */
-    private function underscoreToCamelCase($key)
-    {
-        return implode(
-            "",
-            array_map(
-                "ucfirst",
-                preg_split("/_/", strtolower($key))
-            )
-        );
     }
 }

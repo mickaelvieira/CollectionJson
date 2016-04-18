@@ -53,14 +53,14 @@ class QuerySpec extends ObjectBehavior
             ]
         ];
 
-        $this->beConstructedWith($data);
-        $this->getHref()->shouldBeEqualTo('http://example.com');
-        $this->getRel()->shouldBeEqualTo('Query Rel');
-        $this->getName()->shouldBeEqualTo('Query Name');
-        $this->getPrompt()->shouldBeEqualTo('Query Prompt');
-        $this->getDataSet()->shouldHaveCount(2);
-        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $query = $this::fromArray($data);
+        $query->getHref()->shouldBeEqualTo('http://example.com');
+        $query->getRel()->shouldBeEqualTo('Query Rel');
+        $query->getName()->shouldBeEqualTo('Query Name');
+        $query->getPrompt()->shouldBeEqualTo('Query Prompt');
+        $query->getDataSet()->shouldHaveCount(2);
+        $query->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $query->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
@@ -214,9 +214,9 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_return_the_first_data_in_the_set()
     {
-        $data1 = new Data(['value' => 'value1']);
-        $data2 = new Data(['value' => 'value2']);
-        $data3 = new Data(['value' => 'value3']);
+        $data1 = Data::fromArray(['value' => 'value1']);
+        $data2 = Data::fromArray(['value' => 'value2']);
+        $data3 = Data::fromArray(['value' => 'value3']);
 
         $this->addDataSet([$data1, $data2, $data3]);
 
@@ -230,9 +230,9 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_return_the_last_data_in_the_set()
     {
-        $data1 = new Data(['value' => 'value1']);
-        $data2 = new Data(['value' => 'value2']);
-        $data3 = new Data(['value' => 'value3']);
+        $data1 = Data::fromArray(['value' => 'value1']);
+        $data2 = Data::fromArray(['value' => 'value2']);
+        $data3 = Data::fromArray(['value' => 'value3']);
 
         $this->addDataSet([$data1, $data2, $data3]);
 
