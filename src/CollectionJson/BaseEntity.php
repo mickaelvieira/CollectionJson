@@ -58,6 +58,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     public static function fromJson($json)
     {
         $data = json_decode($json, true);
+        // @TODO this cannot stay here
         if (array_key_exists('collection', $data)) {
             $data = $data['collection'];
         }

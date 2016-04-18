@@ -72,6 +72,9 @@ class Collection extends BaseEntity implements LinkAware
      */
     protected $wrapper = 'collection';
 
+    /**
+     * Collection constructor.
+     */
     public function __construct()
     {
         $this->items   = new Bag(Item::class);
