@@ -42,7 +42,7 @@ class DataSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property name of object type data cannot be converted to a string")
+            new \DomainException("Property name of object type data cannot be converted to a string")
         )->during('setName', [new \stdClass()]);
     }
 
@@ -55,7 +55,7 @@ class DataSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property prompt of object type data cannot be converted to a string")
+            new \DomainException("Property prompt of object type data cannot be converted to a string")
         )->during('setPrompt', [new \stdClass()]);
     }
 
@@ -98,7 +98,7 @@ class DataSpec extends ObjectBehavior
     function it_should_not_set_the_value_if_it_is_an_array()
     {
         $this->shouldThrow(
-            new \BadMethodCallException(
+            new \DomainException(
                 "Property value of object type data may only have types string, number, boolean or null"
             )
         )->during('setValue', [[]]);
@@ -107,7 +107,7 @@ class DataSpec extends ObjectBehavior
     function it_should_not_set_the_value_if_it_is_an_object()
     {
         $this->shouldThrow(
-            new \BadMethodCallException(
+            new \DomainException(
                 "Property value of object type data may only have types string, number, boolean or null"
             )
         )->during('setValue', [new \stdClass()]);
@@ -116,7 +116,7 @@ class DataSpec extends ObjectBehavior
     function it_should_not_set_the_value_if_it_is_a_resource()
     {
         $this->shouldThrow(
-            new \BadMethodCallException(
+            new \DomainException(
                 "Property value of object type data may only have types string, number, boolean or null"
             )
         )->during('setValue', [imagecreate(10, 10)]);
@@ -129,7 +129,7 @@ class DataSpec extends ObjectBehavior
         };
 
         $this->shouldThrow(
-            new \BadMethodCallException(
+            new \DomainException(
                 "Property value of object type data may only have types string, number, boolean or null"
             )
         )->during('setValue', [$fn]);

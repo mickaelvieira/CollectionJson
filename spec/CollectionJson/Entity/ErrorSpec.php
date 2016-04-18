@@ -42,7 +42,7 @@ class ErrorSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_title_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property title of object type error cannot be converted to a string")
+            new \DomainException("Property title of object type error cannot be converted to a string")
         )->during('setTitle', [new \stdClass()]);
     }
 
@@ -55,7 +55,7 @@ class ErrorSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_code_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property code of object type error cannot be converted to a string")
+            new \DomainException("Property code of object type error cannot be converted to a string")
         )->during('setCode', [new \stdClass()]);
     }
 
@@ -68,7 +68,7 @@ class ErrorSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_message_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property message of object type error cannot be converted to a string")
+            new \DomainException("Property message of object type error cannot be converted to a string")
         )->during('setMessage', [new \stdClass()]);
     }
 

@@ -53,7 +53,7 @@ class LinkSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_rel_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property rel of object type link cannot be converted to a string")
+            new \DomainException("Property rel of object type link cannot be converted to a string")
         )->during('setRel', [new \stdClass()]);
     }
 
@@ -66,7 +66,7 @@ class LinkSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property name of object type link cannot be converted to a string")
+            new \DomainException("Property name of object type link cannot be converted to a string")
         )->during('setName', [new \stdClass()]);
     }
 
@@ -83,7 +83,7 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_when_setting_an_incorrect_render_type()
     {
-        $this->shouldThrow(new \BadMethodCallException(
+        $this->shouldThrow(new \DomainException(
             "Property render of object type link may only be equal to link or image"
         ))->during('setRender', ["Render this"]);
         $this->getRender()->shouldBeEqualTo('link');
@@ -92,7 +92,7 @@ class LinkSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
     {
         $this->shouldThrow(
-            new \BadMethodCallException("Property prompt of object type link cannot be converted to a string")
+            new \DomainException("Property prompt of object type link cannot be converted to a string")
         )->during('setPrompt', [new \stdClass()]);
     }
 
