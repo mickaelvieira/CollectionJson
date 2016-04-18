@@ -73,4 +73,21 @@ trait LinkContainer
 
         return (current($links)) ?: null;
     }
+
+    /**
+     * @return \CollectionJson\Entity\Link|null
+     */
+    public function getFirstLink()
+    {
+        return (!empty($this->links)) ? reset($this->links) : null;
+    }
+
+    /**
+     * @return \CollectionJson\Entity\Link|null
+     */
+    public function getLastLink()
+    {
+        return (!empty($this->links)) ? end($this->links) : null;
+    }
+
 }

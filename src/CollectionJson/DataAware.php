@@ -40,4 +40,14 @@ interface DataAware
      * @return \CollectionJson\Entity\Data|null
      */
     public function findDataByName($name);
+
+    /**
+     * @return \CollectionJson\Entity\Data|null
+     */
+    public function getFirstData();
+
+    /**
+     * @return \CollectionJson\Entity\Data|null
+     */
+    public function getLastData();
 }

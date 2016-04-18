@@ -147,8 +147,8 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         foreach ($data as $key => $value) {
 
-            $setter = "set" . $this->underscoreToCamelCase($key);
-            $adder  = "add" . ucfirst($key) . "Set";
+            $setter = sprintf("set%s", $this->underscoreToCamelCase($key));
+            $adder  = sprintf("add%sSet", ucfirst($key));
 
             if (method_exists($this, $setter)) {
                 $this->$setter($value);

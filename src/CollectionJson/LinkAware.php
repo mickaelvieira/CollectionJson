@@ -40,4 +40,14 @@ interface LinkAware
      * @return \CollectionJson\Entity\Link|null
      */
     public function findLinkByRelation($relation);
+
+    /**
+     * @return \CollectionJson\Entity\Link|null
+     */
+    public function getFirstLink();
+
+    /**
+     * @return \CollectionJson\Entity\Link|null
+     */
+    public function getLastLink();
 }

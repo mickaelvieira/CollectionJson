@@ -144,6 +144,22 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @return Item|null
+     */
+    public function getFirstItem()
+    {
+        return (!empty($this->items)) ? reset($this->items) : null;
+    }
+
+    /**
+     * @return Item|null
+     */
+    public function getLastItem()
+    {
+        return (end($this->items)) ?: null;
+    }
+
+    /**
      * @param \CollectionJson\Entity\Query|array $query
      * @return \CollectionJson\Entity\Collection
      */
@@ -178,6 +194,22 @@ class Collection extends BaseEntity implements LinkAware
         return $this->queries;
     }
 
+    /**
+     * @return Query|null
+     */
+    public function getFirstQuery()
+    {
+        return (!empty($this->queries)) ? reset($this->queries) : null;
+    }
+
+    /**
+     * @return Query|null
+     */
+    public function getLastQuery()
+    {
+        return (end($this->queries)) ?: null;
+    }
+    
     /**
      * @param \CollectionJson\Entity\Error|array $error
      * @return \CollectionJson\Entity\Collection

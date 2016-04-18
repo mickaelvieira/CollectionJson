@@ -2,7 +2,9 @@
 
 namespace spec\CollectionJson\Entity;
 
+use CollectionJson\Entity\Item;
 use CollectionJson\Entity\Link;
+use CollectionJson\Entity\Query;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -292,6 +294,38 @@ class CollectionSpec extends ObjectBehavior
         $this->getItemsSet()->shouldHaveCount(2);
     }
 
+    function it_should_return_the_first_item_in_the_set()
+    {
+        $item1 = new Item();
+        $item2 = new Item();
+        $item3 = new Item();
+
+        $this->addItemsSet([$item1, $item2, $item3]);
+
+        $this->getFirstItem()->shouldReturn($item1);
+    }
+
+    function it_should_return_null_when_the_first_item_in_not_the_set()
+    {
+        $this->getFirstItem()->shouldBeNull();
+    }
+
+    function it_should_return_the_last_item_in_the_set()
+    {
+        $item1 = new Item();
+        $item2 = new Item();
+        $item3 = new Item();
+
+        $this->addItemsSet([$item1, $item2, $item3]);
+
+        $this->getLastItem()->shouldReturn($item3);
+    }
+
+    function it_should_return_null_when_the_last_item_in_not_the_set()
+    {
+        $this->getLastItem()->shouldBeNull();
+    }
+
     /**
      * @param \CollectionJson\Entity\Query $query
      */
@@ -328,6 +362,38 @@ class CollectionSpec extends ObjectBehavior
         $this->getQueriesSet()->shouldHaveCount(2);
     }
 
+    function it_should_return_the_first_query_in_the_set()
+    {
+        $query1 = new Query();
+        $query2 = new Query();
+        $query3 = new Query();
+
+        $this->addQueriesSet([$query1, $query2, $query3]);
+
+        $this->getFirstQuery()->shouldReturn($query1);
+    }
+
+    function it_should_return_null_when_the_first_data_in_not_the_set()
+    {
+        $this->getFirstQuery()->shouldBeNull();
+    }
+
+    function it_should_return_the_last_data_in_the_set()
+    {
+        $query1 = new Query();
+        $query2 = new Query();
+        $query3 = new Query();
+
+        $this->addQueriesSet([$query1, $query2, $query3]);
+
+        $this->getLastQuery()->shouldReturn($query3);
+    }
+
+    function it_should_return_null_when_the_last_data_in_not_the_set()
+    {
+        $this->getLastQuery()->shouldBeNull();
+    }
+
     /**
      * @param \CollectionJson\Entity\Link $link
      */
@@ -348,9 +414,9 @@ class CollectionSpec extends ObjectBehavior
         $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
     }
 
-    function it_should_return_null_when_link_is_not_the_set()
+    function it_should_return_null_when_link_is_not_in_the_set()
     {
-        $this->findLinkByRelation('rel1')->shouldBeNull(null);
+        $this->findLinkByRelation('rel1')->shouldBeNull();
     }
 
     function it_should_add_a_link_when_passing_an_array()
@@ -378,6 +444,38 @@ class CollectionSpec extends ObjectBehavior
             new \stdClass()
         ]);
         $this->getLinksSet()->shouldHaveCount(2);
+    }
+
+    function it_should_return_the_first_link_in_the_set()
+    {
+        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+
+        $this->addLinksSet([$link1, $link2, $link3]);
+
+        $this->getFirstLink()->shouldReturn($link1);
+    }
+
+    function it_should_return_null_when_the_first_link_in_not_the_set()
+    {
+        $this->getFirstLink()->shouldBeNull();
+    }
+
+    function it_should_return_the_last_link_in_the_set()
+    {
+        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+
+        $this->addLinksSet([$link1, $link2, $link3]);
+
+        $this->getLastLink()->shouldReturn($link3);
+    }
+
+    function it_should_return_null_when_the_last_link_in_not_the_set()
+    {
+        $this->getLastLink()->shouldBeNull();
     }
 
     /**

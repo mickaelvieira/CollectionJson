@@ -29,7 +29,6 @@ use CollectionJson\Validator\Uri;
  */
 class Item extends BaseEntity implements LinkAware, DataAware
 {
-
     /**
      * @see \CollectionJson\LinkContainer
      */

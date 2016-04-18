@@ -73,4 +73,20 @@ trait DataContainer
 
         return (current($data)) ?: null;
     }
+
+    /**
+     * @return \CollectionJson\Entity\Data|null
+     */
+    public function getFirstData()
+    {
+        return (!empty($this->data)) ? reset($this->data) : null;
+    }
+
+    /**
+     * @return \CollectionJson\Entity\Data|null
+     */
+    public function getLastData()
+    {
+        return (!empty($this->data)) ? end($this->data) : null;
+    }
 }

@@ -3,6 +3,7 @@
 namespace spec\CollectionJson\Entity;
 
 use CollectionJson\Entity\Link;
+use CollectionJson\Entity\Data;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -150,14 +151,14 @@ class ItemSpec extends ObjectBehavior
         $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
     }
 
-    function it_should_return_null_when_data_is_not_the_set()
+    function it_should_return_null_when_data_is_not_in_the_set()
     {
-        $this->findDataByName('name1')->shouldBeNull(null);
+        $this->findDataByName('name1')->shouldBeNull();
     }
 
-    function it_should_return_null_when_link_is_not_the_set()
+    function it_should_return_null_when_link_is_not_in_the_set()
     {
-        $this->findLinkByRelation('rel1')->shouldBeNull(null);
+        $this->findLinkByRelation('rel1')->shouldBeNull();
     }
 
     /**
@@ -195,5 +196,69 @@ class ItemSpec extends ObjectBehavior
         ]);
         $this->setHref('http://example.com');
         $this->getLinksSet()->shouldHaveCount(2);
+    }
+
+    function it_should_return_the_first_link_in_the_set()
+    {
+        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+
+        $this->addLinksSet([$link1, $link2, $link3]);
+
+        $this->getFirstLink()->shouldReturn($link1);
+    }
+
+    function it_should_return_null_when_the_first_link_in_not_the_set()
+    {
+        $this->getFirstLink()->shouldBeNull();
+    }
+
+    function it_should_return_the_last_link_in_the_set()
+    {
+        $link1 = new Link(['rel' => 'rel1', 'href' => 'http://example.com']);
+        $link2 = new Link(['rel' => 'rel2', 'href' => 'http://example2.com']);
+        $link3 = new Link(['rel' => 'rel3', 'href' => 'http://example3.com']);
+
+        $this->addLinksSet([$link1, $link2, $link3]);
+
+        $this->getLastLink()->shouldReturn($link3);
+    }
+
+    function it_should_return_null_when_the_last_link_in_not_the_set()
+    {
+        $this->getLastLink()->shouldBeNull();
+    }
+
+    function it_should_return_the_first_data_in_the_set()
+    {
+        $data1 = new Data(['value' => 'value1']);
+        $data2 = new Data(['value' => 'value2']);
+        $data3 = new Data(['value' => 'value3']);
+
+        $this->addDataSet([$data1, $data2, $data3]);
+
+        $this->getFirstData()->shouldReturn($data1);
+    }
+
+    function it_should_return_null_when_the_first_data_in_not_the_set()
+    {
+        $this->getFirstData()->shouldBeNull();
+    }
+
+    function it_should_return_the_last_data_in_the_set()
+    {
+        $data1 = new Data(['value' => 'value1']);
+        $data2 = new Data(['value' => 'value2']);
+        $data3 = new Data(['value' => 'value3']);
+
+        $this->addDataSet([$data1, $data2, $data3]);
+
+        $this->getLastData()->shouldReturn($data3);
+    }
+
+    function it_should_return_null_when_the_last_data_in_not_the_set()
+    {
+        $this->getLastData()->shouldBeNull();
     }
 }

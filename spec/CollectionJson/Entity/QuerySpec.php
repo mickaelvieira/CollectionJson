@@ -4,6 +4,7 @@ namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Entity\Data;
 
 class QuerySpec extends ObjectBehavior
 {
@@ -206,8 +207,40 @@ class QuerySpec extends ObjectBehavior
         $this->findDataByName('name2')->shouldBeEqualTo($data2);
     }
 
-    function it_should_return_null_when_data_is_not_the_set()
+    function it_should_return_null_when_data_is_not_in_the_set()
     {
-        $this->findDataByName('name1')->shouldBeNull(null);
+        $this->findDataByName('name1')->shouldBeNull();
+    }
+
+    function it_should_return_the_first_data_in_the_set()
+    {
+        $data1 = new Data(['value' => 'value1']);
+        $data2 = new Data(['value' => 'value2']);
+        $data3 = new Data(['value' => 'value3']);
+
+        $this->addDataSet([$data1, $data2, $data3]);
+
+        $this->getFirstData()->shouldReturn($data1);
+    }
+
+    function it_should_return_null_when_the_first_data_in_not_the_set()
+    {
+        $this->getFirstData()->shouldBeNull();
+    }
+
+    function it_should_return_the_last_data_in_the_set()
+    {
+        $data1 = new Data(['value' => 'value1']);
+        $data2 = new Data(['value' => 'value2']);
+        $data3 = new Data(['value' => 'value3']);
+
+        $this->addDataSet([$data1, $data2, $data3]);
+
+        $this->getLastData()->shouldReturn($data3);
+    }
+
+    function it_should_return_null_when_the_last_data_in_not_the_set()
+    {
+        $this->getLastData()->shouldBeNull();
     }
 }
