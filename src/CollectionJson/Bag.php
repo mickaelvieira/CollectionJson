@@ -54,7 +54,7 @@ final class Bag implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @return \ArrayIterator]
+     * @return \ArrayIterator
      */
     public function getIterator()
     {

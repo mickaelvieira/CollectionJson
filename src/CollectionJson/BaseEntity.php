@@ -62,6 +62,9 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         if (array_key_exists('collection', $data)) {
             $data = $data['collection'];
         }
+        if (array_key_exists('template', $data)) {
+            $data = $data['template'];
+        }
         return self::fromArray($data);
     }
 

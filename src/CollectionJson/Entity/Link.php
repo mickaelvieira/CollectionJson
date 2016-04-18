@@ -12,8 +12,6 @@
 
 namespace CollectionJson\Entity;
 
-use LogicException;
-use BadMethodCallException;
 use CollectionJson\BaseEntity;
 use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Validator\Uri;
@@ -61,12 +59,12 @@ class Link extends BaseEntity
     /**
      * @param string $href
      * @return \CollectionJson\Entity\Link
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw new BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
+            throw new \DomainException(sprintf("Field href must be a valid URL, %s given", $href));
         }
         $this->href = $href;
 
@@ -84,12 +82,12 @@ class Link extends BaseEntity
     /**
      * @param string $rel
      * @return \CollectionJson\Entity\Link
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setRel($rel)
     {
         if (!StringLike::isValid($rel)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property rel of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -109,12 +107,12 @@ class Link extends BaseEntity
     /**
      * @param string $name
      * @return \CollectionJson\Entity\Link
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property name of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -134,12 +132,12 @@ class Link extends BaseEntity
     /**
      * @param string $prompt
      * @return \CollectionJson\Entity\Link
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property prompt of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -159,17 +157,12 @@ class Link extends BaseEntity
     /**
      * @param string $render
      * @return \CollectionJson\Entity\Link
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setRender($render)
     {
         if (!Render::isValid($render)) {
-            throw new \BadMethodCallException(
-                sprintf(
-                    "Property render of object type link may only be equal to link or image",
-                    $this->getObjectType()
-                )
-            );
+            throw new \DomainException("Property render of object type link may only be equal to link or image");
         }
         $this->render = $render;
 
@@ -190,10 +183,20 @@ class Link extends BaseEntity
     protected function getObjectData()
     {
         if (is_null($this->href)) {
-            throw new LogicException(sprintf("Property href of object type %s is required", $this->getObjectType()));
+            throw new \DomainException(
+                sprintf(
+                    "Property href of object type %s is required",
+                    $this->getObjectType()
+                )
+            );
         }
         if (is_null($this->rel)) {
-            throw new LogicException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
+            throw new \DomainException(
+                sprintf(
+                    "Property rel of object type %s is required",
+                    $this->getObjectType()
+                )
+            );
         }
 
         $data = [

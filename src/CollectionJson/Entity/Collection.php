@@ -12,7 +12,6 @@
 
 namespace CollectionJson\Entity;
 
-use BadMethodCallException;
 use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
 use CollectionJson\LinkAware;
@@ -85,12 +84,12 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * @param string $href
      * @return \CollectionJson\Entity\Collection
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw new BadMethodCallException(sprintf("Field href must be a valid URL, %s given", $href));
+            throw new \DomainException(sprintf("Field href must be a valid URL, %s given", $href));
         }
         $this->href = $href;
 

@@ -12,7 +12,6 @@
 
 namespace CollectionJson\Entity;
 
-use BadMethodCallException;
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\StringLike;
 
@@ -45,12 +44,12 @@ class Error extends BaseEntity
     /**
      * @param string $code
      * @return \CollectionJson\Entity\Error
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setCode($code)
     {
         if (!StringLike::isValid($code)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property code of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -70,12 +69,12 @@ class Error extends BaseEntity
     /**
      * @param string $message
      * @return \CollectionJson\Entity\Error
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setMessage($message)
     {
         if (!StringLike::isValid($message)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property message of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -95,12 +94,12 @@ class Error extends BaseEntity
     /**
      * @param string $title
      * @return \CollectionJson\Entity\Error
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setTitle($title)
     {
         if (!StringLike::isValid($title)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property title of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }

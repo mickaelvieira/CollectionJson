@@ -12,10 +12,8 @@
 
 namespace CollectionJson\Entity;
 
-use CollectionJson\Validator\DataValue;
-use LogicException;
-use BadMethodCallException;
 use CollectionJson\BaseEntity;
+use CollectionJson\Validator\DataValue;
 use CollectionJson\Validator\StringLike;
 
 /**
@@ -47,12 +45,12 @@ class Data extends BaseEntity
     /**
      * @param string $name
      * @return \CollectionJson\Entity\Data
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property name of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -72,12 +70,12 @@ class Data extends BaseEntity
     /**
      * @param string $prompt
      * @return \CollectionJson\Entity\Data
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf("Property prompt of object type %s cannot be converted to a string", $this->getObjectType())
             );
         }
@@ -97,12 +95,12 @@ class Data extends BaseEntity
     /**
      * @param string $value
      * @return \CollectionJson\Entity\Data
-     * @throws \BadMethodCallException
+     * @throws \DomainException
      */
     public function setValue($value)
     {
         if (!DataValue::isValid($value)) {
-            throw new BadMethodCallException(
+            throw new \DomainException(
                 sprintf(
                     "Property value of object type %s may only have types string, number, boolean or null",
                     $this->getObjectType()
@@ -128,7 +126,7 @@ class Data extends BaseEntity
     protected function getObjectData()
     {
         if (is_null($this->name)) {
-            throw new LogicException(sprintf("Property name of object type %s is required", $this->getObjectType()));
+            throw new \DomainException(sprintf("Property name of object type %s is required", $this->getObjectType()));
         }
 
         $original = [
