@@ -82,4 +82,12 @@ trait DataContainer
     {
         return $this->data->getLast();
     }
+
+    /**
+     * @return bool
+     */
+    public function hasData()
+    {
+        return !$this->data->isEmpty();
+    }
 }

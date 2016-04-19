@@ -50,4 +50,9 @@ interface DataAware
      * @return \CollectionJson\Entity\Data|null
      */
     public function getLastData();
+
+    /**
+     * @return bool
+     */
+    public function hasData();
 }

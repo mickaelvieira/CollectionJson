@@ -230,6 +230,20 @@ class ItemSpec extends ObjectBehavior
         $this->getLastLink()->shouldBeNull();
     }
 
+    function it_should_know_if_it_has_links()
+    {
+        $link = new Link();
+
+        $this->addLink($link);
+
+        $this->shouldHaveLinks();
+    }
+
+    function it_should_know_if_it_has_no_links()
+    {
+        $this->shouldNotHaveLinks();
+    }
+
     function it_should_return_the_first_data_in_the_set()
     {
         $data1 = Data::fromArray(['value' => 'value1']);
@@ -260,5 +274,19 @@ class ItemSpec extends ObjectBehavior
     function it_should_return_null_when_the_last_data_in_not_the_set()
     {
         $this->getLastData()->shouldBeNull();
+    }
+
+    function it_should_know_if_it_has_data()
+    {
+        $data = new Data();
+
+        $this->addData($data);
+
+        $this->shouldHaveData();
+    }
+
+    function it_should_know_if_it_has_no_data()
+    {
+        $this->shouldNotHaveData();
     }
 }

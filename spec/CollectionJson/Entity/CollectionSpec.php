@@ -2,9 +2,11 @@
 
 namespace spec\CollectionJson\Entity;
 
+use CollectionJson\Entity\Error;
 use CollectionJson\Entity\Item;
 use CollectionJson\Entity\Link;
 use CollectionJson\Entity\Query;
+use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -326,6 +328,20 @@ class CollectionSpec extends ObjectBehavior
         $this->getLastItem()->shouldBeNull();
     }
 
+    function it_should_know_if_it_has_items()
+    {
+        $item1 = new Item();
+
+        $this->addItem($item1);
+
+        $this->shouldHaveItems();
+    }
+
+    function it_should_know_if_it_has_no_items()
+    {
+        $this->shouldNotHaveItems();
+    }
+
     /**
      * @param \CollectionJson\Entity\Query $query
      */
@@ -392,6 +408,20 @@ class CollectionSpec extends ObjectBehavior
     function it_should_return_null_when_the_last_data_in_not_the_set()
     {
         $this->getLastQuery()->shouldBeNull();
+    }
+
+    function it_should_know_if_it_has_queries()
+    {
+        $query = new Query();
+
+        $this->addQuery($query);
+
+        $this->shouldHaveQueries();
+    }
+
+    function it_should_know_if_it_has_no_queries()
+    {
+        $this->shouldNotHaveQueries();
     }
 
     /**
@@ -478,6 +508,20 @@ class CollectionSpec extends ObjectBehavior
         $this->getLastLink()->shouldBeNull();
     }
 
+    function it_should_know_if_it_has_links()
+    {
+        $link = new Link();
+
+        $this->addLink($link);
+
+        $this->shouldHaveLinks();
+    }
+
+    function it_should_know_if_it_has_no_links()
+    {
+        $this->shouldNotHaveLinks();
+    }
+
     /**
      * @param \CollectionJson\Entity\Error $error
      */
@@ -502,6 +546,20 @@ class CollectionSpec extends ObjectBehavior
         $this->getError()->getCode()->shouldBeEqualTo("error code");
     }
 
+    function it_should_know_if_it_has_an_error()
+    {
+        $error = new Error();
+
+        $this->setError($error);
+
+        $this->shouldHaveError();
+    }
+
+    function it_should_know_if_it_has_not_an_error()
+    {
+        $this->shouldNotHaveError();
+    }
+
     /**
      * @param \CollectionJson\Entity\Template $template
      */
@@ -523,5 +581,19 @@ class CollectionSpec extends ObjectBehavior
         ]);
         $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
         $this->getTemplate()->getDataSet()->shouldHaveCount(1);
+    }
+
+    function it_should_know_if_it_has_an_template()
+    {
+        $error = new Template();
+
+        $this->setTemplate($error);
+
+        $this->shouldHaveTemplate();
+    }
+
+    function it_should_know_if_it_has_not_an_template()
+    {
+        $this->shouldNotHaveTemplate();
     }
 }

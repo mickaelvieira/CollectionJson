@@ -50,4 +50,9 @@ interface LinkAware
      * @return \CollectionJson\Entity\Link|null
      */
     public function getLastLink();
+    
+    /**
+     * @return bool
+     */
+    public function hasLinks();
 }

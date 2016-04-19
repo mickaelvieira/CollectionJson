@@ -149,6 +149,14 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @return bool
+     */
+    public function hasItems()
+    {
+        return !$this->items->isEmpty();
+    }
+    
+    /**
      * @param \CollectionJson\Entity\Query|array $query
      * @return \CollectionJson\Entity\Collection
      */
@@ -191,6 +199,14 @@ class Collection extends BaseEntity implements LinkAware
     {
         return $this->queries->getLast();
     }
+
+    /**
+     * @return bool
+     */
+    public function hasQueries()
+    {
+        return !$this->queries->isEmpty();
+    }
     
     /**
      * @param \CollectionJson\Entity\Error|array $error
@@ -216,6 +232,14 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @return bool
+     */
+    public function hasError()
+    {
+        return ($this->error instanceof Error);
+    }
+
+    /**
      * @param \CollectionJson\Entity\Template|array $template
      * @return \CollectionJson\Entity\Collection
      */
@@ -236,6 +260,14 @@ class Collection extends BaseEntity implements LinkAware
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTemplate()
+    {
+        return ($this->template instanceof Template);
     }
 
     /**

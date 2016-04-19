@@ -167,4 +167,18 @@ class TemplateSpec extends ObjectBehavior
     {
         $this->getLastData()->shouldBeNull();
     }
+
+    function it_should_know_if_it_has_data()
+    {
+        $data = new Data();
+
+        $this->addData($data);
+
+        $this->shouldHaveData();
+    }
+
+    function it_should_know_if_it_has_no_data()
+    {
+        $this->shouldNotHaveData();
+    }
 }

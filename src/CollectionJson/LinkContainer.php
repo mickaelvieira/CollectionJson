@@ -82,4 +82,12 @@ trait LinkContainer
     {
         return $this->links->getLast();
     }
+
+    /**
+     * @return bool
+     */
+    public function hasLinks()
+    {
+        return !$this->links->isEmpty();
+    }
 }
