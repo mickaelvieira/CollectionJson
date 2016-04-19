@@ -14,11 +14,12 @@ namespace CollectionJson;
 
 /**
  * Interface StringConvertible
+ * This interface exists only for testing purposes
+ * See. spec\CollectionJson\Validator\StringLikeSpec
  * @package CollectionJson
  */
 interface StringConvertible
 {
-
     /**
      * @return string
      */

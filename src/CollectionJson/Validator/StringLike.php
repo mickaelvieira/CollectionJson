@@ -24,10 +24,6 @@ final class StringLike
      */
     public static function isValid($value)
     {
-        if (is_scalar($value) || is_object($value) && method_exists($value, '__toString')) {
-            return true;
-        } else {
-            return false;
-        }
+        return (is_scalar($value) || is_object($value) && method_exists($value, '__toString'));
     }
 }

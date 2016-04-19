@@ -16,7 +16,7 @@ namespace CollectionJson\Validator;
  * Class Uri
  * @package CollectionJson\Validator
  */
-class Uri
+final class Uri
 {
     /**
      * @param $uri

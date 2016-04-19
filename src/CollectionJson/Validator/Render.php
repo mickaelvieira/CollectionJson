@@ -18,7 +18,7 @@ use CollectionJson\Type\Render as RenderType;
  * Class Render
  * @package CollectionJson\Validator
  */
-class Render
+final class Render
 {
     /**
      * @param $type

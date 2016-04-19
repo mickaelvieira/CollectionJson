@@ -16,7 +16,7 @@ namespace CollectionJson\Validator;
  * Class DataValue
  * @package CollectionJson\Validator
  */
-class DataValue
+final class DataValue
 {
     /**
      * @param $value
