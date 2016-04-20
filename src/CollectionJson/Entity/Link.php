@@ -183,20 +183,10 @@ class Link extends BaseEntity
     protected function getObjectData()
     {
         if (is_null($this->href)) {
-            throw new \DomainException(
-                sprintf(
-                    "Property href of object type %s is required",
-                    $this->getObjectType()
-                )
-            );
+            throw new \DomainException(sprintf("Property href of object type %s is required", $this->getObjectType()));
         }
         if (is_null($this->rel)) {
-            throw new \DomainException(
-                sprintf(
-                    "Property rel of object type %s is required",
-                    $this->getObjectType()
-                )
-            );
+            throw new \DomainException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
         }
 
         $data = [
@@ -207,8 +197,6 @@ class Link extends BaseEntity
             'render' => $this->render,
         ];
 
-        $data = $this->filterNullValues($data);
-
-        return $data;
+        return  $this->filterNullValues($data);
     }
 }

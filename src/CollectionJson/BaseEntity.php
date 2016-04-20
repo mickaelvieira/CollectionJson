@@ -109,13 +109,25 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @param array $data
+     * @param array $whiteList
      * @return array
      */
-    final protected function filterNullValues(array $data)
+    final protected function filterNullValues(array $data, array $whiteList = [])
     {
-        return array_filter($data, function ($value) {
-            return !is_null($value);
-        });
+        if (version_compare(PHP_VERSION, '5.6.0', '>=')) {
+            return array_filter($data, function ($value, $key) use ($whiteList) {
+                return (in_array($key, $whiteList) || !is_null($value));
+            }, ARRAY_FILTER_USE_BOTH);
+        } else {
+            $new = [];
+            array_walk($data, function ($value, $key) use (&$data, $whiteList) {
+                if (in_array($key, $whiteList) || !is_null($value)) {
+                    $new[$key] = $value;
+                }
+            });
+            $data = $new;
+        }
+        return $data;
     }
 
     /**

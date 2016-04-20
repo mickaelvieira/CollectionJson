@@ -129,19 +129,12 @@ class Data extends BaseEntity
             throw new \DomainException(sprintf("Property name of object type %s is required", $this->getObjectType()));
         }
 
-        $original = [
+        $data = [
             'name'   => $this->name,
             'prompt' => $this->prompt,
             'value'  => $this->value,
         ];
 
-        $data = [];
-        array_walk($original, function ($value, $key) use (&$data) {
-            if (!is_null($value) || $key === 'value') {
-                $data[$key] = $value;
-            }
-        });
-
-        return $data;
+        return $this->filterNullValues($data, ['value']);
     }
 }
