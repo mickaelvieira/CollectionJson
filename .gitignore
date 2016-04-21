@@ -1,4 +1,5 @@
 vendor/
 coverage/
-bin/
+bin/phpcs
+bin/phpspec
 composer.lock
