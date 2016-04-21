@@ -26,4 +26,12 @@ final class StringLike
     {
         return (is_scalar($value) || is_object($value) && method_exists($value, '__toString'));
     }
+
+    /**
+     * @return array
+     */
+    public static function allowed()
+    {
+        return ['scalar', 'Object::__toString'];
+    }
 }

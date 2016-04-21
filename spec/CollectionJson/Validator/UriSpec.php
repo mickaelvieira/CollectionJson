@@ -25,4 +25,9 @@ class UriSpec extends ObjectBehavior
     {
         $this->isValid('/test')->shouldReturn(false);
     }
+
+    function it_should_return_the_allowed_value_types()
+    {
+        $this::allowed()->shouldReturn(['URI']);
+    }
 }

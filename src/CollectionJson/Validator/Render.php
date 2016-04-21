@@ -28,4 +28,12 @@ final class Render
     {
         return ($type === RenderType::LINK || $type === RenderType::IMAGE);
     }
+
+    /**
+     * @return array
+     */
+    public static function allowed()
+    {
+        return [RenderType::LINK, RenderType::IMAGE];
+    }
 }

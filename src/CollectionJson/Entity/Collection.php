@@ -17,6 +17,7 @@ use CollectionJson\BaseEntity;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\Validator\Uri;
+use CollectionJson\Exception\WrongParameter;
 
 /**
  * Class Collection
@@ -89,7 +90,7 @@ class Collection extends BaseEntity implements LinkAware
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw new \DomainException(sprintf("Field href must be a valid URL, %s given", $href));
+            throw WrongParameter::format($this->getObjectType(), 'href', Uri::allowed());
         }
         $this->href = $href;
 

@@ -52,4 +52,9 @@ class StringLikeSpec extends ObjectBehavior
         $object->beADoubleOf('CollectionJson\StringConvertible');
         $this->isValid($object)->shouldReturn(true);
     }
+
+    function it_should_return_the_allowed_value_types()
+    {
+        $this::allowed()->shouldReturn(['scalar', 'Object::__toString']);
+    }
 }

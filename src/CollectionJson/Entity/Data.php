@@ -15,6 +15,8 @@ namespace CollectionJson\Entity;
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\DataValue;
 use CollectionJson\Validator\StringLike;
+use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\MissingProperty;
 
 /**
  * Class Data
@@ -50,9 +52,7 @@ class Data extends BaseEntity
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw new \DomainException(
-                sprintf("Property name of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'name', StringLike::allowed());
         }
         $this->name = (string)$name;
 
@@ -75,9 +75,7 @@ class Data extends BaseEntity
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw new \DomainException(
-                sprintf("Property prompt of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'prompt', StringLike::allowed());
         }
         $this->prompt = (string)$prompt;
 
@@ -100,12 +98,7 @@ class Data extends BaseEntity
     public function setValue($value)
     {
         if (!DataValue::isValid($value)) {
-            throw new \DomainException(
-                sprintf(
-                    "Property value of object type %s may only have types string, number, boolean or null",
-                    $this->getObjectType()
-                )
-            );
+            throw WrongParameter::format($this->getObjectType(), 'value', DataValue::allowed());
         }
         $this->value = $value;
 
@@ -126,7 +119,7 @@ class Data extends BaseEntity
     protected function getObjectData()
     {
         if (is_null($this->name)) {
-            throw new \DomainException(sprintf("Property name of object type %s is required", $this->getObjectType()));
+            throw MissingProperty::format($this->getObjectType(), 'name');
         }
 
         $data = [

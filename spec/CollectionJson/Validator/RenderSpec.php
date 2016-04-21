@@ -26,4 +26,9 @@ class RenderSpec extends ObjectBehavior
     {
         $this->isValid('custom')->shouldReturn(false);
     }
+
+    function it_should_return_the_allowed_value_types()
+    {
+        $this::allowed()->shouldReturn(['link', 'image']);
+    }
 }

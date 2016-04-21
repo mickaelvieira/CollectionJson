@@ -13,11 +13,13 @@
 namespace CollectionJson\Entity;
 
 use CollectionJson\Bag;
-use CollectionJson\BaseEntity;
 use CollectionJson\DataAware;
-use CollectionJson\DataContainer;
+use CollectionJson\BaseEntity;
 use CollectionJson\Validator\Uri;
+use CollectionJson\DataContainer;
 use CollectionJson\Validator\StringLike;
+use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\MissingProperty;
 
 /**
  * Class Query
@@ -73,7 +75,7 @@ class Query extends BaseEntity implements DataAware
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw new \DomainException(sprintf("Field href must be a valid URL, %s given", $href));
+            throw WrongParameter::format($this->getObjectType(), 'href', Uri::allowed());
         }
         $this->href = $href;
 
@@ -96,9 +98,7 @@ class Query extends BaseEntity implements DataAware
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw new \DomainException(
-                sprintf("Property name of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'name', StringLike::allowed());
         }
         $this->name = (string)$name;
 
@@ -121,9 +121,7 @@ class Query extends BaseEntity implements DataAware
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw new \DomainException(
-                sprintf("Property prompt of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'prompt', StringLike::allowed());
         }
         $this->prompt = (string)$prompt;
 
@@ -146,9 +144,7 @@ class Query extends BaseEntity implements DataAware
     public function setRel($rel)
     {
         if (!StringLike::isValid($rel)) {
-            throw new \DomainException(
-                sprintf("Property rel of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'rel', StringLike::allowed());
         }
         $this->rel = (string)$rel;
 
@@ -168,11 +164,10 @@ class Query extends BaseEntity implements DataAware
      */
     protected function getObjectData()
     {
-        if (is_null($this->href)) {
-            throw new \DomainException(sprintf("Property href of object type %s is required", $this->getObjectType()));
-        }
-        if (is_null($this->rel)) {
-            throw new \DomainException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
+        foreach (['href', 'rel'] as $property) {
+            if (is_null($this->$property)) {
+                throw MissingProperty::format($this->getObjectType(), $property);
+            }
         }
 
         $data = [

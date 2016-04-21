@@ -14,6 +14,7 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\StringLike;
+use CollectionJson\Exception\WrongParameter;
 
 /**
  * Class Error
@@ -49,9 +50,7 @@ class Error extends BaseEntity
     public function setCode($code)
     {
         if (!StringLike::isValid($code)) {
-            throw new \DomainException(
-                sprintf("Property code of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'code', StringLike::allowed());
         }
         $this->code = (string)$code;
 
@@ -74,9 +73,7 @@ class Error extends BaseEntity
     public function setMessage($message)
     {
         if (!StringLike::isValid($message)) {
-            throw new \DomainException(
-                sprintf("Property message of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'message', StringLike::allowed());
         }
         $this->message = (string)$message;
 
@@ -99,9 +96,7 @@ class Error extends BaseEntity
     public function setTitle($title)
     {
         if (!StringLike::isValid($title)) {
-            throw new \DomainException(
-                sprintf("Property title of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'title', StringLike::allowed());
         }
         $this->title = (string)$title;
 

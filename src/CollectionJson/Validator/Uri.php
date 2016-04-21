@@ -26,4 +26,12 @@ final class Uri
     {
         return (filter_var($uri, FILTER_VALIDATE_URL) !== false);
     }
+
+    /**
+     * @return array
+     */
+    public static function allowed()
+    {
+        return ['URI'];
+    }
 }

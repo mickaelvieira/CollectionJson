@@ -26,4 +26,12 @@ final class DataValue
     {
         return (is_scalar($value) || is_null($value));
     }
+
+    /**
+     * @return array
+     */
+    public static function allowed()
+    {
+        return ['scalar', 'NULL'];
+    }
 }

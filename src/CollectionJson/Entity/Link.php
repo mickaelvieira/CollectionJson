@@ -17,6 +17,8 @@ use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Validator\Uri;
 use CollectionJson\Validator\Render;
 use CollectionJson\Validator\StringLike;
+use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\MissingProperty;
 
 /**
  * Class Link
@@ -64,7 +66,7 @@ class Link extends BaseEntity
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw new \DomainException(sprintf("Field href must be a valid URL, %s given", $href));
+            throw WrongParameter::format($this->getObjectType(), 'href', Uri::allowed());
         }
         $this->href = $href;
 
@@ -87,9 +89,7 @@ class Link extends BaseEntity
     public function setRel($rel)
     {
         if (!StringLike::isValid($rel)) {
-            throw new \DomainException(
-                sprintf("Property rel of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'rel', StringLike::allowed());
         }
         $this->rel = (string)$rel;
 
@@ -112,9 +112,7 @@ class Link extends BaseEntity
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw new \DomainException(
-                sprintf("Property name of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'name', StringLike::allowed());
         }
         $this->name = (string)$name;
 
@@ -137,9 +135,7 @@ class Link extends BaseEntity
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw new \DomainException(
-                sprintf("Property prompt of object type %s cannot be converted to a string", $this->getObjectType())
-            );
+            throw WrongParameter::format($this->getObjectType(), 'prompt', StringLike::allowed());
         }
         $this->prompt = (string)$prompt;
 
@@ -162,7 +158,7 @@ class Link extends BaseEntity
     public function setRender($render)
     {
         if (!Render::isValid($render)) {
-            throw new \DomainException("Property render of object type link may only be equal to link or image");
+            throw WrongParameter::format($this->getObjectType(), 'render', Render::allowed());
         }
         $this->render = $render;
 
@@ -182,11 +178,10 @@ class Link extends BaseEntity
      */
     protected function getObjectData()
     {
-        if (is_null($this->href)) {
-            throw new \DomainException(sprintf("Property href of object type %s is required", $this->getObjectType()));
-        }
-        if (is_null($this->rel)) {
-            throw new \DomainException(sprintf("Property rel of object type %s is required", $this->getObjectType()));
+        foreach (['href', 'rel'] as $property) {
+            if (is_null($this->$property)) {
+                throw MissingProperty::format($this->getObjectType(), $property);
+            }
         }
 
         $data = [

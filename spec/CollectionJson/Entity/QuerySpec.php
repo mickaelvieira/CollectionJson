@@ -65,13 +65,17 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
-        $this->shouldThrow('\Exception')->duringSetHref('uri');
+        $this->shouldThrow(
+            new \DomainException("Property [href] of entity [query] can only have one of the following values [URI]")
+        )->duringSetHref('uri');
     }
 
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_rel_to_a_string()
     {
         $this->shouldThrow(
-            new \DomainException("Property rel of object type query cannot be converted to a string")
+            new \DomainException(
+                "Property [rel] of entity [query] can only have one of the following values [scalar,Object::__toString]"
+            )
         )->during('setRel', [new \stdClass()]);
     }
 
@@ -84,7 +88,9 @@ class QuerySpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
     {
         $this->shouldThrow(
-            new \DomainException("Property name of object type query cannot be converted to a string")
+            new \DomainException(
+                "Property [name] of entity [query] can only have one of the following values [scalar,Object::__toString]"
+            )
         )->during('setName', [new \stdClass()]);
     }
 
@@ -97,7 +103,7 @@ class QuerySpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
     {
         $this->shouldThrow(
-            new \DomainException("Property prompt of object type query cannot be converted to a string")
+            new \DomainException("Property [prompt] of entity [query] can only have one of the following values [scalar,Object::__toString]")
         )->during('setPrompt', [new \stdClass()]);
     }
 
@@ -110,28 +116,28 @@ class QuerySpec extends ObjectBehavior
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
         $this->setRel('Rel value');
-        $this->shouldThrow(new \LogicException('Property href of object type query is required'))->during('toArray');
+        $this->shouldThrow(new \DomainException('Property [href] of entity [query] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
     {
         $this->setRel('Rel value');
         $this->shouldThrow(
-            new \LogicException('Property href of object type query is required')
+            new \DomainException('Property [href] of entity [query] is required')
         )->during('jsonSerialize');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_rel_is_null()
     {
         $this->setHref('http://example.com');
-        $this->shouldThrow(new \LogicException('Property rel of object type query is required'))->during('toArray');
+        $this->shouldThrow(new \DomainException('Property [rel] of entity [query] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_rel_is_null()
     {
         $this->setHref('http://example.com');
         $this->shouldThrow(
-            new \LogicException('Property rel of object type query is required')
+            new \DomainException('Property [rel] of entity [query] is required')
         )->during('jsonSerialize');
     }
 

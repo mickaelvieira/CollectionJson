@@ -59,18 +59,20 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
-        $this->shouldThrow('\Exception')->duringSetHref('uri');
+        $this->shouldThrow(
+            new \DomainException("Property [href] of entity [item] can only have one of the following values [URI]")
+        )->duringSetHref('uri');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
-        $this->shouldThrow(new \LogicException('Property href of object type item is required'))->during('toArray');
+        $this->shouldThrow(new \DomainException('Property [href] of entity [item] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
     {
         $this->shouldThrow(
-            new \LogicException('Property href of object type item is required')
+            new \DomainException('Property [href] of entity [item] is required')
         )->during('jsonSerialize');
     }
 

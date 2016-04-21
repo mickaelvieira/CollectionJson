@@ -42,7 +42,7 @@ class DataSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
     {
         $this->shouldThrow(
-            new \DomainException("Property name of object type data cannot be converted to a string")
+            new \DomainException("Property [name] of entity [data] can only have one of the following values [scalar,Object::__toString]")
         )->during('setName', [new \stdClass()]);
     }
 
@@ -55,7 +55,9 @@ class DataSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
     {
         $this->shouldThrow(
-            new \DomainException("Property prompt of object type data cannot be converted to a string")
+            new \DomainException(
+                "Property [prompt] of entity [data] can only have one of the following values [scalar,Object::__toString]"
+            )
         )->during('setPrompt', [new \stdClass()]);
     }
 
@@ -99,7 +101,7 @@ class DataSpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \DomainException(
-                "Property value of object type data may only have types string, number, boolean or null"
+                "Property [value] of entity [data] can only have one of the following values [scalar,NULL]"
             )
         )->during('setValue', [[]]);
     }
@@ -108,7 +110,7 @@ class DataSpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \DomainException(
-                "Property value of object type data may only have types string, number, boolean or null"
+                "Property [value] of entity [data] can only have one of the following values [scalar,NULL]"
             )
         )->during('setValue', [new \stdClass()]);
     }
@@ -117,7 +119,7 @@ class DataSpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \DomainException(
-                "Property value of object type data may only have types string, number, boolean or null"
+                "Property [value] of entity [data] can only have one of the following values [scalar,NULL]"
             )
         )->during('setValue', [imagecreate(10, 10)]);
     }
@@ -130,20 +132,20 @@ class DataSpec extends ObjectBehavior
 
         $this->shouldThrow(
             new \DomainException(
-                "Property value of object type data may only have types string, number, boolean or null"
+                "Property [value] of entity [data] can only have one of the following values [scalar,NULL]"
             )
         )->during('setValue', [$fn]);
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_name_is_null()
     {
-        $this->shouldThrow(new \LogicException('Property name of object type data is required'))->during('toArray');
+        $this->shouldThrow(new \DomainException('Property [name] of entity [data] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_name_is_null()
     {
         $this->shouldThrow(
-            new \LogicException('Property name of object type data is required')
+            new \DomainException('Property [name] of entity [data] is required')
         )->during('jsonSerialize');
     }
 

@@ -237,7 +237,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
         $this->shouldThrow(
-            new \DomainException("Field href must be a valid URL, uri given")
+            new \DomainException("Property [href] of entity [collection] can only have one of the following values [URI]")
         )->duringSetHref('uri');
     }
 
