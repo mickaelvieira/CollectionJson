@@ -25,11 +25,11 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldHaveType('CollectionJson\Entity\Item');
-        $this->addLink([])->shouldHaveType('CollectionJson\Entity\Item');
-        $this->addLinksSet([])->shouldHaveType('CollectionJson\Entity\Item');
-        $this->addData([])->shouldHaveType('CollectionJson\Entity\Item');
-        $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Item');
+        $this->setHref('http://example.com')->shouldReturn($this);
+        $this->addLink([])->shouldReturn($this);
+        $this->addLinksSet([])->shouldReturn($this);
+        $this->addData([])->shouldReturn($this);
+        $this->addDataSet([])->shouldReturn($this);
     }
 
     /**

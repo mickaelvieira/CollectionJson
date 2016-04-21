@@ -249,15 +249,15 @@ class CollectionSpec extends ObjectBehavior
      */
     function it_should_be_chainable($item, $query, $error, $template)
     {
-        $this->setHref('http://www.example.com')->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addItem($item)->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addItemsSet([$item])->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addQuery($query)->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addQueriesSet([$query])->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->setError($error)->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->setTemplate($template)->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addLink([])->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->addLinksSet([])->shouldHaveType('CollectionJson\Entity\Collection');
+        $this->setHref('http://www.example.com')->shouldReturn($this);
+        $this->addItem($item)->shouldReturn($this);
+        $this->addItemsSet([$item])->shouldReturn($this);
+        $this->addQuery($query)->shouldReturn($this);
+        $this->addQueriesSet([$query])->shouldReturn($this);
+        $this->setError($error)->shouldReturn($this);
+        $this->setTemplate($template)->shouldReturn($this);
+        $this->addLink([])->shouldReturn($this);
+        $this->addLinksSet([])->shouldReturn($this);
     }
 
     function it_should_not_extract_null_and_empty_array_fields()

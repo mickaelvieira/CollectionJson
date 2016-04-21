@@ -21,11 +21,11 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldHaveType('CollectionJson\Entity\Link');
-        $this->setRel('value')->shouldHaveType('CollectionJson\Entity\Link');
-        $this->setName('value')->shouldHaveType('CollectionJson\Entity\Link');
-        $this->setPrompt('value')->shouldHaveType('CollectionJson\Entity\Link');
-        $this->setRender('image')->shouldHaveType('CollectionJson\Entity\Link');
+        $this->setHref('http://example.com')->shouldReturn($this);
+        $this->setRel('value')->shouldReturn($this);
+        $this->setName('value')->shouldReturn($this);
+        $this->setPrompt('value')->shouldReturn($this);
+        $this->setRender('image')->shouldReturn($this);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_link()

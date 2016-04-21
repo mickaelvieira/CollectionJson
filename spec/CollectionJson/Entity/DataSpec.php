@@ -21,9 +21,9 @@ class DataSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setName('value')->shouldHaveType('CollectionJson\Entity\Data');
-        $this->setPrompt('value')->shouldHaveType('CollectionJson\Entity\Data');
-        $this->setValue('value')->shouldHaveType('CollectionJson\Entity\Data');
+        $this->setName('value')->shouldReturn($this);
+        $this->setPrompt('value')->shouldReturn($this);
+        $this->setValue('value')->shouldReturn($this);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_data()

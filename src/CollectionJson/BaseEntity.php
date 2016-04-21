@@ -53,7 +53,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @param string $json
-     * @return \CollectionJson\Entity\Collection
+     * @return static
      */
     public static function fromJson($json)
     {
@@ -90,10 +90,12 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @param string $wrapper
+     * @return static
      */
     final public function wrap($wrapper)
     {
         $this->wrapper = $wrapper;
+        return $this;
     }
 
     /**

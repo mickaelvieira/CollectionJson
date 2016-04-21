@@ -11,6 +11,7 @@ install:
 script:
   - php bin/phpcs --standard=PSR2 ./src/ --report=full
   - php bin/phpspec run --format=pretty -v
+  - php bin/test-example
 
 cache:
     directories:

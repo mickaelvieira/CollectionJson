@@ -46,8 +46,8 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->addData([])->shouldHaveType('CollectionJson\Entity\Template');
-        $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Template');
+        $this->addData([])->shouldReturn($this);
+        $this->addDataSet([])->shouldReturn($this);
     }
 
     function it_should_not_return_null_values_and_empty_arrays()
@@ -114,6 +114,11 @@ class TemplateSpec extends ObjectBehavior
                 ]
             ]
         ]);
+    }
+
+    function it_should_be_chainable_during_wrapping()
+    {
+        $this->wrap('template')->shouldReturn($this);
     }
 
     /**

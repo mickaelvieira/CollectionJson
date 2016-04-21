@@ -21,9 +21,9 @@ class ErrorSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setCode('value')->shouldHaveType('CollectionJson\Entity\Error');
-        $this->setMessage('value')->shouldHaveType('CollectionJson\Entity\Error');
-        $this->setTitle('value')->shouldHaveType('CollectionJson\Entity\Error');
+        $this->setCode('value')->shouldReturn($this);
+        $this->setMessage('value')->shouldReturn($this);
+        $this->setTitle('value')->shouldReturn($this);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_error()

@@ -23,12 +23,12 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldHaveType('CollectionJson\Entity\Query');
-        $this->setRel('value')->shouldHaveType('CollectionJson\Entity\Query');
-        $this->setName('value')->shouldHaveType('CollectionJson\Entity\Query');
-        $this->setPrompt('value')->shouldHaveType('CollectionJson\Entity\Query');
-        $this->addData([])->shouldHaveType('CollectionJson\Entity\Query');
-        $this->addDataSet([])->shouldHaveType('CollectionJson\Entity\Query');
+        $this->setHref('http://example.com')->shouldReturn($this);
+        $this->setRel('value')->shouldReturn($this);
+        $this->setName('value')->shouldReturn($this);
+        $this->setPrompt('value')->shouldReturn($this);
+        $this->addData([])->shouldReturn($this);
+        $this->addDataSet([])->shouldReturn($this);
     }
 
     /**
