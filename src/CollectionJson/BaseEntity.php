@@ -122,7 +122,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
             }, ARRAY_FILTER_USE_BOTH);
         } else {
             $new = [];
-            array_walk($data, function ($value, $key) use (&$data, $whiteList) {
+            array_walk($data, function ($value, $key) use (&$new, $whiteList) {
                 if (in_array($key, $whiteList) || !is_null($value)) {
                     $new[$key] = $value;
                 }
