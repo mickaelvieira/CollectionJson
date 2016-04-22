@@ -58,9 +58,9 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     public static function fromJson($json)
     {
         $data = json_decode($json, true);
-        // @TODO this cannot stay here
-        if (array_key_exists('collection', $data)) {
-            $data = $data['collection'];
+        $type = static::getObjectType();
+        if (array_key_exists($type, $data)) {
+            $data = $data[$type];
         }
         return self::fromArray($data);
     }
@@ -89,12 +89,11 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     }
 
     /**
-     * @param string $wrapper
      * @return static
      */
-    final public function wrap($wrapper)
+    final public function wrap()
     {
-        $this->wrapper = $wrapper;
+        $this->wrapper = static::getObjectType();
         return $this;
     }
 
@@ -135,9 +134,9 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     /**
      * @return string
      */
-    final public function getObjectType()
+    final public static function getObjectType()
     {
-        $tree = explode("\\", get_class($this));
+        $tree = explode("\\", static::class);
         return strtolower(end($tree));
     }
 

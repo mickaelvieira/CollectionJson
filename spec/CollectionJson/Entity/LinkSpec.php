@@ -16,7 +16,7 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('link');
+        $this::getObjectType()->shouldBeEqualTo('link');
     }
 
     function it_should_be_chainable()

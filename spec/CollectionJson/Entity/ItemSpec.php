@@ -20,7 +20,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('item');
+        $this::getObjectType()->shouldBeEqualTo('item');
     }
 
     function it_should_be_chainable()

@@ -50,7 +50,7 @@ class Error extends BaseEntity
     public function setCode($code)
     {
         if (!StringLike::isValid($code)) {
-            throw WrongParameter::format($this->getObjectType(), 'code', StringLike::allowed());
+            throw WrongParameter::format(self::getObjectType(), 'code', StringLike::allowed());
         }
         $this->code = (string)$code;
 
@@ -73,7 +73,7 @@ class Error extends BaseEntity
     public function setMessage($message)
     {
         if (!StringLike::isValid($message)) {
-            throw WrongParameter::format($this->getObjectType(), 'message', StringLike::allowed());
+            throw WrongParameter::format(self::getObjectType(), 'message', StringLike::allowed());
         }
         $this->message = (string)$message;
 
@@ -96,7 +96,7 @@ class Error extends BaseEntity
     public function setTitle($title)
     {
         if (!StringLike::isValid($title)) {
-            throw WrongParameter::format($this->getObjectType(), 'title', StringLike::allowed());
+            throw WrongParameter::format(self::getObjectType(), 'title', StringLike::allowed());
         }
         $this->title = (string)$title;
 

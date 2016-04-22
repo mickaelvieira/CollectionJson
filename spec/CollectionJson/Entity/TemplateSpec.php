@@ -18,7 +18,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('template');
+        $this::getObjectType()->shouldBeEqualTo('template');
     }
 
     /**
@@ -42,6 +42,42 @@ class TemplateSpec extends ObjectBehavior
         $template->getDataSet()->shouldHaveCount(2);
         $template->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
         $template->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+    }
+
+    function it_may_be_construct_from_a_json_representation_of_the_collection()
+    {
+        $json = '
+        {
+          "template": {
+            "data": [
+              {
+                "name": "full-name",
+                "value": "",
+                "prompt": "Full Name"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "prompt": "Email"
+              },
+              {
+                "name": "blog",
+                "value": "",
+                "prompt": "Blog"
+              },
+              {
+                "name": "avatar",
+                "value": "",
+                "prompt": "Avatar"
+              }
+            ]
+          }
+        }';
+
+        $template = $this::fromJson($json);
+        $template->getFirstData()->getName()->shouldReturn('full-name');
+        $template->getLastData()->getName()->shouldReturn('avatar');
+        $template->getDataSet()->shouldHaveCount(4);
     }
 
     function it_should_be_chainable()
@@ -106,7 +142,7 @@ class TemplateSpec extends ObjectBehavior
         $data->toArray()->willReturn(['value' => 'value 1']);
 
         $this->addData($data);
-        $this->wrap('template');
+        $this->wrap();
         $this->toArray()->shouldBeEqualTo([
             'template' => [
                 'data' => [
@@ -118,7 +154,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_be_chainable_during_wrapping()
     {
-        $this->wrap('template')->shouldReturn($this);
+        $this->wrap()->shouldReturn($this);
     }
 
     /**

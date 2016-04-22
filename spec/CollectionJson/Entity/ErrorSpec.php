@@ -16,7 +16,7 @@ class ErrorSpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('error');
+        $this::getObjectType()->shouldBeEqualTo('error');
     }
 
     function it_should_be_chainable()

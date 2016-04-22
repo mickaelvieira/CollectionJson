@@ -160,7 +160,7 @@ echo json_encode($template);
 But you can wrap the json or the array representation by calling the method ```wrap()```
 
 ```php
-$template->wrap('template');
+$template->wrap();
 echo json_encode($template);
 ```
 

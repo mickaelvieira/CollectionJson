@@ -68,15 +68,11 @@ class Collection extends BaseEntity implements LinkAware
     protected $template;
 
     /**
-     * {@inheritdoc}
-     */
-    protected $wrapper = 'collection';
-
-    /**
      * Collection constructor.
      */
     public function __construct()
     {
+        $this->wrapper = self::getObjectType();
         $this->items   = new Bag(Item::class);
         $this->queries = new Bag(Query::class);
         $this->links   = new Bag(Link::class);
@@ -90,7 +86,7 @@ class Collection extends BaseEntity implements LinkAware
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::format($this->getObjectType(), 'href', Uri::allowed());
+            throw WrongParameter::format(self::getObjectType(), 'href', Uri::allowed());
         }
         $this->href = $href;
 

@@ -21,7 +21,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('collection');
+        $this::getObjectType()->shouldBeEqualTo('collection');
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_collection()

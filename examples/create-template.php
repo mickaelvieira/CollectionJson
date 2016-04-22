@@ -9,6 +9,6 @@ $template = (new Template())
     ->addData(Data::fromArray(['name' => 'empty string', 'value' => '']))
     ->addData(Data::fromArray(['name' => 'null value']))
     ->addData(Data::fromArray(['name' => 'default value', 'value' => 0]))
-    ->wrap('template');
+    ->wrap();
 
 echo json_encode($template, JSON_PRETTY_PRINT);

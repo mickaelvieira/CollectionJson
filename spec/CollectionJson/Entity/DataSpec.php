@@ -16,7 +16,7 @@ class DataSpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('data');
+        $this::getObjectType()->shouldBeEqualTo('data');
     }
 
     function it_should_be_chainable()

@@ -18,7 +18,7 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_return_the_object_type()
     {
-        $this->getObjectType()->shouldBeEqualTo('query');
+        $this::getObjectType()->shouldBeEqualTo('query');
     }
 
     function it_should_be_chainable()
