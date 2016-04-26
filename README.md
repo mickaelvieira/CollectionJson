@@ -1,5 +1,8 @@
 # Collection Json
 
+## Status 
+[![Build Status](https://travis-ci.org/mickaelvieira/CollectionJson.svg?branch=master)](https://travis-ci.org/mickaelvieira/CollectionJson)
+
 PHP implementation of the Collection+JSON Media Type
 
 Specification: 
