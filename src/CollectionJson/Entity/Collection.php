@@ -14,6 +14,7 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
+use CollectionJson\Exception\WrongType;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\Validator\Uri;
@@ -214,9 +215,12 @@ class Collection extends BaseEntity implements LinkAware
         if (is_array($error)) {
             $error = Error::fromArray($error);
         }
-        if ($error instanceof Error) {
-            $this->error = $error;
+        if (!($error instanceof Error)) {
+            throw WrongType::format('error', Error::class);
         }
+
+        $this->error = $error;
+        
         return $this;
     }
 
@@ -245,9 +249,12 @@ class Collection extends BaseEntity implements LinkAware
         if (is_array($template)) {
             $template = Template::fromArray($template);
         }
-        if ($template instanceof Template) {
-            $this->template = $template;
+        if (!($template instanceof Template)) {
+            throw WrongType::format('template', Template::class);
         }
+
+        $this->template = $template;
+
         return $this;
     }
 

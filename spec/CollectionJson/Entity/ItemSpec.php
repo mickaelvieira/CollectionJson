@@ -4,6 +4,7 @@ namespace spec\CollectionJson\Entity;
 
 use CollectionJson\Entity\Link;
 use CollectionJson\Entity\Data;
+use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -112,6 +113,13 @@ class ItemSpec extends ObjectBehavior
         $this->getDataSet()->shouldHaveCount(1);
     }
 
+    function it_should_throw_an_exception_when_data_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
+        )->during('addData', [new Template()]);
+    }
+
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
         $this->addData(['value' => 'value 1']);
@@ -123,7 +131,7 @@ class ItemSpec extends ObjectBehavior
      */
     function it_should_add_a_data_set($data)
     {
-        $this->addDataSet([$data, ['value' => 'value 2'], new \stdClass()]);
+        $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
     }
 
@@ -172,6 +180,13 @@ class ItemSpec extends ObjectBehavior
         $this->getLinksSet()->shouldHaveCount(1);
     }
 
+    function it_should_throw_an_exception_when_link_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [link] must be of type [CollectionJson\Entity\Link]')
+        )->during('addLink', [new Template()]);
+    }
+
     function it_should_add_a_link_when_it_is_passed_as_an_array()
     {
         $this->addLink([
@@ -193,8 +208,7 @@ class ItemSpec extends ObjectBehavior
                 'href'   => 'http://example.com',
                 'rel'    => 'Rel value2',
                 'render' => 'link'
-            ],
-            new \stdClass()
+            ]
         ]);
         $this->setHref('http://example.com');
         $this->getLinksSet()->shouldHaveCount(2);

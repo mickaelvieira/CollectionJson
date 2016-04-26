@@ -278,6 +278,13 @@ class CollectionSpec extends ObjectBehavior
         $this->getItemsSet()->shouldHaveCount(1);
     }
 
+    function it_should_throw_an_exception_when_item_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [item] must be of type [CollectionJson\Entity\Item]')
+        )->during('addItem', [new Template()]);
+    }
+
     function it_should_add_a_item_when_passing_array()
     {
         $this->addItem([
@@ -349,6 +356,13 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->addQuery($query);
         $this->getQueriesSet()->shouldHaveCount(1);
+    }
+
+    function it_should_throw_an_exception_when_query_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [query] must be of type [CollectionJson\Entity\Query]')
+        )->during('addQuery', [new Template()]);
     }
 
     function it_should_add_a_query_when_passing_an_array()
@@ -433,6 +447,13 @@ class CollectionSpec extends ObjectBehavior
         $this->getLinksSet()->shouldHaveCount(1);
     }
 
+    function it_should_throw_an_exception_when_link_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [link] must be of type [CollectionJson\Entity\Link]')
+        )->during('addLink', [new Template()]);
+    }
+
     function it_should_retrieve_the_link_by_relation()
     {
         $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
@@ -470,8 +491,7 @@ class CollectionSpec extends ObjectBehavior
                 'href'   => 'http://example.com',
                 'rel'    => 'Rel value2',
                 'render' => 'link'
-            ],
-            new \stdClass()
+            ]
         ]);
         $this->getLinksSet()->shouldHaveCount(2);
     }
@@ -546,6 +566,13 @@ class CollectionSpec extends ObjectBehavior
         $this->getError()->getCode()->shouldBeEqualTo("error code");
     }
 
+    function it_should_throw_an_exception_when_error_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [error] must be of type [CollectionJson\Entity\Error]')
+        )->during('setError', [new Query()]);
+    }
+
     function it_should_know_if_it_has_an_error()
     {
         $error = new Error();
@@ -595,5 +622,12 @@ class CollectionSpec extends ObjectBehavior
     function it_should_know_if_it_has_not_an_template()
     {
         $this->shouldNotHaveTemplate();
+    }
+
+    function it_should_throw_an_exception_when_template_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [template] must be of type [CollectionJson\Entity\Template]')
+        )->during('setTemplate', [new Query()]);
     }
 }

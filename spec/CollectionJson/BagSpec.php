@@ -11,7 +11,7 @@ class BagSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('\CollectionJson\Entity\Item');
+        $this->beConstructedWith('CollectionJson\Entity\Item');
     }
 
     function it_is_initializable()
@@ -33,11 +33,11 @@ class BagSpec extends ObjectBehavior
         $this->shouldHaveCount(1);
     }
 
-    function it_should_not_add_an_item_of_a_wrong_type()
+    function it_should_throw_an_exception_when_item_is_of_the_wrong_type()
     {
-        $this->add(new Query());
-        $this->shouldHaveCount(0);
-        $this->shouldBeEmpty();
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [item] must be of type [CollectionJson\Entity\Item]')
+        )->during('add', [new Query()]);
     }
 
     function it_should_build_an_item_from_an_array()

@@ -2,6 +2,7 @@
 
 namespace spec\CollectionJson\Entity;
 
+use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Entity\Data;
@@ -160,6 +161,13 @@ class QuerySpec extends ObjectBehavior
         $this->getDataSet()->shouldHaveCount(1);
     }
 
+    function it_should_throw_an_exception_when_data_has_the_wrong_type()
+    {
+        $this->shouldThrow(
+            new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
+        )->during('addData', [new Template()]);
+    }
+
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
         $this->addData(['value' => 'value 1']);
@@ -171,7 +179,7 @@ class QuerySpec extends ObjectBehavior
      */
     function it_should_add_a_data_set($data)
     {
-        $this->addDataSet([$data, ['value' => 'value 2'], new \stdClass()]);
+        $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
     }
 

@@ -12,6 +12,8 @@
 
 namespace CollectionJson;
 
+use CollectionJson\Exception\WrongType;
+
 /**
  * Class Bag
  * @package CollectionJson
@@ -71,9 +73,12 @@ final class Bag implements \Countable, \IteratorAggregate
         if (is_array($item)) {
             $item = $method->invoke(null, $item);
         }
-        if ($item instanceof $this->className) {
-            array_push($this->bag, $item);
+        if (!($item instanceof $this->className)) {
+            throw WrongType::format($this->getPropertyName(), $this->className);
         }
+
+        array_push($this->bag, $item);
+
         return $this;
     }
 
@@ -111,5 +116,14 @@ final class Bag implements \Countable, \IteratorAggregate
     public function getLast()
     {
         return (end($this->bag)) ?: null;
+    }
+
+    /**
+     * @return string
+     */
+    private function getPropertyName()
+    {
+        $tree = explode("\\", $this->className);
+        return strtolower(end($tree));
     }
 }
