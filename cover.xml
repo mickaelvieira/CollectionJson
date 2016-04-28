@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1461869013">
+  <project timestamp="1461869013">
+    <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/ArrayConvertible.php">
+      <metrics loc="25" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="CollectionJson">
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Bag.php">
+        <class name="Bag" namespace="CollectionJson" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="15" methods="10" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="19" elements="30" coveredelements="28"/>
+        </class>
+        <line num="37" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="142"/>
+        <line num="39" type="stmt" count="142"/>
+        <line num="40" type="stmt" count="142"/>
+        <line num="45" type="method" name="count" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="47" type="stmt" count="4"/>
+        <line num="53" type="method" name="isEmpty" visibility="public" complexity="1" crap="1" count="15"/>
+        <line num="55" type="stmt" count="15"/>
+        <line num="61" type="method" name="getIterator" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="63" type="stmt" count="0"/>
+        <line num="70" type="method" name="add" visibility="public" complexity="3" crap="3" count="76"/>
+        <line num="72" type="stmt" count="76"/>
+        <line num="73" type="stmt" count="76"/>
+        <line num="74" type="stmt" count="25"/>
+        <line num="76" type="stmt" count="76"/>
+        <line num="77" type="stmt" count="8"/>
+        <line num="80" type="stmt" count="68"/>
+        <line num="82" type="stmt" count="68"/>
+        <line num="89" type="method" name="addSet" visibility="public" complexity="2" crap="2" count="41"/>
+        <line num="91" type="stmt" count="41"/>
+        <line num="92" type="stmt" count="38"/>
+        <line num="94" type="stmt" count="41"/>
+        <line num="100" type="method" name="getSet" visibility="public" complexity="1" crap="1" count="46"/>
+        <line num="102" type="stmt" count="46"/>
+        <line num="108" type="method" name="getFirst" visibility="public" complexity="2" crap="2" count="17"/>
+        <line num="110" type="stmt" count="17"/>
+        <line num="116" type="method" name="getLast" visibility="public" complexity="2" crap="2" count="17"/>
+        <line num="118" type="stmt" count="17"/>
+        <line num="124" type="method" name="getPropertyName" visibility="private" complexity="1" crap="1" count="8"/>
+        <line num="126" type="stmt" count="8"/>
+        <line num="127" type="stmt" count="8"/>
+        <metrics loc="129" ncloc="77" classes="1" methods="10" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="19" elements="30" coveredelements="28"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/BaseEntity.php">
+        <class name="BaseEntity" namespace="CollectionJson" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="28" methods="11" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="45" coveredstatements="39" elements="56" coveredelements="48"/>
+        </class>
+        <line num="32" type="method" name="fromArray" visibility="public" complexity="4" crap="4" count="41"/>
+        <line num="34" type="stmt" count="41"/>
+        <line num="37" type="stmt" count="37"/>
+        <line num="38" type="stmt" count="41"/>
+        <line num="40" type="stmt" count="41"/>
+        <line num="42" type="stmt" count="37"/>
+        <line num="43" type="stmt" count="37"/>
+        <line num="45" type="stmt" count="37"/>
+        <line num="46" type="stmt" count="37"/>
+        <line num="47" type="stmt" count="8"/>
+        <line num="48" type="stmt" count="37"/>
+        <line num="51" type="stmt" count="41"/>
+        <line num="58" type="method" name="fromJson" visibility="public" complexity="2" crap="2" count="2"/>
+        <line num="60" type="stmt" count="2"/>
+        <line num="61" type="stmt" count="2"/>
+        <line num="62" type="stmt" count="2"/>
+        <line num="63" type="stmt" count="2"/>
+        <line num="65" type="stmt" count="2"/>
+        <line num="71" type="method" name="jsonSerialize" visibility="public" complexity="1" crap="1.30" count="6"/>
+        <line num="73" type="stmt" count="6"/>
+        <line num="74" type="stmt" count="0"/>
+        <line num="76" type="stmt" count="0"/>
+        <line num="82" type="method" name="toArray" visibility="public" complexity="1" crap="1" count="17"/>
+        <line num="84" type="stmt" count="17"/>
+        <line num="85" type="stmt" count="11"/>
+        <line num="86" type="stmt" count="11"/>
+        <line num="88" type="stmt" count="11"/>
+        <line num="94" type="method" name="wrap" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="96" type="stmt" count="2"/>
+        <line num="97" type="stmt" count="2"/>
+        <line num="104" type="method" name="filterEmptyArrays" visibility="protected" complexity="2" crap="2" count="9"/>
+        <line num="107" type="stmt" count="9"/>
+        <line num="108" type="stmt" count="9"/>
+        <line num="116" type="method" name="filterNullValues" visibility="protected" complexity="5" crap="9.66" count="10"/>
+        <line num="118" type="stmt" count="10"/>
+        <line num="120" type="stmt" count="9"/>
+        <line num="121" type="stmt" count="10"/>
+        <line num="123" type="stmt" count="0"/>
+        <line num="128" type="stmt" count="0"/>
+        <line num="129" type="stmt" count="0"/>
+        <line num="131" type="stmt" count="0"/>
+        <line num="137" type="method" name="getObjectType" visibility="public" complexity="1" crap="1" count="89"/>
+        <line num="139" type="stmt" count="89"/>
+        <line num="140" type="stmt" count="89"/>
+        <line num="152" type="method" name="recursiveToArray" visibility="private" complexity="4" crap="4" count="11"/>
+        <line num="154" type="stmt" count="11"/>
+        <line num="156" type="method" name="anonymous function" complexity="4" crap="4" count="11"/>
+        <line num="157" type="stmt" count="10"/>
+        <line num="158" type="stmt" count="5"/>
+        <line num="159" type="stmt" count="10"/>
+        <line num="160" type="stmt" count="5"/>
+        <line num="162" type="stmt" count="11"/>
+        <line num="165" type="stmt" count="11"/>
+        <line num="172" type="method" name="addWrapper" visibility="private" complexity="2" crap="2" count="11"/>
+        <line num="174" type="stmt" count="11"/>
+        <line num="176" type="stmt" count="3"/>
+        <line num="179" type="stmt" count="11"/>
+        <metrics loc="181" ncloc="125" classes="1" methods="11" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="40" elements="57" coveredelements="49"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/DataContainer.php">
+        <class name="DataContainer" namespace="CollectionJson" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="9" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="17" coveredelements="17"/>
+        </class>
+        <line num="33" type="method" name="addData" visibility="public" complexity="1" crap="1" count="19"/>
+        <line num="35" type="stmt" count="19"/>
+        <line num="36" type="stmt" count="16"/>
+        <line num="43" type="method" name="addDataSet" visibility="public" complexity="1" crap="1" count="23"/>
+        <line num="45" type="stmt" count="23"/>
+        <line num="46" type="stmt" count="23"/>
+        <line num="52" type="method" name="getDataSet" visibility="public" complexity="1" crap="1" count="22"/>
+        <line num="54" type="stmt" count="22"/>
+        <line num="63" type="method" name="anonymous function" complexity="1" crap="1" count="9"/>
+        <line num="64" type="stmt" count="6"/>
+        <line num="65" type="stmt" count="9"/>
+        <line num="67" type="stmt" count="9"/>
+        <line num="73" type="method" name="getFirstData" visibility="public" complexity="1" crap="1" count="7"/>
+        <line num="75" type="stmt" count="7"/>
+        <line num="81" type="method" name="getLastData" visibility="public" complexity="1" crap="1" count="7"/>
+        <line num="83" type="stmt" count="7"/>
+        <line num="89" type="method" name="hasData" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="91" type="stmt" count="6"/>
+        <metrics loc="93" ncloc="52" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="18" coveredelements="18"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/LinkContainer.php">
+        <class name="LinkContainer" namespace="CollectionJson" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="9" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="17" coveredelements="17"/>
+        </class>
+        <line num="33" type="method" name="addLink" visibility="public" complexity="1" crap="1" count="10"/>
+        <line num="35" type="stmt" count="10"/>
+        <line num="36" type="stmt" count="8"/>
+        <line num="43" type="method" name="addLinksSet" visibility="public" complexity="1" crap="1" count="12"/>
+        <line num="45" type="stmt" count="12"/>
+        <line num="46" type="stmt" count="12"/>
+        <line num="52" type="method" name="getLinksSet" visibility="public" complexity="1" crap="1" count="10"/>
+        <line num="54" type="stmt" count="10"/>
+        <line num="63" type="method" name="anonymous function" complexity="1" crap="1" count="4"/>
+        <line num="64" type="stmt" count="2"/>
+        <line num="65" type="stmt" count="4"/>
+        <line num="67" type="stmt" count="4"/>
+        <line num="73" type="method" name="getFirstLink" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="75" type="stmt" count="4"/>
+        <line num="81" type="method" name="getLastLink" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="83" type="stmt" count="4"/>
+        <line num="89" type="method" name="hasLinks" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="91" type="stmt" count="4"/>
+        <metrics loc="93" ncloc="52" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="18" coveredelements="18"/>
+      </file>
+    </package>
+    <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/DataAware.php">
+      <metrics loc="58" ncloc="21" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="CollectionJson\Entity">
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Collection.php">
+        <class name="Collection" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="27" methods="22" coveredmethods="22" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="52" elements="74" coveredelements="74"/>
+        </class>
+        <line num="74" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="49"/>
+        <line num="76" type="stmt" count="49"/>
+        <line num="77" type="stmt" count="49"/>
+        <line num="78" type="stmt" count="49"/>
+        <line num="79" type="stmt" count="49"/>
+        <line num="80" type="stmt" count="49"/>
+        <line num="87" type="method" name="setHref" visibility="public" complexity="2" crap="2" count="4"/>
+        <line num="89" type="stmt" count="4"/>
+        <line num="90" type="stmt" count="1"/>
+        <line num="92" type="stmt" count="3"/>
+        <line num="94" type="stmt" count="3"/>
+        <line num="100" type="method" name="getHref" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="102" type="stmt" count="2"/>
+        <line num="109" type="method" name="addItem" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="111" type="stmt" count="5"/>
+        <line num="112" type="stmt" count="4"/>
+        <line num="119" type="method" name="addItemsSet" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="121" type="stmt" count="6"/>
+        <line num="122" type="stmt" count="6"/>
+        <line num="128" type="method" name="getItemsSet" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="130" type="stmt" count="5"/>
+        <line num="136" type="method" name="getFirstItem" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="138" type="stmt" count="2"/>
+        <line num="144" type="method" name="getLastItem" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="146" type="stmt" count="2"/>
+        <line num="152" type="method" name="hasItems" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="154" type="stmt" count="2"/>
+        <line num="161" type="method" name="addQuery" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="163" type="stmt" count="5"/>
+        <line num="164" type="stmt" count="4"/>
+        <line num="171" type="method" name="addQueriesSet" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="173" type="stmt" count="5"/>
+        <line num="174" type="stmt" count="5"/>
+        <line num="180" type="method" name="getQueriesSet" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="182" type="stmt" count="4"/>
+        <line num="188" type="method" name="getFirstQuery" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="190" type="stmt" count="2"/>
+        <line num="196" type="method" name="getLastQuery" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="198" type="stmt" count="2"/>
+        <line num="204" type="method" name="hasQueries" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="206" type="stmt" count="2"/>
+        <line num="213" type="method" name="setError" visibility="public" complexity="3" crap="3" count="6"/>
+        <line num="215" type="stmt" count="6"/>
+        <line num="216" type="stmt" count="2"/>
+        <line num="218" type="stmt" count="6"/>
+        <line num="219" type="stmt" count="1"/>
+        <line num="222" type="stmt" count="5"/>
+        <line num="224" type="stmt" count="5"/>
+        <line num="230" type="method" name="getError" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="232" type="stmt" count="3"/>
+        <line num="238" type="method" name="hasError" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="240" type="stmt" count="2"/>
+        <line num="247" type="method" name="setTemplate" visibility="public" complexity="3" crap="3" count="7"/>
+        <line num="249" type="stmt" count="7"/>
+        <line num="250" type="stmt" count="3"/>
+        <line num="252" type="stmt" count="7"/>
+        <line num="253" type="stmt" count="1"/>
+        <line num="256" type="stmt" count="6"/>
+        <line num="258" type="stmt" count="6"/>
+        <line num="264" type="method" name="getTemplate" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="266" type="stmt" count="4"/>
+        <line num="272" type="method" name="hasTemplate" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="274" type="stmt" count="2"/>
+        <line num="280" type="method" name="getObjectData" visibility="protected" complexity="1" crap="1" count="2"/>
+        <line num="283" type="stmt" count="2"/>
+        <line num="284" type="stmt" count="2"/>
+        <line num="285" type="stmt" count="2"/>
+        <line num="286" type="stmt" count="2"/>
+        <line num="287" type="stmt" count="2"/>
+        <line num="288" type="stmt" count="2"/>
+        <line num="289" type="stmt" count="2"/>
+        <line num="292" type="stmt" count="2"/>
+        <line num="293" type="stmt" count="2"/>
+        <line num="295" type="stmt" count="2"/>
+        <metrics loc="297" ncloc="182" classes="1" methods="22" coveredmethods="22" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="52" elements="74" coveredelements="74"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Data.php">
+        <class name="Data" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="11" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="28" coveredelements="28"/>
+        </class>
+        <line num="52" type="method" name="setName" visibility="public" complexity="2" crap="2" count="13"/>
+        <line num="54" type="stmt" count="13"/>
+        <line num="55" type="stmt" count="1"/>
+        <line num="57" type="stmt" count="12"/>
+        <line num="59" type="stmt" count="12"/>
+        <line num="65" type="method" name="getName" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="67" type="stmt" count="6"/>
+        <line num="75" type="method" name="setPrompt" visibility="public" complexity="2" crap="2" count="6"/>
+        <line num="77" type="stmt" count="6"/>
+        <line num="78" type="stmt" count="1"/>
+        <line num="80" type="stmt" count="5"/>
+        <line num="82" type="stmt" count="5"/>
+        <line num="88" type="method" name="getPrompt" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="90" type="stmt" count="2"/>
+        <line num="98" type="method" name="setValue" visibility="public" complexity="2" crap="2" count="31"/>
+        <line num="100" type="stmt" count="31"/>
+        <line num="101" type="stmt" count="4"/>
+        <line num="103" type="stmt" count="27"/>
+        <line num="105" type="stmt" count="27"/>
+        <line num="111" type="method" name="getValue" visibility="public" complexity="1" crap="1" count="9"/>
+        <line num="113" type="stmt" count="9"/>
+        <line num="119" type="method" name="getObjectData" visibility="protected" complexity="2" crap="2" count="4"/>
+        <line num="121" type="stmt" count="4"/>
+        <line num="122" type="stmt" count="2"/>
+        <line num="126" type="stmt" count="2"/>
+        <line num="127" type="stmt" count="2"/>
+        <line num="128" type="stmt" count="2"/>
+        <line num="131" type="stmt" count="2"/>
+        <metrics loc="133" ncloc="79" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="28" coveredelements="28"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Error.php">
+        <class name="Error" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="10" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="28" coveredelements="28"/>
+        </class>
+        <line num="50" type="method" name="setCode" visibility="public" complexity="2" crap="2" count="6"/>
+        <line num="52" type="stmt" count="6"/>
+        <line num="53" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="5"/>
+        <line num="57" type="stmt" count="5"/>
+        <line num="63" type="method" name="getCode" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="65" type="stmt" count="3"/>
+        <line num="73" type="method" name="setMessage" visibility="public" complexity="2" crap="2" count="7"/>
+        <line num="75" type="stmt" count="7"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="78" type="stmt" count="6"/>
+        <line num="80" type="stmt" count="6"/>
+        <line num="86" type="method" name="getMessage" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="88" type="stmt" count="3"/>
+        <line num="96" type="method" name="setTitle" visibility="public" complexity="2" crap="2" count="6"/>
+        <line num="98" type="stmt" count="6"/>
+        <line num="99" type="stmt" count="1"/>
+        <line num="101" type="stmt" count="5"/>
+        <line num="103" type="stmt" count="5"/>
+        <line num="109" type="method" name="getTitle" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="111" type="stmt" count="3"/>
+        <line num="117" type="method" name="getObjectData" visibility="protected" complexity="1" crap="1" count="2"/>
+        <line num="120" type="stmt" count="2"/>
+        <line num="121" type="stmt" count="2"/>
+        <line num="122" type="stmt" count="2"/>
+        <line num="125" type="stmt" count="2"/>
+        <line num="126" type="stmt" count="2"/>
+        <line num="128" type="stmt" count="2"/>
+        <metrics loc="130" ncloc="76" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="28" coveredelements="28"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Item.php">
+        <class name="Item" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="6" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="18" coveredelements="18"/>
+        </class>
+        <line num="52" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="44"/>
+        <line num="54" type="stmt" count="44"/>
+        <line num="55" type="stmt" count="44"/>
+        <line num="56" type="stmt" count="44"/>
+        <line num="63" type="method" name="setHref" visibility="public" complexity="2" crap="2" count="10"/>
+        <line num="65" type="stmt" count="10"/>
+        <line num="66" type="stmt" count="1"/>
+        <line num="68" type="stmt" count="9"/>
+        <line num="70" type="stmt" count="9"/>
+        <line num="76" type="method" name="getHref" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="78" type="stmt" count="1"/>
+        <line num="84" type="method" name="getObjectData" visibility="protected" complexity="2" crap="2" count="4"/>
+        <line num="86" type="stmt" count="4"/>
+        <line num="87" type="stmt" count="2"/>
+        <line num="91" type="stmt" count="2"/>
+        <line num="92" type="stmt" count="2"/>
+        <line num="93" type="stmt" count="2"/>
+        <line num="96" type="stmt" count="2"/>
+        <metrics loc="98" ncloc="59" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="18" coveredelements="18"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Link.php">
+        <class name="Link" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="18" methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="34" coveredstatements="34" elements="45" coveredelements="45"/>
+        </class>
+        <line num="66" type="method" name="setHref" visibility="public" complexity="2" crap="2" count="18"/>
+        <line num="68" type="stmt" count="18"/>
+        <line num="69" type="stmt" count="1"/>
+        <line num="71" type="stmt" count="17"/>
+        <line num="73" type="stmt" count="17"/>
+        <line num="79" type="method" name="getHref" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="81" type="stmt" count="1"/>
+        <line num="89" type="method" name="setRel" visibility="public" complexity="2" crap="2" count="19"/>
+        <line num="91" type="stmt" count="19"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="18"/>
+        <line num="96" type="stmt" count="18"/>
+        <line num="102" type="method" name="getRel" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="104" type="stmt" count="4"/>
+        <line num="112" type="method" name="setName" visibility="public" complexity="2" crap="2" count="4"/>
+        <line num="114" type="stmt" count="4"/>
+        <line num="115" type="stmt" count="1"/>
+        <line num="117" type="stmt" count="3"/>
+        <line num="119" type="stmt" count="3"/>
+        <line num="125" type="method" name="getName" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="127" type="stmt" count="2"/>
+        <line num="135" type="method" name="setPrompt" visibility="public" complexity="2" crap="2" count="5"/>
+        <line num="137" type="stmt" count="5"/>
+        <line num="138" type="stmt" count="1"/>
+        <line num="140" type="stmt" count="4"/>
+        <line num="142" type="stmt" count="4"/>
+        <line num="148" type="method" name="getPrompt" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="150" type="stmt" count="2"/>
+        <line num="158" type="method" name="setRender" visibility="public" complexity="2" crap="2" count="9"/>
+        <line num="160" type="stmt" count="9"/>
+        <line num="161" type="stmt" count="1"/>
+        <line num="163" type="stmt" count="8"/>
+        <line num="165" type="stmt" count="8"/>
+        <line num="171" type="method" name="getRender" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="173" type="stmt" count="3"/>
+        <line num="179" type="method" name="getObjectData" visibility="protected" complexity="3" crap="3" count="6"/>
+        <line num="181" type="stmt" count="6"/>
+        <line num="182" type="stmt" count="6"/>
+        <line num="183" type="stmt" count="6"/>
+        <line num="188" type="stmt" count="2"/>
+        <line num="189" type="stmt" count="2"/>
+        <line num="190" type="stmt" count="2"/>
+        <line num="191" type="stmt" count="2"/>
+        <line num="192" type="stmt" count="2"/>
+        <line num="195" type="stmt" count="2"/>
+        <metrics loc="197" ncloc="119" classes="1" methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="34" coveredstatements="34" elements="45" coveredelements="45"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Query.php">
+        <class name="Query" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="16" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="33" elements="43" coveredelements="43"/>
+        </class>
+        <line num="64" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="37"/>
+        <line num="66" type="stmt" count="37"/>
+        <line num="67" type="stmt" count="37"/>
+        <line num="75" type="method" name="setHref" visibility="public" complexity="2" crap="2" count="9"/>
+        <line num="77" type="stmt" count="9"/>
+        <line num="78" type="stmt" count="1"/>
+        <line num="80" type="stmt" count="8"/>
+        <line num="82" type="stmt" count="8"/>
+        <line num="88" type="method" name="getHref" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="90" type="stmt" count="1"/>
+        <line num="98" type="method" name="setName" visibility="public" complexity="2" crap="2" count="5"/>
+        <line num="100" type="stmt" count="5"/>
+        <line num="101" type="stmt" count="1"/>
+        <line num="103" type="stmt" count="4"/>
+        <line num="105" type="stmt" count="4"/>
+        <line num="111" type="method" name="getName" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="113" type="stmt" count="2"/>
+        <line num="121" type="method" name="setPrompt" visibility="public" complexity="2" crap="2" count="6"/>
+        <line num="123" type="stmt" count="6"/>
+        <line num="124" type="stmt" count="1"/>
+        <line num="126" type="stmt" count="5"/>
+        <line num="128" type="stmt" count="5"/>
+        <line num="134" type="method" name="getPrompt" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="136" type="stmt" count="2"/>
+        <line num="144" type="method" name="setRel" visibility="public" complexity="2" crap="2" count="10"/>
+        <line num="146" type="stmt" count="10"/>
+        <line num="147" type="stmt" count="1"/>
+        <line num="149" type="stmt" count="9"/>
+        <line num="151" type="stmt" count="9"/>
+        <line num="157" type="method" name="getRel" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="159" type="stmt" count="2"/>
+        <line num="165" type="method" name="getObjectData" visibility="protected" complexity="3" crap="3" count="6"/>
+        <line num="167" type="stmt" count="6"/>
+        <line num="168" type="stmt" count="6"/>
+        <line num="169" type="stmt" count="6"/>
+        <line num="174" type="stmt" count="2"/>
+        <line num="175" type="stmt" count="2"/>
+        <line num="176" type="stmt" count="2"/>
+        <line num="177" type="stmt" count="2"/>
+        <line num="178" type="stmt" count="2"/>
+        <line num="181" type="stmt" count="2"/>
+        <line num="182" type="stmt" count="2"/>
+        <line num="184" type="stmt" count="2"/>
+        <metrics loc="186" ncloc="113" classes="1" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="33" elements="43" coveredelements="43"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Entity/Template.php">
+        <class name="Template" namespace="CollectionJson\Entity" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="8" coveredelements="8"/>
+        </class>
+        <line num="36" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="31"/>
+        <line num="38" type="stmt" count="31"/>
+        <line num="39" type="stmt" count="31"/>
+        <line num="44" type="method" name="getObjectData" visibility="protected" complexity="1" crap="1" count="4"/>
+        <line num="47" type="stmt" count="4"/>
+        <line num="50" type="stmt" count="4"/>
+        <line num="51" type="stmt" count="4"/>
+        <line num="53" type="stmt" count="4"/>
+        <metrics loc="55" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="8" coveredelements="8"/>
+      </file>
+    </package>
+    <package name="CollectionJson\Exception">
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Exception/MissingProperty.php">
+        <class name="MissingProperty" namespace="CollectionJson\Exception" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="28" type="method" name="format" visibility="public" complexity="1" crap="1" count="14"/>
+        <line num="30" type="stmt" count="14"/>
+        <line num="31" type="stmt" count="14"/>
+        <metrics loc="33" ncloc="15" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Exception/WrongParameter.php">
+        <class name="WrongParameter" namespace="CollectionJson\Exception" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="29" type="method" name="format" visibility="public" complexity="1" crap="1" count="22"/>
+        <line num="31" type="stmt" count="22"/>
+        <line num="32" type="stmt" count="22"/>
+        <metrics loc="34" ncloc="15" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Exception/WrongType.php">
+        <class name="WrongType" namespace="CollectionJson\Exception" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="28" type="method" name="format" visibility="public" complexity="1" crap="1" count="12"/>
+        <line num="30" type="stmt" count="12"/>
+        <line num="31" type="stmt" count="12"/>
+        <metrics loc="33" ncloc="15" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+    </package>
+    <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/LinkAware.php">
+      <metrics loc="58" ncloc="21" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/StringConvertible.php">
+      <metrics loc="27" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="CollectionJson\Type">
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Type/Relation.php">
+        <class name="Relation" namespace="CollectionJson\Type" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
+        </class>
+        <line num="25" type="method" name="__construct" visibility="private" complexity="1" crap="2" count="0"/>
+        <line num="26" type="stmt" count="0"/>
+        <line num="27" type="stmt" count="0"/>
+        <metrics loc="99" ncloc="82" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="3" coveredelements="0"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Type/Render.php">
+        <class name="Render" namespace="CollectionJson\Type" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+        </class>
+        <line num="24" type="method" name="__construct" visibility="private" complexity="1" crap="2" count="0"/>
+        <line num="26" type="stmt" count="0"/>
+        <metrics loc="30" ncloc="14" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </file>
+    </package>
+    <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Validator.php">
+      <metrics loc="26" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="CollectionJson\Validator">
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Validator/DataValue.php">
+        <class name="DataValue" namespace="CollectionJson\Validator" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        </class>
+        <line num="25" type="method" name="isValid" visibility="public" complexity="2" crap="2" count="40"/>
+        <line num="27" type="stmt" count="40"/>
+        <line num="33" type="method" name="allowed" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="35" type="stmt" count="5"/>
+        <metrics loc="37" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Validator/Render.php">
+        <class name="Render" namespace="CollectionJson\Validator" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        </class>
+        <line num="27" type="method" name="isValid" visibility="public" complexity="2" crap="2" count="12"/>
+        <line num="29" type="stmt" count="12"/>
+        <line num="35" type="method" name="allowed" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="37" type="stmt" count="2"/>
+        <metrics loc="39" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Validator/StringLike.php">
+        <class name="StringLike" namespace="CollectionJson\Validator" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="4" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        </class>
+        <line num="25" type="method" name="isValid" visibility="public" complexity="3" crap="3" count="64"/>
+        <line num="27" type="stmt" count="64"/>
+        <line num="33" type="method" name="allowed" visibility="public" complexity="1" crap="1" count="12"/>
+        <line num="35" type="stmt" count="12"/>
+        <metrics loc="37" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </file>
+      <file name="/home/mickael/Development/CollectionJson/src/CollectionJson/Validator/Uri.php">
+        <class name="Uri" namespace="CollectionJson\Validator" fullPackage="CollectionJson" package="CollectionJson">
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+        </class>
+        <line num="25" type="method" name="isValid" visibility="public" complexity="1" crap="1" count="37"/>
+        <line num="27" type="stmt" count="37"/>
+        <line num="33" type="method" name="allowed" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="35" type="stmt" count="5"/>
+        <metrics loc="37" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
+      </file>
+    </package>
+    <metrics files="25" loc="2165" ncloc="1245" classes="20" methods="111" coveredmethods="106" conditionals="0" coveredconditionals="0" statements="286" coveredstatements="276" elements="397" coveredelements="382"/>
+  </project>
+</coverage>

@@ -3,4 +3,4 @@ extensions:
 
 code_coverage:
   format: clover
-  output: coverage.xml
+  output: cover.xml
