@@ -13,6 +13,9 @@ script:
   - php bin/phpspec run --format=pretty -v
   - php bin/test-example
 
+after_success:
+  - travis_retry php bin/coveralls -v
+
 cache:
     directories:
         - $HOME/.composer/cache
