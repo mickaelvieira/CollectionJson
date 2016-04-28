@@ -1,6 +1,8 @@
 # Collection Json
 
 [![Build Status](https://travis-ci.org/mickaelvieira/CollectionJson.svg?branch=master)](https://travis-ci.org/mickaelvieira/CollectionJson)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE)
+
 
 PHP implementation of the Collection+JSON Media Type
 
