@@ -2,4 +2,6 @@ vendor/
 coverage/
 bin/phpcs
 bin/phpspec
+bin/coveralls
 composer.lock
+coverage.xml
