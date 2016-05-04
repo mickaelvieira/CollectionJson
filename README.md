@@ -25,27 +25,11 @@ Install CollectionJson with [Composer](https://getcomposer.org/)
 
 ## Contributing
 
-```sh
-$ git clone git@github.com:mickaelvieira/CollectionJson.git
-$ cd CollectionJson
-$ composer install
-```
+Please see [CONTRIBUTING](https://github.com/mickaelvieira/CollectionJson/tree/master/CONTRIBUTING.md) for details.
 
-### Run the test
+## License
 
-The test suite has been written with [PHPSpec](http://phpspec.net/)
-
-```sh
-$ ./bin/phpspec run
-```
-
-### PHP Code Sniffer
-
-This project follows the coding style guide [PSR2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-
-```sh
-$ ./bin/phpcs --standard=PSR2 ./src/
-```
+The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE) for more information.
 
 ## Documentation
 
@@ -76,6 +60,25 @@ print json_encode($collection);
         ]
     }
 }
+```
+
+### Creating an entity
+
+All entities ```Collection```, ```Data```, ```Error```, ```Item```, ```Link```, ```Query```, ```Template``` can be created by using the static method ```fromArray```...
+
+```php
+$data = Data::fromArray([
+    'name' => 'email',
+    'value' => 'email value'
+]);
+```
+
+...or by using the mutators.
+
+```php
+$data = (new Data())
+    ->setName('email')
+    ->setValue('email value');
 ```
 
 ### Printing the data
@@ -176,24 +179,6 @@ echo json_encode($template);
         ]
     }
 }
-```
-### Creating an entity
-
-All entities can be created by using the static method ```fromArray```...
-
-```php
-$data = Data::fromArray([
-    'name' => 'email',
-    'value' => 'email value'
-]);
-```
-
-...or by using the mutators.
-
-```php
-$data = (new Data())
-    ->setName('email')
-    ->setValue('email value');
 ```
 
 ### Examples
