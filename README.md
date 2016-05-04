@@ -188,12 +188,12 @@ $data = Data::fromArray([
 ]);
 ```
 
-...or by using the accessors.
+...or by using the mutators.
 
 ```php
-$data = new Data();
-$next->setName('email');
-$next->setValue('email value');
+$data = (new Data())
+    ->setName('email')
+    ->setValue('email value');
 ```
 
 ### Examples
@@ -202,6 +202,11 @@ Examples are available in the directory ```./examples/```, you can execute them 
 
 ```sh
 $ ./bin/test-example
+```
+
+Or separately
+```
+$ php ./examples/client-collection.php
 ```
 
 ### Working with data and links
