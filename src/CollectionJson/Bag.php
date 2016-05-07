@@ -79,7 +79,7 @@ final class Bag implements \Countable, \IteratorAggregate
             $item = $this->fromArray->invoke(null, $item);
         }
         if (!($item instanceof $this->className)) {
-            throw WrongType::format($this->getPropertyName(), $this->className);
+            throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
         }
 
         array_push($this->bag, $item);

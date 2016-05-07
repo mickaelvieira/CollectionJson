@@ -25,7 +25,7 @@ final class WrongType extends \BadMethodCallException
      * @param string $type
      * @return \CollectionJson\Exception\WrongType
      */
-    public static function format($property, $type)
+    public static function fromTemplate($property, $type)
     {
         $message = sprintf(self::TEMPLATE, $property, $type);
         return new self($message);

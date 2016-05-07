@@ -87,7 +87,7 @@ class Collection extends BaseEntity implements LinkAware
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::format(self::getObjectType(), 'href', Uri::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
         $this->href = $href;
 
@@ -216,7 +216,7 @@ class Collection extends BaseEntity implements LinkAware
             $error = Error::fromArray($error);
         }
         if (!($error instanceof Error)) {
-            throw WrongType::format('error', Error::class);
+            throw WrongType::fromTemplate('error', Error::class);
         }
 
         $this->error = $error;
@@ -250,7 +250,7 @@ class Collection extends BaseEntity implements LinkAware
             $template = Template::fromArray($template);
         }
         if (!($template instanceof Template)) {
-            throw WrongType::format('template', Template::class);
+            throw WrongType::fromTemplate('template', Template::class);
         }
 
         $this->template = $template;

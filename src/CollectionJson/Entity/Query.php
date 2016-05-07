@@ -75,7 +75,7 @@ class Query extends BaseEntity implements DataAware
     public function setHref($href)
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::format(self::getObjectType(), 'href', Uri::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
         $this->href = $href;
 
@@ -98,7 +98,7 @@ class Query extends BaseEntity implements DataAware
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw WrongParameter::format(self::getObjectType(), 'name', StringLike::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
         }
         $this->name = (string)$name;
 
@@ -121,7 +121,7 @@ class Query extends BaseEntity implements DataAware
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::format(self::getObjectType(), 'prompt', StringLike::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
         }
         $this->prompt = (string)$prompt;
 
@@ -144,7 +144,7 @@ class Query extends BaseEntity implements DataAware
     public function setRel($rel)
     {
         if (!StringLike::isValid($rel)) {
-            throw WrongParameter::format(self::getObjectType(), 'rel', StringLike::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'rel', StringLike::allowed());
         }
         $this->rel = (string)$rel;
 
@@ -166,7 +166,7 @@ class Query extends BaseEntity implements DataAware
     {
         foreach (['href', 'rel'] as $property) {
             if (is_null($this->$property)) {
-                throw MissingProperty::format(self::getObjectType(), $property);
+                throw MissingProperty::fromTemplate(self::getObjectType(), $property);
             }
         }
 

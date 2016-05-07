@@ -52,7 +52,7 @@ class Data extends BaseEntity
     public function setName($name)
     {
         if (!StringLike::isValid($name)) {
-            throw WrongParameter::format(self::getObjectType(), 'name', StringLike::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
         }
         $this->name = (string)$name;
 
@@ -75,7 +75,7 @@ class Data extends BaseEntity
     public function setPrompt($prompt)
     {
         if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::format(self::getObjectType(), 'prompt', StringLike::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
         }
         $this->prompt = (string)$prompt;
 
@@ -98,7 +98,7 @@ class Data extends BaseEntity
     public function setValue($value)
     {
         if (!DataValue::isValid($value)) {
-            throw WrongParameter::format(self::getObjectType(), 'value', DataValue::allowed());
+            throw WrongParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
         }
         $this->value = $value;
 
@@ -119,7 +119,7 @@ class Data extends BaseEntity
     protected function getObjectData()
     {
         if (is_null($this->name)) {
-            throw MissingProperty::format(self::getObjectType(), 'name');
+            throw MissingProperty::fromTemplate(self::getObjectType(), 'name');
         }
 
         $data = [
