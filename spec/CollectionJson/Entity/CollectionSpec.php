@@ -241,14 +241,13 @@ class CollectionSpec extends ObjectBehavior
         )->duringSetHref('uri');
     }
 
-    /**
-     * @param \CollectionJson\Entity\Item $item
-     * @param \CollectionJson\Entity\Query $query
-     * @param \CollectionJson\Entity\Error $error
-     * @param \CollectionJson\Entity\Template $template
-     */
-    function it_should_be_chainable($item, $query, $error, $template)
+    function it_should_be_chainable()
     {
+        $item = new Item();
+        $query = new Query();
+        $error = new Error();
+        $template = new Template();
+
         $this->setHref('http://www.example.com')->shouldReturn($this);
         $this->addItem($item)->shouldReturn($this);
         $this->addItemsSet([$item])->shouldReturn($this);
@@ -269,11 +268,10 @@ class CollectionSpec extends ObjectBehavior
         ]);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Item $item
-     */
-    function it_should_add_a_item($item)
+    function it_should_add_a_item()
     {
+        $item = new Item();
+
         $this->addItem($item);
         $this->getItemsSet()->shouldHaveCount(1);
     }
@@ -293,12 +291,11 @@ class CollectionSpec extends ObjectBehavior
         $this->getItemsSet()->shouldHaveCount(1);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Item $item1
-     * @param \CollectionJson\Entity\Item $item2
-     */
-    function it_should_add_multiple_items($item1, $item2)
+    function it_should_add_multiple_items()
     {
+        $item1 = new Item();
+        $item2 = new Item();
+
         $this->addItemsSet([$item1, $item2]);
         $this->getItemsSet()->shouldHaveCount(2);
     }
@@ -349,11 +346,9 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldNotHaveItems();
     }
 
-    /**
-     * @param \CollectionJson\Entity\Query $query
-     */
-    function it_should_add_a_query($query)
+    function it_should_add_a_query()
     {
+        $query = new Query();
         $this->addQuery($query);
         $this->getQueriesSet()->shouldHaveCount(1);
     }
@@ -382,12 +377,11 @@ class CollectionSpec extends ObjectBehavior
         $this->getQueriesSet()->shouldHaveCount(1);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Query $query1
-     * @param \CollectionJson\Entity\Query $query2
-     */
-    function it_should_add_multiple_queries($query1, $query2)
+    function it_should_add_multiple_queries()
     {
+        $query1 = new Query();
+        $query2 = new Query();
+
         $this->addQueriesSet([$query1, $query2]);
         $this->getQueriesSet()->shouldHaveCount(2);
     }
@@ -438,11 +432,10 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldNotHaveQueries();
     }
 
-    /**
-     * @param \CollectionJson\Entity\Link $link
-     */
-    function it_should_add_a_link($link)
+    function it_should_add_a_link()
     {
+        $link = new Link();
+
         $this->addLink($link);
         $this->getLinksSet()->shouldHaveCount(1);
     }
@@ -480,11 +473,10 @@ class CollectionSpec extends ObjectBehavior
         $this->getLinksSet()->shouldHaveCount(1);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Link $link1
-     */
-    function it_should_add_a_link_set($link1)
+    function it_should_add_a_link_set()
     {
+        $link1 = new Link();
+
         $this->addLinksSet([
             $link1,
             [
@@ -542,12 +534,11 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldNotHaveLinks();
     }
 
-    /**
-     * @param \CollectionJson\Entity\Error $error
-     */
-    function it_should_set_the_error($error)
+    function it_should_set_the_error()
     {
-        $error->getCode()->willReturn("error code");
+        $error = (new Error())
+            ->setCode("error code");
+
         $this->setError($error);
         $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
         $this->getError()->getCode()->shouldBeEqualTo("error code");
@@ -587,11 +578,10 @@ class CollectionSpec extends ObjectBehavior
         $this->shouldNotHaveError();
     }
 
-    /**
-     * @param \CollectionJson\Entity\Template $template
-     */
-    function it_should_set_the_template($template)
+    function it_should_set_the_template()
     {
+        $template = new Template();
+
         $this->setTemplate($template);
         $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
     }

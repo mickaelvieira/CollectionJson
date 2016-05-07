@@ -7,6 +7,7 @@ use CollectionJson\Entity\Data;
 use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Prophecy\Prophet;
 
 class ItemSpec extends ObjectBehavior
 {
@@ -33,11 +34,9 @@ class ItemSpec extends ObjectBehavior
         $this->addDataSet([])->shouldReturn($this);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data2
-     */
-    function it_may_be_construct_with_an_array_representation_of_the_item($data2)
+    function it_may_be_construct_with_an_array_representation_of_the_item()
     {
+        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');
 
@@ -77,38 +76,30 @@ class ItemSpec extends ObjectBehavior
         )->during('jsonSerialize');
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data
-     */
-    function it_should_not_return_empty_array($data)
+    function it_should_not_return_empty_array()
     {
-        $data->toArray()->willReturn(
-            [
-                'name' => 'Name',
-                'value' => null
-            ]
-        );
+        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data->toArray()->willReturn([
+            'name' => 'Name',
+            'value' => null
+        ]);
 
         $this->setHref('http://example.com');
         $this->addData($data);
-        $this->toArray()->shouldBeEqualTo(
-            [
-                'data' => [
-                    [
-                        'name' => 'Name',
-                        'value' => null
-                    ]
-                ],
-                'href' => 'http://example.com',
-            ]
-        );
+        $this->toArray()->shouldBeEqualTo([
+            'data' => [
+                [
+                    'name' => 'Name',
+                    'value' => null
+                ]
+            ],
+            'href' => 'http://example.com',
+        ]);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data
-     */
-    function it_should_add_data_when_it_is_passed_as_an_object($data)
+    function it_should_add_data_when_it_is_passed_as_an_object()
     {
+        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
         $this->addData($data);
         $this->getDataSet()->shouldHaveCount(1);
     }
@@ -126,21 +117,18 @@ class ItemSpec extends ObjectBehavior
         $this->getDataSet()->shouldHaveCount(1);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data
-     */
-    function it_should_add_a_data_set($data)
+    function it_should_add_a_data_set()
     {
+        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
         $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data1
-     * @param \CollectionJson\Entity\Data $data2
-     */
-    function it_should_retrieve_the_data_by_name($data1, $data2)
+    function it_should_retrieve_the_data_by_name()
     {
+        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
 
@@ -171,11 +159,9 @@ class ItemSpec extends ObjectBehavior
         $this->findLinkByRelation('rel1')->shouldBeNull();
     }
 
-    /**
-     * @param \CollectionJson\Entity\Link $link
-     */
-    function it_should_add_a_link_when_it_is_passed_as_an_object($link)
+    function it_should_add_a_link_when_it_is_passed_as_an_object()
     {
+        $link = (new Prophet())->prophesize('CollectionJson\Entity\Link');
         $this->addLink($link);
         $this->getLinksSet()->shouldHaveCount(1);
     }
@@ -197,11 +183,9 @@ class ItemSpec extends ObjectBehavior
         $this->getLinksSet()->shouldHaveCount(1);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Link $link1
-     */
-    function it_should_add_a_link_set($link1)
+    function it_should_add_a_link_set()
     {
+        $link1 = (new Prophet())->prophesize('CollectionJson\Entity\Link');
         $this->addLinksSet([
             $link1,
             [

@@ -28,12 +28,11 @@ class ErrorSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_error()
     {
-        $data = [
+        $error = $this::fromArray([
             'title'   => 'Error Title',
             'code'    => 'Error Code',
             'message' => 'Error Message'
-        ];
-        $error = $this::fromArray($data);
+        ]);
         $error->getTitle()->shouldBeEqualTo('Error Title');
         $error->getCode()->shouldBeEqualTo('Error Code');
         $error->getMessage()->shouldBeEqualTo('Error Message');

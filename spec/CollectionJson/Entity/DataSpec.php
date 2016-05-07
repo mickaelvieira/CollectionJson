@@ -28,12 +28,11 @@ class DataSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_data()
     {
-        $data = [
+        $data = $this::fromArray([
             'name'     => 'Data Name',
             'prompt'   => 'Data Prompt',
             'value'    => 'Data Value'
-        ];
-        $data = $this::fromArray($data);
+        ]);
         $data->getName()->shouldBeEqualTo('Data Name');
         $data->getPrompt()->shouldBeEqualTo('Data Prompt');
         $data->getValue()->shouldBeEqualTo('Data Value');
@@ -126,9 +125,7 @@ class DataSpec extends ObjectBehavior
 
     function it_should_not_set_the_value_if_it_is_a_callable()
     {
-        $fn = function () {
-
-        };
+        $fn = function() {};
 
         $this->shouldThrow(
             new \DomainException(
