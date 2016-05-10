@@ -141,6 +141,18 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     }
 
     /**
+     * Avoiding having dynamic properties set up
+     *
+     * @param string $name
+     * @param mixed $value
+     * @throws \LogicException
+     */
+    final public function __set($name, $value)
+    {
+        throw new \LogicException("Dynamic properties are not allowed");
+    }
+
+    /**
      * @return array
      */
     abstract protected function getObjectData();
