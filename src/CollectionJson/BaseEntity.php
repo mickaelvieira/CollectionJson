@@ -33,14 +33,10 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         $object = new static();
 
-        $underscoreToCamelCase = function ($key) {
-            return implode("", array_map("ucfirst", preg_split("/_/", strtolower($key))));
-        };
-
         foreach ($data as $key => $value) {
 
-            $setter = sprintf("set%s", $underscoreToCamelCase($key));
-            $adder  = sprintf("add%sSet", ucfirst($key));
+            $setter = sprintf("set%s", ucfirst(strtolower($key)));
+            $adder  = sprintf("add%sSet", ucfirst(strtolower($key)));
 
             if (method_exists($object, $setter)) {
                 $object->$setter($value);
@@ -59,6 +55,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         $data = json_decode($json, true);
         $type = static::getObjectType();
+        // unwrap the data if it is
         if (array_key_exists($type, $data)) {
             $data = $data[$type];
         }
@@ -120,6 +117,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
                 return (in_array($key, $whiteList) || !is_null($value));
             }, ARRAY_FILTER_USE_BOTH);
         } else {
+            // @TODO drop this condition when the minimum PHP version will be 5.6
             $new = [];
             array_walk($data, function ($value, $key) use (&$new, $whiteList) {
                 if (in_array($key, $whiteList) || !is_null($value)) {
