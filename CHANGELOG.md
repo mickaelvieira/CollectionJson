@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file. This projec
 ## [Unreleased](https://github.com/mickaelvieira/CollectionJson/compare/1.0.0...1.1.0)
 
 ### Added
-- This changelog file
+- This ```CHANGELOG``` file
 - [Coverall](http://coveralls.io/) configuration to track code coverage 
 
 ### Changed
