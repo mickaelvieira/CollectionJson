@@ -31,18 +31,12 @@ final class Bag implements \Countable, \IteratorAggregate
     private $bag = [];
 
     /**
-     * @var \ReflectionMethod
-     */
-    private $fromArray;
-
-    /**
      * Bag constructor.
      * @param $className
      */
     public function __construct($className)
     {
         $this->className = $className;
-        $this->fromArray = new \ReflectionMethod($this->className, 'fromArray');
     }
 
     /**
@@ -76,7 +70,7 @@ final class Bag implements \Countable, \IteratorAggregate
     public function add($item)
     {
         if (is_array($item)) {
-            $item = $this->fromArray->invoke(null, $item);
+            $item = call_user_func($this->className . "::fromArray", $item);
         }
         if (!($item instanceof $this->className)) {
             throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
