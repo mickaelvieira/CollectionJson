@@ -112,21 +112,13 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     final protected function filterNullValues(array $data, array $whiteList = [])
     {
-        if (version_compare(PHP_VERSION, '5.6.0', '>=')) {
-            return array_filter($data, function ($value, $key) use ($whiteList) {
-                return (in_array($key, $whiteList) || !is_null($value));
-            }, ARRAY_FILTER_USE_BOTH);
-        } else {
-            // @TODO drop this condition when the minimum PHP version will be 5.6
-            $new = [];
-            array_walk($data, function ($value, $key) use (&$new, $whiteList) {
-                if (in_array($key, $whiteList) || !is_null($value)) {
-                    $new[$key] = $value;
-                }
-            });
-            $data = $new;
+        $filtered = [];
+        foreach ($data as $key => $value) {
+            if (!is_null($value) || in_array($key, $whiteList)) {
+                $filtered[$key] = $value;
+            }
         }
-        return $data;
+        return $filtered;
     }
 
     /**
@@ -161,16 +153,14 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     private function recursiveToArray(array $data)
     {
-        array_walk(
-            $data,
-            function (&$value) {
-                if (is_object($value) && $value instanceof ArrayConvertible) {
-                    $value = $value->toArray();
-                } elseif (is_array($value)) {
-                    $value = $this->recursiveToArray($value);
-                }
+        foreach ($data as &$value) {
+            if (is_object($value) && $value instanceof ArrayConvertible) {
+                $value = $value->toArray();
+            } elseif (is_array($value)) {
+                $value = $this->recursiveToArray($value);
             }
-        );
+        }
+        unset($value);
 
         return $data;
     }
