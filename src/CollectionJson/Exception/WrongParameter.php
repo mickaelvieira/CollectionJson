@@ -26,7 +26,7 @@ final class WrongParameter extends \DomainException
      * @param array  $allowed
      * @return \CollectionJson\Exception\WrongParameter
      */
-    public static function format($entity, $property, array $allowed)
+    public static function fromTemplate($entity, $property, array $allowed)
     {
         $message = sprintf(self::TEMPLATE, $property, $entity, implode(',', $allowed));
         return new self($message);

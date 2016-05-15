@@ -3,4 +3,4 @@ bin/phpcs
 bin/phpspec
 bin/coveralls
 composer.lock
-cover.xml
+build

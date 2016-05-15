@@ -69,12 +69,11 @@ final class Bag implements \Countable, \IteratorAggregate
      */
     public function add($item)
     {
-        $method = new \ReflectionMethod($this->className, 'fromArray');
         if (is_array($item)) {
-            $item = $method->invoke(null, $item);
+            $item = call_user_func($this->className . "::fromArray", $item);
         }
         if (!($item instanceof $this->className)) {
-            throw WrongType::format($this->getPropertyName(), $this->className);
+            throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
         }
 
         array_push($this->bag, $item);

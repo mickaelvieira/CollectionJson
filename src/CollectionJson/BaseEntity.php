@@ -33,14 +33,10 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         $object = new static();
 
-        $underscoreToCamelCase = function ($key) {
-            return implode("", array_map("ucfirst", preg_split("/_/", strtolower($key))));
-        };
-
         foreach ($data as $key => $value) {
 
-            $setter = sprintf("set%s", $underscoreToCamelCase($key));
-            $adder  = sprintf("add%sSet", ucfirst($key));
+            $setter = sprintf("set%s", ucfirst(strtolower($key)));
+            $adder  = sprintf("add%sSet", ucfirst(strtolower($key)));
 
             if (method_exists($object, $setter)) {
                 $object->$setter($value);
@@ -59,6 +55,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         $data = json_decode($json, true);
         $type = static::getObjectType();
+        // unwrap the data if it is
         if (array_key_exists($type, $data)) {
             $data = $data[$type];
         }
@@ -115,20 +112,13 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     final protected function filterNullValues(array $data, array $whiteList = [])
     {
-        if (version_compare(PHP_VERSION, '5.6.0', '>=')) {
-            return array_filter($data, function ($value, $key) use ($whiteList) {
-                return (in_array($key, $whiteList) || !is_null($value));
-            }, ARRAY_FILTER_USE_BOTH);
-        } else {
-            $new = [];
-            array_walk($data, function ($value, $key) use (&$new, $whiteList) {
-                if (in_array($key, $whiteList) || !is_null($value)) {
-                    $new[$key] = $value;
-                }
-            });
-            $data = $new;
+        $filtered = [];
+        foreach ($data as $key => $value) {
+            if (!is_null($value) || in_array($key, $whiteList)) {
+                $filtered[$key] = $value;
+            }
         }
-        return $data;
+        return $filtered;
     }
 
     /**
@@ -138,6 +128,18 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     {
         $tree = explode("\\", static::class);
         return strtolower(end($tree));
+    }
+
+    /**
+     * Avoiding having dynamic properties set up
+     *
+     * @param string $name
+     * @param mixed $value
+     * @throws \LogicException
+     */
+    final public function __set($name, $value)
+    {
+        throw new \LogicException("Dynamic properties are not allowed");
     }
 
     /**
@@ -151,16 +153,14 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     private function recursiveToArray(array $data)
     {
-        array_walk(
-            $data,
-            function (&$value) {
-                if (is_object($value) && $value instanceof ArrayConvertible) {
-                    $value = $value->toArray();
-                } elseif (is_array($value)) {
-                    $value = $this->recursiveToArray($value);
-                }
+        foreach ($data as &$value) {
+            if (is_object($value) && $value instanceof ArrayConvertible) {
+                $value = $value->toArray();
+            } elseif (is_array($value)) {
+                $value = $this->recursiveToArray($value);
             }
-        );
+        }
+        unset($value);
 
         return $data;
     }

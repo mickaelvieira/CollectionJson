@@ -30,14 +30,13 @@ class LinkSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_link()
     {
-        $data = [
+        $link = $this::fromArray([
             'href'   => 'http://example.com',
             'rel'    => 'Link Rel',
             'name'   => 'Link Name',
             'render' => 'image',
             'prompt' => 'Link Prompt'
-        ];
-        $link = $this::fromArray($data);
+        ]);
         $link->getHref()->shouldBeEqualTo('http://example.com');
         $link->getRel()->shouldBeEqualTo('Link Rel');
         $link->getName()->shouldBeEqualTo('Link Name');

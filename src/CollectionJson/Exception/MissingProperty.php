@@ -25,7 +25,7 @@ final class MissingProperty extends \DomainException
      * @param string $property
      * @return \CollectionJson\Exception\MissingProperty
      */
-    public static function format($entity, $property)
+    public static function fromTemplate($entity, $property)
     {
         $message = sprintf(self::TEMPLATE, $property, $entity);
         return new self($message);

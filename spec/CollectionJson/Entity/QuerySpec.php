@@ -6,6 +6,7 @@ use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Entity\Data;
+use Prophecy\Prophet;
 
 class QuerySpec extends ObjectBehavior
 {
@@ -32,11 +33,10 @@ class QuerySpec extends ObjectBehavior
         $this->addDataSet([])->shouldReturn($this);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data2
-     */
-    function it_may_be_construct_with_an_array_representation_of_the_query($data2)
+    function it_may_be_construct_with_an_array_representation_of_the_query()
     {
+        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');
 
@@ -152,11 +152,9 @@ class QuerySpec extends ObjectBehavior
         ]);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data
-     */
-    function it_should_add_data_when_it_is_passed_as_an_object($data)
+    function it_should_add_data_when_it_is_passed_as_an_object()
     {
+        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
         $this->addData($data);
         $this->getDataSet()->shouldHaveCount(1);
     }
@@ -174,21 +172,18 @@ class QuerySpec extends ObjectBehavior
         $this->getDataSet()->shouldHaveCount(1);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data
-     */
-    function it_should_add_a_data_set($data)
+    function it_should_add_a_data_set()
     {
+        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
         $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data1
-     * @param \CollectionJson\Entity\Data $data2
-     */
-    function it_should_return_an_array_with_the_data_list($data1, $data2)
+    function it_should_return_an_array_with_the_data_list()
     {
+        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
@@ -206,12 +201,12 @@ class QuerySpec extends ObjectBehavior
         ]);
     }
 
-    /**
-     * @param \CollectionJson\Entity\Data $data1
-     * @param \CollectionJson\Entity\Data $data2
-     */
-    function it_should_retrieve_the_data_by_name($data1, $data2)
+
+    function it_should_retrieve_the_data_by_name()
     {
+        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
 
