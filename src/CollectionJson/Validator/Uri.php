@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -19,10 +20,11 @@ namespace CollectionJson\Validator;
 final class Uri
 {
     /**
-     * @param $uri
+     * @param string $uri
+     *
      * @return bool
      */
-    public static function isValid($uri)
+    public static function isValid(string $uri): bool
     {
         return (filter_var($uri, FILTER_VALIDATE_URL) !== false);
     }
@@ -30,7 +32,7 @@ final class Uri
     /**
      * @return array
      */
-    public static function allowed()
+    public static function allowed(): array
     {
         return ['URI'];
     }

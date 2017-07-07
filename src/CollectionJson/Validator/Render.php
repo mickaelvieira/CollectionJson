@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -21,10 +22,11 @@ use CollectionJson\Type\Render as RenderType;
 final class Render
 {
     /**
-     * @param $type
+     * @param string $type
+     *
      * @return bool
      */
-    public static function isValid($type)
+    public static function isValid(string $type): bool
     {
         return ($type === RenderType::LINK || $type === RenderType::IMAGE);
     }
@@ -32,7 +34,7 @@ final class Render
     /**
      * @return array
      */
-    public static function allowed()
+    public static function allowed(): array
     {
         return [RenderType::LINK, RenderType::IMAGE];
     }

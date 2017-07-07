@@ -4,17 +4,18 @@ namespace spec\CollectionJson\Exception;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Exception\WrongType;
 
 class WrongTypeSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Exception\WrongType');
+        $this->shouldHaveType(WrongType::class);
     }
 
     function it_should_build_a_domain_exception()
     {
-        $this::fromTemplate('property', 'type')->shouldHaveType('\BadMethodCallException');
+        $this::fromTemplate('property', 'type')->shouldHaveType(\BadMethodCallException::class);
     }
 
     function it_should_format_the_exception_message()

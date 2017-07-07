@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -21,13 +22,14 @@ use CollectionJson\Entity\Link;
 trait LinkContainer
 {
     /**
-     * @var \CollectionJson\Bag
+     * @var Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-links
      */
     protected $links;
 
     /**
-     * @param \CollectionJson\Entity\Link|array $link
+     * @param Link|array $link
+     *
      * @return mixed
      */
     public function addLink($link)
@@ -38,6 +40,7 @@ trait LinkContainer
 
     /**
      * @param array $set
+     *
      * @return mixed
      */
     public function addLinksSet(array $set)
@@ -49,26 +52,27 @@ trait LinkContainer
     /**
      * @return array
      */
-    public function getLinksSet()
+    public function getLinksSet(): array
     {
         return $this->links->getSet();
     }
 
     /**
      * @param string $relation
-     * @return \CollectionJson\Entity\Link|null
+     *
+     * @return Link|null
      */
-    public function findLinkByRelation($relation)
+    public function findLinkByRelation(string $relation)
     {
         $links = array_filter($this->links->getSet(), function (Link $link) use ($relation) {
             return ($link->getRel() === $relation);
         });
 
-        return (current($links)) ?: null;
+        return current($links) ?: null;
     }
 
     /**
-     * @return \CollectionJson\Entity\Link|null
+     * @return Link|null
      */
     public function getFirstLink()
     {
@@ -76,7 +80,7 @@ trait LinkContainer
     }
 
     /**
-     * @return \CollectionJson\Entity\Link|null
+     * @return Link|null
      */
     public function getLastLink()
     {
@@ -86,7 +90,7 @@ trait LinkContainer
     /**
      * @return bool
      */
-    public function hasLinks()
+    public function hasLinks(): bool
     {
         return !$this->links->isEmpty();
     }

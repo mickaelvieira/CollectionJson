@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -20,7 +21,8 @@ interface Validator
 {
     /**
      * @param $value
+     *
      * @return bool
      */
-    public function isValid($value);
+    public function isValid($value): bool;
 }

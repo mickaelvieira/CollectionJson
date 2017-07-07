@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -16,7 +17,6 @@ use CollectionJson\BaseEntity;
 use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Validator\Uri;
 use CollectionJson\Validator\Render;
-use CollectionJson\Validator\StringLike;
 use CollectionJson\Exception\WrongParameter;
 use CollectionJson\Exception\MissingProperty;
 
@@ -60,10 +60,12 @@ class Link extends BaseEntity
 
     /**
      * @param string $href
-     * @return \CollectionJson\Entity\Link
+     *
+     * @return Link
+     *
      * @throws \DomainException
      */
-    public function setHref($href)
+    public function setHref($href): Link
     {
         if (!Uri::isValid($href)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
@@ -76,21 +78,20 @@ class Link extends BaseEntity
     /**
      * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * @param string $rel
-     * @return \CollectionJson\Entity\Link
+     *
+     * @return Link
+     *
      * @throws \DomainException
      */
-    public function setRel($rel)
+    public function setRel(string $rel): Link
     {
-        if (!StringLike::isValid($rel)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'rel', StringLike::allowed());
-        }
         $this->rel = (string)$rel;
 
         return $this;
@@ -99,21 +100,20 @@ class Link extends BaseEntity
     /**
      * @return string
      */
-    public function getRel()
+    public function getRel(): string
     {
         return $this->rel;
     }
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Link
+     *
+     * @return Link
+     *
      * @throws \DomainException
      */
-    public function setName($name)
+    public function setName(string $name): Link
     {
-        if (!StringLike::isValid($name)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
-        }
         $this->name = (string)$name;
 
         return $this;
@@ -122,21 +122,20 @@ class Link extends BaseEntity
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * @param string $prompt
-     * @return \CollectionJson\Entity\Link
+     *
+     * @return Link
+     *
      * @throws \DomainException
      */
-    public function setPrompt($prompt)
+    public function setPrompt(string $prompt): Link
     {
-        if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
-        }
         $this->prompt = (string)$prompt;
 
         return $this;
@@ -145,17 +144,19 @@ class Link extends BaseEntity
     /**
      * @return string
      */
-    public function getPrompt()
+    public function getPrompt(): string
     {
         return $this->prompt;
     }
 
     /**
      * @param string $render
-     * @return \CollectionJson\Entity\Link
+     *
+     * @return Link
+     *
      * @throws \DomainException
      */
-    public function setRender($render)
+    public function setRender($render): Link
     {
         if (!Render::isValid($render)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'render', Render::allowed());
@@ -168,7 +169,7 @@ class Link extends BaseEntity
     /**
      * @return string
      */
-    public function getRender()
+    public function getRender(): string
     {
         return $this->render;
     }
@@ -176,7 +177,7 @@ class Link extends BaseEntity
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         foreach (['href', 'rel'] as $property) {
             if (is_null($this->$property)) {

@@ -9,14 +9,16 @@ use CollectionJson\Entity\Query;
 use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Entity\Collection;
+use CollectionJson\ArrayConvertible;
 
 class CollectionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Collection::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -76,8 +78,8 @@ class CollectionSpec extends ObjectBehavior
         ];
         $collection = $this::fromArray($data);
         $collection->getHref()->shouldBeEqualTo('http://example.com');
-        $collection->getError()->shouldHaveType('CollectionJson\Entity\Error');
-        $collection->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
+        $collection->getError()->shouldHaveType(Error::class);
+        $collection->getTemplate()->shouldHaveType(Template::class);
         $collection->getItemsSet()->shouldHaveCount(2);
         $collection->getLinksSet()->shouldHaveCount(2);
         $collection->toArray()->shouldBeEqualTo([
@@ -227,7 +229,7 @@ class CollectionSpec extends ObjectBehavior
 
         $collection = $this::fromJson($json);
         $collection->getHref()->shouldBeEqualTo('http://example.org/friends/');
-        $collection->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
+        $collection->getTemplate()->shouldHaveType(Template::class);
         $collection->getTemplate()->getDataSet()->shouldHaveCount(4);
         $collection->getItemsSet()->shouldHaveCount(3);
         $collection->getQueriesSet()->shouldHaveCount(1);
@@ -540,7 +542,7 @@ class CollectionSpec extends ObjectBehavior
             ->setCode("error code");
 
         $this->setError($error);
-        $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
+        $this->getError()->shouldBeAnInstanceOf(Error::class);
         $this->getError()->getCode()->shouldBeEqualTo("error code");
     }
 
@@ -551,7 +553,7 @@ class CollectionSpec extends ObjectBehavior
             'title' => "title code",
             'code' => "error code",
         ]);
-        $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
+        $this->getError()->shouldBeAnInstanceOf(Error::class);
         $this->getError()->getMessage()->shouldBeEqualTo("message code");
         $this->getError()->getTitle()->shouldBeEqualTo("title code");
         $this->getError()->getCode()->shouldBeEqualTo("error code");
@@ -583,7 +585,7 @@ class CollectionSpec extends ObjectBehavior
         $template = new Template();
 
         $this->setTemplate($template);
-        $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
+        $this->getTemplate()->shouldBeAnInstanceOf(Template::class);
     }
 
     function it_should_set_the_template_when_passing_an_array()
@@ -596,7 +598,7 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
+        $this->getTemplate()->shouldBeAnInstanceOf(Template::class);
         $this->getTemplate()->getDataSet()->shouldHaveCount(1);
     }
 

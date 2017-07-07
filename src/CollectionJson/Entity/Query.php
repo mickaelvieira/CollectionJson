@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -17,7 +18,6 @@ use CollectionJson\DataAware;
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\Uri;
 use CollectionJson\DataContainer;
-use CollectionJson\Validator\StringLike;
 use CollectionJson\Exception\WrongParameter;
 use CollectionJson\Exception\MissingProperty;
 
@@ -68,11 +68,13 @@ class Query extends BaseEntity implements DataAware
     
     /**
      * @param string $href
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \BadMethodCallException
      * @throws \DomainException
      */
-    public function setHref($href)
+    public function setHref($href): Query
     {
         if (!Uri::isValid($href)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
@@ -85,21 +87,20 @@ class Query extends BaseEntity implements DataAware
     /**
      * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \DomainException
      */
-    public function setName($name)
+    public function setName(string $name): Query
     {
-        if (!StringLike::isValid($name)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
-        }
         $this->name = (string)$name;
 
         return $this;
@@ -108,21 +109,20 @@ class Query extends BaseEntity implements DataAware
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * @param string $prompt
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \DomainException
      */
-    public function setPrompt($prompt)
+    public function setPrompt(string $prompt): Query
     {
-        if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
-        }
         $this->prompt = (string)$prompt;
 
         return $this;
@@ -131,21 +131,20 @@ class Query extends BaseEntity implements DataAware
     /**
      * @return string
      */
-    public function getPrompt()
+    public function getPrompt(): string
     {
         return $this->prompt;
     }
 
     /**
      * @param string $rel
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \DomainException
      */
-    public function setRel($rel)
+    public function setRel(string $rel): Query
     {
-        if (!StringLike::isValid($rel)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'rel', StringLike::allowed());
-        }
         $this->rel = (string)$rel;
 
         return $this;
@@ -154,7 +153,7 @@ class Query extends BaseEntity implements DataAware
     /**
      * @return string
      */
-    public function getRel()
+    public function getRel(): string
     {
         return $this->rel;
     }
@@ -162,7 +161,7 @@ class Query extends BaseEntity implements DataAware
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         foreach (['href', 'rel'] as $property) {
             if (is_null($this->$property)) {

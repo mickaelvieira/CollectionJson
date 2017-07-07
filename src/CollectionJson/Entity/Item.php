@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -31,12 +32,12 @@ use CollectionJson\Exception\MissingProperty;
 class Item extends BaseEntity implements LinkAware, DataAware
 {
     /**
-     * @see \CollectionJson\LinkContainer
+     * @see LinkContainer
      */
     use LinkContainer;
 
     /**
-     * @see \CollectionJson\DataContainer
+     * @see DataContainer
      */
     use DataContainer;
 
@@ -57,14 +58,17 @@ class Item extends BaseEntity implements LinkAware, DataAware
     
     /**
      * @param string $href
-     * @return \CollectionJson\Entity\Item
+     *
+     * @return Item
+     *
      * @throws \DomainException
      */
-    public function setHref($href)
+    public function setHref($href): Item
     {
         if (!Uri::isValid($href)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
+
         $this->href = $href;
 
         return $this;
@@ -73,7 +77,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
     /**
      * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
@@ -81,7 +85,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         if (is_null($this->href)) {
             throw MissingProperty::fromTemplate(self::getObjectType(), 'href');

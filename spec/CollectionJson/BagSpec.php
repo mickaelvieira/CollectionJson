@@ -6,19 +6,20 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Entity\Item;
 use CollectionJson\Entity\Query;
+use CollectionJson\Bag;
 
 class BagSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('CollectionJson\Entity\Item');
+        $this->beConstructedWith(Item::class);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Bag');
-        $this->shouldImplement('\Countable');
-        $this->shouldImplement('\IteratorAggregate');
+        $this->shouldHaveType(Bag::class);
+        $this->shouldImplement(\Countable::class);
+        $this->shouldImplement(\IteratorAggregate::class);
     }
 
     function it_should_empty_by_default()

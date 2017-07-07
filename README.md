@@ -11,7 +11,7 @@ Specification:
 
 ## Installation
 
-CollectionJson requires php >= 5.5
+CollectionJson requires php >= 7.0
 
 Install CollectionJson with [Composer](https://getcomposer.org/)
 

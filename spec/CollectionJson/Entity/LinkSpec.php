@@ -4,14 +4,16 @@ namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Entity\Link;
+use CollectionJson\ArrayConvertible;
 
 class LinkSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Link');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Link::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -51,24 +53,10 @@ class LinkSpec extends ObjectBehavior
         )->duringSetHref('uri');
     }
 
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_rel_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [rel] of entity [link] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setRel', [new \stdClass()]);
-    }
-
     function it_should_convert_the_rel_value_to_a_string()
     {
         $this->setRel(true);
         $this->getRel()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [name] of entity [link] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setName', [new \stdClass()]);
     }
 
     function it_should_convert_the_name_value_to_a_string()
@@ -88,13 +76,6 @@ class LinkSpec extends ObjectBehavior
             "Property [render] of entity [link] can only have one of the following values [link,image]"
         ))->during('setRender', ["Render this"]);
         $this->getRender()->shouldBeEqualTo('link');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [prompt] of entity [link] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setPrompt', [new \stdClass()]);
     }
 
     function it_should_convert_the_prompt_value_to_a_string()

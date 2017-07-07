@@ -8,16 +8,20 @@ use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Prophecy\Prophet;
+use CollectionJson\Entity\Item;
+use CollectionJson\DataAware;
+use CollectionJson\LinkAware;
+use CollectionJson\ArrayConvertible;
 
 class ItemSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Item');
-        $this->shouldImplement('CollectionJson\DataAware');
-        $this->shouldImplement('CollectionJson\LinkAware');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Item::class);
+        $this->shouldImplement(DataAware::class);
+        $this->shouldImplement(LinkAware::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -36,7 +40,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_item()
     {
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize(Data::class);
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');
 
@@ -78,7 +82,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_not_return_empty_array()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $data->toArray()->willReturn([
             'name' => 'Name',
             'value' => null
@@ -99,7 +103,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $this->addData($data);
         $this->getDataSet()->shouldHaveCount(1);
     }
@@ -119,15 +123,15 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_add_a_data_set()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
     }
 
     function it_should_retrieve_the_data_by_name()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
 
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
@@ -161,7 +165,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_add_a_link_when_it_is_passed_as_an_object()
     {
-        $link = (new Prophet())->prophesize('CollectionJson\Entity\Link');
+        $link = (new Prophet())->prophesize(Link::class);
         $this->addLink($link);
         $this->getLinksSet()->shouldHaveCount(1);
     }
@@ -185,7 +189,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_add_a_link_set()
     {
-        $link1 = (new Prophet())->prophesize('CollectionJson\Entity\Link');
+        $link1 = (new Prophet())->prophesize(Link::class);
         $this->addLinksSet([
             $link1,
             [

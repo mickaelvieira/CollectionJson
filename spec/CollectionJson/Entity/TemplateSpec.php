@@ -7,15 +7,17 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Entity\Data;
 use Prophecy\Prophet;
+use CollectionJson\ArrayConvertible;
+use CollectionJson\DataAware;
 
 class TemplateSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Template');
-        $this->shouldImplement('CollectionJson\DataAware');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Template::class);
+        $this->shouldImplement(DataAware::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -25,7 +27,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_template()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
 
         $data->getName()->willReturn('name 2');
         $data->getValue()->willReturn('value 2');
@@ -94,7 +96,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
 
         $this->addData($data);
         $this->getDataSet()->shouldHaveCount(1);
@@ -115,7 +117,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_add_a_data_set()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
 
         $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
@@ -123,8 +125,8 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_return_an_array_with_the_data_list()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
 
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
@@ -141,7 +143,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_add_an_envelope()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $data->toArray()->willReturn(['value' => 'value 1']);
 
         $this->addData($data);
@@ -162,8 +164,8 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_retrieve_the_data_by_name()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
 
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');

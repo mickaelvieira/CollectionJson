@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -14,7 +15,6 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\DataValue;
-use CollectionJson\Validator\StringLike;
 use CollectionJson\Exception\WrongParameter;
 use CollectionJson\Exception\MissingProperty;
 
@@ -46,15 +46,14 @@ class Data extends BaseEntity
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Data
+     *
+     * @return Data
+     *
      * @throws \DomainException
      */
-    public function setName($name)
+    public function setName(string $name): Data
     {
-        if (!StringLike::isValid($name)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
-        }
-        $this->name = (string)$name;
+        $this->name = $name;
 
         return $this;
     }
@@ -62,22 +61,21 @@ class Data extends BaseEntity
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * @param string $prompt
-     * @return \CollectionJson\Entity\Data
+     *
+     * @return Data
+     *
      * @throws \DomainException
      */
-    public function setPrompt($prompt)
+    public function setPrompt(string $prompt): Data
     {
-        if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
-        }
-        $this->prompt = (string)$prompt;
+        $this->prompt = $prompt;
 
         return $this;
     }
@@ -85,28 +83,31 @@ class Data extends BaseEntity
     /**
      * @return string
      */
-    public function getPrompt()
+    public function getPrompt(): string
     {
         return $this->prompt;
     }
 
     /**
-     * @param string $value
-     * @return \CollectionJson\Entity\Data
+     * @param mixed $value
+     *
+     * @return Data
+     *
      * @throws \DomainException
      */
-    public function setValue($value)
+    public function setValue($value): Data
     {
         if (!DataValue::isValid($value)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
         }
+
         $this->value = $value;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
     public function getValue()
     {
@@ -116,7 +117,7 @@ class Data extends BaseEntity
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         if (is_null($this->name)) {
             throw MissingProperty::fromTemplate(self::getObjectType(), 'name');

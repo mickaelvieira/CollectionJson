@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -18,14 +19,15 @@ namespace CollectionJson\Exception;
  */
 final class MissingProperty extends \DomainException
 {
-    const TEMPLATE = "Property [%s] of entity [%s] is required";
+    const TEMPLATE = 'Property [%s] of entity [%s] is required';
 
     /**
      * @param string $entity
      * @param string $property
-     * @return \CollectionJson\Exception\MissingProperty
+     *
+     * @return MissingProperty
      */
-    public static function fromTemplate($entity, $property)
+    public static function fromTemplate(string $entity, string $property): MissingProperty
     {
         $message = sprintf(self::TEMPLATE, $property, $entity);
         return new self($message);

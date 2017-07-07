@@ -7,15 +7,18 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Entity\Data;
 use Prophecy\Prophet;
+use CollectionJson\ArrayConvertible;
+use CollectionJson\DataAware;
+use CollectionJson\Entity\Query;
 
 class QuerySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Query');
-        $this->shouldImplement('CollectionJson\DataAware');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Query::class);
+        $this->shouldImplement(DataAware::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -35,7 +38,7 @@ class QuerySpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_query()
     {
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize(Data::class);
 
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');
@@ -71,41 +74,16 @@ class QuerySpec extends ObjectBehavior
         )->duringSetHref('uri');
     }
 
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_rel_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException(
-                "Property [rel] of entity [query] can only have one of the following values [scalar,Object::__toString]"
-            )
-        )->during('setRel', [new \stdClass()]);
-    }
-
     function it_should_convert_the_rel_value_to_a_string()
     {
         $this->setRel(true);
         $this->getRel()->shouldBeEqualTo('1');
     }
 
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException(
-                "Property [name] of entity [query] can only have one of the following values [scalar,Object::__toString]"
-            )
-        )->during('setName', [new \stdClass()]);
-    }
-
     function it_should_convert_the_name_value_to_a_string()
     {
         $this->setName(true);
         $this->getName()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [prompt] of entity [query] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setPrompt', [new \stdClass()]);
     }
 
     function it_should_convert_the_prompt_value_to_a_string()
@@ -154,7 +132,7 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $this->addData($data);
         $this->getDataSet()->shouldHaveCount(1);
     }
@@ -174,15 +152,15 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_add_a_data_set()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $this->addDataSet([$data, ['value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(2);
     }
 
     function it_should_return_an_array_with_the_data_list()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
         
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
@@ -204,8 +182,8 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_retrieve_the_data_by_name()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
         
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');

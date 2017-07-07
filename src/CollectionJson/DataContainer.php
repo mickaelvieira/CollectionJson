@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -21,13 +22,14 @@ use CollectionJson\Entity\Data;
 trait DataContainer
 {
     /**
-     * @var \CollectionJson\Bag
+     * @var Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-data
      */
     protected $data;
 
     /**
-     * @param \CollectionJson\Entity\Data|array $data
+     * @param Data|array $data
+     *
      * @return mixed
      */
     public function addData($data)
@@ -49,14 +51,15 @@ trait DataContainer
     /**
      * @return array
      */
-    public function getDataSet()
+    public function getDataSet(): array
     {
         return $this->data->getSet();
     }
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Data|null
+     *
+     * @return Data|null
      */
     public function findDataByName($name)
     {
@@ -64,11 +67,11 @@ trait DataContainer
             return ($d->getName() === $name);
         });
 
-        return (current($data)) ?: null;
+        return current($data) ?: null;
     }
 
     /**
-     * @return \CollectionJson\Entity\Data|null
+     * @return Data|null
      */
     public function getFirstData()
     {
@@ -76,7 +79,7 @@ trait DataContainer
     }
 
     /**
-     * @return \CollectionJson\Entity\Data|null
+     * @return Data|null
      */
     public function getLastData()
     {
@@ -86,7 +89,7 @@ trait DataContainer
     /**
      * @return bool
      */
-    public function hasData()
+    public function hasData(): bool
     {
         return !$this->data->isEmpty();
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -42,7 +43,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->bag);
     }
@@ -50,7 +51,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->bag);
     }
@@ -58,25 +59,27 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return \ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->bag);
     }
 
     /**
      * @param $item
+     *
      * @return Bag
      */
-    public function add($item)
+    public function add($item): Bag
     {
         if (is_array($item)) {
-            $item = call_user_func($this->className . "::fromArray", $item);
+            $item = call_user_func($this->className . '::fromArray', $item);
         }
+
         if (!($item instanceof $this->className)) {
             throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
         }
 
-        array_push($this->bag, $item);
+        $this->bag[] = $item;
 
         return $this;
     }
@@ -85,7 +88,7 @@ final class Bag implements \Countable, \IteratorAggregate
      * @param array $set
      * @return Bag
      */
-    public function addSet(array $set)
+    public function addSet(array $set): Bag
     {
         foreach ($set as $item) {
             $this->add($item);
@@ -96,7 +99,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return array
      */
-    public function getSet()
+    public function getSet(): array
     {
         return $this->bag;
     }
@@ -106,7 +109,7 @@ final class Bag implements \Countable, \IteratorAggregate
      */
     public function getFirst()
     {
-        return (reset($this->bag)) ?: null;
+        return reset($this->bag) ?: null;
     }
 
     /**
@@ -114,13 +117,13 @@ final class Bag implements \Countable, \IteratorAggregate
      */
     public function getLast()
     {
-        return (end($this->bag)) ?: null;
+        return end($this->bag) ?: null;
     }
 
     /**
      * @return string
      */
-    private function getPropertyName()
+    private function getPropertyName(): string
     {
         $tree = explode("\\", $this->className);
         return strtolower(end($tree));

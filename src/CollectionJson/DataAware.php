@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -19,13 +20,15 @@ namespace CollectionJson;
 interface DataAware
 {
     /**
-     * @param \CollectionJson\Entity\Data|array $data
+     * @param Entity\Data|array $data
+     *
      * @return mixed
      */
     public function addData($data);
 
     /**
      * @param array $set
+     *
      * @return mixed
      */
     public function addDataSet(array $set);
@@ -33,26 +36,27 @@ interface DataAware
     /**
      * @return array
      */
-    public function getDataSet();
+    public function getDataSet(): array;
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Data|null
+     *
+     * @return Entity\Data|null
      */
     public function findDataByName($name);
 
     /**
-     * @return \CollectionJson\Entity\Data|null
+     * @return Entity\Data|null
      */
     public function getFirstData();
 
     /**
-     * @return \CollectionJson\Entity\Data|null
+     * @return Entity\Data|null
      */
     public function getLastData();
 
     /**
      * @return bool
      */
-    public function hasData();
+    public function hasData(): bool;
 }

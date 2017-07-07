@@ -4,14 +4,16 @@ namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Entity\Data;
+use CollectionJson\ArrayConvertible;
 
 class DataSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Data');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Data::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -38,26 +40,10 @@ class DataSpec extends ObjectBehavior
         $data->getValue()->shouldBeEqualTo('Data Value');
     }
 
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [name] of entity [data] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setName', [new \stdClass()]);
-    }
-
     function it_should_convert_the_name_value_to_a_string()
     {
         $this->setName(true);
         $this->getName()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException(
-                "Property [prompt] of entity [data] can only have one of the following values [scalar,Object::__toString]"
-            )
-        )->during('setPrompt', [new \stdClass()]);
     }
 
     function it_should_not_set_the_prompt_if_it_is_not_string()

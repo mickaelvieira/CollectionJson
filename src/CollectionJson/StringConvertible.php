@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -16,6 +17,7 @@ namespace CollectionJson;
  * Interface StringConvertible
  * This interface exists only for testing purposes
  * See. spec\CollectionJson\Validator\StringLikeSpec
+ *
  * @package CollectionJson
  */
 interface StringConvertible

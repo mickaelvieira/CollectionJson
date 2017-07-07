@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -13,7 +14,6 @@
 namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
-use CollectionJson\Validator\StringLike;
 use CollectionJson\Exception\WrongParameter;
 
 /**
@@ -44,14 +44,13 @@ class Error extends BaseEntity
 
     /**
      * @param string $code
-     * @return \CollectionJson\Entity\Error
+     *
+     * @return Error
+     *
      * @throws \DomainException
      */
-    public function setCode($code)
+    public function setCode(string $code): Error
     {
-        if (!StringLike::isValid($code)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'code', StringLike::allowed());
-        }
         $this->code = (string)$code;
 
         return $this;
@@ -60,21 +59,20 @@ class Error extends BaseEntity
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
     /**
      * @param string $message
-     * @return \CollectionJson\Entity\Error
+     *
+     * @return Error
+     *
      * @throws \DomainException
      */
-    public function setMessage($message)
+    public function setMessage(string $message): Error
     {
-        if (!StringLike::isValid($message)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'message', StringLike::allowed());
-        }
         $this->message = (string)$message;
 
         return $this;
@@ -83,21 +81,20 @@ class Error extends BaseEntity
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
     /**
      * @param string $title
-     * @return \CollectionJson\Entity\Error
+     *
+     * @return Error
+     *
      * @throws \DomainException
      */
-    public function setTitle($title)
+    public function setTitle(string $title): Error
     {
-        if (!StringLike::isValid($title)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'title', StringLike::allowed());
-        }
         $this->title = (string)$title;
 
         return $this;
@@ -106,7 +103,7 @@ class Error extends BaseEntity
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -114,7 +111,7 @@ class Error extends BaseEntity
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         $data = [
             'code'    => $this->code,
