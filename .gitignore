@@ -1,5 +1,6 @@
 vendor/
 bin/phpcs
+bin/phpcbf
 bin/phpspec
 bin/coveralls
 composer.lock
