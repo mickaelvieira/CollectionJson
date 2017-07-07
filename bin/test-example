@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+declare(strict_types=1);
 
 $directory = new \RecursiveDirectoryIterator(__DIR__ . '/../examples/');
 $iterator  = new \RecursiveIteratorIterator($directory);
@@ -11,14 +12,13 @@ foreach ($iterator as $file) {
 
     if (preg_match("/^.+\.php$/i", $fileName)) {
         try {
-            
             echo "=============================================================================================\n";
-            echo " Example: " . $fileName . " \n";
+            echo ' Example: ' . $fileName . " \n";
             echo "=============================================================================================\n";
             echo "\n";
+            /** @noinspection PhpIncludeInspection */
             require_once $pathName;
             echo "\n\n";
-
         } catch (\Exception $e) {
             print $e;
             exit(1);
