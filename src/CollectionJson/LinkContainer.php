@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CollectionJson;
 
 use CollectionJson\Entity\Link;
+use Psr\Link\LinkInterface;
 
 /**
  * Class LinkContainer
@@ -28,14 +29,25 @@ trait LinkContainer
     protected $links;
 
     /**
-     * @param Link|array $link
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function addLink($link)
+    public function withLink(LinkInterface $link)
     {
-        $this->links->add($link);
-        return $this;
+        $copy = clone $this;
+        $copy->links = $this->links->with($link);
+
+        return $copy;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withoutLink(LinkInterface $link)
+    {
+        $copy = clone $this;
+        $copy->links = $this->links->without($link);
+
+        return $copy;
     }
 
     /**
@@ -50,25 +62,21 @@ trait LinkContainer
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
-    public function getLinksSet(): array
+    public function getLinks(): array
     {
         return $this->links->getSet();
     }
 
     /**
-     * @param string $relation
-     *
-     * @return Link|null
+     * {@inheritdoc}
      */
-    public function findLinkByRelation(string $relation)
+    public function getLinksByRel($rel): array
     {
-        $links = array_filter($this->links->getSet(), function (Link $link) use ($relation) {
-            return ($link->getRel() === $relation);
-        });
-
-        return current($links) ?: null;
+        return array_values(array_filter($this->links->getSet(), function (Link $link) use ($rel) {
+            return $link->hasRel($rel);
+        }));
     }
 
     /**

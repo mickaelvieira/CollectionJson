@@ -79,6 +79,7 @@ class Query extends BaseEntity implements DataAware
         if (!Uri::isValid($href)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
+
         $this->href = $href;
 
         return $this;

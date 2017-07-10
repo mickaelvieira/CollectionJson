@@ -81,7 +81,7 @@ class CollectionSpec extends ObjectBehavior
         $collection->getError()->shouldHaveType(Error::class);
         $collection->getTemplate()->shouldHaveType(Template::class);
         $collection->getItemsSet()->shouldHaveCount(2);
-        $collection->getLinksSet()->shouldHaveCount(2);
+        $collection->getLinks()->shouldHaveCount(2);
         $collection->toArray()->shouldBeEqualTo([
             'collection' => array_merge(['version' => '1.0'], $data)
         ]);
@@ -233,7 +233,7 @@ class CollectionSpec extends ObjectBehavior
         $collection->getTemplate()->getDataSet()->shouldHaveCount(4);
         $collection->getItemsSet()->shouldHaveCount(3);
         $collection->getQueriesSet()->shouldHaveCount(1);
-        $collection->getLinksSet()->shouldHaveCount(1);
+        $collection->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
@@ -245,20 +245,21 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
+        $link = new Link();
         $item = new Item();
         $query = new Query();
         $error = new Error();
         $template = new Template();
 
-        $this->setHref('http://www.example.com')->shouldReturn($this);
-        $this->addItem($item)->shouldReturn($this);
-        $this->addItemsSet([$item])->shouldReturn($this);
-        $this->addQuery($query)->shouldReturn($this);
+        $this->setHref('http://www.example.com')->shouldHaveType(Collection::class);
+        $this->addItem($item)->shouldHaveType(Collection::class);
+        $this->addItemsSet([$item])->shouldHaveType(Collection::class);
+        $this->addQuery($query)->shouldHaveType(Collection::class);
         $this->addQueriesSet([$query])->shouldReturn($this);
-        $this->setError($error)->shouldReturn($this);
-        $this->setTemplate($template)->shouldReturn($this);
-        $this->addLink([])->shouldReturn($this);
-        $this->addLinksSet([])->shouldReturn($this);
+        $this->setError($error)->shouldHaveType(Collection::class);
+        $this->setTemplate($template)->shouldHaveType(Collection::class);
+        $this->withLink($link)->shouldHaveType(Collection::class);
+        $this->addLinksSet([])->shouldHaveType(Collection::class);
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -438,15 +439,18 @@ class CollectionSpec extends ObjectBehavior
     {
         $link = new Link();
 
-        $this->addLink($link);
-        $this->getLinksSet()->shouldHaveCount(1);
+        $collection = $this->withLink($link);
+        $this->getLinks()->shouldHaveCount(0);
+        $collection->getLinks()->shouldHaveCount(1);
     }
 
-    function it_should_throw_an_exception_when_link_has_the_wrong_type()
+    function it_should_remove_a_link()
     {
-        $this->shouldThrow(
-            new \BadMethodCallException('Property [link] must be of type [CollectionJson\Entity\Link]')
-        )->during('addLink', [new Template()]);
+        $link = new Link();
+        $collection = $this->withLink($link);
+        $collection->getLinks()->shouldHaveCount(1);
+        $collection = $collection->withoutLink($link);
+        $collection->getLinks()->shouldHaveCount(0);
     }
 
     function it_should_retrieve_the_link_by_relation()
@@ -456,23 +460,24 @@ class CollectionSpec extends ObjectBehavior
 
         $this->addLinksSet([$link1, $link2]);
 
-        $this->findLinkByRelation('rel1')->shouldBeEqualTo($link1);
-        $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
+        $this->getLinksByRel('rel1')->shouldBeEqualTo([$link1]);
+        $this->getLinksByRel('rel2')->shouldBeEqualTo([$link2]);
     }
 
     function it_should_return_null_when_link_is_not_in_the_set()
     {
-        $this->findLinkByRelation('rel1')->shouldBeNull();
+        $this->getLinksByRel('rel1')->shouldReturn([]);
     }
 
     function it_should_add_a_link_when_passing_an_array()
     {
-        $this->addLink([
+        $collection = $this->withLink(Link::fromArray([
             'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
-        ]);
-        $this->getLinksSet()->shouldHaveCount(1);
+        ]));
+
+        $collection->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_set()
@@ -487,7 +492,7 @@ class CollectionSpec extends ObjectBehavior
                 'render' => 'link'
             ]
         ]);
-        $this->getLinksSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_link_in_the_set()
@@ -526,9 +531,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $link = new Link();
 
-        $this->addLink($link);
+        $collection = $this->withLink($link);
 
-        $this->shouldHaveLinks();
+        $collection->shouldHaveLinks();
     }
 
     function it_should_know_if_it_has_no_links()

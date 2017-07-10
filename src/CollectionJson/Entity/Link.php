@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace CollectionJson\Entity;
 
+use Psr\Link\LinkInterface;
+use Psr\Link\EvolvableLinkInterface;
+
 use CollectionJson\BaseEntity;
 use CollectionJson\Type\Render as RenderType;
-use CollectionJson\Validator\Uri;
 use CollectionJson\Validator\Render;
 use CollectionJson\Exception\WrongParameter;
 use CollectionJson\Exception\MissingProperty;
@@ -26,7 +28,7 @@ use CollectionJson\Exception\MissingProperty;
  * @link http://amundsen.com/media-types/collection/format/
  * @link http://amundsen.com/media-types/collection/format/#arrays-links
  */
-class Link extends BaseEntity
+class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
 {
     /**
      * @var string
@@ -35,10 +37,10 @@ class Link extends BaseEntity
     protected $href;
 
     /**
-     * @var string
+     * @var array
      * @link http://amundsen.com/media-types/collection/format/#properties-rel
      */
-    protected $rel;
+    protected $rels = [];
 
     /**
      * @var string
@@ -59,20 +61,14 @@ class Link extends BaseEntity
     protected $prompt;
 
     /**
-     * @param string $href
-     *
-     * @return Link
-     *
-     * @throws \DomainException
+     * {@inheritdoc}
      */
-    public function setHref($href): Link
+    public function withHref($href): Link
     {
-        if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
-        }
-        $this->href = $href;
+        $copy = clone $this;
+        $copy->href = (string)$href;
 
-        return $this;
+        return $copy;
     }
 
     /**
@@ -84,25 +80,52 @@ class Link extends BaseEntity
     }
 
     /**
-     * @param string $rel
+     * {@inheritdoc}
      *
      * @return Link
-     *
-     * @throws \DomainException
      */
-    public function setRel(string $rel): Link
+    public function withRel($rel): Link
     {
-        $this->rel = (string)$rel;
+        $copy = clone $this;
+        $copy->rels[] = (string)$rel;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
+     *
+     * @return Link
      */
-    public function getRel(): string
+    public function withoutRel($rel): Link
     {
-        return $this->rel;
+        $copy = clone $this;
+
+        $key = array_search($rel, $copy->rels, true);
+
+        if ($key !== false) {
+            unset($copy->rels[$key]);
+        }
+
+        return $copy;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRels(): array
+    {
+        return $this->rels;
+    }
+
+    /**
+     * @param $rel
+     *
+     * @return bool
+     */
+    public function hasRel($rel): bool
+    {
+        return in_array($rel, $this->rels, true);
     }
 
     /**
@@ -112,11 +135,12 @@ class Link extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setName(string $name): Link
+    public function withName(string $name): Link
     {
-        $this->name = (string)$name;
+        $copy = clone $this;
+        $copy->name = $name;
 
-        return $this;
+        return $copy;
     }
 
     /**
@@ -134,11 +158,12 @@ class Link extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setPrompt(string $prompt): Link
+    public function withPrompt(string $prompt): Link
     {
-        $this->prompt = (string)$prompt;
+        $copy = clone $this;
+        $copy->prompt = $prompt;
 
-        return $this;
+        return $copy;
     }
 
     /**
@@ -156,11 +181,12 @@ class Link extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setRender($render): Link
+    public function withRender(string $render): Link
     {
         if (!Render::isValid($render)) {
             throw WrongParameter::fromTemplate(self::getObjectType(), 'render', Render::allowed());
         }
+
         $this->render = $render;
 
         return $this;
@@ -177,19 +203,55 @@ class Link extends BaseEntity
     /**
      * {@inheritdoc}
      */
+    public function withAttribute($attribute, $value)
+    {
+        throw new \BadFunctionCallException('Not implemented');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withoutAttribute($attribute)
+    {
+        throw new \BadFunctionCallException('Not implemented');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAttributes(): array
+    {
+        throw new \BadFunctionCallException('Not implemented');
+    }
+
+    /**
+     * @link https://tools.ietf.org/html/rfc6570
+     *
+     * {@inheritdoc}
+     */
+    public function isTemplated(): bool
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function getObjectData(): array
     {
-        foreach (['href', 'rel'] as $property) {
-            if (is_null($this->$property)) {
-                throw MissingProperty::fromTemplate(self::getObjectType(), $property);
-            }
+        if (is_null($this->href)) {
+            throw MissingProperty::fromTemplate(self::getObjectType(), 'href');
+        }
+
+        if (empty($this->rels)) {
+            throw MissingProperty::fromTemplate(self::getObjectType(), 'rel');
         }
 
         $data = [
             'href'   => $this->href,
             'name'   => $this->name,
             'prompt' => $this->prompt,
-            'rel'    => $this->rel,
+            'rel'    => implode(',', $this->rels),
             'render' => $this->render,
         ];
 

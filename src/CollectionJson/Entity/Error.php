@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
-use CollectionJson\Exception\WrongParameter;
 
 /**
  * Class Error

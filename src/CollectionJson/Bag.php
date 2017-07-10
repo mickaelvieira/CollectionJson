@@ -85,6 +85,46 @@ final class Bag implements \Countable, \IteratorAggregate
     }
 
     /**
+     * @param mixed $item
+     *
+     * @return Bag
+     */
+    public function with($item): Bag
+    {
+        if (is_array($item)) {
+            $item = call_user_func($this->className . '::fromArray', $item);
+        }
+
+        if (!($item instanceof $this->className)) {
+            throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
+        }
+
+        $copy = clone $this;
+
+        $copy->bag[] = $item;
+
+        return $copy;
+    }
+
+    /**
+     * @param mixed $item
+     *
+     * @return Bag
+     */
+    public function without($item): Bag
+    {
+        $copy = clone $this;
+
+        $key = array_search($item, $copy->bag, true);
+
+        if ($key !== false) {
+            unset($copy->bag[$key]);
+        }
+
+        return $copy;
+    }
+
+    /**
      * @param array $set
      * @return Bag
      */

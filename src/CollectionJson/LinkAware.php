@@ -13,36 +13,20 @@ declare(strict_types=1);
 
 namespace CollectionJson;
 
+use Psr\Link\LinkProviderInterface;
+use Psr\Link\EvolvableLinkProviderInterface;
+
 /**
  * Class LinkAware
  * @package CollectionJson
  */
-interface LinkAware
+interface LinkAware extends LinkProviderInterface, EvolvableLinkProviderInterface
 {
-    /**
-     * @param Entity\Link|array $link
-     *
-     * @return mixed
-     */
-    public function addLink($link);
-
     /**
      * @param array $set
      * @return mixed
      */
     public function addLinksSet(array $set);
-
-    /**
-     * @return array
-     */
-    public function getLinksSet(): array;
-
-    /**
-     * @param string $relation
-     *
-     * @return Entity\Link|null
-     */
-    public function findLinkByRelation(string $relation);
 
     /**
      * @return Entity\Link|null

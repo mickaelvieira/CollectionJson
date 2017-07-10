@@ -31,11 +31,11 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldReturn($this);
-        $this->addLink([])->shouldReturn($this);
-        $this->addLinksSet([])->shouldReturn($this);
-        $this->addData([])->shouldReturn($this);
-        $this->addDataSet([])->shouldReturn($this);
+        $this->setHref('http://example.com')->shouldHaveType(Item::class);
+        $this->withLink(new Link())->shouldHaveType(Item::class);
+        $this->addLinksSet([])->shouldHaveType(Item::class);
+        $this->addData([])->shouldHaveType(Item::class);
+        $this->addDataSet([])->shouldHaveType(Item::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_item()
@@ -149,8 +149,8 @@ class ItemSpec extends ObjectBehavior
 
         $this->addLinksSet([$link1, $link2]);
 
-        $this->findLinkByRelation('rel1')->shouldBeEqualTo($link1);
-        $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
+        $this->getLinksByRel('rel1')->shouldBeEqualTo([$link1]);
+        $this->getLinksByRel('rel2')->shouldBeEqualTo([$link2]);
     }
 
     function it_should_return_null_when_data_is_not_in_the_set()
@@ -160,31 +160,24 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_return_null_when_link_is_not_in_the_set()
     {
-        $this->findLinkByRelation('rel1')->shouldBeNull();
+        $this->getLinksByRel('rel1')->shouldReturn([]);
     }
 
     function it_should_add_a_link_when_it_is_passed_as_an_object()
     {
         $link = (new Prophet())->prophesize(Link::class);
-        $this->addLink($link);
-        $this->getLinksSet()->shouldHaveCount(1);
-    }
-
-    function it_should_throw_an_exception_when_link_has_the_wrong_type()
-    {
-        $this->shouldThrow(
-            new \BadMethodCallException('Property [link] must be of type [CollectionJson\Entity\Link]')
-        )->during('addLink', [new Template()]);
+        $item = $this->withLink($link);
+        $item->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_when_it_is_passed_as_an_array()
     {
-        $this->addLink([
+        $item = $this->withLink(Link::fromArray([
             'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
-        ]);
-        $this->getLinksSet()->shouldHaveCount(1);
+        ]));
+        $item->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_set()
@@ -199,7 +192,7 @@ class ItemSpec extends ObjectBehavior
             ]
         ]);
         $this->setHref('http://example.com');
-        $this->getLinksSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_link_in_the_set()
@@ -238,9 +231,9 @@ class ItemSpec extends ObjectBehavior
     {
         $link = new Link();
 
-        $this->addLink($link);
+        $item = $this->withLink($link);
 
-        $this->shouldHaveLinks();
+        $item->shouldHaveLinks();
     }
 
     function it_should_know_if_it_has_no_links()

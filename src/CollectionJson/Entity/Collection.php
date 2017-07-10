@@ -297,7 +297,7 @@ class Collection extends BaseEntity implements LinkAware
             'error'    => $this->error,
             'href'     => $this->href,
             'items'    => $this->items->getSet(),
-            'links'    => $this->getLinksSet(),
+            'links'    => $this->getLinks(),
             'queries'  => $this->queries->getSet(),
             'template' => $this->template,
         ];

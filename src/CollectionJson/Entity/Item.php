@@ -94,7 +94,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
         $data = [
             'data'  => $this->getDataSet(),
             'href'  => $this->href,
-            'links' => $this->getLinksSet(),
+            'links' => $this->getLinks(),
         ];
 
         return $this->filterEmptyArrays($data);

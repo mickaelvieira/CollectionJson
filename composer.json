@@ -21,7 +21,8 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "psr/link": "^1.0"
     },
     "require-dev": {
         "phpspec/phpspec": "^3.0",

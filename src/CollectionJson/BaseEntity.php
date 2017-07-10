@@ -36,10 +36,13 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         $object = new static();
 
         foreach ($data as $key => $value) {
+            $wither = sprintf('with%s', ucfirst(strtolower($key)));
             $setter = sprintf('set%s', ucfirst(strtolower($key)));
             $adder  = sprintf('add%sSet', ucfirst(strtolower($key)));
 
-            if (method_exists($object, $setter)) {
+            if (method_exists($object, $wither)) {
+                $object = $object->$wither($value);
+            } elseif (method_exists($object, $setter)) {
                 $object->$setter($value);
             } elseif (method_exists($object, $adder)) {
                 $object->$adder($value);

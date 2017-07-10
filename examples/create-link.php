@@ -7,10 +7,10 @@ use CollectionJson\Entity\Link;
 use CollectionJson\Type;
 
 $link = (new Link())
-    ->setName('link name')
-    ->setHref('http://www.example.com')
-    ->setPrompt('prompt value')
-    ->setRel(Type\Relation::ITEM)
-    ->setRender(Type\Render::IMAGE); // default Render::LINK
+    ->withName('link name')
+    ->withHref('http://www.example.com')
+    ->withPrompt('prompt value')
+    ->withRel(Type\Relation::ITEM)
+    ->withRender(Type\Render::IMAGE); // default Render::LINK
 
 echo json_encode($link, JSON_PRETTY_PRINT);
