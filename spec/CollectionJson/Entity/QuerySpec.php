@@ -57,14 +57,15 @@ class QuerySpec extends ObjectBehavior
             ]
         ];
 
-        $query = $this::fromArray($data);
-        $query->getHref()->shouldBeEqualTo('http://example.com');
-        $query->getRel()->shouldBeEqualTo('Query Rel');
-        $query->getName()->shouldBeEqualTo('Query Name');
-        $query->getPrompt()->shouldBeEqualTo('Query Prompt');
-        $query->getDataSet()->shouldHaveCount(2);
-        $query->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $query->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $this->beConstructedThrough('fromArray', [$data]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getRel()->shouldBeEqualTo('Query Rel');
+        $this->getName()->shouldBeEqualTo('Query Name');
+        $this->getPrompt()->shouldBeEqualTo('Query Prompt');
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()

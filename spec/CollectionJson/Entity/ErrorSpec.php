@@ -21,6 +21,22 @@ class ErrorSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('error');
     }
 
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'title'   => 'Error Title',
+            'code'    => 'Error Code',
+            'message' => 'Error Message'
+        ]]);
+
+        $copy = clone $this;
+
+        $copy->shouldHaveType(Error::class);
+        $copy->getTitle()->shouldReturn($this->getTitle());
+        $copy->getCode()->shouldReturn($this->getCode());
+        $copy->getMessage()->shouldReturn($this->getMessage());
+    }
+
     function it_should_be_chainable()
     {
         $this->setCode('value')->shouldReturn($this);
@@ -30,14 +46,15 @@ class ErrorSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_error()
     {
-        $error = $this::fromArray([
+        $this->beConstructedThrough('fromArray', [[
             'title'   => 'Error Title',
             'code'    => 'Error Code',
             'message' => 'Error Message'
-        ]);
-        $error->getTitle()->shouldBeEqualTo('Error Title');
-        $error->getCode()->shouldBeEqualTo('Error Code');
-        $error->getMessage()->shouldBeEqualTo('Error Message');
+        ]]);
+
+        $this->getTitle()->shouldBeEqualTo('Error Title');
+        $this->getCode()->shouldBeEqualTo('Error Code');
+        $this->getMessage()->shouldBeEqualTo('Error Message');
     }
 
     function it_should_convert_the_title_value_to_a_string()

@@ -21,6 +21,22 @@ class DataSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('data');
     }
 
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'name'     => 'Data Name',
+            'prompt'   => 'Data Prompt',
+            'value'    => 'Data Value'
+        ]]);
+
+        $copy = clone $this;
+
+        $copy->shouldHaveType(Data::class);
+        $copy->getName()->shouldReturn($this->getName());
+        $copy->getPrompt()->shouldReturn($this->getPrompt());
+        $copy->getValue()->shouldReturn($this->getValue());
+    }
+
     function it_should_be_chainable()
     {
         $this->setName('value')->shouldReturn($this);
@@ -30,14 +46,15 @@ class DataSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_data()
     {
-        $data = $this::fromArray([
+        $this->beConstructedThrough('fromArray', [[
             'name'     => 'Data Name',
             'prompt'   => 'Data Prompt',
             'value'    => 'Data Value'
-        ]);
-        $data->getName()->shouldBeEqualTo('Data Name');
-        $data->getPrompt()->shouldBeEqualTo('Data Prompt');
-        $data->getValue()->shouldBeEqualTo('Data Value');
+        ]]);
+
+        $this->getName()->shouldBeEqualTo('Data Name');
+        $this->getPrompt()->shouldBeEqualTo('Data Prompt');
+        $this->getValue()->shouldBeEqualTo('Data Value');
     }
 
     function it_should_convert_the_name_value_to_a_string()

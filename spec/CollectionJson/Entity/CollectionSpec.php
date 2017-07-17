@@ -76,13 +76,15 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ];
-        $collection = $this::fromArray($data);
-        $collection->getHref()->shouldBeEqualTo('http://example.com');
-        $collection->getError()->shouldHaveType(Error::class);
-        $collection->getTemplate()->shouldHaveType(Template::class);
-        $collection->getItemsSet()->shouldHaveCount(2);
-        $collection->getLinks()->shouldHaveCount(2);
-        $collection->toArray()->shouldBeEqualTo([
+
+        $this->beConstructedThrough('fromArray', [$data]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getError()->shouldHaveType(Error::class);
+        $this->getTemplate()->shouldHaveType(Template::class);
+        $this->getItemsSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
+        $this->toArray()->shouldBeEqualTo([
             'collection' => array_merge(['version' => '1.0'], $data)
         ]);
     }
@@ -227,13 +229,14 @@ class CollectionSpec extends ObjectBehavior
             }
         }';
 
-        $collection = $this::fromJson($json);
-        $collection->getHref()->shouldBeEqualTo('http://example.org/friends/');
-        $collection->getTemplate()->shouldHaveType(Template::class);
-        $collection->getTemplate()->getDataSet()->shouldHaveCount(4);
-        $collection->getItemsSet()->shouldHaveCount(3);
-        $collection->getQueriesSet()->shouldHaveCount(1);
-        $collection->getLinks()->shouldHaveCount(1);
+        $this->beConstructedThrough('fromJson', [$json]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.org/friends/');
+        $this->getTemplate()->shouldHaveType(Template::class);
+        $this->getTemplate()->getDataSet()->shouldHaveCount(4);
+        $this->getItemsSet()->shouldHaveCount(3);
+        $this->getQueriesSet()->shouldHaveCount(1);
+        $this->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()

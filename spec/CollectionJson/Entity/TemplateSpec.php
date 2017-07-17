@@ -41,10 +41,12 @@ class TemplateSpec extends ObjectBehavior
                 $data
             ]
         ];
-        $template = $this::fromArray($data);
-        $template->getDataSet()->shouldHaveCount(2);
-        $template->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $template->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+
+        $this->beConstructedThrough('fromArray', [$data]);
+
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_may_be_construct_from_a_json_representation_of_the_collection()

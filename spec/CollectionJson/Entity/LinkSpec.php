@@ -3,7 +3,6 @@
 namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use CollectionJson\Entity\Link;
 use CollectionJson\ArrayConvertible;
 use Psr\Link\LinkInterface;
@@ -28,6 +27,26 @@ class LinkSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('link');
     }
 
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'name'   => 'my link',
+            'href'   => 'http://example.com',
+            'rel'    => 'Rel value',
+            'render' => 'link',
+            'prompt' => 'Hello'
+        ]]);
+
+        $copy = clone $this;
+
+        $copy->shouldHaveType(Link::class);
+        $copy->getName()->shouldReturn($this->getName());
+        $copy->getHref()->shouldReturn($this->getHref());
+        $copy->getRels()->shouldReturn($this->getRels());
+        $copy->getRender()->shouldReturn($this->getRender());
+        $copy->getPrompt()->shouldReturn($this->getPrompt());
+    }
+
     function it_should_be_chainable()
     {
         $this->withHref('http://example.com')->shouldHaveType(Link::class);
@@ -39,18 +58,19 @@ class LinkSpec extends ObjectBehavior
 
     function it_may_be_construct_with_an_array_representation_of_the_link()
     {
-        $link = $this::fromArray([
+        $this->beConstructedThrough('fromArray', [[
             'href'   => 'http://example.com',
             'rel'    => 'Link Rel',
             'name'   => 'Link Name',
             'render' => 'image',
             'prompt' => 'Link Prompt'
-        ]);
-        $link->getHref()->shouldBeEqualTo('http://example.com');
-        $link->getRels()->shouldBeEqualTo(['Link Rel']);
-        $link->getName()->shouldBeEqualTo('Link Name');
-        $link->getRender()->shouldBeEqualTo('image');
-        $link->getPrompt()->shouldBeEqualTo('Link Prompt');
+        ]]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getRels()->shouldBeEqualTo(['Link Rel']);
+        $this->getName()->shouldBeEqualTo('Link Name');
+        $this->getRender()->shouldBeEqualTo('image');
+        $this->getPrompt()->shouldBeEqualTo('Link Prompt');
     }
 
     function it_should_convert_the_rel_value_to_a_string()
@@ -78,6 +98,7 @@ class LinkSpec extends ObjectBehavior
         $this->beConstructedThrough('fromArray', [[
             'rel' => 'stylesheet'
         ]]);
+
         $link = $this->withoutRel('stylesheet');
         $this->getRels()->shouldBeEqualTo(['stylesheet']);
         $link->getRels()->shouldBeEqualTo([]);

@@ -33,9 +33,10 @@ final class Bag implements \Countable, \IteratorAggregate
 
     /**
      * Bag constructor.
-     * @param $className
+     *
+     * @param string $className
      */
-    public function __construct($className)
+    public function __construct(string $className)
     {
         $this->className = $className;
     }
@@ -85,15 +86,15 @@ final class Bag implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param mixed $item
+     * @param mixed $itemOrData
      *
      * @return Bag
      */
-    public function with($item): Bag
+    public function with($itemOrData): Bag
     {
-        if (is_array($item)) {
-            $item = call_user_func($this->className . '::fromArray', $item);
-        }
+        $item = is_array($itemOrData)
+            ? call_user_func($this->className . '::fromArray', $itemOrData)
+            : $itemOrData;
 
         if (!($item instanceof $this->className)) {
             throw WrongType::fromTemplate($this->getPropertyName(), $this->className);

@@ -120,15 +120,9 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     final protected function filterNullValues(array $data, array $whiteList = []): array
     {
-        $filtered = [];
-
-        foreach ($data as $key => $value) {
-            if (!is_null($value) || in_array($key, $whiteList, true)) {
-                $filtered[$key] = $value;
-            }
-        }
-
-        return $filtered;
+        return array_filter($data, function ($value, $key) use ($whiteList) {
+            return (!is_null($value) || in_array($key, $whiteList, true));
+        }, ARRAY_FILTER_USE_BOTH);
     }
 
     /**
@@ -172,6 +166,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
                 $value = $this->recursiveToArray($value);
             }
         }
+
         unset($value);
 
         return $data;

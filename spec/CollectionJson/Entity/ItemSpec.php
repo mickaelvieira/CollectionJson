@@ -54,11 +54,12 @@ class ItemSpec extends ObjectBehavior
                 $data2
             ]
         ];
-        $item = $this::fromArray($data);
-        $item->getHref()->shouldBeEqualTo('http://example.com');
-        $item->getDataSet()->shouldHaveCount(2);
-        $item->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $item->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+
+        $this->beConstructedThrough('fromArray', [$data]);
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
