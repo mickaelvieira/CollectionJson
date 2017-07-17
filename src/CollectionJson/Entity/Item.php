@@ -105,12 +105,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
      */
     public function __clone()
     {
-        $this->links = array_reduce(iterator_to_array($this->links), function (Bag $bag, Link $link) {
-            return $bag->with(clone $link);
-        }, new Bag(Link::class));
-
-        $this->data = array_reduce(iterator_to_array($this->data), function (Bag $bag, Data $data) {
-            return $bag->with(clone $data);
-        }, new Bag(Data::class));
+        $this->data = clone $this->data;
+        $this->links = clone $this->links;
     }
 }

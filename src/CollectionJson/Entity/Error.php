@@ -50,7 +50,7 @@ class Error extends BaseEntity
      */
     public function setCode(string $code): Error
     {
-        $this->code = (string)$code;
+        $this->code = $code;
 
         return $this;
     }
@@ -72,7 +72,7 @@ class Error extends BaseEntity
      */
     public function setMessage(string $message): Error
     {
-        $this->message = (string)$message;
+        $this->message = $message;
 
         return $this;
     }
@@ -94,7 +94,7 @@ class Error extends BaseEntity
      */
     public function setTitle(string $title): Error
     {
-        $this->title = (string)$title;
+        $this->title = $title;
 
         return $this;
     }

@@ -114,13 +114,15 @@ final class Bag implements \Countable, \IteratorAggregate
      */
     public function without($item): Bag
     {
+        $key = array_search($item, $this->bag, true);
+
+        if ($key === false) {
+            return $this;
+        }
+
         $copy = clone $this;
 
-        $key = array_search($item, $copy->bag, true);
-
-        if ($key !== false) {
-            unset($copy->bag[$key]);
-        }
+        unset($copy->bag[$key]);
 
         return $copy;
     }
@@ -168,5 +170,17 @@ final class Bag implements \Countable, \IteratorAggregate
     {
         $tree = explode("\\", $this->className);
         return strtolower(end($tree));
+    }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        $clone = function ($item) {
+            return clone $item;
+        };
+
+        $this->bag = array_map($clone, $this->bag);
     }
 }

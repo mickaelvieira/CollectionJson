@@ -308,7 +308,6 @@ class Collection extends BaseEntity implements LinkAware
         return $data;
     }
 
-
     /**
      * @return void
      */
@@ -322,16 +321,8 @@ class Collection extends BaseEntity implements LinkAware
             $this->template = clone $this->template;
         }
 
-        $this->links = array_reduce(iterator_to_array($this->links), function (Bag $bag, Link $link) {
-            return $bag->with(clone $link);
-        }, new Bag(Link::class));
-
-        $this->queries = array_reduce(iterator_to_array($this->queries), function (Bag $bag, Query $query) {
-            return $bag->with(clone $query);
-        }, new Bag(Query::class));
-
-        $this->items = array_reduce(iterator_to_array($this->items), function (Bag $bag, Item $item) {
-            return $bag->with(clone $item);
-        }, new Bag(Item::class));
+        $this->items = clone $this->items;
+        $this->links = clone $this->links;
+        $this->queries = clone $this->queries;
     }
 }

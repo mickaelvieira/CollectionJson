@@ -102,7 +102,7 @@ class Query extends BaseEntity implements DataAware
      */
     public function setName(string $name): Query
     {
-        $this->name = (string)$name;
+        $this->name = $name;
 
         return $this;
     }
@@ -124,7 +124,7 @@ class Query extends BaseEntity implements DataAware
      */
     public function setPrompt(string $prompt): Query
     {
-        $this->prompt = (string)$prompt;
+        $this->prompt = $prompt;
 
         return $this;
     }
@@ -146,7 +146,7 @@ class Query extends BaseEntity implements DataAware
      */
     public function setRel(string $rel): Query
     {
-        $this->rel = (string)$rel;
+        $this->rel = $rel;
 
         return $this;
     }
@@ -189,8 +189,6 @@ class Query extends BaseEntity implements DataAware
      */
     public function __clone()
     {
-        $this->data = array_reduce(iterator_to_array($this->data), function (Bag $bag, Data $data) {
-            return $bag->with(clone $data);
-        }, new Bag(Data::class));
+        $this->data = clone $this->data;
     }
 }
