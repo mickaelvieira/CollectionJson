@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CollectionJson;
 
 use JsonSerializable;
+use CollectionJson\Exception\MissingProperty;
 
 /**
  * Class BaseEntity
@@ -70,6 +71,8 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @return array
+     *
+     * @throws MissingProperty
      */
     public function jsonSerialize(): array
     {
@@ -81,6 +84,8 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @return array
+     *
+     * @throws MissingProperty
      */
     public function toArray(): array
     {
@@ -149,6 +154,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     }
 
     /**
+     * @throws MissingProperty
      * @return array
      */
     abstract protected function getObjectData(): array;

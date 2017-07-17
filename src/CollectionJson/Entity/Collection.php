@@ -15,10 +15,10 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
-use CollectionJson\Exception\InvalidType;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\Validator\Uri;
+use CollectionJson\Exception\InvalidType;
 use CollectionJson\Exception\InvalidParameter;
 
 /**
@@ -107,7 +107,7 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param Item|array $item
+     * @param $item
      *
      * @return Collection
      */
@@ -218,6 +218,8 @@ class Collection extends BaseEntity implements LinkAware
      * @param Error|array $error
      *
      * @return Collection
+     *
+     * @throws InvalidType
      */
     public function setError($error): Collection
     {
@@ -254,6 +256,8 @@ class Collection extends BaseEntity implements LinkAware
      * @param Template|array $template
      *
      * @return Collection
+     *
+     * @throws InvalidType
      */
     public function setTemplate($template): Collection
     {

@@ -71,8 +71,7 @@ class Query extends BaseEntity implements DataAware
      *
      * @return Query
      *
-     * @throws \BadMethodCallException
-     * @throws \DomainException
+     * @throws InvalidParameter
      */
     public function setHref($href): Query
     {

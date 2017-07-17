@@ -69,6 +69,8 @@ final class Bag implements \Countable, \IteratorAggregate
      * @param $item
      *
      * @return Bag
+     *
+     * @throws InvalidType
      */
     public function add($item): Bag
     {
@@ -89,6 +91,8 @@ final class Bag implements \Countable, \IteratorAggregate
      * @param mixed $itemOrData
      *
      * @return Bag
+     *
+     * @throws InvalidType
      */
     public function with($itemOrData): Bag
     {
@@ -129,7 +133,10 @@ final class Bag implements \Countable, \IteratorAggregate
 
     /**
      * @param array $set
+     *
      * @return Bag
+     *
+     * @throws InvalidType
      */
     public function addSet(array $set): Bag
     {
