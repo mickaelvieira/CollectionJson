@@ -51,17 +51,18 @@ class Data extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setName(string $name): Data
+    public function withName(string $name): Data
     {
-        $this->name = $name;
+        $copy = clone $this;
+        $copy->name = $name;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -73,17 +74,18 @@ class Data extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setPrompt(string $prompt): Data
+    public function withPrompt(string $prompt): Data
     {
-        $this->prompt = $prompt;
+        $copy = clone $this;
+        $copy->prompt = $prompt;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getPrompt(): string
+    public function getPrompt()
     {
         return $this->prompt;
     }
@@ -95,15 +97,16 @@ class Data extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setValue($value): Data
+    public function withValue($value): Data
     {
         if (!DataValue::isValid($value)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
         }
 
-        $this->value = $value;
+        $copy = clone $this;
+        $copy->value = $value;
 
-        return $this;
+        return $copy;
     }
 
     /**

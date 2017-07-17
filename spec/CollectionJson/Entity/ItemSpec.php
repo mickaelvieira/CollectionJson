@@ -78,7 +78,7 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldHaveType(Item::class);
+        $this->withHref('http://example.com')->shouldHaveType(Item::class);
         $this->withLink(new Link())->shouldHaveType(Item::class);
         $this->addLinksSet([])->shouldHaveType(Item::class);
         $this->addData([])->shouldHaveType(Item::class);
@@ -113,7 +113,7 @@ class ItemSpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \DomainException("Property [href] of entity [item] can only have one of the following values [URI]")
-        )->duringSetHref('uri');
+        )->during('withHref', ['uri']);
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
@@ -136,9 +136,9 @@ class ItemSpec extends ObjectBehavior
             'value' => null
         ]);
 
-        $this->setHref('http://example.com');
-        $this->addData($data);
-        $this->toArray()->shouldBeEqualTo([
+        $collection = $this->withHref('http://example.com');
+        $collection->addData($data);
+        $collection->toArray()->shouldBeEqualTo([
             'data' => [
                 [
                     'name' => 'Name',
@@ -239,8 +239,8 @@ class ItemSpec extends ObjectBehavior
                 'render' => 'link'
             ]
         ]);
-        $this->setHref('http://example.com');
-        $this->getLinks()->shouldHaveCount(2);
+        $collection = $this->withHref('http://example.com');
+        $collection->getLinks()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_link_in_the_set()

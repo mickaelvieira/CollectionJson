@@ -63,7 +63,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
      *
      * @throws \DomainException
      */
-    public function setHref($href): Item
+    public function withHref($href): Item
     {
         if (!Uri::isValid($href)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());

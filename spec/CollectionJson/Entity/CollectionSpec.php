@@ -334,8 +334,8 @@ class CollectionSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
         $this->shouldThrow(
-            new \DomainException("Property [href] of entity [collection] can only have one of the following values [URI]")
-        )->duringSetHref('uri');
+            new \DomainException('Property [href] of entity [collection] can only have one of the following values [URI]')
+        )->during('withHref', ['uri']);
     }
 
     function it_should_be_chainable()
@@ -346,13 +346,13 @@ class CollectionSpec extends ObjectBehavior
         $error = new Error();
         $template = new Template();
 
-        $this->setHref('http://www.example.com')->shouldHaveType(Collection::class);
+        $this->withHref('http://www.example.com')->shouldHaveType(Collection::class);
         $this->addItem($item)->shouldHaveType(Collection::class);
         $this->addItemsSet([$item])->shouldHaveType(Collection::class);
         $this->addQuery($query)->shouldHaveType(Collection::class);
         $this->addQueriesSet([$query])->shouldReturn($this);
-        $this->setError($error)->shouldHaveType(Collection::class);
-        $this->setTemplate($template)->shouldHaveType(Collection::class);
+        $this->withError($error)->shouldHaveType(Collection::class);
+        $this->withTemplate($template)->shouldHaveType(Collection::class);
         $this->withLink($link)->shouldHaveType(Collection::class);
         $this->addLinksSet([])->shouldHaveType(Collection::class);
     }
@@ -639,40 +639,42 @@ class CollectionSpec extends ObjectBehavior
     function it_should_set_the_error()
     {
         $error = (new Error())
-            ->setCode("error code");
+            ->withCode('error code');
 
-        $this->setError($error);
-        $this->getError()->shouldBeAnInstanceOf(Error::class);
-        $this->getError()->getCode()->shouldBeEqualTo("error code");
+        $collection = $this->withError($error);
+        $this->getError()->shouldBeNull();
+        $collection->getError()->shouldBeAnInstanceOf(Error::class);
+        $collection->getError()->getCode()->shouldBeEqualTo('error code');
     }
 
     function it_should_set_the_error_when_passing_an_array()
     {
-        $this->setError([
-            'message' => "message code",
-            'title' => "title code",
-            'code' => "error code",
+        $collection = $this->withError([
+            'message' => 'message code',
+            'title' => 'title code',
+            'code' => 'error code',
         ]);
-        $this->getError()->shouldBeAnInstanceOf(Error::class);
-        $this->getError()->getMessage()->shouldBeEqualTo("message code");
-        $this->getError()->getTitle()->shouldBeEqualTo("title code");
-        $this->getError()->getCode()->shouldBeEqualTo("error code");
+        $this->getError()->shouldBeNull();
+        $collection->getError()->shouldBeAnInstanceOf(Error::class);
+        $collection->getError()->getMessage()->shouldBeEqualTo('message code');
+        $collection->getError()->getTitle()->shouldBeEqualTo('title code');
+        $collection->getError()->getCode()->shouldBeEqualTo('error code');
     }
 
     function it_should_throw_an_exception_when_error_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [error] must be of type [CollectionJson\Entity\Error]')
-        )->during('setError', [new Query()]);
+        )->during('withError', [new Query()]);
     }
 
     function it_should_know_if_it_has_an_error()
     {
         $error = new Error();
 
-        $this->setError($error);
-
-        $this->shouldHaveError();
+        $collection = $this->withError($error);
+        $this->shouldNotHaveError();
+        $collection->shouldHaveError();
     }
 
     function it_should_know_if_it_has_not_an_error()
@@ -684,13 +686,14 @@ class CollectionSpec extends ObjectBehavior
     {
         $template = new Template();
 
-        $this->setTemplate($template);
-        $this->getTemplate()->shouldBeAnInstanceOf(Template::class);
+        $collection = $this->withTemplate($template);
+        $this->getTemplate()->shouldBeNull();
+        $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
     }
 
     function it_should_set_the_template_when_passing_an_array()
     {
-        $this->setTemplate([
+        $collection = $this->withTemplate([
             'data' => [
                 [
                     'name' => 'name 1',
@@ -698,17 +701,19 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getTemplate()->shouldBeAnInstanceOf(Template::class);
-        $this->getTemplate()->getDataSet()->shouldHaveCount(1);
+        $this->getTemplate()->shouldBeNull();
+        $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
+        $collection->getTemplate()->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_know_if_it_has_an_template()
     {
         $error = new Template();
 
-        $this->setTemplate($error);
+        $collection = $this->withTemplate($error);
 
-        $this->shouldHaveTemplate();
+        $this->shouldNotHaveTemplate();
+        $collection->shouldHaveTemplate();
     }
 
     function it_should_know_if_it_has_not_an_template()
@@ -720,6 +725,6 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [template] must be of type [CollectionJson\Entity\Template]')
-        )->during('setTemplate', [new Query()]);
+        )->during('withTemplate', [new Query()]);
     }
 }

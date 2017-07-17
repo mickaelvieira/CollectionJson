@@ -8,10 +8,10 @@ use CollectionJson\Entity\Data;
 use CollectionJson\Type\Relation;
 
 $query = (new Query())
-    ->setHref('http://www.example.com')
-    ->setRel(Relation::SEARCH)
-    ->setName('value')
-    ->setPrompt('value')
+    ->withHref('http://www.example.com')
+    ->withRel(Relation::SEARCH)
+    ->withName('value')
+    ->withPrompt('value')
     ->addData(Data::fromArray(['name' => 'data 1', 'value' => true]))
     ->addData(Data::fromArray(['name' => 'data 2', 'value' => 'value 2']));
 

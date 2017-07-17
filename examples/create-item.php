@@ -9,7 +9,7 @@ use CollectionJson\Entity\Link;
 use CollectionJson\Type\Relation;
 
 $item = (new Item())
-    ->setHref('http://www.example.com/item/1')
+    ->withHref('http://www.example.com/item/1')
     ->withLink(
         Link::fromArray(['href' => 'http://www.example.com/item/1', 'rel' => Relation::ITEM])
     )

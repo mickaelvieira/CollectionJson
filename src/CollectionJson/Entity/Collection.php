@@ -87,7 +87,7 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @throws \DomainException
      */
-    public function setHref($href): Collection
+    public function withHref($href): Collection
     {
         if (!Uri::isValid($href)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
@@ -215,25 +215,26 @@ class Collection extends BaseEntity implements LinkAware
     }
     
     /**
-     * @param Error|array $error
+     * @param Error|array $errorOrData
      *
      * @return Collection
      *
      * @throws InvalidType
      */
-    public function setError($error): Collection
+    public function withError($errorOrData): Collection
     {
-        if (is_array($error)) {
-            /** @noinspection CallableParameterUseCaseInTypeContextInspection */
-            $error = Error::fromArray($error);
-        }
+        $error = is_array($errorOrData)
+            ? Error::fromArray($errorOrData)
+            : $errorOrData;
+
         if (!($error instanceof Error)) {
             throw InvalidType::fromTemplate('error', Error::class);
         }
 
-        $this->error = $error;
+        $copy = clone $this;
+        $copy->error = $error;
         
-        return $this;
+        return $copy;
     }
 
     /**
@@ -253,26 +254,26 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param Template|array $template
+     * @param Template|array $templateOrData
      *
      * @return Collection
      *
      * @throws InvalidType
      */
-    public function setTemplate($template): Collection
+    public function withTemplate($templateOrData): Collection
     {
-        if (is_array($template)) {
-            /** @noinspection CallableParameterUseCaseInTypeContextInspection */
-            $template = Template::fromArray($template);
-        }
+        $template = is_array($templateOrData)
+            ? Template::fromArray($templateOrData)
+            : $templateOrData;
 
         if (!($template instanceof Template)) {
             throw InvalidType::fromTemplate('template', Template::class);
         }
 
-        $this->template = $template;
+        $copy = clone $this;
+        $copy->template = $template;
 
-        return $this;
+        return $copy;
     }
 
     /**

@@ -64,12 +64,12 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldReturn($this);
-        $this->setRel('value')->shouldReturn($this);
-        $this->setName('value')->shouldReturn($this);
-        $this->setPrompt('value')->shouldReturn($this);
-        $this->addData([])->shouldReturn($this);
-        $this->addDataSet([])->shouldReturn($this);
+        $this->withHref('http://example.com')->shouldHaveType(Query::class);
+        $this->withRel('value')->shouldHaveType(Query::class);
+        $this->withName('value')->shouldHaveType(Query::class);
+        $this->withPrompt('value')->shouldHaveType(Query::class);
+        $this->addData([])->shouldHaveType(Query::class);
+        $this->addDataSet([])->shouldHaveType(Query::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_query()
@@ -108,60 +108,63 @@ class QuerySpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \DomainException("Property [href] of entity [query] can only have one of the following values [URI]")
-        )->duringSetHref('uri');
+        )->during('withHref', ['uri']);
     }
 
     function it_should_convert_the_rel_value_to_a_string()
     {
-        $this->setRel(true);
-        $this->getRel()->shouldBeEqualTo('1');
+        $query = $this->withRel(true);
+        $this->getRel()->shouldBeNull();
+        $query->getRel()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_name_value_to_a_string()
     {
-        $this->setName(true);
-        $this->getName()->shouldBeEqualTo('1');
+        $query = $this->withName(true);
+        $this->getName()->shouldBeNull();
+        $query->getName()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_prompt_value_to_a_string()
     {
-        $this->setPrompt(true);
-        $this->getPrompt()->shouldBeEqualTo('1');
+        $query = $this->withPrompt(true);
+        $this->getPrompt()->shouldBeNull();
+        $query->getPrompt()->shouldBeEqualTo('1');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
-        $this->setRel('Rel value');
-        $this->shouldThrow(new \DomainException('Property [href] of entity [query] is required'))->during('toArray');
+        $query = $this->withRel('Rel value');
+        $query->shouldThrow(new \DomainException('Property [href] of entity [query] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
     {
-        $this->setRel('Rel value');
-        $this->shouldThrow(
+        $query = $this->withRel('Rel value');
+        $query->shouldThrow(
             new \DomainException('Property [href] of entity [query] is required')
         )->during('jsonSerialize');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_rel_is_null()
     {
-        $this->setHref('http://example.com');
-        $this->shouldThrow(new \DomainException('Property [rel] of entity [query] is required'))->during('toArray');
+        $query = $this->withHref('http://example.com');
+        $query->shouldThrow(new \DomainException('Property [rel] of entity [query] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_rel_is_null()
     {
-        $this->setHref('http://example.com');
-        $this->shouldThrow(
+        $query = $this->withHref('http://example.com');
+        $query->shouldThrow(
             new \DomainException('Property [rel] of entity [query] is required')
         )->during('jsonSerialize');
     }
 
     function it_should_not_return_null_values_and_empty_arrays()
     {
-        $this->setRel('Rel value');
-        $this->setHref('http://example.com');
-        $this->toArray()->shouldBeEqualTo([
+        $query = $this->withRel('Rel value');
+        $query = $query->withHref('http://example.com');
+        $query->toArray()->shouldBeEqualTo([
             'href'   => 'http://example.com',
             'rel'    => 'Rel value',
         ]);
@@ -204,9 +207,9 @@ class QuerySpec extends ObjectBehavior
 
         $this->addData($data1);
         $this->addData($data2);
-        $this->setRel('Rel value');
-        $this->setHref('http://example.com');
-        $this->toArray()->shouldBeEqualTo([
+        $query = $this->withRel('Rel value');
+        $query = $query->withHref('http://example.com');
+        $query->toArray()->shouldBeEqualTo([
             'data'   => [
                 ['value' => 'value 1'],
                 ['value' => 'value 2'],

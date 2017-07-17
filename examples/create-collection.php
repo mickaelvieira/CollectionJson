@@ -13,19 +13,19 @@ use CollectionJson\Entity\Link;
 use CollectionJson\Type\Relation;
 
 $collection = (new Collection())
-    ->setHref('http://www.example.com/search')
-    ->addItem((new Item())->setHref('http://www.example.com/item/1'))
+    ->withHref('http://www.example.com/search')
+    ->addItem((new Item())->withHref('http://www.example.com/item/1'))
     ->addLinksSet([
         Link::fromArray(['href' => 'http://www.example.com/search/next', 'rel' => Relation::NEXT]),
         Link::fromArray(['href' => 'http://www.example.com/search/prev', 'rel' => Relation::PREV])
     ])
     ->addQuery(Query::fromArray(['href' => 'http://www.example.com/search', 'rel' => Relation::SEARCH]))
-    ->setError(Error::fromArray([
+    ->withError(Error::fromArray([
         'title'   => 'Error Title',
         'code'    => 'Error Code',
         'message' => 'Error Message'
     ]))
-    ->setTemplate(
+    ->withTemplate(
         (new Template())->addData(Data::fromArray(['name' => 'terms', 'value' => '']))
     );
 

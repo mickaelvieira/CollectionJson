@@ -39,9 +39,9 @@ class ErrorSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->setCode('value')->shouldReturn($this);
-        $this->setMessage('value')->shouldReturn($this);
-        $this->setTitle('value')->shouldReturn($this);
+        $this->withCode('value')->shouldHaveType(Error::class);
+        $this->withMessage('value')->shouldHaveType(Error::class);
+        $this->withTitle('value')->shouldHaveType(Error::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_error()
@@ -59,25 +59,28 @@ class ErrorSpec extends ObjectBehavior
 
     function it_should_convert_the_title_value_to_a_string()
     {
-        $this->setTitle(true);
-        $this->getTitle()->shouldBeEqualTo('1');
+        $error = $this->withTitle(true);
+        $this->getTitle()->shouldBeNull();
+        $error->getTitle()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_code_value_to_a_string()
     {
-        $this->setCode(true);
-        $this->getCode()->shouldBeEqualTo('1');
+        $error = $this->withCode(true);
+        $this->getCode()->shouldBeNull();
+        $error->getCode()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_message_value_to_a_string()
     {
-        $this->setMessage(true);
-        $this->getMessage()->shouldBeEqualTo('1');
+        $error = $this->withMessage(true);
+        $this->getMessage()->shouldBeNull();
+        $error->getMessage()->shouldBeEqualTo('1');
     }
 
     function it_should_not_extract_empty_array_and_null_fields()
     {
-        $this->setMessage('My Message');
-        $this->toArray()->shouldBeEqualTo(['message' => 'My Message']);
+        $error = $this->withMessage('My Message');
+        $error->toArray()->shouldBeEqualTo(['message' => 'My Message']);
     }
 }

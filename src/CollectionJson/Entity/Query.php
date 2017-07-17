@@ -73,7 +73,7 @@ class Query extends BaseEntity implements DataAware
      *
      * @throws InvalidParameter
      */
-    public function setHref($href): Query
+    public function withHref($href): Query
     {
         if (!Uri::isValid($href)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
@@ -87,7 +87,7 @@ class Query extends BaseEntity implements DataAware
     /**
      * @return string
      */
-    public function getHref(): string
+    public function getHref()
     {
         return $this->href;
     }
@@ -99,17 +99,18 @@ class Query extends BaseEntity implements DataAware
      *
      * @throws \DomainException
      */
-    public function setName(string $name): Query
+    public function withName(string $name): Query
     {
-        $this->name = $name;
+        $copy = clone $this;
+        $copy->name = $name;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -121,17 +122,18 @@ class Query extends BaseEntity implements DataAware
      *
      * @throws \DomainException
      */
-    public function setPrompt(string $prompt): Query
+    public function withPrompt(string $prompt): Query
     {
-        $this->prompt = $prompt;
+        $copy = clone $this;
+        $copy->prompt = $prompt;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getPrompt(): string
+    public function getPrompt()
     {
         return $this->prompt;
     }
@@ -143,17 +145,18 @@ class Query extends BaseEntity implements DataAware
      *
      * @throws \DomainException
      */
-    public function setRel(string $rel): Query
+    public function withRel(string $rel): Query
     {
-        $this->rel = $rel;
+        $copy = clone $this;
+        $copy->rel = $rel;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getRel(): string
+    public function getRel()
     {
         return $this->rel;
     }

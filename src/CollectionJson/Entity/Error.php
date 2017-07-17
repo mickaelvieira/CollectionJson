@@ -48,17 +48,18 @@ class Error extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setCode(string $code): Error
+    public function withCode(string $code): Error
     {
-        $this->code = $code;
+        $copy = clone $this;
+        $copy->code = $code;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getCode(): string
+    public function getCode()
     {
         return $this->code;
     }
@@ -70,17 +71,18 @@ class Error extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setMessage(string $message): Error
+    public function withMessage(string $message): Error
     {
-        $this->message = $message;
+        $copy = clone $this;
+        $copy->message = $message;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getMessage(): string
+    public function getMessage()
     {
         return $this->message;
     }
@@ -92,17 +94,18 @@ class Error extends BaseEntity
      *
      * @throws \DomainException
      */
-    public function setTitle(string $title): Error
+    public function withTitle(string $title): Error
     {
-        $this->title = $title;
+        $copy = clone $this;
+        $copy->title = $title;
 
-        return $this;
+        return $copy;
     }
 
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
