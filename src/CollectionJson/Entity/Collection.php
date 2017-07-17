@@ -15,11 +15,11 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
-use CollectionJson\Exception\WrongType;
+use CollectionJson\Exception\InvalidType;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\Validator\Uri;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 
 /**
  * Class Collection
@@ -90,7 +90,7 @@ class Collection extends BaseEntity implements LinkAware
     public function setHref($href): Collection
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
 
         $this->href = $href;
@@ -226,7 +226,7 @@ class Collection extends BaseEntity implements LinkAware
             $error = Error::fromArray($error);
         }
         if (!($error instanceof Error)) {
-            throw WrongType::fromTemplate('error', Error::class);
+            throw InvalidType::fromTemplate('error', Error::class);
         }
 
         $this->error = $error;
@@ -263,7 +263,7 @@ class Collection extends BaseEntity implements LinkAware
         }
 
         if (!($template instanceof Template)) {
-            throw WrongType::fromTemplate('template', Template::class);
+            throw InvalidType::fromTemplate('template', Template::class);
         }
 
         $this->template = $template;

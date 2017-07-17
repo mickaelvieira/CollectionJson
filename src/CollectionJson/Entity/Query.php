@@ -18,7 +18,7 @@ use CollectionJson\DataAware;
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\Uri;
 use CollectionJson\DataContainer;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -77,7 +77,7 @@ class Query extends BaseEntity implements DataAware
     public function setHref($href): Query
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
 
         $this->href = $href;

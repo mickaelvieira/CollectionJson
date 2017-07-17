@@ -19,7 +19,7 @@ use Psr\Link\EvolvableLinkInterface;
 use CollectionJson\BaseEntity;
 use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Validator\Render;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -184,7 +184,7 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
     public function withRender(string $render): Link
     {
         if (!Render::isValid($render)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'render', Render::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'render', Render::allowed());
         }
 
         $this->render = $render;

@@ -17,7 +17,7 @@ namespace CollectionJson\Exception;
  * Class WrongType
  * @package CollectionJson\Exception
  */
-final class WrongType extends \BadMethodCallException
+final class InvalidType extends \BadMethodCallException
 {
     const TEMPLATE = 'Property [%s] must be of type [%s]';
 
@@ -25,9 +25,9 @@ final class WrongType extends \BadMethodCallException
      * @param string $property
      * @param string $type
      *
-     * @return \CollectionJson\Exception\WrongType
+     * @return \CollectionJson\Exception\InvalidType
      */
-    public static function fromTemplate(string $property, string $type): WrongType
+    public static function fromTemplate(string $property, string $type): InvalidType
     {
         $message = sprintf(self::TEMPLATE, $property, $type);
         return new self($message);

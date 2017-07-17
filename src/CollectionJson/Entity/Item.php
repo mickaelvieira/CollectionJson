@@ -20,7 +20,7 @@ use CollectionJson\DataAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\DataContainer;
 use CollectionJson\Validator\Uri;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -66,7 +66,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
     public function setHref($href): Item
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
 
         $this->href = $href;

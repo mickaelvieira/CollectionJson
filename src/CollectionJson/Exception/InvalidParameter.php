@@ -17,7 +17,7 @@ namespace CollectionJson\Exception;
  * Class WrongParameter
  * @package CollectionJson\Exception
  */
-final class WrongParameter extends \DomainException
+final class InvalidParameter extends \DomainException
 {
     const TEMPLATE = 'Property [%s] of entity [%s] can only have one of the following values [%s]';
 
@@ -26,9 +26,9 @@ final class WrongParameter extends \DomainException
      * @param string $property
      * @param array  $allowed
      *
-     * @return WrongParameter
+     * @return InvalidParameter
      */
-    public static function fromTemplate(string $entity, string $property, array $allowed): WrongParameter
+    public static function fromTemplate(string $entity, string $property, array $allowed): InvalidParameter
     {
         $message = sprintf(self::TEMPLATE, $property, $entity, implode(',', $allowed));
         return new self($message);

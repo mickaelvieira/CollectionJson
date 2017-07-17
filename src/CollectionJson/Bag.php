@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CollectionJson;
 
-use CollectionJson\Exception\WrongType;
+use CollectionJson\Exception\InvalidType;
 
 /**
  * Class Bag
@@ -77,7 +77,7 @@ final class Bag implements \Countable, \IteratorAggregate
         }
 
         if (!($item instanceof $this->className)) {
-            throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
+            throw InvalidType::fromTemplate($this->getPropertyName(), $this->className);
         }
 
         $this->bag[] = $item;
@@ -97,7 +97,7 @@ final class Bag implements \Countable, \IteratorAggregate
             : $itemOrData;
 
         if (!($item instanceof $this->className)) {
-            throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
+            throw InvalidType::fromTemplate($this->getPropertyName(), $this->className);
         }
 
         $copy = clone $this;

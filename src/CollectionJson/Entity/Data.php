@@ -15,7 +15,7 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\DataValue;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -98,7 +98,7 @@ class Data extends BaseEntity
     public function setValue($value): Data
     {
         if (!DataValue::isValid($value)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
         }
 
         $this->value = $value;
