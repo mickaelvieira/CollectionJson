@@ -29,6 +29,53 @@ class ItemSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('item');
     }
 
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'href'   => 'http://example.com',
+            'data'   => [
+                [
+                    'name'   => 'Data Name 1',
+                    'prompt' => 'Data Prompt 1',
+                    'value'  => 'Data Value 1'
+                ],
+                [
+                    'name'   => 'Data Name 2',
+                    'prompt' => 'Data Prompt 2',
+                    'value'  => 'Data Value 2'
+                ]
+            ],
+            'links' => [
+                [
+                    'rel' => 'rel1',
+                    'href' => 'http://example.com'
+                ],
+                [
+                    'rel' => 'rel2',
+                    'href' => 'http://example2.com'
+                ]
+            ]
+        ]]);
+
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
+        $this->getFirstData()->shouldHaveType(Data::class);
+        $this->getLastData()->shouldHaveType(Data::class);
+
+        $copy = clone $this->getWrappedObject();
+
+        $this->getHref()->shouldReturn($copy->getHref());
+
+        $this->getDataSet()->shouldHaveCount(count($copy->getDataSet()));
+        $this->getLinks()->shouldHaveCount(count($copy->getLinks()));
+
+        $this->getFirstData()->shouldNotBeEqualTo($copy->getFirstData());
+        $this->getLastData()->shouldNotBeEqualTo($copy->getLastData());
+
+        $this->getFirstLink()->shouldNotBeEqualTo($copy->getFirstLink());
+        $this->getLastLink()->shouldNotBeEqualTo($copy->getLastLink());
+    }
+
     function it_should_be_chainable()
     {
         $this->setHref('http://example.com')->shouldHaveType(Item::class);

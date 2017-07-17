@@ -25,6 +25,34 @@ class TemplateSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('template');
     }
 
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'data'   => [
+                [
+                    'name'   => 'Data Name 1',
+                    'prompt' => 'Data Prompt 1',
+                    'value'  => 'Data Value 1'
+                ],
+                [
+                    'name'   => 'Data Name 2',
+                    'prompt' => 'Data Prompt 2',
+                    'value'  => 'Data Value 2'
+                ]
+            ]
+        ]]);
+
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getFirstData()->shouldHaveType(Data::class);
+        $this->getLastData()->shouldHaveType(Data::class);
+
+        $copy = clone $this->getWrappedObject();
+
+        $this->getDataSet()->shouldHaveCount(count($copy->getDataSet()));
+        $this->getFirstData()->shouldNotBeEqualTo($copy->getFirstData());
+        $this->getLastData()->shouldNotBeEqualTo($copy->getLastData());
+    }
+
     function it_may_be_construct_with_an_array_representation_of_the_template()
     {
         $data = (new Prophet())->prophesize(Data::class);

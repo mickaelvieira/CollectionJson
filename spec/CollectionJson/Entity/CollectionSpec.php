@@ -26,13 +26,105 @@ class CollectionSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('collection');
     }
 
-    function it_may_be_construct_with_an_array_representation_of_the_collection()
+
+    function it_is_clonable()
     {
-        $data = [
+        $this->beConstructedThrough('fromArray', [[
             'error'    => [
                 'code' => "error code",
                 'message' => "message code",
                 'title' => "title code",
+            ],
+            'href' => 'http://example.com',
+            'items' => [
+                [
+                    'data' => [
+                        [
+                            'name' => 'name 1',
+                            'value' => 'value 1'
+                        ]
+                    ],
+                    'href' => 'http://www.example1.com',
+                ],
+                [
+                    'data' => [
+                        [
+                            'name' => 'name 2',
+                            'value' => 'value 2'
+                        ]
+                    ],
+                    'href' => 'http://www.example2.com'
+                ]
+            ],
+            'links' => [
+                [
+                    'href'   => 'http://www.example1.com',
+                    'rel'    => 'Rel value 1',
+                    'render' => 'link'
+                ],
+                [
+                    'href'   => 'http://www.example2.com',
+                    'rel'    => 'Rel value 2',
+                    'render' => 'link'
+                ]
+            ],
+            'queries' => [
+                [
+                    'rel' => 'search',
+                    'href' => 'http://example.org/friends/search',
+                    'prompt' => 'Search',
+                    'data' => [
+                        [
+                            'name' => 'search',
+                            'value' => ''
+                        ]
+                    ]
+                ]
+            ],
+            'template' => [
+                'data' => [
+                    [
+                        'name' => 'name 1',
+                        'value' => 'value 1'
+                    ]
+                ]
+            ]
+        ]]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getError()->shouldHaveType(Error::class);
+        $this->getTemplate()->shouldHaveType(Template::class);
+        $this->getItemsSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
+        $this->getQueriesSet()->shouldHaveCount(1);
+
+        $copy = clone $this->getWrappedObject();
+
+        $this->getHref()->shouldBeEqualTo($copy->getHref());
+        $this->getError()->shouldNotBeEqualTo($copy->getError());
+        $this->getTemplate()->shouldNotBeEqualTo($copy->getTemplate());
+
+        $this->getItemsSet()->shouldHaveCount(count($copy->getItemsSet()));
+        $this->getLinks()->shouldHaveCount(count($copy->getLinks()));
+        $this->getQueriesSet()->shouldHaveCount(count($copy->getQueriesSet()));
+
+        $this->getFirstLink()->shouldNotBeEqualTo($copy->getFirstLink());
+        $this->getLastLink()->shouldNotBeEqualTo($copy->getLastLink());
+
+        $this->getFirstItem()->shouldNotBeEqualTo($copy->getFirstItem());
+        $this->getLastItem()->shouldNotBeEqualTo($copy->getLastItem());
+
+        $this->getFirstQuery()->shouldNotBeEqualTo($copy->getFirstQuery());
+        $this->getLastQuery()->shouldNotBeEqualTo($copy->getLastQuery());
+    }
+
+    function it_may_be_construct_with_an_array_representation_of_the_collection()
+    {
+        $data = [
+            'error'    => [
+                'code' => 'error code',
+                'message' => 'message code',
+                'title' => 'title code',
             ],
             'href' => 'http://example.com',
             'items' => [

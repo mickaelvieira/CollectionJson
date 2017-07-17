@@ -53,4 +53,14 @@ class Template extends BaseEntity implements DataAware
 
         return $data;
     }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->data = array_reduce(iterator_to_array($this->data), function (Bag $bag, Data $data) {
+            return $bag->with(clone $data);
+        }, new Bag(Data::class));
+    }
 }
