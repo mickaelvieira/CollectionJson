@@ -39,12 +39,11 @@ The MIT License (MIT). Please see [License File](https://github.com/mickaelvieir
 use CollectionJson\Entity\Collection;
 use CollectionJson\Entity\Item;
 
-$collection = new Collection();
+$item = (new Item())
+    ->setHref('http://example.com/item/1');
 
-$item = new Item();
-$item->setHref('http://example.com/item/1');
-
-$collection->addItem($item);
+$collection = new Collection()
+    ->withItem($item);
 
 print json_encode($collection);
 ```
@@ -77,8 +76,8 @@ $data = Data::fromArray([
 
 ```php
 $data = (new Data())
-    ->setName('email')
-    ->setValue('email value');
+    ->withName('email')
+    ->withValue('email value');
 ```
 
 ### Printing the data
@@ -206,32 +205,34 @@ provides the methods```addLink```, ```addLinkSet```, ```getLinkSet```, ```getFir
 They allows you to add the corresponding entities to objects that implement them.
 
 ```php
-$item = new Item();
-
 // this...
-$item->addData([
-    'name' => 'email',
-    'value' => 'email value'
-]);
+$item = (new Item())
+    ->withData([
+        'name' => 'email',
+        'value' => 'email value'
+    ]);
 
 // ...is similar to 
 $data = Data::fromArray([
     'name' => 'email',
     'value' => 'email value'
 ]);
-$item->addData($data);
+
+$item = (new Item())
+    ->withData($data);
 
 // and that...
-$item->addDataSet([
-    [
-        'name' => 'email',
-        'value' => 'email value'
-    ],
-    [
-        'name' => 'tel',
-        'value' => 'tel value'
-    ]
-]);
+$item = (new Item())
+    ->withDataSet([
+        [
+            'name' => 'email',
+            'value' => 'email value'
+        ],
+        [
+            'name' => 'tel',
+            'value' => 'tel value'
+        ]
+    ]);
 
 // ...is similar to 
 $data1 = Data::fromArray([
@@ -242,9 +243,10 @@ $data2 = Data::fromArray([
     'name' => 'tel',
     'value' => 'tel value'
 ]);
-$item->addDataSet([
-    $data1,
-    $data2
-]);
+$item = (new Item())
+    ->withDataSet([
+        $data1,
+        $data2
+    ]);
 ```
 
