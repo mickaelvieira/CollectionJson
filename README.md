@@ -72,7 +72,7 @@ $data = Data::fromArray([
 ]);
 ```
 
-...or by using the mutators.
+...or by using the accessors (Note that entities are immutable).
 
 ```php
 $data = (new Data())
@@ -195,7 +195,7 @@ $ php ./examples/client-collection.php
 
 ### Working with data and links
 
-In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement the same logic.
+In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement a similar logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
 provides the methods ```withData```, ```withDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
