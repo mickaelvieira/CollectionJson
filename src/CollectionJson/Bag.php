@@ -118,13 +118,9 @@ final class Bag implements \Countable, \IteratorAggregate
      */
     public function withSet(array $set): Bag
     {
-        $copy = $this;
-
-        foreach ($set as $item) {
-            $copy = $copy->with($item);
-        }
-
-        return $copy;
+        return array_reduce($set, function (Bag $bag, $item) {
+            return $bag->with($item);
+        }, $this);
     }
 
     /**

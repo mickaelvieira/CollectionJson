@@ -26,13 +26,58 @@ class BagSpec extends ObjectBehavior
     {
         $this->shouldBeEmpty();
         $this->shouldHaveCount(0);
+        $this->count()->shouldReturn(0);
     }
 
-    function it_should_add_aan_item_to_the_bag_link_set()
+    function it_should_add_an_item_to_the_bag_link_set()
     {
         $bag = $this->with(new Item());
         $this->shouldHaveCount(0);
         $bag->shouldHaveCount(1);
+    }
+
+    function it_should_remove_an_item_from_the_bag_link_set()
+    {
+        $item = new Item();
+        $bag = $this->with($item);
+        $this->shouldHaveCount(0);
+        $bag->shouldHaveCount(1);
+
+        $bag->first()->shouldBeLike($item);
+
+        $bag = $bag->without($item);
+        $bag->shouldHaveCount(0);
+        $bag->first()->shouldBeNull();
+    }
+
+    function it_should_not_blow_up_when_removing_an_unexisting_item_from_the_bag_link_set()
+    {
+        $item1 = new Item();
+        $item2 = new Item();
+        $bag = $this->with($item1);
+        $this->shouldHaveCount(0);
+        $bag->shouldHaveCount(1);
+
+        $bag->first()->shouldBeLike($item1);
+
+        $bag = $bag->without($item2);
+        $bag->shouldHaveCount(1);
+        $bag->first()->shouldBeLike($item1);
+    }
+
+    function it_is_clonable()
+    {
+        $item1 = new Item();
+        $item2 = new Item();
+
+        $copy = $this->with($item1)->with($item2);
+
+        $copy->shouldHaveCount(2);
+
+        $copy2 = clone $copy;
+
+        $copy2->first()->shouldBeLike($item1);
+        $copy2->last()->shouldBeLike($item2);
     }
 
     function it_should_throw_an_exception_when_item_is_of_the_wrong_type()

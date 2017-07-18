@@ -224,17 +224,17 @@ class Collection extends BaseEntity implements LinkAware
     }
     
     /**
-     * @param Error|array $errorOrData
+     * @param Error|array $errOrData
      *
      * @return Collection
      *
      * @throws InvalidType
      */
-    public function withError($errorOrData): Collection
+    public function withError($errOrData): Collection
     {
-        $error = is_array($errorOrData)
-            ? Error::fromArray($errorOrData)
-            : $errorOrData;
+        $error = is_array($errOrData)
+            ? Error::fromArray($errOrData)
+            : $errOrData;
 
         if (!($error instanceof Error)) {
             throw InvalidType::fromTemplate('error', Error::class);
@@ -263,17 +263,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param Template|array $templateOrData
+     * @param Template|array $tplOrData
      *
      * @return Collection
      *
      * @throws InvalidType
      */
-    public function withTemplate($templateOrData): Collection
+    public function withTemplate($tplOrData): Collection
     {
-        $template = is_array($templateOrData)
-            ? Template::fromArray($templateOrData)
-            : $templateOrData;
+        $template = is_array($tplOrData)
+            ? Template::fromArray($tplOrData)
+            : $tplOrData;
 
         if (!($template instanceof Template)) {
             throw InvalidType::fromTemplate('template', Template::class);
