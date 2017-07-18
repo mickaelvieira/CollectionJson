@@ -16,8 +16,14 @@ $collection = (new Collection())
     ->withHref('http://www.example.com/search')
     ->withItem((new Item())->withHref('http://www.example.com/item/1'))
     ->withLinksSet([
-        Link::fromArray(['href' => 'http://www.example.com/search/next', 'rel' => Relation::NEXT]),
-        Link::fromArray(['href' => 'http://www.example.com/search/prev', 'rel' => Relation::PREV])
+        Link::fromArray([
+            'href' => 'http://www.example.com/search/next',
+            'rel' => Relation::NEXT
+        ]),
+        Link::fromArray([
+            'href' => 'http://www.example.com/search/prev',
+            'rel' => Relation::PREV
+        ])
     ])
     ->withQuery(Query::fromArray(['href' => 'http://www.example.com/search', 'rel' => Relation::SEARCH]))
     ->withError(Error::fromArray([

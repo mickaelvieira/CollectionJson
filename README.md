@@ -198,9 +198,9 @@ $ php ./examples/client-collection.php
 In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement the same logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
-provides the methods ```addData```, ```addDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
+provides the methods ```withData```, ```withDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
 - The interface ```LinkAware``` implemented by ```Collection``` and ```Item``` entities,
-provides the methods```addLink```, ```addLinkSet```, ```getLinkSet```, ```getFirstLink``` and ```getLastLink```
+provides the methods```withLink```, ```withLinkSet```, ```getLinks```, ```getFirstLink``` and ```getLastLink```
 
 They allows you to add the corresponding entities to objects that implement them.
 
