@@ -373,13 +373,24 @@ class CollectionSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_add_a_item()
+    function it_should_add_an_item()
     {
         $item = new Item();
 
         $collection = $this->withItem($item);
         $this->getItemsSet()->shouldHaveCount(0);
         $collection->getItemsSet()->shouldHaveCount(1);
+    }
+
+    function it_should_remove_an_item()
+    {
+        $item = new Item();
+
+        $collection = $this->withItem($item);
+        $collection->getItemsSet()->shouldHaveCount(1);
+
+        $collection = $collection->withoutItem($item);
+        $collection->getItemsSet()->shouldHaveCount(0);
     }
 
     function it_should_throw_an_exception_when_item_has_the_wrong_type()

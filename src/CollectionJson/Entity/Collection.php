@@ -121,6 +121,19 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @param $item
+     *
+     * @return Collection
+     */
+    public function withoutItem($item)
+    {
+        $copy = clone $this;
+        $copy->items = $this->items->without($item);
+
+        return $copy;
+    }
+
+    /**
      * @param array $items
      *
      * @return Collection
@@ -346,7 +359,7 @@ class Collection extends BaseEntity implements LinkAware
             'error'    => $this->error,
             'href'     => $this->href,
             'items'    => $this->items->getSet(),
-            'links'    => $this->getLinks(),
+            'links'    => $this->links->getSet(),
             'queries'  => $this->queries->getSet(),
             'template' => $this->template,
         ];
