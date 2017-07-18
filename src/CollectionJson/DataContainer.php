@@ -41,6 +41,19 @@ trait DataContainer
     }
 
     /**
+     * @param Data $data
+     *
+     * @return mixed
+     */
+    public function withoutData(Data $data)
+    {
+        $copy = clone $this;
+        $copy->data = $this->data->without($data);
+
+        return $copy;
+    }
+
+    /**
      * @param array $set
      *
      * @return mixed

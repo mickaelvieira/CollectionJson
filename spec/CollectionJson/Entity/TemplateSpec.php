@@ -127,11 +127,22 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = (new Prophet())->prophesize(Data::class);
+        $data = new Data();
 
         $template = $this->withData($data);
         $this->getDataSet()->shouldHaveCount(0);
         $template->getDataSet()->shouldHaveCount(1);
+    }
+
+    function it_should_remove_data()
+    {
+        $data = new Data();
+
+        $template = $this->withData($data);
+        $template->getDataSet()->shouldHaveCount(1);
+
+        $template = $template->withoutData($data);
+        $template->getDataSet()->shouldHaveCount(0);
     }
 
     function it_should_throw_an_exception_when_data_has_the_wrong_type()

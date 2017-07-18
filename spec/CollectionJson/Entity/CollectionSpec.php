@@ -462,6 +462,19 @@ class CollectionSpec extends ObjectBehavior
         $collection->getQueriesSet()->shouldHaveCount(1);
     }
 
+    function it_should_remove_a_query()
+    {
+        $query1 = new Query();
+        $query2 = new Query();
+
+        $collection = $this->withQuery($query1)->withQuery($query2);
+        $collection->getQueriesSet()->shouldHaveCount(2);
+
+        $collection = $collection->withoutQuery($query2);
+        $collection->getQueriesSet()->shouldHaveCount(1);
+        $collection->getFirstQuery()->shouldBeLike($query1);
+    }
+
     function it_should_throw_an_exception_when_query_has_the_wrong_type()
     {
         $this->shouldThrow(
@@ -555,8 +568,10 @@ class CollectionSpec extends ObjectBehavior
     function it_should_remove_a_link()
     {
         $link = new Link();
+
         $collection = $this->withLink($link);
         $collection->getLinks()->shouldHaveCount(1);
+
         $collection = $collection->withoutLink($link);
         $collection->getLinks()->shouldHaveCount(0);
     }
@@ -666,6 +681,18 @@ class CollectionSpec extends ObjectBehavior
         $collection->getError()->getCode()->shouldBeEqualTo('error code');
     }
 
+    function it_should_remove_the_error()
+    {
+        $error = (new Error())
+            ->withCode('error code');
+
+        $collection = $this->withError($error);
+        $collection->getError()->shouldBeAnInstanceOf(Error::class);
+
+        $collection = $collection->withoutError();
+        $collection->getError()->shouldBeNull();
+    }
+
     function it_should_set_the_error_when_passing_an_array()
     {
         $collection = $this->withError([
@@ -708,6 +735,17 @@ class CollectionSpec extends ObjectBehavior
         $collection = $this->withTemplate($template);
         $this->getTemplate()->shouldBeNull();
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
+    }
+
+    function it_should_remove_the_template()
+    {
+        $template = new Template();
+
+        $collection = $this->withTemplate($template);
+        $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
+
+        $collection = $collection->withoutTemplate();
+        $collection->getTemplate()->shouldBeNull();
     }
 
     function it_should_set_the_template_when_passing_an_array()

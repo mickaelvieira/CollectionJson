@@ -179,6 +179,19 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @param $query
+     *
+     * @return Collection
+     */
+    public function withoutQuery($query): Collection
+    {
+        $copy = clone $this;
+        $copy->queries = $this->queries->without($query);
+
+        return $copy;
+    }
+
+    /**
      * @param array $queries
      *
      * @return Collection
@@ -247,6 +260,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
+     * @return Collection
+     */
+    public function withoutError(): Collection
+    {
+        $copy = clone $this;
+        $copy->error = null;
+
+        return $copy;
+    }
+
+    /**
      * @return Error|null
      */
     public function getError()
@@ -281,6 +305,17 @@ class Collection extends BaseEntity implements LinkAware
 
         $copy = clone $this;
         $copy->template = $template;
+
+        return $copy;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function withoutTemplate(): Collection
+    {
+        $copy = clone $this;
+        $copy->template = null;
 
         return $copy;
     }
