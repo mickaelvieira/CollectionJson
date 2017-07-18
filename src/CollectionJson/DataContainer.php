@@ -32,20 +32,25 @@ trait DataContainer
      *
      * @return mixed
      */
-    public function addData($data)
+    public function withData($data)
     {
-        $this->data->add($data);
-        return $this;
+        $copy = clone $this;
+        $copy->data = $this->data->with($data);
+
+        return $copy;
     }
 
     /**
      * @param array $set
+     *
      * @return mixed
      */
-    public function addDataSet(array $set)
+    public function withDataSet(array $set)
     {
-        $this->data->addSet($set);
-        return $this;
+        $copy = clone $this;
+        $copy->data = $this->data->withSet($set);
+
+        return $copy;
     }
 
     /**
@@ -61,7 +66,7 @@ trait DataContainer
      *
      * @return Data|null
      */
-    public function findDataByName($name)
+    public function getDataByName($name)
     {
         $data = array_filter($this->data->getSet(), function (Data $d) use ($name) {
             return ($d->getName() === $name);
@@ -75,7 +80,7 @@ trait DataContainer
      */
     public function getFirstData()
     {
-        return $this->data->getFirst();
+        return $this->data->first();
     }
 
     /**
@@ -83,7 +88,7 @@ trait DataContainer
      */
     public function getLastData()
     {
-        return $this->data->getLast();
+        return $this->data->last();
     }
 
     /**

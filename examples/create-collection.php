@@ -14,19 +14,19 @@ use CollectionJson\Type\Relation;
 
 $collection = (new Collection())
     ->withHref('http://www.example.com/search')
-    ->addItem((new Item())->withHref('http://www.example.com/item/1'))
-    ->addLinksSet([
+    ->withItem((new Item())->withHref('http://www.example.com/item/1'))
+    ->withLinksSet([
         Link::fromArray(['href' => 'http://www.example.com/search/next', 'rel' => Relation::NEXT]),
         Link::fromArray(['href' => 'http://www.example.com/search/prev', 'rel' => Relation::PREV])
     ])
-    ->addQuery(Query::fromArray(['href' => 'http://www.example.com/search', 'rel' => Relation::SEARCH]))
+    ->withQuery(Query::fromArray(['href' => 'http://www.example.com/search', 'rel' => Relation::SEARCH]))
     ->withError(Error::fromArray([
         'title'   => 'Error Title',
         'code'    => 'Error Code',
         'message' => 'Error Message'
     ]))
     ->withTemplate(
-        (new Template())->addData(Data::fromArray(['name' => 'terms', 'value' => '']))
+        (new Template())->withData(Data::fromArray(['name' => 'terms', 'value' => '']))
     );
 
 echo json_encode($collection, JSON_PRETTY_PRINT);

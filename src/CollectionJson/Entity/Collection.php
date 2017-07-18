@@ -93,9 +93,10 @@ class Collection extends BaseEntity implements LinkAware
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
 
-        $this->href = $href;
+        $copy = clone $this;
+        $copy->href = (string)$href;
 
-        return $this;
+        return $copy;
     }
 
     /**
@@ -111,10 +112,12 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @return Collection
      */
-    public function addItem($item): Collection
+    public function withItem($item): Collection
     {
-        $this->items->add($item);
-        return $this;
+        $copy = clone $this;
+        $copy->items = $this->items->with($item);
+
+        return $copy;
     }
 
     /**
@@ -122,10 +125,12 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @return Collection
      */
-    public function addItemsSet(array $items): Collection
+    public function withItemsSet(array $items): Collection
     {
-        $this->items->addSet($items);
-        return $this;
+        $copy = clone $this;
+        $copy->items = $this->items->withSet($items);
+
+        return $copy;
     }
 
     /**
@@ -141,7 +146,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getFirstItem()
     {
-        return $this->items->getFirst();
+        return $this->items->first();
     }
 
     /**
@@ -149,7 +154,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getLastItem()
     {
-        return $this->items->getLast();
+        return $this->items->last();
     }
 
     /**
@@ -165,10 +170,12 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @return Collection
      */
-    public function addQuery($query): Collection
+    public function withQuery($query): Collection
     {
-        $this->queries->add($query);
-        return $this;
+        $copy = clone $this;
+        $copy->queries = $this->queries->with($query);
+
+        return $copy;
     }
 
     /**
@@ -176,10 +183,12 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @return Collection
      */
-    public function addQueriesSet(array $queries): Collection
+    public function withQueriesSet(array $queries): Collection
     {
-        $this->queries->addSet($queries);
-        return $this;
+        $copy = clone $this;
+        $copy->queries = $this->queries->withSet($queries);
+
+        return $copy;
     }
 
     /**
@@ -195,7 +204,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getFirstQuery()
     {
-        return $this->queries->getFirst();
+        return $this->queries->first();
     }
 
     /**
@@ -203,7 +212,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getLastQuery()
     {
-        return $this->queries->getLast();
+        return $this->queries->last();
     }
 
     /**

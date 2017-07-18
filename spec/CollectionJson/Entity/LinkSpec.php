@@ -2,6 +2,7 @@
 
 namespace spec\CollectionJson\Entity;
 
+use CollectionJson\Type\Render;
 use PhpSpec\ObjectBehavior;
 use CollectionJson\Entity\Link;
 use CollectionJson\ArrayConvertible;
@@ -76,6 +77,7 @@ class LinkSpec extends ObjectBehavior
     function it_should_convert_the_rel_value_to_a_string()
     {
         $link = $this->withRel(true);
+        $this->getRels()->shouldHaveCount(0);
         $link->getRels()->shouldBeEqualTo(['1']);
     }
 
@@ -110,10 +112,11 @@ class LinkSpec extends ObjectBehavior
         $link->getRels()->shouldBeEqualTo(['stylesheet']);
     }
 
-    function it_should_convert_the_name_value_to_a_string()
+    function it_should_set_render_type()
     {
-        $link = $this->withName(true);
-        $link->getName()->shouldBeEqualTo('1');
+        $link = $this->withRender(Render::IMAGE);
+        $this->getRender()->shouldBeEqualTo(Render::LINK);
+        $link->getRender()->shouldBeEqualTo(Render::IMAGE);
     }
 
     function it_should_return_the_default_render_value()

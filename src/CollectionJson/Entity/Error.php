@@ -57,7 +57,7 @@ class Error extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getCode()
     {
@@ -80,7 +80,7 @@ class Error extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getMessage()
     {
@@ -103,7 +103,7 @@ class Error extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTitle()
     {

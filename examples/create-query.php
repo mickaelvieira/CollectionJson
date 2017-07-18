@@ -12,7 +12,7 @@ $query = (new Query())
     ->withRel(Relation::SEARCH)
     ->withName('value')
     ->withPrompt('value')
-    ->addData(Data::fromArray(['name' => 'data 1', 'value' => true]))
-    ->addData(Data::fromArray(['name' => 'data 2', 'value' => 'value 2']));
+    ->withData(Data::fromArray(['name' => 'data 1', 'value' => true]))
+    ->withData(Data::fromArray(['name' => 'data 2', 'value' => 'value 2']));
 
 echo json_encode($query, JSON_PRETTY_PRINT);

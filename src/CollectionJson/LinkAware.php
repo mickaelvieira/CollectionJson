@@ -26,7 +26,7 @@ interface LinkAware extends LinkProviderInterface, EvolvableLinkProviderInterfac
      * @param array $set
      * @return mixed
      */
-    public function addLinksSet(array $set);
+    public function withLinksSet(array $set);
 
     /**
      * @return Entity\Link|null

@@ -24,14 +24,14 @@ interface DataAware
      *
      * @return mixed
      */
-    public function addData($data);
+    public function withData($data);
 
     /**
      * @param array $set
      *
      * @return mixed
      */
-    public function addDataSet(array $set);
+    public function withDataSet(array $set);
 
     /**
      * @return array
@@ -43,7 +43,7 @@ interface DataAware
      *
      * @return Entity\Data|null
      */
-    public function findDataByName($name);
+    public function getDataByName($name);
 
     /**
      * @return Entity\Data|null

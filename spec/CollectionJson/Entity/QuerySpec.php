@@ -68,8 +68,8 @@ class QuerySpec extends ObjectBehavior
         $this->withRel('value')->shouldHaveType(Query::class);
         $this->withName('value')->shouldHaveType(Query::class);
         $this->withPrompt('value')->shouldHaveType(Query::class);
-        $this->addData([])->shouldHaveType(Query::class);
-        $this->addDataSet([])->shouldHaveType(Query::class);
+        $this->withData([])->shouldHaveType(Query::class);
+        $this->withDataSet([])->shouldHaveType(Query::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_query()
@@ -100,8 +100,8 @@ class QuerySpec extends ObjectBehavior
         $this->getName()->shouldBeEqualTo('Query Name');
         $this->getPrompt()->shouldBeEqualTo('Query Prompt');
         $this->getDataSet()->shouldHaveCount(2);
-        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
@@ -109,6 +109,13 @@ class QuerySpec extends ObjectBehavior
         $this->shouldThrow(
             new \DomainException("Property [href] of entity [query] can only have one of the following values [URI]")
         )->during('withHref', ['uri']);
+    }
+
+    function it_should_set_the_href_value()
+    {
+        $link = $this->withHref("htp://google.com");
+        $this->getHref()->shouldBeNull();
+        $link->getHref()->shouldBeEqualTo("htp://google.com");
     }
 
     function it_should_convert_the_rel_value_to_a_string()
@@ -173,28 +180,31 @@ class QuerySpec extends ObjectBehavior
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
         $data = (new Prophet())->prophesize(Data::class);
-        $this->addData($data);
-        $this->getDataSet()->shouldHaveCount(1);
+        $query = $this->withData($data);
+        $this->getDataSet()->shouldHaveCount(0);
+        $query->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_data_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
-        )->during('addData', [new Template()]);
+        )->during('withData', [new Template()]);
     }
 
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
-        $this->addData(['value' => 'value 1']);
-        $this->getDataSet()->shouldHaveCount(1);
+        $query = $this->withData(['value' => 'value 1']);
+        $this->getDataSet()->shouldHaveCount(0);
+        $query->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_data_set()
     {
         $data = (new Prophet())->prophesize(Data::class);
-        $this->addDataSet([$data, ['value' => 'value 2']]);
-        $this->getDataSet()->shouldHaveCount(2);
+        $query = $this->withDataSet([$data, ['value' => 'value 2']]);
+        $this->getDataSet()->shouldHaveCount(0);
+        $query->getDataSet()->shouldHaveCount(2);
     }
 
     function it_should_return_an_array_with_the_data_list()
@@ -205,9 +215,9 @@ class QuerySpec extends ObjectBehavior
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
-        $this->addData($data1);
-        $this->addData($data2);
-        $query = $this->withRel('Rel value');
+        $query = $this->withData($data1);
+        $query = $query->withData($data2);
+        $query = $query->withRel('Rel value');
         $query = $query->withHref('http://example.com');
         $query->toArray()->shouldBeEqualTo([
             'data'   => [
@@ -228,15 +238,18 @@ class QuerySpec extends ObjectBehavior
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
 
-        $this->addDataSet([$data1, $data2]);
+        $query = $this->withDataSet([$data1, $data2]);
 
-        $this->findDataByName('name1')->shouldBeEqualTo($data1);
-        $this->findDataByName('name2')->shouldBeEqualTo($data2);
+        $this->getDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name2')->shouldBeNull();
+
+        $query->getDataByName('name1')->shouldBeLike($data1);
+        $query->getDataByName('name2')->shouldBeLike($data2);
     }
 
     function it_should_return_null_when_data_is_not_in_the_set()
     {
-        $this->findDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name1')->shouldBeNull();
     }
 
     function it_should_return_the_first_data_in_the_set()
@@ -245,9 +258,10 @@ class QuerySpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $query = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getFirstData()->shouldReturn($data1);
+        $this->getFirstData()->shouldBeNull();
+        $query->getFirstData()->shouldBeLike($data1);
     }
 
     function it_should_return_null_when_the_first_data_in_not_the_set()
@@ -261,9 +275,10 @@ class QuerySpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $query = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getLastData()->shouldReturn($data3);
+        $this->getLastData()->shouldBeNull();
+        $query->getLastData()->shouldBeLike($data3);
     }
 
     function it_should_return_null_when_the_last_data_in_not_the_set()
@@ -275,9 +290,9 @@ class QuerySpec extends ObjectBehavior
     {
         $data = new Data();
 
-        $this->addData($data);
-
-        $this->shouldHaveData();
+        $query = $this->withData($data);
+        $this->shouldNotHaveData();
+        $query->shouldHaveData();
     }
 
     function it_should_know_if_it_has_no_data()

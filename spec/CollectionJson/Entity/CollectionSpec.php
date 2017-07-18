@@ -338,6 +338,13 @@ class CollectionSpec extends ObjectBehavior
         )->during('withHref', ['uri']);
     }
 
+    function it_should_set_the_href_value()
+    {
+        $link = $this->withHref("htp://google.com");
+        $this->getHref()->shouldBeNull();
+        $link->getHref()->shouldBeEqualTo("htp://google.com");
+    }
+
     function it_should_be_chainable()
     {
         $link = new Link();
@@ -347,14 +354,14 @@ class CollectionSpec extends ObjectBehavior
         $template = new Template();
 
         $this->withHref('http://www.example.com')->shouldHaveType(Collection::class);
-        $this->addItem($item)->shouldHaveType(Collection::class);
-        $this->addItemsSet([$item])->shouldHaveType(Collection::class);
-        $this->addQuery($query)->shouldHaveType(Collection::class);
-        $this->addQueriesSet([$query])->shouldReturn($this);
+        $this->withItem($item)->shouldHaveType(Collection::class);
+        $this->withItemsSet([$item])->shouldHaveType(Collection::class);
+        $this->withQuery($query)->shouldHaveType(Collection::class);
+        $this->withQueriesSet([$query])->shouldHaveType(Collection::class);
         $this->withError($error)->shouldHaveType(Collection::class);
         $this->withTemplate($template)->shouldHaveType(Collection::class);
         $this->withLink($link)->shouldHaveType(Collection::class);
-        $this->addLinksSet([])->shouldHaveType(Collection::class);
+        $this->withLinksSet([])->shouldHaveType(Collection::class);
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -370,23 +377,25 @@ class CollectionSpec extends ObjectBehavior
     {
         $item = new Item();
 
-        $this->addItem($item);
-        $this->getItemsSet()->shouldHaveCount(1);
+        $collection = $this->withItem($item);
+        $this->getItemsSet()->shouldHaveCount(0);
+        $collection->getItemsSet()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_item_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [item] must be of type [CollectionJson\Entity\Item]')
-        )->during('addItem', [new Template()]);
+        )->during('withItem', [new Template()]);
     }
 
     function it_should_add_a_item_when_passing_array()
     {
-        $this->addItem([
+        $collection = $this->withItem([
             'href' => 'http://www.example.com'
         ]);
-        $this->getItemsSet()->shouldHaveCount(1);
+        $this->getItemsSet()->shouldHaveCount(0);
+        $collection->getItemsSet()->shouldHaveCount(1);
     }
 
     function it_should_add_multiple_items()
@@ -394,8 +403,9 @@ class CollectionSpec extends ObjectBehavior
         $item1 = new Item();
         $item2 = new Item();
 
-        $this->addItemsSet([$item1, $item2]);
-        $this->getItemsSet()->shouldHaveCount(2);
+        $collection = $this->withItemsSet([$item1, $item2]);
+        $this->getItemsSet()->shouldHaveCount(0);
+        $collection->getItemsSet()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_item_in_the_set()
@@ -404,9 +414,9 @@ class CollectionSpec extends ObjectBehavior
         $item2 = new Item();
         $item3 = new Item();
 
-        $this->addItemsSet([$item1, $item2, $item3]);
-
-        $this->getFirstItem()->shouldReturn($item1);
+        $collection = $this->withItemsSet([$item1, $item2, $item3]);
+        $this->getFirstItem()->shouldBeNull();
+        $collection->getFirstItem()->shouldBeLike($item1);
     }
 
     function it_should_return_null_when_the_first_item_in_not_the_set()
@@ -420,9 +430,9 @@ class CollectionSpec extends ObjectBehavior
         $item2 = new Item();
         $item3 = new Item();
 
-        $this->addItemsSet([$item1, $item2, $item3]);
-
-        $this->getLastItem()->shouldReturn($item3);
+        $collection = $this->withItemsSet([$item1, $item2, $item3]);
+        $this->getLastItem()->shouldBeNull();
+        $collection->getLastItem()->shouldBeLike($item3);
     }
 
     function it_should_return_null_when_the_last_item_in_not_the_set()
@@ -434,9 +444,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $item1 = new Item();
 
-        $this->addItem($item1);
-
-        $this->shouldHaveItems();
+        $collection = $this->withItem($item1);
+        $this->shouldNotHaveItems();
+        $collection->shouldHaveItems();
     }
 
     function it_should_know_if_it_has_no_items()
@@ -447,20 +457,21 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_query()
     {
         $query = new Query();
-        $this->addQuery($query);
-        $this->getQueriesSet()->shouldHaveCount(1);
+        $collection = $this->withQuery($query);
+        $this->getQueriesSet()->shouldHaveCount(0);
+        $collection->getQueriesSet()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_query_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [query] must be of type [CollectionJson\Entity\Query]')
-        )->during('addQuery', [new Template()]);
+        )->during('withQuery', [new Template()]);
     }
 
     function it_should_add_a_query_when_passing_an_array()
     {
-        $this->addQuery([
+        $collection = $this->withQuery([
             'href'   => 'http://example.com',
             'rel'    => 'Query Rel',
             'name'   => 'Query Name',
@@ -472,7 +483,8 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getQueriesSet()->shouldHaveCount(1);
+        $this->getQueriesSet()->shouldHaveCount(0);
+        $collection->getQueriesSet()->shouldHaveCount(1);
     }
 
     function it_should_add_multiple_queries()
@@ -480,8 +492,9 @@ class CollectionSpec extends ObjectBehavior
         $query1 = new Query();
         $query2 = new Query();
 
-        $this->addQueriesSet([$query1, $query2]);
-        $this->getQueriesSet()->shouldHaveCount(2);
+        $collection = $this->withQueriesSet([$query1, $query2]);
+        $this->getQueriesSet()->shouldHaveCount(0);
+        $collection->getQueriesSet()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_query_in_the_set()
@@ -490,9 +503,9 @@ class CollectionSpec extends ObjectBehavior
         $query2 = new Query();
         $query3 = new Query();
 
-        $this->addQueriesSet([$query1, $query2, $query3]);
-
-        $this->getFirstQuery()->shouldReturn($query1);
+        $collection = $this->withQueriesSet([$query1, $query2, $query3]);
+        $this->getFirstQuery()->shouldBeNull();
+        $collection->getFirstQuery()->shouldBeLike($query1);
     }
 
     function it_should_return_null_when_the_first_data_in_not_the_set()
@@ -506,9 +519,9 @@ class CollectionSpec extends ObjectBehavior
         $query2 = new Query();
         $query3 = new Query();
 
-        $this->addQueriesSet([$query1, $query2, $query3]);
-
-        $this->getLastQuery()->shouldReturn($query3);
+        $collection = $this->withQueriesSet([$query1, $query2, $query3]);
+        $this->getLastQuery()->shouldBeNull();
+        $collection->getLastQuery()->shouldBeLike($query3);
     }
 
     function it_should_return_null_when_the_last_data_in_not_the_set()
@@ -520,9 +533,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $query = new Query();
 
-        $this->addQuery($query);
-
-        $this->shouldHaveQueries();
+        $collection = $this->withQuery($query);
+        $this->shouldNotHaveQueries();
+        $collection->shouldHaveQueries();
     }
 
     function it_should_know_if_it_has_no_queries()
@@ -553,10 +566,13 @@ class CollectionSpec extends ObjectBehavior
         $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
 
-        $this->addLinksSet([$link1, $link2]);
+        $collection = $this->withLinksSet([$link1, $link2]);
 
-        $this->getLinksByRel('rel1')->shouldBeEqualTo([$link1]);
-        $this->getLinksByRel('rel2')->shouldBeEqualTo([$link2]);
+        $this->getLinksByRel('rel1')->shouldHaveCount(0);
+        $this->getLinksByRel('rel2')->shouldHaveCount(0);
+
+        $collection->getLinksByRel('rel1')->shouldBeLike([$link1]);
+        $collection->getLinksByRel('rel2')->shouldBeLike([$link2]);
     }
 
     function it_should_return_null_when_link_is_not_in_the_set()
@@ -579,7 +595,7 @@ class CollectionSpec extends ObjectBehavior
     {
         $link1 = new Link();
 
-        $this->addLinksSet([
+        $collection = $this->withLinksSet([
             $link1,
             [
                 'href'   => 'http://example.com',
@@ -587,7 +603,8 @@ class CollectionSpec extends ObjectBehavior
                 'render' => 'link'
             ]
         ]);
-        $this->getLinks()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(0);
+        $collection->getLinks()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_link_in_the_set()
@@ -596,9 +613,10 @@ class CollectionSpec extends ObjectBehavior
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
         $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
-        $this->addLinksSet([$link1, $link2, $link3]);
+        $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getFirstLink()->shouldReturn($link1);
+        $this->getFirstLink()->shouldBeNull();
+        $collection->getFirstLink()->shouldBeLike($link1);
     }
 
     function it_should_return_null_when_the_first_link_in_not_the_set()
@@ -612,9 +630,10 @@ class CollectionSpec extends ObjectBehavior
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
         $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
-        $this->addLinksSet([$link1, $link2, $link3]);
+        $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getLastLink()->shouldReturn($link3);
+        $this->getLastLink()->shouldBeNull();
+        $collection->getLastLink()->shouldBeLike($link3);
     }
 
     function it_should_return_null_when_the_last_link_in_not_the_set()

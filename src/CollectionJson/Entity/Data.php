@@ -60,7 +60,7 @@ class Data extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -83,7 +83,7 @@ class Data extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPrompt()
     {

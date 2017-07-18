@@ -79,13 +79,14 @@ class Query extends BaseEntity implements DataAware
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
 
-        $this->href = $href;
+        $copy = clone $this;
+        $copy->href = (string)$href;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getHref()
     {
@@ -108,7 +109,7 @@ class Query extends BaseEntity implements DataAware
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -131,7 +132,7 @@ class Query extends BaseEntity implements DataAware
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPrompt()
     {
@@ -154,7 +155,7 @@ class Query extends BaseEntity implements DataAware
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRel()
     {

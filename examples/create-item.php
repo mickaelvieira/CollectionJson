@@ -13,7 +13,7 @@ $item = (new Item())
     ->withLink(
         Link::fromArray(['href' => 'http://www.example.com/item/1', 'rel' => Relation::ITEM])
     )
-    ->addDataSet([
+    ->withDataSet([
         Data::fromArray(['name' => 'data 1']),
         Data::fromArray(['name' => 'data 2', 'value' => 'value 2'])
     ]);

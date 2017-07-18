@@ -72,9 +72,9 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHref(): string
+    public function getHref()
     {
         return $this->href;
     }
@@ -144,9 +144,9 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -167,9 +167,9 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPrompt(): string
+    public function getPrompt()
     {
         return $this->prompt;
     }
@@ -187,15 +187,16 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'render', Render::allowed());
         }
 
-        $this->render = $render;
+        $copy = clone $this;
+        $copy->render = $render;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRender(): string
+    public function getRender()
     {
         return $this->render;
     }

@@ -66,28 +66,6 @@ final class Bag implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param $item
-     *
-     * @return Bag
-     *
-     * @throws InvalidType
-     */
-    public function add($item): Bag
-    {
-        if (is_array($item)) {
-            $item = call_user_func($this->className . '::fromArray', $item);
-        }
-
-        if (!($item instanceof $this->className)) {
-            throw InvalidType::fromTemplate($this->getPropertyName(), $this->className);
-        }
-
-        $this->bag[] = $item;
-
-        return $this;
-    }
-
-    /**
      * @param mixed $itemOrData
      *
      * @return Bag
@@ -138,12 +116,15 @@ final class Bag implements \Countable, \IteratorAggregate
      *
      * @throws InvalidType
      */
-    public function addSet(array $set): Bag
+    public function withSet(array $set): Bag
     {
+        $copy = $this;
+
         foreach ($set as $item) {
-            $this->add($item);
+            $copy = $copy->with($item);
         }
-        return $this;
+
+        return $copy;
     }
 
     /**
@@ -157,7 +138,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return mixed|null
      */
-    public function getFirst()
+    public function first()
     {
         return reset($this->bag) ?: null;
     }
@@ -165,7 +146,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return mixed|null
      */
-    public function getLast()
+    public function last()
     {
         return end($this->bag) ?: null;
     }

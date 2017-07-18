@@ -55,10 +55,12 @@ trait LinkContainer
      *
      * @return mixed
      */
-    public function addLinksSet(array $set)
+    public function withLinksSet(array $set)
     {
-        $this->links->addSet($set);
-        return $this;
+        $copy = clone $this;
+        $copy->links = $this->links->withSet($set);
+
+        return $copy;
     }
 
     /**
@@ -84,7 +86,7 @@ trait LinkContainer
      */
     public function getFirstLink()
     {
-        return $this->links->getFirst();
+        return $this->links->first();
     }
 
     /**
@@ -92,7 +94,7 @@ trait LinkContainer
      */
     public function getLastLink()
     {
-        return $this->links->getLast();
+        return $this->links->last();
     }
 
     /**

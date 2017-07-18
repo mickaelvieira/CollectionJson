@@ -73,8 +73,9 @@ class TemplateSpec extends ObjectBehavior
         $this->beConstructedThrough('fromArray', [$data]);
 
         $this->getDataSet()->shouldHaveCount(2);
-        $this->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $this->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_may_be_construct_from_a_json_representation_of_the_collection()
@@ -115,8 +116,8 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->addData([])->shouldReturn($this);
-        $this->addDataSet([])->shouldReturn($this);
+        $this->withData([])->shouldHaveType(Template::class);
+        $this->withDataSet([])->shouldHaveType(Template::class);
     }
 
     function it_should_not_return_null_values_and_empty_arrays()
@@ -128,29 +129,32 @@ class TemplateSpec extends ObjectBehavior
     {
         $data = (new Prophet())->prophesize(Data::class);
 
-        $this->addData($data);
-        $this->getDataSet()->shouldHaveCount(1);
+        $template = $this->withData($data);
+        $this->getDataSet()->shouldHaveCount(0);
+        $template->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_data_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
-        )->during('addData', [new Template()]);
+        )->during('withData', [new Template()]);
     }
 
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
-        $this->addData(['value' => 'value 1']);
-        $this->getDataSet()->shouldHaveCount(1);
+        $template = $this->withData(['value' => 'value 1']);
+        $this->getDataSet()->shouldHaveCount(0);
+        $template->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_data_set()
     {
         $data = (new Prophet())->prophesize(Data::class);
 
-        $this->addDataSet([$data, ['value' => 'value 2']]);
-        $this->getDataSet()->shouldHaveCount(2);
+        $template = $this->withDataSet([$data, ['value' => 'value 2']]);
+        $this->getDataSet()->shouldHaveCount(0);
+        $template->getDataSet()->shouldHaveCount(2);
     }
 
     function it_should_return_an_array_with_the_data_list()
@@ -161,9 +165,9 @@ class TemplateSpec extends ObjectBehavior
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
-        $this->addData($data1);
-        $this->addData($data2);
-        $this->toArray()->shouldBeEqualTo([
+        $template = $this->withData($data1);
+        $template = $template->withData($data2);
+        $template->toArray()->shouldBeEqualTo([
             'data'   => [
                 ['value' => 'value 1'],
                 ['value' => 'value 2'],
@@ -176,9 +180,9 @@ class TemplateSpec extends ObjectBehavior
         $data = (new Prophet())->prophesize(Data::class);
         $data->toArray()->willReturn(['value' => 'value 1']);
 
-        $this->addData($data);
-        $this->wrap();
-        $this->toArray()->shouldBeEqualTo([
+        $template = $this->withData($data);
+        $template = $template->wrap();
+        $template->toArray()->shouldBeEqualTo([
             'template' => [
                 'data' => [
                     ['value' => 'value 1']
@@ -189,7 +193,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_be_chainable_during_wrapping()
     {
-        $this->wrap()->shouldReturn($this);
+        $this->wrap()->shouldHaveType(Template::class);
     }
 
     function it_should_retrieve_the_data_by_name()
@@ -200,15 +204,18 @@ class TemplateSpec extends ObjectBehavior
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
 
-        $this->addDataSet([$data1, $data2]);
+        $template = $this->withDataSet([$data1, $data2]);
 
-        $this->findDataByName('name1')->shouldBeEqualTo($data1);
-        $this->findDataByName('name2')->shouldBeEqualTo($data2);
+        $this->getDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name2')->shouldBeNull();
+
+        $template->getDataByName('name1')->shouldBeLike($data1);
+        $template->getDataByName('name2')->shouldBeLike($data2);
     }
 
     function it_should_return_null_when_data_is_not_in_the_set()
     {
-        $this->findDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name1')->shouldBeNull();
     }
 
     function it_should_return_the_first_data_in_the_set()
@@ -217,9 +224,10 @@ class TemplateSpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $template = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getFirstData()->shouldReturn($data1);
+        $this->getFirstData()->shouldBeNull();
+        $template->getFirstData()->shouldBeLike($data1);
     }
 
     function it_should_return_null_when_the_first_data_in_not_the_set()
@@ -233,9 +241,10 @@ class TemplateSpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $template = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getLastData()->shouldReturn($data3);
+        $this->getLastData()->shouldBeNull();
+        $template->getLastData()->shouldBeLike($data3);
     }
 
     function it_should_return_null_when_the_last_data_in_not_the_set()
@@ -247,9 +256,9 @@ class TemplateSpec extends ObjectBehavior
     {
         $data = new Data();
 
-        $this->addData($data);
-
-        $this->shouldHaveData();
+        $template = $this->withData($data);
+        $this->shouldNotHaveData();
+        $template->shouldHaveData();
     }
 
     function it_should_know_if_it_has_no_data()
