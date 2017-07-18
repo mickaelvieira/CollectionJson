@@ -37,25 +37,23 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         $object = new static();
 
         foreach ($data as $key => $value) {
-            $wither = sprintf('with%s', ucfirst(strtolower($key)));
-            $adder  = sprintf('with%sSet', ucfirst(strtolower($key)));
+            // version is a constant
+            // and according to the spec
+            // it cannot be modified
+            if ($key !== 'version') {
+                $wither = sprintf('with%s', ucfirst(strtolower($key)));
+                $adder  = sprintf('with%sSet', ucfirst(strtolower($key)));
 
-            if (method_exists($object, $wither)) {
-                try {
-                    $object = $object->$wither($value);
-                    continue;
-                } catch (\Error $e) {
-                }
-            }
-
-            if (method_exists($object, $adder)) {
-                try {
+                if (method_exists($object, $adder)) {
                     $object = $object->$adder($value);
-                    continue;
-                } catch (\Error $e) {
+                } elseif (method_exists($object, $wither)) {
+                    $object = $object->$wither($value);
+                } else {
+                    throw new \DomainException(sprintf('Could not inject the entry "%s"', $key));
                 }
             }
         }
+
         return $object;
     }
 
