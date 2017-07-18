@@ -5,3 +5,4 @@ bin/phpspec
 bin/coveralls
 composer.lock
 build
+.github/.access_token
