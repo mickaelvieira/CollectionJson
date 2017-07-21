@@ -28,6 +28,14 @@ class LinkSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('link');
     }
 
+    function it_can_be_initialized_with_data()
+    {
+        $this->beConstructedWith('http://example.com', 'self', 'my link');
+        $this->getHref()->shouldReturn('http://example.com');
+        $this->getRels()->shouldReturn(['self']);
+        $this->getName()->shouldReturn('my link');
+    }
+
     function it_is_clonable()
     {
         $this->beConstructedThrough('fromArray', [[

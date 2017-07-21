@@ -8,11 +8,11 @@ use CollectionJson\Entity\Data;
 use CollectionJson\Type\Relation;
 
 $query = (new Query())
-    ->withHref('http://www.example.com')
+    ->withHref('https://example.co')
     ->withRel(Relation::SEARCH)
     ->withName('value')
     ->withPrompt('value')
-    ->withData(Data::fromArray(['name' => 'data 1', 'value' => true]))
-    ->withData(Data::fromArray(['name' => 'data 2', 'value' => 'value 2']));
+    ->withData(new Data('data 1', true))
+    ->withData(new Data('data 2', 'value 2'));
 
 echo json_encode($query, JSON_PRETTY_PRINT);

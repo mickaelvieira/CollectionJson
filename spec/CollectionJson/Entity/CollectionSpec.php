@@ -26,6 +26,12 @@ class CollectionSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('collection');
     }
 
+    function it_can_be_initialized_with_an_href()
+    {
+        $this->beConstructedWith('http://example.com');
+        $this->getHref()->shouldReturn('http://example.com');
+    }
+
 
     function it_is_clonable()
     {
@@ -353,7 +359,7 @@ class CollectionSpec extends ObjectBehavior
         $error = new Error();
         $template = new Template();
 
-        $this->withHref('http://www.example.com')->shouldHaveType(Collection::class);
+        $this->withHref('https://example.co')->shouldHaveType(Collection::class);
         $this->withItem($item)->shouldHaveType(Collection::class);
         $this->withItemsSet([$item])->shouldHaveType(Collection::class);
         $this->withQuery($query)->shouldHaveType(Collection::class);
@@ -403,7 +409,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_item_when_passing_array()
     {
         $collection = $this->withItem([
-            'href' => 'http://www.example.com'
+            'href' => 'https://example.co'
         ]);
         $this->getItemsSet()->shouldHaveCount(0);
         $collection->getItemsSet()->shouldHaveCount(1);

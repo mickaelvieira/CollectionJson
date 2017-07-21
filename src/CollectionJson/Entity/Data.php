@@ -45,6 +45,24 @@ class Data extends BaseEntity
     protected $value;
 
     /**
+     * Data constructor.
+     *
+     * @param string|null                $name
+     * @param string|int|float|bool|null $value
+     * @param string|null                $prompt
+     */
+    public function __construct(string $name = null, $value = null, string $prompt = null)
+    {
+        if (!is_null($value) && !DataValue::isValid($value)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
+        }
+
+        $this->name   = $name;
+        $this->value  = $value;
+        $this->prompt = $prompt;
+    }
+
+    /**
      * @param string $name
      *
      * @return Data

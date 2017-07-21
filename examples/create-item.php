@@ -9,13 +9,13 @@ use CollectionJson\Entity\Link;
 use CollectionJson\Type\Relation;
 
 $item = (new Item())
-    ->withHref('http://www.example.com/item/1')
-    ->withLink(
-        Link::fromArray(['href' => 'http://www.example.com/item/1', 'rel' => Relation::ITEM])
-    )
+    ->withHref('https://example.co/item/1')
     ->withDataSet([
-        Data::fromArray(['name' => 'data 1']),
-        Data::fromArray(['name' => 'data 2', 'value' => 'value 2'])
-    ]);
+        new Data('data 1'),
+        new Data('data 2', 'value 2')
+    ])
+    ->withLink(
+        new Link('https://example.co/item/1', Relation::ITEM)
+    );
 
 echo json_encode($item, JSON_PRETTY_PRINT);

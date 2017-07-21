@@ -21,6 +21,14 @@ class DataSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('data');
     }
 
+    function it_can_be_initialized_with_data()
+    {
+        $this->beConstructedWith('Data Name', 'Data Value', 'Data Prompt');
+        $this->getName()->shouldReturn('Data Name');
+        $this->getValue()->shouldReturn('Data Value');
+        $this->getPrompt()->shouldReturn('Data Prompt');
+    }
+
     function it_is_clonable()
     {
         $this->beConstructedThrough('fromArray', [[

@@ -49,13 +49,20 @@ class Item extends BaseEntity implements LinkAware, DataAware
 
     /**
      * Item constructor.
+     *
+     * @param string|null $href
      */
-    public function __construct()
+    public function __construct(string $href = null)
     {
+        if (is_string($href) && !Uri::isValid($href)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+        }
+
+        $this->href  = $href;
         $this->links = new Bag(Link::class);
         $this->data  = new Bag(Data::class);
     }
-    
+
     /**
      * @param string $href
      *

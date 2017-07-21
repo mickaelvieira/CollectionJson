@@ -21,6 +21,14 @@ class ErrorSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('error');
     }
 
+    function it_can_be_initialized_with_data()
+    {
+        $this->beConstructedWith('Error Code', 'Error Message', 'Error Title');
+        $this->getTitle()->shouldReturn('Error Title');
+        $this->getCode()->shouldReturn('Error Code');
+        $this->getMessage()->shouldReturn('Error Message');
+    }
+
     function it_is_clonable()
     {
         $this->beConstructedThrough('fromArray', [[

@@ -60,12 +60,25 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * Query constructor.
+     *
+     * @param string|null $href
+     * @param string|null $rel
+     * @param string|null $name
+     * @param string|null $prompt
      */
-    public function __construct()
+    public function __construct(string $href = null, string $rel = null, string $name = null, string $prompt = null)
     {
-        $this->data = new Bag(Data::class);
+        if (is_string($href) && !Uri::isValid($href)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+        }
+
+        $this->href   = $href;
+        $this->rel    = $rel;
+        $this->name   = $name;
+        $this->prompt = $prompt;
+        $this->data   = new Bag(Data::class);
     }
-    
+
     /**
      * @param string $href
      *

@@ -61,6 +61,26 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
     protected $prompt;
 
     /**
+     * Link constructor.
+     *
+     * @param string|null       $href
+     * @param string|array|null $rels
+     * @param string|null       $name
+     */
+    public function __construct(string $href = null, $rels = [], string $name = null)
+    {
+        if (is_string($rels)) {
+            $rels = [
+                $rels
+            ];
+        }
+
+        $this->href = $href;
+        $this->rels = $rels;
+        $this->name = $name;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function withHref($href): Link

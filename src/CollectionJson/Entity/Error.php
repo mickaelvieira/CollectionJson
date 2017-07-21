@@ -42,6 +42,20 @@ class Error extends BaseEntity
     protected $message;
 
     /**
+     * Error constructor.
+     *
+     * @param string|null $code
+     * @param string|null $message
+     * @param string|null $title
+     */
+    public function __construct(string $code = null, string $message = null, string $title = null)
+    {
+        $this->code    = $code;
+        $this->message = $message;
+        $this->title   = $title;
+    }
+
+    /**
      * @param string $code
      *
      * @return Error

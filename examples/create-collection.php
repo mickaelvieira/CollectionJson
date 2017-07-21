@@ -12,27 +12,23 @@ use CollectionJson\Entity\Template;
 use CollectionJson\Entity\Link;
 use CollectionJson\Type\Relation;
 
-$collection = (new Collection())
-    ->withHref('http://www.example.com/search')
-    ->withItem((new Item())->withHref('http://www.example.com/item/1'))
+$collection = (new Collection('https://example.co/search'))
+    ->withItem(
+        new Item('https://example.co/item/1')
+    )
     ->withLinksSet([
-        Link::fromArray([
-            'href' => 'http://www.example.com/search/next',
-            'rel' => Relation::NEXT
-        ]),
-        Link::fromArray([
-            'href' => 'http://www.example.com/search/prev',
-            'rel' => Relation::PREV
-        ])
+        new Link('https://example.co/search/next', Relation::NEXT),
+        new Link('https://example.co/search/prev', Relation::PREV)
     ])
-    ->withQuery(Query::fromArray(['href' => 'http://www.example.com/search', 'rel' => Relation::SEARCH]))
-    ->withError(Error::fromArray([
-        'title'   => 'Error Title',
-        'code'    => 'Error Code',
-        'message' => 'Error Message'
-    ]))
+    ->withQuery(
+        new Query('https://example.co/search', Relation::SEARCH)
+    )
+    ->withError(
+        new Error('Error Code', 'Error Message', 'Error Title')
+    )
     ->withTemplate(
-        (new Template())->withData(Data::fromArray(['name' => 'terms', 'value' => '']))
+        (new Template())
+            ->withData(new Data('terms', ''))
     );
 
 echo json_encode($collection, JSON_PRETTY_PRINT);

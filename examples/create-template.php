@@ -7,9 +7,11 @@ use CollectionJson\Entity\Template;
 use CollectionJson\Entity\Data;
 
 $template = (new Template())
-    ->withData(Data::fromArray(['name' => 'empty string', 'value' => '']))
-    ->withData(Data::fromArray(['name' => 'null value']))
-    ->withData(Data::fromArray(['name' => 'default value', 'value' => 0]))
+    ->withData(new Data('string', ''))
+    ->withData(new Data('null', null))
+    ->withData(new Data('integer', 0))
+    ->withData(new Data('float', 0.2))
+    ->withData(new Data('boolean', false))
     ->wrap();
 
 echo json_encode($template, JSON_PRETTY_PRINT);

@@ -8,7 +8,7 @@ use CollectionJson\Type;
 
 $link = (new Link())
     ->withName('link name')
-    ->withHref('http://www.example.com')
+    ->withHref('https://example.co')
     ->withPrompt('prompt value')
     ->withRel(Type\Relation::ITEM)
     ->withRender(Type\Render::IMAGE); // default Render::LINK

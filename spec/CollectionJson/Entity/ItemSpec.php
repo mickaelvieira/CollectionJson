@@ -29,6 +29,13 @@ class ItemSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('item');
     }
 
+
+    function it_can_be_initialized_with_an_href()
+    {
+        $this->beConstructedWith('http://example.com');
+        $this->getHref()->shouldReturn('http://example.com');
+    }
+
     function it_is_clonable()
     {
         $this->beConstructedThrough('fromArray', [[

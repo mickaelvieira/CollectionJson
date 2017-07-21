@@ -71,9 +71,16 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * Collection constructor.
+     *
+     * @param string $href
      */
-    public function __construct()
+    public function __construct(string $href = null)
     {
+        if (is_string($href) && !Uri::isValid($href)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+        }
+
+        $this->href    = $href;
         $this->wrapper = self::getObjectType();
         $this->items   = new Bag(Item::class);
         $this->queries = new Bag(Query::class);

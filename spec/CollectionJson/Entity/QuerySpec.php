@@ -26,6 +26,15 @@ class QuerySpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('query');
     }
 
+    function it_can_be_initialized_with_data()
+    {
+        $this->beConstructedWith('http://example.com', 'self', 'my query', 'cool query');
+        $this->getHref()->shouldReturn('http://example.com');
+        $this->getRel()->shouldReturn('self');
+        $this->getName()->shouldReturn('my query');
+        $this->getPrompt()->shouldReturn('cool query');
+    }
+
     function it_is_clonable()
     {
         $this->beConstructedThrough('fromArray', [[
