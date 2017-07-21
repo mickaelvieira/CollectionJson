@@ -18,7 +18,7 @@ Install CollectionJson with [Composer](https://getcomposer.org/)
 ```json
 {
     "require": {
-        "mvieira/json-collection": "dev-master"
+        "mvieira/collection-json": "dev-master"
     }
 }
 ```
