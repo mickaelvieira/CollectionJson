@@ -22,6 +22,11 @@ Install CollectionJson with [Composer](https://getcomposer.org/)
     }
 }
 ```
+or
+
+```sh
+$ composer require mvieira/collection-json
+```
 
 ## Contributing
 
@@ -36,14 +41,17 @@ The MIT License (MIT). Please see [License File](https://github.com/mickaelvieir
 ### Creating a collection
 
 ```php
-use CollectionJson\Entity\Collection;
-use CollectionJson\Entity\Item;
-
-$item = (new Item())
-    ->setHref('http://example.com/item/1');
-
-$collection = new Collection()
-    ->withItem($item);
+$collection = (new Collection())
+    ->withItem((new Item())
+        ->withHref('https://example.co/item/1')
+        ->withDataSet([
+            new Data('data 1'),
+            new Data('data 2', 'value 2')
+        ])
+        ->withLink(
+            new Link('https://example.co/item/1', Relation::ITEM)
+        )
+    );
 
 print json_encode($collection);
 ```
@@ -54,7 +62,24 @@ print json_encode($collection);
         "version": "1.0",
         "items": [
             {
-                "href": "http://example.com/item/1"
+                "data": [
+                    {
+                        "name": "data 1",
+                        "value": null
+                    },
+                    {
+                        "name": "data 2",
+                        "value": "value 2"
+                    }
+                ],
+                "href": "http:\/\/example.com\/item\/1",
+                "links": [
+                    {
+                        "href": "https:\/\/example.co\/item\/1",
+                        "rel": "item",
+                        "render": "link"
+                    }
+                ]
             }
         ]
     }
@@ -68,16 +93,22 @@ All entities ```Collection```, ```Data```, ```Error```, ```Item```, ```Link```, 
 ```php
 $data = Data::fromArray([
     'name' => 'email',
-    'value' => 'email value'
+    'value' => 'hello@example.co'
 ]);
 ```
 
-...or by using the accessors (Note that entities are immutable).
+...or by using the accessors (Note that entities are immutable)
 
 ```php
 $data = (new Data())
     ->withName('email')
-    ->withValue('email value');
+    ->withValue('hello@example.co');
+```
+
+...or via the constructor
+
+```php
+$data = new Data('email', 'hello@example.co');
 ```
 
 ### Printing the data
@@ -198,9 +229,9 @@ $ php ./examples/client-collection.php
 In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement a similar logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
-provides the methods ```withData```, ```withDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
+provides the methods ```withData```, ```withoutData```, ```withDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
 - The interface ```LinkAware``` implemented by ```Collection``` and ```Item``` entities,
-provides the methods```withLink```, ```withLinkSet```, ```getLinks```, ```getFirstLink``` and ```getLastLink```
+provides the methods ```withLink```, ```withoutLink```, ```withLinkSet```, ```getLinks```, ```getFirstLink``` and ```getLastLink```
 
 They allows you to add the corresponding entities to objects that implement them.
 
@@ -224,24 +255,18 @@ $item = (new Item())
 // and that...
 $item = (new Item())
     ->withDataSet([
-        [
-            'name' => 'email',
-            'value' => 'email value'
-        ],
-        [
-            'name' => 'tel',
-            'value' => 'tel value'
-        ]
+        new Data('email', 'hello@example.co'),
+        new Data('tel', '0000000000')
     ]);
 
 // ...is similar to 
 $data1 = Data::fromArray([
     'name' => 'email',
-    'value' => 'email value'
+    'value' => 'hello@example.co'
 ]);
 $data2 = Data::fromArray([
     'name' => 'tel',
-    'value' => 'tel value'
+    'value' => '0000000000'
 ]);
 $item = (new Item())
     ->withDataSet([
@@ -249,4 +274,3 @@ $item = (new Item())
         $data2
     ]);
 ```
-
