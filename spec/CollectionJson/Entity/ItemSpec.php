@@ -8,16 +8,20 @@ use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Prophecy\Prophet;
+use CollectionJson\Entity\Item;
+use CollectionJson\DataAware;
+use CollectionJson\LinkAware;
+use CollectionJson\ArrayConvertible;
 
 class ItemSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Item');
-        $this->shouldImplement('CollectionJson\DataAware');
-        $this->shouldImplement('CollectionJson\LinkAware');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Item::class);
+        $this->shouldImplement(DataAware::class);
+        $this->shouldImplement(LinkAware::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -25,18 +29,72 @@ class ItemSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('item');
     }
 
+
+    function it_can_be_initialized_with_an_href()
+    {
+        $this->beConstructedWith('http://example.com');
+        $this->getHref()->shouldReturn('http://example.com');
+    }
+
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'href'   => 'http://example.com',
+            'data'   => [
+                [
+                    'name'   => 'Data Name 1',
+                    'prompt' => 'Data Prompt 1',
+                    'value'  => 'Data Value 1'
+                ],
+                [
+                    'name'   => 'Data Name 2',
+                    'prompt' => 'Data Prompt 2',
+                    'value'  => 'Data Value 2'
+                ]
+            ],
+            'links' => [
+                [
+                    'rel' => 'rel1',
+                    'href' => 'http://example.com'
+                ],
+                [
+                    'rel' => 'rel2',
+                    'href' => 'http://example2.com'
+                ]
+            ]
+        ]]);
+
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
+        $this->getFirstData()->shouldHaveType(Data::class);
+        $this->getLastData()->shouldHaveType(Data::class);
+
+        $copy = clone $this->getWrappedObject();
+
+        $this->getHref()->shouldReturn($copy->getHref());
+
+        $this->getDataSet()->shouldHaveCount(count($copy->getDataSet()));
+        $this->getLinks()->shouldHaveCount(count($copy->getLinks()));
+
+        $this->getFirstData()->shouldNotBeEqualTo($copy->getFirstData());
+        $this->getLastData()->shouldNotBeEqualTo($copy->getLastData());
+
+        $this->getFirstLink()->shouldNotBeEqualTo($copy->getFirstLink());
+        $this->getLastLink()->shouldNotBeEqualTo($copy->getLastLink());
+    }
+
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldReturn($this);
-        $this->addLink([])->shouldReturn($this);
-        $this->addLinksSet([])->shouldReturn($this);
-        $this->addData([])->shouldReturn($this);
-        $this->addDataSet([])->shouldReturn($this);
+        $this->withHref('http://example.com')->shouldHaveType(Item::class);
+        $this->withLink(new Link())->shouldHaveType(Item::class);
+        $this->withLinksSet([])->shouldHaveType(Item::class);
+        $this->withData([])->shouldHaveType(Item::class);
+        $this->withDataSet([])->shouldHaveType(Item::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_item()
     {
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize(Data::class);
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');
 
@@ -50,18 +108,26 @@ class ItemSpec extends ObjectBehavior
                 $data2
             ]
         ];
-        $item = $this::fromArray($data);
-        $item->getHref()->shouldBeEqualTo('http://example.com');
-        $item->getDataSet()->shouldHaveCount(2);
-        $item->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $item->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+
+        $this->beConstructedThrough('fromArray', [$data]);
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
         $this->shouldThrow(
             new \DomainException("Property [href] of entity [item] can only have one of the following values [URI]")
-        )->duringSetHref('uri');
+        )->during('withHref', ['uri']);
+    }
+
+    function it_should_set_the_href_value()
+    {
+        $link = $this->withHref("htp://google.com");
+        $this->getHref()->shouldBeNull();
+        $link->getHref()->shouldBeEqualTo("htp://google.com");
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
@@ -78,15 +144,15 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_not_return_empty_array()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data = (new Prophet())->prophesize(Data::class);
         $data->toArray()->willReturn([
             'name' => 'Name',
             'value' => null
         ]);
 
-        $this->setHref('http://example.com');
-        $this->addData($data);
-        $this->toArray()->shouldBeEqualTo([
+        $collection = $this->withHref('http://example.com');
+        $collection = $collection->withData($data);
+        $collection->toArray()->shouldBeEqualTo([
             'data' => [
                 [
                     'name' => 'Name',
@@ -99,43 +165,61 @@ class ItemSpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $this->addData($data);
-        $this->getDataSet()->shouldHaveCount(1);
+        $data = new Data();
+        $item = $this->withData($data);
+        $this->getDataSet()->shouldHaveCount(0);
+        $item->getDataSet()->shouldHaveCount(1);
+    }
+
+    function it_should_remove_data()
+    {
+        $data = new Data();
+
+        $template = $this->withData($data);
+        $template->getDataSet()->shouldHaveCount(1);
+
+        $template = $template->withoutData($data);
+        $template->getDataSet()->shouldHaveCount(0);
     }
 
     function it_should_throw_an_exception_when_data_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
-        )->during('addData', [new Template()]);
+        )->during('withData', [new Template()]);
     }
 
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
-        $this->addData(['value' => 'value 1']);
-        $this->getDataSet()->shouldHaveCount(1);
+        $item = $this->withData(['value' => 'value 1']);
+        $this->getDataSet()->shouldHaveCount(0);
+        $item->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_data_set()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $this->addDataSet([$data, ['value' => 'value 2']]);
-        $this->getDataSet()->shouldHaveCount(2);
+        $data = (new Prophet())->prophesize(Data::class);
+        $item = $this->withDataSet([$data, ['value' => 'value 2']]);
+        $this->getDataSet()->shouldHaveCount(0);
+        $item->getDataSet()->shouldHaveCount(2);
     }
 
     function it_should_retrieve_the_data_by_name()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
 
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
 
-        $this->addDataSet([$data1, $data2]);
+        $item = $this->withDataSet([$data1, $data2]);
 
-        $this->findDataByName('name1')->shouldBeEqualTo($data1);
-        $this->findDataByName('name2')->shouldBeEqualTo($data2);
+
+        $this->getDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name2')->shouldBeNull();
+
+        $item->getDataByName('name1')->shouldBeLike($data1);
+        $item->getDataByName('name2')->shouldBeLike($data2);
     }
 
     function it_should_retrieve_the_link_by_relation()
@@ -143,50 +227,46 @@ class ItemSpec extends ObjectBehavior
         $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
 
-        $this->addLinksSet([$link1, $link2]);
+        $item = $this->withLinksSet([$link1, $link2]);
 
-        $this->findLinkByRelation('rel1')->shouldBeEqualTo($link1);
-        $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
+        $this->getLinksByRel('rel1')->shouldHaveCount(0);
+        $this->getLinksByRel('rel2')->shouldHaveCount(0);
+
+        $item->getLinksByRel('rel1')->shouldBeLike([$link1]);
+        $item->getLinksByRel('rel2')->shouldBeLike([$link2]);
     }
 
     function it_should_return_null_when_data_is_not_in_the_set()
     {
-        $this->findDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name1')->shouldBeNull();
     }
 
     function it_should_return_null_when_link_is_not_in_the_set()
     {
-        $this->findLinkByRelation('rel1')->shouldBeNull();
+        $this->getLinksByRel('rel1')->shouldReturn([]);
     }
 
     function it_should_add_a_link_when_it_is_passed_as_an_object()
     {
-        $link = (new Prophet())->prophesize('CollectionJson\Entity\Link');
-        $this->addLink($link);
-        $this->getLinksSet()->shouldHaveCount(1);
-    }
-
-    function it_should_throw_an_exception_when_link_has_the_wrong_type()
-    {
-        $this->shouldThrow(
-            new \BadMethodCallException('Property [link] must be of type [CollectionJson\Entity\Link]')
-        )->during('addLink', [new Template()]);
+        $link = (new Prophet())->prophesize(Link::class);
+        $item = $this->withLink($link);
+        $item->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_when_it_is_passed_as_an_array()
     {
-        $this->addLink([
+        $item = $this->withLink(Link::fromArray([
             'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
-        ]);
-        $this->getLinksSet()->shouldHaveCount(1);
+        ]));
+        $item->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_set()
     {
-        $link1 = (new Prophet())->prophesize('CollectionJson\Entity\Link');
-        $this->addLinksSet([
+        $link1 = (new Prophet())->prophesize(Link::class);
+        $item = $this->withLinksSet([
             $link1,
             [
                 'href'   => 'http://example.com',
@@ -194,8 +274,8 @@ class ItemSpec extends ObjectBehavior
                 'render' => 'link'
             ]
         ]);
-        $this->setHref('http://example.com');
-        $this->getLinksSet()->shouldHaveCount(2);
+        $item = $item->withHref('http://example.com');
+        $item->getLinks()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_link_in_the_set()
@@ -204,9 +284,10 @@ class ItemSpec extends ObjectBehavior
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
         $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
-        $this->addLinksSet([$link1, $link2, $link3]);
+        $item = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getFirstLink()->shouldReturn($link1);
+        $this->getFirstLink()->shouldBeNull();
+        $item->getFirstLink()->shouldBeLike($link1);
     }
 
     function it_should_return_null_when_the_first_link_in_not_the_set()
@@ -220,9 +301,10 @@ class ItemSpec extends ObjectBehavior
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
         $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
-        $this->addLinksSet([$link1, $link2, $link3]);
+        $item = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getLastLink()->shouldReturn($link3);
+        $this->getLastLink()->shouldBeNull();
+        $item->getLastLink()->shouldBeLike($link3);
     }
 
     function it_should_return_null_when_the_last_link_in_not_the_set()
@@ -234,9 +316,9 @@ class ItemSpec extends ObjectBehavior
     {
         $link = new Link();
 
-        $this->addLink($link);
+        $item = $this->withLink($link);
 
-        $this->shouldHaveLinks();
+        $item->shouldHaveLinks();
     }
 
     function it_should_know_if_it_has_no_links()
@@ -250,9 +332,10 @@ class ItemSpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $item = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getFirstData()->shouldReturn($data1);
+        $this->getFirstData()->shouldBeNull();
+        $item->getFirstData()->shouldBeLike($data1);
     }
 
     function it_should_return_null_when_the_first_data_in_not_the_set()
@@ -266,9 +349,10 @@ class ItemSpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $item = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getLastData()->shouldReturn($data3);
+        $this->getLastData()->shouldBeNull();
+        $item->getLastData()->shouldReturn($data3);
     }
 
     function it_should_return_null_when_the_last_data_in_not_the_set()
@@ -280,9 +364,9 @@ class ItemSpec extends ObjectBehavior
     {
         $data = new Data();
 
-        $this->addData($data);
-
-        $this->shouldHaveData();
+        $item = $this->withData($data);
+        $this->shouldNotHaveData();
+        $item->shouldHaveData();
     }
 
     function it_should_know_if_it_has_no_data()

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -21,72 +22,92 @@ use CollectionJson\Entity\Data;
 trait DataContainer
 {
     /**
-     * @var \CollectionJson\Bag
+     * @var Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-data
      */
     protected $data;
 
     /**
-     * @param \CollectionJson\Entity\Data|array $data
+     * @param Data|array $data
+     *
      * @return mixed
      */
-    public function addData($data)
+    public function withData($data)
     {
-        $this->data->add($data);
-        return $this;
+        $copy = clone $this;
+        $copy->data = $this->data->with($data);
+
+        return $copy;
+    }
+
+    /**
+     * @param Data $data
+     *
+     * @return mixed
+     */
+    public function withoutData(Data $data)
+    {
+        $copy = clone $this;
+        $copy->data = $this->data->without($data);
+
+        return $copy;
     }
 
     /**
      * @param array $set
+     *
      * @return mixed
      */
-    public function addDataSet(array $set)
+    public function withDataSet(array $set)
     {
-        $this->data->addSet($set);
-        return $this;
+        $copy = clone $this;
+        $copy->data = $this->data->withSet($set);
+
+        return $copy;
     }
 
     /**
      * @return array
      */
-    public function getDataSet()
+    public function getDataSet(): array
     {
         return $this->data->getSet();
     }
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Data|null
+     *
+     * @return Data|null
      */
-    public function findDataByName($name)
+    public function getDataByName($name)
     {
         $data = array_filter($this->data->getSet(), function (Data $d) use ($name) {
             return ($d->getName() === $name);
         });
 
-        return (current($data)) ?: null;
+        return current($data) ?: null;
     }
 
     /**
-     * @return \CollectionJson\Entity\Data|null
+     * @return Data|null
      */
     public function getFirstData()
     {
-        return $this->data->getFirst();
+        return $this->data->first();
     }
 
     /**
-     * @return \CollectionJson\Entity\Data|null
+     * @return Data|null
      */
     public function getLastData()
     {
-        return $this->data->getLast();
+        return $this->data->last();
     }
 
     /**
      * @return bool
      */
-    public function hasData()
+    public function hasData(): bool
     {
         return !$this->data->isEmpty();
     }

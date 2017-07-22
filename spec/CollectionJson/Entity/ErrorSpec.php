@@ -4,14 +4,16 @@ namespace spec\CollectionJson\Entity;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Entity\Error;
+use CollectionJson\ArrayConvertible;
 
 class ErrorSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Error');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Error::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -19,67 +21,74 @@ class ErrorSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('error');
     }
 
+    function it_can_be_initialized_with_data()
+    {
+        $this->beConstructedWith('Error Code', 'Error Message', 'Error Title');
+        $this->getTitle()->shouldReturn('Error Title');
+        $this->getCode()->shouldReturn('Error Code');
+        $this->getMessage()->shouldReturn('Error Message');
+    }
+
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'title'   => 'Error Title',
+            'code'    => 'Error Code',
+            'message' => 'Error Message'
+        ]]);
+
+        $copy = clone $this;
+
+        $copy->shouldHaveType(Error::class);
+        $copy->getTitle()->shouldReturn($this->getTitle());
+        $copy->getCode()->shouldReturn($this->getCode());
+        $copy->getMessage()->shouldReturn($this->getMessage());
+    }
+
     function it_should_be_chainable()
     {
-        $this->setCode('value')->shouldReturn($this);
-        $this->setMessage('value')->shouldReturn($this);
-        $this->setTitle('value')->shouldReturn($this);
+        $this->withCode('value')->shouldHaveType(Error::class);
+        $this->withMessage('value')->shouldHaveType(Error::class);
+        $this->withTitle('value')->shouldHaveType(Error::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_error()
     {
-        $error = $this::fromArray([
+        $this->beConstructedThrough('fromArray', [[
             'title'   => 'Error Title',
             'code'    => 'Error Code',
             'message' => 'Error Message'
-        ]);
-        $error->getTitle()->shouldBeEqualTo('Error Title');
-        $error->getCode()->shouldBeEqualTo('Error Code');
-        $error->getMessage()->shouldBeEqualTo('Error Message');
-    }
+        ]]);
 
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_title_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [title] of entity [error] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setTitle', [new \stdClass()]);
+        $this->getTitle()->shouldBeEqualTo('Error Title');
+        $this->getCode()->shouldBeEqualTo('Error Code');
+        $this->getMessage()->shouldBeEqualTo('Error Message');
     }
 
     function it_should_convert_the_title_value_to_a_string()
     {
-        $this->setTitle(true);
-        $this->getTitle()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_code_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [code] of entity [error] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setCode', [new \stdClass()]);
+        $error = $this->withTitle(true);
+        $this->getTitle()->shouldBeNull();
+        $error->getTitle()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_code_value_to_a_string()
     {
-        $this->setCode(true);
-        $this->getCode()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_message_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [message] of entity [error] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setMessage', [new \stdClass()]);
+        $error = $this->withCode(true);
+        $this->getCode()->shouldBeNull();
+        $error->getCode()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_message_value_to_a_string()
     {
-        $this->setMessage(true);
-        $this->getMessage()->shouldBeEqualTo('1');
+        $error = $this->withMessage(true);
+        $this->getMessage()->shouldBeNull();
+        $error->getMessage()->shouldBeEqualTo('1');
     }
 
     function it_should_not_extract_empty_array_and_null_fields()
     {
-        $this->setMessage('My Message');
-        $this->toArray()->shouldBeEqualTo(['message' => 'My Message']);
+        $error = $this->withMessage('My Message');
+        $error->toArray()->shouldBeEqualTo(['message' => 'My Message']);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -13,6 +14,7 @@
 namespace CollectionJson;
 
 use CollectionJson\Entity\Link;
+use Psr\Link\LinkInterface;
 
 /**
  * Class LinkContainer
@@ -21,72 +23,84 @@ use CollectionJson\Entity\Link;
 trait LinkContainer
 {
     /**
-     * @var \CollectionJson\Bag
+     * @var Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-links
      */
     protected $links;
 
     /**
-     * @param \CollectionJson\Entity\Link|array $link
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function addLink($link)
+    public function withLink(LinkInterface $link)
     {
-        $this->links->add($link);
-        return $this;
+        $copy = clone $this;
+        $copy->links = $this->links->with($link);
+
+        return $copy;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withoutLink(LinkInterface $link)
+    {
+        $copy = clone $this;
+        $copy->links = $this->links->without($link);
+
+        return $copy;
     }
 
     /**
      * @param array $set
+     *
      * @return mixed
      */
-    public function addLinksSet(array $set)
+    public function withLinksSet(array $set)
     {
-        $this->links->addSet($set);
-        return $this;
+        $copy = clone $this;
+        $copy->links = $this->links->withSet($set);
+
+        return $copy;
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
-    public function getLinksSet()
+    public function getLinks(): array
     {
         return $this->links->getSet();
     }
 
     /**
-     * @param string $relation
-     * @return \CollectionJson\Entity\Link|null
+     * {@inheritdoc}
      */
-    public function findLinkByRelation($relation)
+    public function getLinksByRel($rel): array
     {
-        $links = array_filter($this->links->getSet(), function (Link $link) use ($relation) {
-            return ($link->getRel() === $relation);
-        });
-
-        return (current($links)) ?: null;
+        return array_values(array_filter($this->links->getSet(), function (Link $link) use ($rel) {
+            return $link->hasRel($rel);
+        }));
     }
 
     /**
-     * @return \CollectionJson\Entity\Link|null
+     * @return Link|null
      */
     public function getFirstLink()
     {
-        return $this->links->getFirst();
+        return $this->links->first();
     }
 
     /**
-     * @return \CollectionJson\Entity\Link|null
+     * @return Link|null
      */
     public function getLastLink()
     {
-        return $this->links->getLast();
+        return $this->links->last();
     }
 
     /**
      * @return bool
      */
-    public function hasLinks()
+    public function hasLinks(): bool
     {
         return !$this->links->isEmpty();
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -14,11 +15,11 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\Bag;
 use CollectionJson\BaseEntity;
-use CollectionJson\Exception\WrongType;
 use CollectionJson\LinkAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\Validator\Uri;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidType;
+use CollectionJson\Exception\InvalidParameter;
 
 /**
  * Class Collection
@@ -29,14 +30,14 @@ use CollectionJson\Exception\WrongParameter;
 class Collection extends BaseEntity implements LinkAware
 {
     /**
-     * @see \CollectionJson\LinkContainer
+     * @see LinkContainer
      */
     use LinkContainer;
 
     /**
      * @link http://amundsen.com/media-types/collection/format/#properties-version
      */
-    const VERSION = "1.0";
+    const VERSION = '1.0';
 
     /**
      * @var string
@@ -45,34 +46,41 @@ class Collection extends BaseEntity implements LinkAware
     protected $href;
 
     /**
-     * @var \CollectionJson\Bag
+     * @var Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-items
      */
     protected $items;
 
     /**
-     * @var \CollectionJson\Bag
+     * @var Bag
      * @link http://amundsen.com/media-types/collection/format/#arrays-queries
      */
     protected $queries;
 
     /**
-     * @var \CollectionJson\Entity\Error
+     * @var Error
      * @link http://amundsen.com/media-types/collection/format/#objects-error
      */
     protected $error;
 
     /**
-     * @var \CollectionJson\Entity\Template
+     * @var Template
      * @link http://amundsen.com/media-types/collection/format/#ojects-template
      */
     protected $template;
 
     /**
      * Collection constructor.
+     *
+     * @param string $href
      */
-    public function __construct()
+    public function __construct(string $href = null)
     {
+        if (is_string($href) && !Uri::isValid($href)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+        }
+
+        $this->href    = $href;
         $this->wrapper = self::getObjectType();
         $this->items   = new Bag(Item::class);
         $this->queries = new Bag(Query::class);
@@ -81,17 +89,21 @@ class Collection extends BaseEntity implements LinkAware
 
     /**
      * @param string $href
-     * @return \CollectionJson\Entity\Collection
+     *
+     * @return Collection
+     *
      * @throws \DomainException
      */
-    public function setHref($href)
+    public function withHref($href): Collection
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
-        $this->href = $href;
 
-        return $this;
+        $copy = clone $this;
+        $copy->href = (string)$href;
+
+        return $copy;
     }
 
     /**
@@ -103,29 +115,48 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param \CollectionJson\Entity\Item|array $item
-     * @return \CollectionJson\Entity\Collection
+     * @param $item
+     *
+     * @return Collection
      */
-    public function addItem($item)
+    public function withItem($item): Collection
     {
-        $this->items->add($item);
-        return $this;
+        $copy = clone $this;
+        $copy->items = $this->items->with($item);
+
+        return $copy;
+    }
+
+    /**
+     * @param $item
+     *
+     * @return Collection
+     */
+    public function withoutItem($item)
+    {
+        $copy = clone $this;
+        $copy->items = $this->items->without($item);
+
+        return $copy;
     }
 
     /**
      * @param array $items
-     * @return \CollectionJson\Entity\Collection
+     *
+     * @return Collection
      */
-    public function addItemsSet(array $items)
+    public function withItemsSet(array $items): Collection
     {
-        $this->items->addSet($items);
-        return $this;
+        $copy = clone $this;
+        $copy->items = $this->items->withSet($items);
+
+        return $copy;
     }
 
     /**
      * @return array
      */
-    public function getItemsSet()
+    public function getItemsSet(): array
     {
         return $this->items->getSet();
     }
@@ -135,7 +166,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getFirstItem()
     {
-        return $this->items->getFirst();
+        return $this->items->first();
     }
 
     /**
@@ -143,41 +174,60 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getLastItem()
     {
-        return $this->items->getLast();
+        return $this->items->last();
     }
 
     /**
      * @return bool
      */
-    public function hasItems()
+    public function hasItems(): bool
     {
         return !$this->items->isEmpty();
     }
     
     /**
-     * @param \CollectionJson\Entity\Query|array $query
-     * @return \CollectionJson\Entity\Collection
+     * @param Query|array $query
+     *
+     * @return Collection
      */
-    public function addQuery($query)
+    public function withQuery($query): Collection
     {
-        $this->queries->add($query);
-        return $this;
+        $copy = clone $this;
+        $copy->queries = $this->queries->with($query);
+
+        return $copy;
+    }
+
+    /**
+     * @param $query
+     *
+     * @return Collection
+     */
+    public function withoutQuery($query): Collection
+    {
+        $copy = clone $this;
+        $copy->queries = $this->queries->without($query);
+
+        return $copy;
     }
 
     /**
      * @param array $queries
-     * @return \CollectionJson\Entity\Collection
+     *
+     * @return Collection
      */
-    public function addQueriesSet(array $queries)
+    public function withQueriesSet(array $queries): Collection
     {
-        $this->queries->addSet($queries);
-        return $this;
+        $copy = clone $this;
+        $copy->queries = $this->queries->withSet($queries);
+
+        return $copy;
     }
 
     /**
      * @return array
      */
-    public function getQueriesSet()
+    public function getQueriesSet(): array
     {
         return $this->queries->getSet();
     }
@@ -187,7 +237,7 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getFirstQuery()
     {
-        return $this->queries->getFirst();
+        return $this->queries->first();
     }
 
     /**
@@ -195,37 +245,53 @@ class Collection extends BaseEntity implements LinkAware
      */
     public function getLastQuery()
     {
-        return $this->queries->getLast();
+        return $this->queries->last();
     }
 
     /**
      * @return bool
      */
-    public function hasQueries()
+    public function hasQueries(): bool
     {
         return !$this->queries->isEmpty();
     }
     
     /**
-     * @param \CollectionJson\Entity\Error|array $error
-     * @return \CollectionJson\Entity\Collection
+     * @param Error|array $errOrData
+     *
+     * @return Collection
+     *
+     * @throws InvalidType
      */
-    public function setError($error)
+    public function withError($errOrData): Collection
     {
-        if (is_array($error)) {
-            $error = Error::fromArray($error);
-        }
+        $error = is_array($errOrData)
+            ? Error::fromArray($errOrData)
+            : $errOrData;
+
         if (!($error instanceof Error)) {
-            throw WrongType::fromTemplate('error', Error::class);
+            throw InvalidType::fromTemplate('error', Error::class);
         }
 
-        $this->error = $error;
+        $copy = clone $this;
+        $copy->error = $error;
         
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return \CollectionJson\Entity\Error|null
+     * @return Collection
+     */
+    public function withoutError(): Collection
+    {
+        $copy = clone $this;
+        $copy->error = null;
+
+        return $copy;
+    }
+
+    /**
+     * @return Error|null
      */
     public function getError()
     {
@@ -235,31 +301,47 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * @return bool
      */
-    public function hasError()
+    public function hasError(): bool
     {
         return ($this->error instanceof Error);
     }
 
     /**
-     * @param \CollectionJson\Entity\Template|array $template
-     * @return \CollectionJson\Entity\Collection
+     * @param Template|array $tplOrData
+     *
+     * @return Collection
+     *
+     * @throws InvalidType
      */
-    public function setTemplate($template)
+    public function withTemplate($tplOrData): Collection
     {
-        if (is_array($template)) {
-            $template = Template::fromArray($template);
-        }
+        $template = is_array($tplOrData)
+            ? Template::fromArray($tplOrData)
+            : $tplOrData;
+
         if (!($template instanceof Template)) {
-            throw WrongType::fromTemplate('template', Template::class);
+            throw InvalidType::fromTemplate('template', Template::class);
         }
 
-        $this->template = $template;
+        $copy = clone $this;
+        $copy->template = $template;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return \CollectionJson\Entity\Template|null
+     * @return Collection
+     */
+    public function withoutTemplate(): Collection
+    {
+        $copy = clone $this;
+        $copy->template = null;
+
+        return $copy;
+    }
+
+    /**
+     * @return Template|null
      */
     public function getTemplate()
     {
@@ -269,7 +351,7 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * @return bool
      */
-    public function hasTemplate()
+    public function hasTemplate(): bool
     {
         return ($this->template instanceof Template);
     }
@@ -277,14 +359,14 @@ class Collection extends BaseEntity implements LinkAware
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         $data = [
             'version'  => self::VERSION,
             'error'    => $this->error,
             'href'     => $this->href,
             'items'    => $this->items->getSet(),
-            'links'    => $this->getLinksSet(),
+            'links'    => $this->links->getSet(),
             'queries'  => $this->queries->getSet(),
             'template' => $this->template,
         ];
@@ -293,5 +375,23 @@ class Collection extends BaseEntity implements LinkAware
         $data = $this->filterNullValues($data);
 
         return $data;
+    }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        if ($this->error instanceof Error) {
+            $this->error = clone $this->error;
+        }
+
+        if ($this->template instanceof Template) {
+            $this->template = clone $this->template;
+        }
+
+        $this->items = clone $this->items;
+        $this->links = clone $this->links;
+        $this->queries = clone $this->queries;
     }
 }

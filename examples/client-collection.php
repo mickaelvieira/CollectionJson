@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-require_once(__DIR__ . '/../vendor/autoload.php');
+require_once __DIR__ . '/../vendor/autoload.php';
 $json = file_get_contents(__DIR__ . '/fixtures/collection.json');
 
 use CollectionJson\Entity\Collection;
@@ -21,7 +22,7 @@ if ($collection->hasItems()) {
     foreach ($collection->getItemsSet() as $item) {
         echo "\tItem:\n";
         echo "\t\t First link: " . $item->getFirstLink()->getHref() . "\n";
-        echo "\t\t First data: " . $item->getFirstData()->getName() . " " . $item->getFirstData()->getValue() . "\n";
+        echo "\t\t First data: " . $item->getFirstData()->getName() . ' ' . $item->getFirstData()->getValue() . "\n";
     }
 }
 if ($collection->hasQueries()) {

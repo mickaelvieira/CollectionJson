@@ -21,3 +21,9 @@ This project follows the coding style guide [PSR1](https://github.com/php-fig/fi
 ```sh
 $ ./bin/phpcs --standard=PSR2 ./src/
 ```
+
+## Run the examples (see `./examples`)
+
+```sh
+$ ./bin/test-examples
+```

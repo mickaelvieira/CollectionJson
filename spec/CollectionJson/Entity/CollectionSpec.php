@@ -9,14 +9,16 @@ use CollectionJson\Entity\Query;
 use CollectionJson\Entity\Template;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Entity\Collection;
+use CollectionJson\ArrayConvertible;
 
 class CollectionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Collection');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Collection::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -24,13 +26,111 @@ class CollectionSpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('collection');
     }
 
-    function it_may_be_construct_with_an_array_representation_of_the_collection()
+    function it_can_be_initialized_with_an_href()
     {
-        $data = [
+        $this->beConstructedWith('http://example.com');
+        $this->getHref()->shouldReturn('http://example.com');
+    }
+
+
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
             'error'    => [
                 'code' => "error code",
                 'message' => "message code",
                 'title' => "title code",
+            ],
+            'href' => 'http://example.com',
+            'items' => [
+                [
+                    'data' => [
+                        [
+                            'name' => 'name 1',
+                            'value' => 'value 1'
+                        ]
+                    ],
+                    'href' => 'http://www.example1.com',
+                ],
+                [
+                    'data' => [
+                        [
+                            'name' => 'name 2',
+                            'value' => 'value 2'
+                        ]
+                    ],
+                    'href' => 'http://www.example2.com'
+                ]
+            ],
+            'links' => [
+                [
+                    'href'   => 'http://www.example1.com',
+                    'rel'    => 'Rel value 1',
+                    'render' => 'link'
+                ],
+                [
+                    'href'   => 'http://www.example2.com',
+                    'rel'    => 'Rel value 2',
+                    'render' => 'link'
+                ]
+            ],
+            'queries' => [
+                [
+                    'rel' => 'search',
+                    'href' => 'http://example.org/friends/search',
+                    'prompt' => 'Search',
+                    'data' => [
+                        [
+                            'name' => 'search',
+                            'value' => ''
+                        ]
+                    ]
+                ]
+            ],
+            'template' => [
+                'data' => [
+                    [
+                        'name' => 'name 1',
+                        'value' => 'value 1'
+                    ]
+                ]
+            ]
+        ]]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getError()->shouldHaveType(Error::class);
+        $this->getTemplate()->shouldHaveType(Template::class);
+        $this->getItemsSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
+        $this->getQueriesSet()->shouldHaveCount(1);
+
+        $copy = clone $this->getWrappedObject();
+
+        $this->getHref()->shouldBeEqualTo($copy->getHref());
+        $this->getError()->shouldNotBeEqualTo($copy->getError());
+        $this->getTemplate()->shouldNotBeEqualTo($copy->getTemplate());
+
+        $this->getItemsSet()->shouldHaveCount(count($copy->getItemsSet()));
+        $this->getLinks()->shouldHaveCount(count($copy->getLinks()));
+        $this->getQueriesSet()->shouldHaveCount(count($copy->getQueriesSet()));
+
+        $this->getFirstLink()->shouldNotBeEqualTo($copy->getFirstLink());
+        $this->getLastLink()->shouldNotBeEqualTo($copy->getLastLink());
+
+        $this->getFirstItem()->shouldNotBeEqualTo($copy->getFirstItem());
+        $this->getLastItem()->shouldNotBeEqualTo($copy->getLastItem());
+
+        $this->getFirstQuery()->shouldNotBeEqualTo($copy->getFirstQuery());
+        $this->getLastQuery()->shouldNotBeEqualTo($copy->getLastQuery());
+    }
+
+    function it_may_be_construct_with_an_array_representation_of_the_collection()
+    {
+        $data = [
+            'error'    => [
+                'code' => 'error code',
+                'message' => 'message code',
+                'title' => 'title code',
             ],
             'href' => 'http://example.com',
             'items' => [
@@ -74,13 +174,15 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ];
-        $collection = $this::fromArray($data);
-        $collection->getHref()->shouldBeEqualTo('http://example.com');
-        $collection->getError()->shouldHaveType('CollectionJson\Entity\Error');
-        $collection->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
-        $collection->getItemsSet()->shouldHaveCount(2);
-        $collection->getLinksSet()->shouldHaveCount(2);
-        $collection->toArray()->shouldBeEqualTo([
+
+        $this->beConstructedThrough('fromArray', [$data]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getError()->shouldHaveType(Error::class);
+        $this->getTemplate()->shouldHaveType(Template::class);
+        $this->getItemsSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(2);
+        $this->toArray()->shouldBeEqualTo([
             'collection' => array_merge(['version' => '1.0'], $data)
         ]);
     }
@@ -225,38 +327,47 @@ class CollectionSpec extends ObjectBehavior
             }
         }';
 
-        $collection = $this::fromJson($json);
-        $collection->getHref()->shouldBeEqualTo('http://example.org/friends/');
-        $collection->getTemplate()->shouldHaveType('CollectionJson\Entity\Template');
-        $collection->getTemplate()->getDataSet()->shouldHaveCount(4);
-        $collection->getItemsSet()->shouldHaveCount(3);
-        $collection->getQueriesSet()->shouldHaveCount(1);
-        $collection->getLinksSet()->shouldHaveCount(1);
+        $this->beConstructedThrough('fromJson', [$json]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.org/friends/');
+        $this->getTemplate()->shouldHaveType(Template::class);
+        $this->getTemplate()->getDataSet()->shouldHaveCount(4);
+        $this->getItemsSet()->shouldHaveCount(3);
+        $this->getQueriesSet()->shouldHaveCount(1);
+        $this->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
         $this->shouldThrow(
-            new \DomainException("Property [href] of entity [collection] can only have one of the following values [URI]")
-        )->duringSetHref('uri');
+            new \DomainException('Property [href] of entity [collection] can only have one of the following values [URI]')
+        )->during('withHref', ['uri']);
+    }
+
+    function it_should_set_the_href_value()
+    {
+        $link = $this->withHref("htp://google.com");
+        $this->getHref()->shouldBeNull();
+        $link->getHref()->shouldBeEqualTo("htp://google.com");
     }
 
     function it_should_be_chainable()
     {
+        $link = new Link();
         $item = new Item();
         $query = new Query();
         $error = new Error();
         $template = new Template();
 
-        $this->setHref('http://www.example.com')->shouldReturn($this);
-        $this->addItem($item)->shouldReturn($this);
-        $this->addItemsSet([$item])->shouldReturn($this);
-        $this->addQuery($query)->shouldReturn($this);
-        $this->addQueriesSet([$query])->shouldReturn($this);
-        $this->setError($error)->shouldReturn($this);
-        $this->setTemplate($template)->shouldReturn($this);
-        $this->addLink([])->shouldReturn($this);
-        $this->addLinksSet([])->shouldReturn($this);
+        $this->withHref('https://example.co')->shouldHaveType(Collection::class);
+        $this->withItem($item)->shouldHaveType(Collection::class);
+        $this->withItemsSet([$item])->shouldHaveType(Collection::class);
+        $this->withQuery($query)->shouldHaveType(Collection::class);
+        $this->withQueriesSet([$query])->shouldHaveType(Collection::class);
+        $this->withError($error)->shouldHaveType(Collection::class);
+        $this->withTemplate($template)->shouldHaveType(Collection::class);
+        $this->withLink($link)->shouldHaveType(Collection::class);
+        $this->withLinksSet([])->shouldHaveType(Collection::class);
     }
 
     function it_should_not_extract_null_and_empty_array_fields()
@@ -268,27 +379,40 @@ class CollectionSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_add_a_item()
+    function it_should_add_an_item()
     {
         $item = new Item();
 
-        $this->addItem($item);
-        $this->getItemsSet()->shouldHaveCount(1);
+        $collection = $this->withItem($item);
+        $this->getItemsSet()->shouldHaveCount(0);
+        $collection->getItemsSet()->shouldHaveCount(1);
+    }
+
+    function it_should_remove_an_item()
+    {
+        $item = new Item();
+
+        $collection = $this->withItem($item);
+        $collection->getItemsSet()->shouldHaveCount(1);
+
+        $collection = $collection->withoutItem($item);
+        $collection->getItemsSet()->shouldHaveCount(0);
     }
 
     function it_should_throw_an_exception_when_item_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [item] must be of type [CollectionJson\Entity\Item]')
-        )->during('addItem', [new Template()]);
+        )->during('withItem', [new Template()]);
     }
 
     function it_should_add_a_item_when_passing_array()
     {
-        $this->addItem([
-            'href' => 'http://www.example.com'
+        $collection = $this->withItem([
+            'href' => 'https://example.co'
         ]);
-        $this->getItemsSet()->shouldHaveCount(1);
+        $this->getItemsSet()->shouldHaveCount(0);
+        $collection->getItemsSet()->shouldHaveCount(1);
     }
 
     function it_should_add_multiple_items()
@@ -296,8 +420,9 @@ class CollectionSpec extends ObjectBehavior
         $item1 = new Item();
         $item2 = new Item();
 
-        $this->addItemsSet([$item1, $item2]);
-        $this->getItemsSet()->shouldHaveCount(2);
+        $collection = $this->withItemsSet([$item1, $item2]);
+        $this->getItemsSet()->shouldHaveCount(0);
+        $collection->getItemsSet()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_item_in_the_set()
@@ -306,9 +431,9 @@ class CollectionSpec extends ObjectBehavior
         $item2 = new Item();
         $item3 = new Item();
 
-        $this->addItemsSet([$item1, $item2, $item3]);
-
-        $this->getFirstItem()->shouldReturn($item1);
+        $collection = $this->withItemsSet([$item1, $item2, $item3]);
+        $this->getFirstItem()->shouldBeNull();
+        $collection->getFirstItem()->shouldBeLike($item1);
     }
 
     function it_should_return_null_when_the_first_item_in_not_the_set()
@@ -322,9 +447,9 @@ class CollectionSpec extends ObjectBehavior
         $item2 = new Item();
         $item3 = new Item();
 
-        $this->addItemsSet([$item1, $item2, $item3]);
-
-        $this->getLastItem()->shouldReturn($item3);
+        $collection = $this->withItemsSet([$item1, $item2, $item3]);
+        $this->getLastItem()->shouldBeNull();
+        $collection->getLastItem()->shouldBeLike($item3);
     }
 
     function it_should_return_null_when_the_last_item_in_not_the_set()
@@ -336,9 +461,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $item1 = new Item();
 
-        $this->addItem($item1);
-
-        $this->shouldHaveItems();
+        $collection = $this->withItem($item1);
+        $this->shouldNotHaveItems();
+        $collection->shouldHaveItems();
     }
 
     function it_should_know_if_it_has_no_items()
@@ -349,20 +474,34 @@ class CollectionSpec extends ObjectBehavior
     function it_should_add_a_query()
     {
         $query = new Query();
-        $this->addQuery($query);
-        $this->getQueriesSet()->shouldHaveCount(1);
+        $collection = $this->withQuery($query);
+        $this->getQueriesSet()->shouldHaveCount(0);
+        $collection->getQueriesSet()->shouldHaveCount(1);
+    }
+
+    function it_should_remove_a_query()
+    {
+        $query1 = new Query();
+        $query2 = new Query();
+
+        $collection = $this->withQuery($query1)->withQuery($query2);
+        $collection->getQueriesSet()->shouldHaveCount(2);
+
+        $collection = $collection->withoutQuery($query2);
+        $collection->getQueriesSet()->shouldHaveCount(1);
+        $collection->getFirstQuery()->shouldBeLike($query1);
     }
 
     function it_should_throw_an_exception_when_query_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [query] must be of type [CollectionJson\Entity\Query]')
-        )->during('addQuery', [new Template()]);
+        )->during('withQuery', [new Template()]);
     }
 
     function it_should_add_a_query_when_passing_an_array()
     {
-        $this->addQuery([
+        $collection = $this->withQuery([
             'href'   => 'http://example.com',
             'rel'    => 'Query Rel',
             'name'   => 'Query Name',
@@ -374,7 +513,8 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getQueriesSet()->shouldHaveCount(1);
+        $this->getQueriesSet()->shouldHaveCount(0);
+        $collection->getQueriesSet()->shouldHaveCount(1);
     }
 
     function it_should_add_multiple_queries()
@@ -382,8 +522,9 @@ class CollectionSpec extends ObjectBehavior
         $query1 = new Query();
         $query2 = new Query();
 
-        $this->addQueriesSet([$query1, $query2]);
-        $this->getQueriesSet()->shouldHaveCount(2);
+        $collection = $this->withQueriesSet([$query1, $query2]);
+        $this->getQueriesSet()->shouldHaveCount(0);
+        $collection->getQueriesSet()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_query_in_the_set()
@@ -392,9 +533,9 @@ class CollectionSpec extends ObjectBehavior
         $query2 = new Query();
         $query3 = new Query();
 
-        $this->addQueriesSet([$query1, $query2, $query3]);
-
-        $this->getFirstQuery()->shouldReturn($query1);
+        $collection = $this->withQueriesSet([$query1, $query2, $query3]);
+        $this->getFirstQuery()->shouldBeNull();
+        $collection->getFirstQuery()->shouldBeLike($query1);
     }
 
     function it_should_return_null_when_the_first_data_in_not_the_set()
@@ -408,9 +549,9 @@ class CollectionSpec extends ObjectBehavior
         $query2 = new Query();
         $query3 = new Query();
 
-        $this->addQueriesSet([$query1, $query2, $query3]);
-
-        $this->getLastQuery()->shouldReturn($query3);
+        $collection = $this->withQueriesSet([$query1, $query2, $query3]);
+        $this->getLastQuery()->shouldBeNull();
+        $collection->getLastQuery()->shouldBeLike($query3);
     }
 
     function it_should_return_null_when_the_last_data_in_not_the_set()
@@ -422,9 +563,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $query = new Query();
 
-        $this->addQuery($query);
-
-        $this->shouldHaveQueries();
+        $collection = $this->withQuery($query);
+        $this->shouldNotHaveQueries();
+        $collection->shouldHaveQueries();
     }
 
     function it_should_know_if_it_has_no_queries()
@@ -436,15 +577,20 @@ class CollectionSpec extends ObjectBehavior
     {
         $link = new Link();
 
-        $this->addLink($link);
-        $this->getLinksSet()->shouldHaveCount(1);
+        $collection = $this->withLink($link);
+        $this->getLinks()->shouldHaveCount(0);
+        $collection->getLinks()->shouldHaveCount(1);
     }
 
-    function it_should_throw_an_exception_when_link_has_the_wrong_type()
+    function it_should_remove_a_link()
     {
-        $this->shouldThrow(
-            new \BadMethodCallException('Property [link] must be of type [CollectionJson\Entity\Link]')
-        )->during('addLink', [new Template()]);
+        $link = new Link();
+
+        $collection = $this->withLink($link);
+        $collection->getLinks()->shouldHaveCount(1);
+
+        $collection = $collection->withoutLink($link);
+        $collection->getLinks()->shouldHaveCount(0);
     }
 
     function it_should_retrieve_the_link_by_relation()
@@ -452,32 +598,36 @@ class CollectionSpec extends ObjectBehavior
         $link1 = Link::fromArray(['rel' => 'rel1', 'href' => 'http://example.com']);
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
 
-        $this->addLinksSet([$link1, $link2]);
+        $collection = $this->withLinksSet([$link1, $link2]);
 
-        $this->findLinkByRelation('rel1')->shouldBeEqualTo($link1);
-        $this->findLinkByRelation('rel2')->shouldBeEqualTo($link2);
+        $this->getLinksByRel('rel1')->shouldHaveCount(0);
+        $this->getLinksByRel('rel2')->shouldHaveCount(0);
+
+        $collection->getLinksByRel('rel1')->shouldBeLike([$link1]);
+        $collection->getLinksByRel('rel2')->shouldBeLike([$link2]);
     }
 
     function it_should_return_null_when_link_is_not_in_the_set()
     {
-        $this->findLinkByRelation('rel1')->shouldBeNull();
+        $this->getLinksByRel('rel1')->shouldReturn([]);
     }
 
     function it_should_add_a_link_when_passing_an_array()
     {
-        $this->addLink([
+        $collection = $this->withLink(Link::fromArray([
             'href'   => 'http://example.com',
             'rel'    => 'Rel value',
             'render' => 'link'
-        ]);
-        $this->getLinksSet()->shouldHaveCount(1);
+        ]));
+
+        $collection->getLinks()->shouldHaveCount(1);
     }
 
     function it_should_add_a_link_set()
     {
         $link1 = new Link();
 
-        $this->addLinksSet([
+        $collection = $this->withLinksSet([
             $link1,
             [
                 'href'   => 'http://example.com',
@@ -485,7 +635,8 @@ class CollectionSpec extends ObjectBehavior
                 'render' => 'link'
             ]
         ]);
-        $this->getLinksSet()->shouldHaveCount(2);
+        $this->getLinks()->shouldHaveCount(0);
+        $collection->getLinks()->shouldHaveCount(2);
     }
 
     function it_should_return_the_first_link_in_the_set()
@@ -494,9 +645,10 @@ class CollectionSpec extends ObjectBehavior
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
         $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
-        $this->addLinksSet([$link1, $link2, $link3]);
+        $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getFirstLink()->shouldReturn($link1);
+        $this->getFirstLink()->shouldBeNull();
+        $collection->getFirstLink()->shouldBeLike($link1);
     }
 
     function it_should_return_null_when_the_first_link_in_not_the_set()
@@ -510,9 +662,10 @@ class CollectionSpec extends ObjectBehavior
         $link2 = Link::fromArray(['rel' => 'rel2', 'href' => 'http://example2.com']);
         $link3 = Link::fromArray(['rel' => 'rel3', 'href' => 'http://example3.com']);
 
-        $this->addLinksSet([$link1, $link2, $link3]);
+        $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getLastLink()->shouldReturn($link3);
+        $this->getLastLink()->shouldBeNull();
+        $collection->getLastLink()->shouldBeLike($link3);
     }
 
     function it_should_return_null_when_the_last_link_in_not_the_set()
@@ -524,9 +677,9 @@ class CollectionSpec extends ObjectBehavior
     {
         $link = new Link();
 
-        $this->addLink($link);
+        $collection = $this->withLink($link);
 
-        $this->shouldHaveLinks();
+        $collection->shouldHaveLinks();
     }
 
     function it_should_know_if_it_has_no_links()
@@ -537,40 +690,54 @@ class CollectionSpec extends ObjectBehavior
     function it_should_set_the_error()
     {
         $error = (new Error())
-            ->setCode("error code");
+            ->withCode('error code');
 
-        $this->setError($error);
-        $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
-        $this->getError()->getCode()->shouldBeEqualTo("error code");
+        $collection = $this->withError($error);
+        $this->getError()->shouldBeNull();
+        $collection->getError()->shouldBeAnInstanceOf(Error::class);
+        $collection->getError()->getCode()->shouldBeEqualTo('error code');
+    }
+
+    function it_should_remove_the_error()
+    {
+        $error = (new Error())
+            ->withCode('error code');
+
+        $collection = $this->withError($error);
+        $collection->getError()->shouldBeAnInstanceOf(Error::class);
+
+        $collection = $collection->withoutError();
+        $collection->getError()->shouldBeNull();
     }
 
     function it_should_set_the_error_when_passing_an_array()
     {
-        $this->setError([
-            'message' => "message code",
-            'title' => "title code",
-            'code' => "error code",
+        $collection = $this->withError([
+            'message' => 'message code',
+            'title' => 'title code',
+            'code' => 'error code',
         ]);
-        $this->getError()->shouldBeAnInstanceOf('CollectionJson\Entity\Error');
-        $this->getError()->getMessage()->shouldBeEqualTo("message code");
-        $this->getError()->getTitle()->shouldBeEqualTo("title code");
-        $this->getError()->getCode()->shouldBeEqualTo("error code");
+        $this->getError()->shouldBeNull();
+        $collection->getError()->shouldBeAnInstanceOf(Error::class);
+        $collection->getError()->getMessage()->shouldBeEqualTo('message code');
+        $collection->getError()->getTitle()->shouldBeEqualTo('title code');
+        $collection->getError()->getCode()->shouldBeEqualTo('error code');
     }
 
     function it_should_throw_an_exception_when_error_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [error] must be of type [CollectionJson\Entity\Error]')
-        )->during('setError', [new Query()]);
+        )->during('withError', [new Query()]);
     }
 
     function it_should_know_if_it_has_an_error()
     {
         $error = new Error();
 
-        $this->setError($error);
-
-        $this->shouldHaveError();
+        $collection = $this->withError($error);
+        $this->shouldNotHaveError();
+        $collection->shouldHaveError();
     }
 
     function it_should_know_if_it_has_not_an_error()
@@ -582,13 +749,25 @@ class CollectionSpec extends ObjectBehavior
     {
         $template = new Template();
 
-        $this->setTemplate($template);
-        $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
+        $collection = $this->withTemplate($template);
+        $this->getTemplate()->shouldBeNull();
+        $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
+    }
+
+    function it_should_remove_the_template()
+    {
+        $template = new Template();
+
+        $collection = $this->withTemplate($template);
+        $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
+
+        $collection = $collection->withoutTemplate();
+        $collection->getTemplate()->shouldBeNull();
     }
 
     function it_should_set_the_template_when_passing_an_array()
     {
-        $this->setTemplate([
+        $collection = $this->withTemplate([
             'data' => [
                 [
                     'name' => 'name 1',
@@ -596,17 +775,19 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getTemplate()->shouldBeAnInstanceOf('CollectionJson\Entity\Template');
-        $this->getTemplate()->getDataSet()->shouldHaveCount(1);
+        $this->getTemplate()->shouldBeNull();
+        $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
+        $collection->getTemplate()->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_know_if_it_has_an_template()
     {
         $error = new Template();
 
-        $this->setTemplate($error);
+        $collection = $this->withTemplate($error);
 
-        $this->shouldHaveTemplate();
+        $this->shouldNotHaveTemplate();
+        $collection->shouldHaveTemplate();
     }
 
     function it_should_know_if_it_has_not_an_template()
@@ -618,6 +799,6 @@ class CollectionSpec extends ObjectBehavior
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [template] must be of type [CollectionJson\Entity\Template]')
-        )->during('setTemplate', [new Query()]);
+        )->during('withTemplate', [new Query()]);
     }
 }

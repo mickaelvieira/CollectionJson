@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -12,7 +13,7 @@
 
 namespace CollectionJson;
 
-use CollectionJson\Exception\WrongType;
+use CollectionJson\Exception\InvalidType;
 
 /**
  * Class Bag
@@ -32,9 +33,10 @@ final class Bag implements \Countable, \IteratorAggregate
 
     /**
      * Bag constructor.
-     * @param $className
+     *
+     * @param string $className
      */
-    public function __construct($className)
+    public function __construct(string $className)
     {
         $this->className = $className;
     }
@@ -42,7 +44,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->bag);
     }
@@ -50,7 +52,7 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->bag);
     }
@@ -58,45 +60,73 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return \ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->bag);
     }
 
     /**
-     * @param $item
+     * @param mixed $itemOrData
+     *
+     * @return Bag
+     *
+     * @throws InvalidType
+     */
+    public function with($itemOrData): Bag
+    {
+        $item = is_array($itemOrData)
+            ? call_user_func($this->className . '::fromArray', $itemOrData)
+            : $itemOrData;
+
+        if (!($item instanceof $this->className)) {
+            throw InvalidType::fromTemplate($this->getPropertyName(), $this->className);
+        }
+
+        $copy = clone $this;
+
+        $copy->bag[] = $item;
+
+        return $copy;
+    }
+
+    /**
+     * @param mixed $item
+     *
      * @return Bag
      */
-    public function add($item)
+    public function without($item): Bag
     {
-        if (is_array($item)) {
-            $item = call_user_func($this->className . "::fromArray", $item);
-        }
-        if (!($item instanceof $this->className)) {
-            throw WrongType::fromTemplate($this->getPropertyName(), $this->className);
+        $key = array_search($item, $this->bag, true);
+
+        if ($key === false) {
+            return $this;
         }
 
-        array_push($this->bag, $item);
+        $copy = clone $this;
 
-        return $this;
+        unset($copy->bag[$key]);
+
+        return $copy;
     }
 
     /**
      * @param array $set
+     *
      * @return Bag
+     *
+     * @throws InvalidType
      */
-    public function addSet(array $set)
+    public function withSet(array $set): Bag
     {
-        foreach ($set as $item) {
-            $this->add($item);
-        }
-        return $this;
+        return array_reduce($set, function (Bag $bag, $item) {
+            return $bag->with($item);
+        }, $this);
     }
 
     /**
      * @return array
      */
-    public function getSet()
+    public function getSet(): array
     {
         return $this->bag;
     }
@@ -104,25 +134,37 @@ final class Bag implements \Countable, \IteratorAggregate
     /**
      * @return mixed|null
      */
-    public function getFirst()
+    public function first()
     {
-        return (reset($this->bag)) ?: null;
+        return reset($this->bag) ?: null;
     }
 
     /**
      * @return mixed|null
      */
-    public function getLast()
+    public function last()
     {
-        return (end($this->bag)) ?: null;
+        return end($this->bag) ?: null;
     }
 
     /**
      * @return string
      */
-    private function getPropertyName()
+    private function getPropertyName(): string
     {
         $tree = explode("\\", $this->className);
         return strtolower(end($tree));
+    }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        $clone = function ($item) {
+            return clone $item;
+        };
+
+        $this->bag = array_map($clone, $this->bag);
     }
 }

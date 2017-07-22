@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -13,6 +14,7 @@
 namespace CollectionJson;
 
 use JsonSerializable;
+use CollectionJson\Exception\MissingProperty;
 
 /**
  * Class BaseEntity
@@ -27,6 +29,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @param array $data
+     *
      * @return static
      */
     public static function fromArray(array $data)
@@ -34,38 +37,49 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         $object = new static();
 
         foreach ($data as $key => $value) {
+            // version is a constant
+            // and according to the spec
+            // it cannot be modified
+            if ($key !== 'version') {
+                $wither = sprintf('with%s', ucfirst(strtolower($key)));
+                $adder  = sprintf('with%sSet', ucfirst(strtolower($key)));
 
-            $setter = sprintf("set%s", ucfirst(strtolower($key)));
-            $adder  = sprintf("add%sSet", ucfirst(strtolower($key)));
-
-            if (method_exists($object, $setter)) {
-                $object->$setter($value);
-            } elseif (method_exists($object, $adder)) {
-                $object->$adder($value);
+                if (method_exists($object, $adder)) {
+                    $object = $object->$adder($value);
+                } elseif (method_exists($object, $wither)) {
+                    $object = $object->$wither($value);
+                } else {
+                    throw new \DomainException(sprintf('Could not inject the entry "%s"', $key));
+                }
             }
         }
+
         return $object;
     }
 
     /**
      * @param string $json
+     *
      * @return static
      */
     public static function fromJson($json)
     {
         $data = json_decode($json, true);
         $type = static::getObjectType();
-        // unwrap the data if it is
+
         if (array_key_exists($type, $data)) {
             $data = $data[$type];
         }
+
         return self::fromArray($data);
     }
 
     /**
      * @return array
+     *
+     * @throws MissingProperty
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = $this->getObjectData();
         $data = $this->addWrapper($data);
@@ -75,8 +89,10 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @return array
+     *
+     * @throws MissingProperty
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = $this->getObjectData();
         $data = $this->recursiveToArray($data);
@@ -86,9 +102,9 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     }
 
     /**
-     * @return static
+     * @return self
      */
-    final public function wrap()
+    final public function wrap(): self
     {
         $this->wrapper = static::getObjectType();
         return $this;
@@ -96,9 +112,10 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @param array $data
+     *
      * @return array
      */
-    final protected function filterEmptyArrays(array $data)
+    final protected function filterEmptyArrays(array $data): array
     {
         return array_filter($data, function ($value) {
             return !(is_array($value) && empty($value));
@@ -108,50 +125,50 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     /**
      * @param array $data
      * @param array $whiteList
+     *
      * @return array
      */
-    final protected function filterNullValues(array $data, array $whiteList = [])
+    final protected function filterNullValues(array $data, array $whiteList = []): array
     {
-        $filtered = [];
-        foreach ($data as $key => $value) {
-            if (!is_null($value) || in_array($key, $whiteList)) {
-                $filtered[$key] = $value;
-            }
-        }
-        return $filtered;
+        return array_filter($data, function ($value, $key) use ($whiteList) {
+            return (!is_null($value) || in_array($key, $whiteList, true));
+        }, ARRAY_FILTER_USE_BOTH);
     }
 
     /**
      * @return string
      */
-    final public static function getObjectType()
+    final public static function getObjectType(): string
     {
         $tree = explode("\\", static::class);
         return strtolower(end($tree));
     }
 
+    /** @noinspection MagicMethodsValidityInspection */
     /**
      * Avoiding having dynamic properties set up
      *
      * @param string $name
      * @param mixed $value
+     *
      * @throws \LogicException
      */
     final public function __set($name, $value)
     {
-        throw new \LogicException("Dynamic properties are not allowed");
+        throw new \LogicException('Dynamic properties are not allowed');
     }
 
     /**
+     * @throws MissingProperty
      * @return array
      */
-    abstract protected function getObjectData();
+    abstract protected function getObjectData(): array;
 
     /**
      * @param array $data
      * @return array
      */
-    private function recursiveToArray(array $data)
+    private function recursiveToArray(array $data): array
     {
         foreach ($data as &$value) {
             if (is_object($value) && $value instanceof ArrayConvertible) {
@@ -160,6 +177,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
                 $value = $this->recursiveToArray($value);
             }
         }
+
         unset($value);
 
         return $data;
@@ -169,7 +187,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      * @param array $data
      * @return array
      */
-    private function addWrapper(array $data)
+    private function addWrapper(array $data): array
     {
         if (is_string($this->wrapper)) {
             $data = [

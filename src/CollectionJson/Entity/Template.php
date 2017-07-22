@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -26,7 +27,7 @@ use CollectionJson\DataContainer;
 class Template extends BaseEntity implements DataAware
 {
     /**
-     * @see \CollectionJson\DataContainer
+     * @see DataContainer
      */
     use DataContainer;
 
@@ -41,7 +42,7 @@ class Template extends BaseEntity implements DataAware
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         $data = [
             'data' => $this->getDataSet()
@@ -51,5 +52,13 @@ class Template extends BaseEntity implements DataAware
         $data = $this->filterNullValues($data);
 
         return $data;
+    }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->data = clone $this->data;
     }
 }

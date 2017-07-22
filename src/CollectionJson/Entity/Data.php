@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -14,8 +15,7 @@ namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\DataValue;
-use CollectionJson\Validator\StringLike;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -45,22 +45,40 @@ class Data extends BaseEntity
     protected $value;
 
     /**
-     * @param string $name
-     * @return \CollectionJson\Entity\Data
-     * @throws \DomainException
+     * Data constructor.
+     *
+     * @param string|null                $name
+     * @param string|int|float|bool|null $value
+     * @param string|null                $prompt
      */
-    public function setName($name)
+    public function __construct(string $name = null, $value = null, string $prompt = null)
     {
-        if (!StringLike::isValid($name)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
+        if (!is_null($value) && !DataValue::isValid($value)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
         }
-        $this->name = (string)$name;
 
-        return $this;
+        $this->name   = $name;
+        $this->value  = $value;
+        $this->prompt = $prompt;
     }
 
     /**
-     * @return string
+     * @param string $name
+     *
+     * @return Data
+     *
+     * @throws \DomainException
+     */
+    public function withName(string $name): Data
+    {
+        $copy = clone $this;
+        $copy->name = $name;
+
+        return $copy;
+    }
+
+    /**
+     * @return string|null
      */
     public function getName()
     {
@@ -69,21 +87,21 @@ class Data extends BaseEntity
 
     /**
      * @param string $prompt
-     * @return \CollectionJson\Entity\Data
+     *
+     * @return Data
+     *
      * @throws \DomainException
      */
-    public function setPrompt($prompt)
+    public function withPrompt(string $prompt): Data
     {
-        if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
-        }
-        $this->prompt = (string)$prompt;
+        $copy = clone $this;
+        $copy->prompt = $prompt;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPrompt()
     {
@@ -91,22 +109,26 @@ class Data extends BaseEntity
     }
 
     /**
-     * @param string $value
-     * @return \CollectionJson\Entity\Data
+     * @param mixed $value
+     *
+     * @return Data
+     *
      * @throws \DomainException
      */
-    public function setValue($value)
+    public function withValue($value): Data
     {
         if (!DataValue::isValid($value)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
         }
-        $this->value = $value;
 
-        return $this;
+        $copy = clone $this;
+        $copy->value = $value;
+
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
     public function getValue()
     {
@@ -116,7 +138,7 @@ class Data extends BaseEntity
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         if (is_null($this->name)) {
             throw MissingProperty::fromTemplate(self::getObjectType(), 'name');

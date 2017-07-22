@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -21,5 +22,5 @@ interface ArrayConvertible
     /**
      * @return array
      */
-    public function toArray();
+    public function toArray(): array;
 }

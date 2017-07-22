@@ -4,6 +4,7 @@ namespace spec\CollectionJson\Validator;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Validator\Uri;
 
 /**
  * Class UriSpec
@@ -13,7 +14,7 @@ class UriSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Validator\Uri');
+        $this->shouldHaveType(Uri::class);
     }
 
     function it_should_validate_a_correct_uri()

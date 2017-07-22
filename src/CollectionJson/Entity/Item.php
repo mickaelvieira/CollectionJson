@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -19,7 +20,7 @@ use CollectionJson\DataAware;
 use CollectionJson\LinkContainer;
 use CollectionJson\DataContainer;
 use CollectionJson\Validator\Uri;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -31,12 +32,12 @@ use CollectionJson\Exception\MissingProperty;
 class Item extends BaseEntity implements LinkAware, DataAware
 {
     /**
-     * @see \CollectionJson\LinkContainer
+     * @see LinkContainer
      */
     use LinkContainer;
 
     /**
-     * @see \CollectionJson\DataContainer
+     * @see DataContainer
      */
     use DataContainer;
 
@@ -48,30 +49,42 @@ class Item extends BaseEntity implements LinkAware, DataAware
 
     /**
      * Item constructor.
+     *
+     * @param string|null $href
      */
-    public function __construct()
+    public function __construct(string $href = null)
     {
+        if (is_string($href) && !Uri::isValid($href)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+        }
+
+        $this->href  = $href;
         $this->links = new Bag(Link::class);
         $this->data  = new Bag(Data::class);
     }
-    
+
     /**
      * @param string $href
-     * @return \CollectionJson\Entity\Item
+     *
+     * @return Item
+     *
      * @throws \DomainException
      */
-    public function setHref($href)
+    public function withHref($href): Item
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
-        $this->href = $href;
 
-        return $this;
+        $copy = clone $this;
+        $copy->href = (string)$href;
+
+
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getHref()
     {
@@ -81,7 +94,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         if (is_null($this->href)) {
             throw MissingProperty::fromTemplate(self::getObjectType(), 'href');
@@ -90,9 +103,18 @@ class Item extends BaseEntity implements LinkAware, DataAware
         $data = [
             'data'  => $this->getDataSet(),
             'href'  => $this->href,
-            'links' => $this->getLinksSet(),
+            'links' => $this->getLinks(),
         ];
 
         return $this->filterEmptyArrays($data);
+    }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->data = clone $this->data;
+        $this->links = clone $this->links;
     }
 }

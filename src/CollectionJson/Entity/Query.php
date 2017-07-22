@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -17,8 +18,7 @@ use CollectionJson\DataAware;
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\Uri;
 use CollectionJson\DataContainer;
-use CollectionJson\Validator\StringLike;
-use CollectionJson\Exception\WrongParameter;
+use CollectionJson\Exception\InvalidParameter;
 use CollectionJson\Exception\MissingProperty;
 
 /**
@@ -60,30 +60,46 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * Query constructor.
+     *
+     * @param string|null $href
+     * @param string|null $rel
+     * @param string|null $name
+     * @param string|null $prompt
      */
-    public function __construct()
+    public function __construct(string $href = null, string $rel = null, string $name = null, string $prompt = null)
     {
-        $this->data = new Bag(Data::class);
+        if (is_string($href) && !Uri::isValid($href)) {
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+        }
+
+        $this->href   = $href;
+        $this->rel    = $rel;
+        $this->name   = $name;
+        $this->prompt = $prompt;
+        $this->data   = new Bag(Data::class);
     }
-    
+
     /**
      * @param string $href
-     * @return \CollectionJson\Entity\Query
-     * @throws \BadMethodCallException
-     * @throws \DomainException
+     *
+     * @return Query
+     *
+     * @throws InvalidParameter
      */
-    public function setHref($href)
+    public function withHref($href): Query
     {
         if (!Uri::isValid($href)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
+            throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
-        $this->href = $href;
 
-        return $this;
+        $copy = clone $this;
+        $copy->href = (string)$href;
+
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getHref()
     {
@@ -92,21 +108,21 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $name
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \DomainException
      */
-    public function setName($name)
+    public function withName(string $name): Query
     {
-        if (!StringLike::isValid($name)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'name', StringLike::allowed());
-        }
-        $this->name = (string)$name;
+        $copy = clone $this;
+        $copy->name = $name;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -115,21 +131,21 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $prompt
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \DomainException
      */
-    public function setPrompt($prompt)
+    public function withPrompt(string $prompt): Query
     {
-        if (!StringLike::isValid($prompt)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'prompt', StringLike::allowed());
-        }
-        $this->prompt = (string)$prompt;
+        $copy = clone $this;
+        $copy->prompt = $prompt;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPrompt()
     {
@@ -138,21 +154,21 @@ class Query extends BaseEntity implements DataAware
 
     /**
      * @param string $rel
-     * @return \CollectionJson\Entity\Query
+     *
+     * @return Query
+     *
      * @throws \DomainException
      */
-    public function setRel($rel)
+    public function withRel(string $rel): Query
     {
-        if (!StringLike::isValid($rel)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'rel', StringLike::allowed());
-        }
-        $this->rel = (string)$rel;
+        $copy = clone $this;
+        $copy->rel = $rel;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRel()
     {
@@ -162,7 +178,7 @@ class Query extends BaseEntity implements DataAware
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         foreach (['href', 'rel'] as $property) {
             if (is_null($this->$property)) {
@@ -182,5 +198,13 @@ class Query extends BaseEntity implements DataAware
         $data = $this->filterNullValues($data);
 
         return $data;
+    }
+
+    /**
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->data = clone $this->data;
     }
 }

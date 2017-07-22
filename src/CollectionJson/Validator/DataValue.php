@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -19,10 +20,11 @@ namespace CollectionJson\Validator;
 final class DataValue
 {
     /**
-     * @param $value
+     * @param mixed $value
+     *
      * @return bool
      */
-    public static function isValid($value)
+    public static function isValid($value): bool
     {
         return (is_scalar($value) || is_null($value));
     }
@@ -30,7 +32,7 @@ final class DataValue
     /**
      * @return array
      */
-    public static function allowed()
+    public static function allowed(): array
     {
         return ['scalar', 'NULL'];
     }

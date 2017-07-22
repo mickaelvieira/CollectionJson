@@ -7,15 +7,18 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Entity\Data;
 use Prophecy\Prophet;
+use CollectionJson\ArrayConvertible;
+use CollectionJson\DataAware;
+use CollectionJson\Entity\Query;
 
 class QuerySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Entity\Query');
-        $this->shouldImplement('CollectionJson\DataAware');
-        $this->shouldImplement('CollectionJson\ArrayConvertible');
-        $this->shouldImplement('JsonSerializable');
+        $this->shouldHaveType(Query::class);
+        $this->shouldImplement(DataAware::class);
+        $this->shouldImplement(ArrayConvertible::class);
+        $this->shouldImplement(\JsonSerializable::class);
     }
 
     function it_should_return_the_object_type()
@@ -23,19 +26,64 @@ class QuerySpec extends ObjectBehavior
         $this::getObjectType()->shouldBeEqualTo('query');
     }
 
+    function it_can_be_initialized_with_data()
+    {
+        $this->beConstructedWith('http://example.com', 'self', 'my query', 'cool query');
+        $this->getHref()->shouldReturn('http://example.com');
+        $this->getRel()->shouldReturn('self');
+        $this->getName()->shouldReturn('my query');
+        $this->getPrompt()->shouldReturn('cool query');
+    }
+
+    function it_is_clonable()
+    {
+        $this->beConstructedThrough('fromArray', [[
+            'href'   => 'http://example.com',
+            'rel'    => 'Query Rel',
+            'name'   => 'Query Name',
+            'prompt' => 'Query Prompt',
+            'data'   => [
+                [
+                    'name'   => 'Data Name 1',
+                    'prompt' => 'Data Prompt 1',
+                    'value'  => 'Data Value 1'
+                ],
+                [
+                    'name'   => 'Data Name 2',
+                    'prompt' => 'Data Prompt 2',
+                    'value'  => 'Data Value 2'
+                ]
+            ]
+        ]]);
+
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getFirstData()->shouldHaveType(Data::class);
+        $this->getLastData()->shouldHaveType(Data::class);
+
+        $copy = clone $this->getWrappedObject();
+
+        $this->getHref()->shouldReturn($copy->getHref());
+        $this->getRel()->shouldReturn($copy->getRel());
+        $this->getName()->shouldReturn($copy->getName());
+        $this->getPrompt()->shouldReturn($copy->getPrompt());
+        $this->getDataSet()->shouldHaveCount(count($copy->getDataSet()));
+        $this->getFirstData()->shouldNotBeEqualTo($copy->getFirstData());
+        $this->getLastData()->shouldNotBeEqualTo($copy->getLastData());
+    }
+
     function it_should_be_chainable()
     {
-        $this->setHref('http://example.com')->shouldReturn($this);
-        $this->setRel('value')->shouldReturn($this);
-        $this->setName('value')->shouldReturn($this);
-        $this->setPrompt('value')->shouldReturn($this);
-        $this->addData([])->shouldReturn($this);
-        $this->addDataSet([])->shouldReturn($this);
+        $this->withHref('http://example.com')->shouldHaveType(Query::class);
+        $this->withRel('value')->shouldHaveType(Query::class);
+        $this->withName('value')->shouldHaveType(Query::class);
+        $this->withPrompt('value')->shouldHaveType(Query::class);
+        $this->withData([])->shouldHaveType(Query::class);
+        $this->withDataSet([])->shouldHaveType(Query::class);
     }
 
     function it_may_be_construct_with_an_array_representation_of_the_query()
     {
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data2 = (new Prophet())->prophesize(Data::class);
 
         $data2->getName()->willReturn('name 2');
         $data2->getValue()->willReturn('value 2');
@@ -54,99 +102,85 @@ class QuerySpec extends ObjectBehavior
             ]
         ];
 
-        $query = $this::fromArray($data);
-        $query->getHref()->shouldBeEqualTo('http://example.com');
-        $query->getRel()->shouldBeEqualTo('Query Rel');
-        $query->getName()->shouldBeEqualTo('Query Name');
-        $query->getPrompt()->shouldBeEqualTo('Query Prompt');
-        $query->getDataSet()->shouldHaveCount(2);
-        $query->findDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
-        $query->findDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
+        $this->beConstructedThrough('fromArray', [$data]);
+
+        $this->getHref()->shouldBeEqualTo('http://example.com');
+        $this->getRel()->shouldBeEqualTo('Query Rel');
+        $this->getName()->shouldBeEqualTo('Query Name');
+        $this->getPrompt()->shouldBeEqualTo('Query Prompt');
+        $this->getDataSet()->shouldHaveCount(2);
+        $this->getDataByName('name 1')->getValue()->shouldBeEqualTo('value 1');
+        $this->getDataByName('name 2')->getValue()->shouldBeEqualTo('value 2');
     }
 
     function it_should_throw_an_exception_when_setting_the_href_field_with_an_invalid_url()
     {
         $this->shouldThrow(
             new \DomainException("Property [href] of entity [query] can only have one of the following values [URI]")
-        )->duringSetHref('uri');
+        )->during('withHref', ['uri']);
     }
 
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_rel_to_a_string()
+    function it_should_set_the_href_value()
     {
-        $this->shouldThrow(
-            new \DomainException(
-                "Property [rel] of entity [query] can only have one of the following values [scalar,Object::__toString]"
-            )
-        )->during('setRel', [new \stdClass()]);
+        $link = $this->withHref("htp://google.com");
+        $this->getHref()->shouldBeNull();
+        $link->getHref()->shouldBeEqualTo("htp://google.com");
     }
 
     function it_should_convert_the_rel_value_to_a_string()
     {
-        $this->setRel(true);
-        $this->getRel()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_name_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException(
-                "Property [name] of entity [query] can only have one of the following values [scalar,Object::__toString]"
-            )
-        )->during('setName', [new \stdClass()]);
+        $query = $this->withRel(true);
+        $this->getRel()->shouldBeNull();
+        $query->getRel()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_name_value_to_a_string()
     {
-        $this->setName(true);
-        $this->getName()->shouldBeEqualTo('1');
-    }
-
-    function it_should_throw_an_exception_when_it_cannot_convert_the_property_prompt_to_a_string()
-    {
-        $this->shouldThrow(
-            new \DomainException("Property [prompt] of entity [query] can only have one of the following values [scalar,Object::__toString]")
-        )->during('setPrompt', [new \stdClass()]);
+        $query = $this->withName(true);
+        $this->getName()->shouldBeNull();
+        $query->getName()->shouldBeEqualTo('1');
     }
 
     function it_should_convert_the_prompt_value_to_a_string()
     {
-        $this->setPrompt(true);
-        $this->getPrompt()->shouldBeEqualTo('1');
+        $query = $this->withPrompt(true);
+        $this->getPrompt()->shouldBeNull();
+        $query->getPrompt()->shouldBeEqualTo('1');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
     {
-        $this->setRel('Rel value');
-        $this->shouldThrow(new \DomainException('Property [href] of entity [query] is required'))->during('toArray');
+        $query = $this->withRel('Rel value');
+        $query->shouldThrow(new \DomainException('Property [href] of entity [query] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
     {
-        $this->setRel('Rel value');
-        $this->shouldThrow(
+        $query = $this->withRel('Rel value');
+        $query->shouldThrow(
             new \DomainException('Property [href] of entity [query] is required')
         )->during('jsonSerialize');
     }
 
     function it_should_throw_an_exception_during_array_conversion_when_the_field_rel_is_null()
     {
-        $this->setHref('http://example.com');
-        $this->shouldThrow(new \DomainException('Property [rel] of entity [query] is required'))->during('toArray');
+        $query = $this->withHref('http://example.com');
+        $query->shouldThrow(new \DomainException('Property [rel] of entity [query] is required'))->during('toArray');
     }
 
     function it_should_throw_an_exception_during_json_conversion_when_the_field_rel_is_null()
     {
-        $this->setHref('http://example.com');
-        $this->shouldThrow(
+        $query = $this->withHref('http://example.com');
+        $query->shouldThrow(
             new \DomainException('Property [rel] of entity [query] is required')
         )->during('jsonSerialize');
     }
 
     function it_should_not_return_null_values_and_empty_arrays()
     {
-        $this->setRel('Rel value');
-        $this->setHref('http://example.com');
-        $this->toArray()->shouldBeEqualTo([
+        $query = $this->withRel('Rel value');
+        $query = $query->withHref('http://example.com');
+        $query->toArray()->shouldBeEqualTo([
             'href'   => 'http://example.com',
             'rel'    => 'Rel value',
         ]);
@@ -154,44 +188,58 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $this->addData($data);
-        $this->getDataSet()->shouldHaveCount(1);
+        $data = new Data();
+        $query = $this->withData($data);
+        $this->getDataSet()->shouldHaveCount(0);
+        $query->getDataSet()->shouldHaveCount(1);
+    }
+
+    function it_should_remove_data()
+    {
+        $data = new Data();
+
+        $template = $this->withData($data);
+        $template->getDataSet()->shouldHaveCount(1);
+
+        $template = $template->withoutData($data);
+        $template->getDataSet()->shouldHaveCount(0);
     }
 
     function it_should_throw_an_exception_when_data_has_the_wrong_type()
     {
         $this->shouldThrow(
             new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
-        )->during('addData', [new Template()]);
+        )->during('withData', [new Template()]);
     }
 
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
-        $this->addData(['value' => 'value 1']);
-        $this->getDataSet()->shouldHaveCount(1);
+        $query = $this->withData(['value' => 'value 1']);
+        $this->getDataSet()->shouldHaveCount(0);
+        $query->getDataSet()->shouldHaveCount(1);
     }
 
     function it_should_add_a_data_set()
     {
-        $data = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $this->addDataSet([$data, ['value' => 'value 2']]);
-        $this->getDataSet()->shouldHaveCount(2);
+        $data = (new Prophet())->prophesize(Data::class);
+        $query = $this->withDataSet([$data, ['value' => 'value 2']]);
+        $this->getDataSet()->shouldHaveCount(0);
+        $query->getDataSet()->shouldHaveCount(2);
     }
 
     function it_should_return_an_array_with_the_data_list()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
         
         $data1->toArray()->willReturn(['value' => 'value 1']);
         $data2->toArray()->willReturn(['value' => 'value 2']);
 
-        $this->addData($data1);
-        $this->addData($data2);
-        $this->setRel('Rel value');
-        $this->setHref('http://example.com');
-        $this->toArray()->shouldBeEqualTo([
+        $query = $this->withData($data1);
+        $query = $query->withData($data2);
+        $query = $query->withRel('Rel value');
+        $query = $query->withHref('http://example.com');
+        $query->toArray()->shouldBeEqualTo([
             'data'   => [
                 ['value' => 'value 1'],
                 ['value' => 'value 2'],
@@ -204,21 +252,24 @@ class QuerySpec extends ObjectBehavior
 
     function it_should_retrieve_the_data_by_name()
     {
-        $data1 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
-        $data2 = (new Prophet())->prophesize('CollectionJson\Entity\Data');
+        $data1 = (new Prophet())->prophesize(Data::class);
+        $data2 = (new Prophet())->prophesize(Data::class);
         
         $data1->getName()->willReturn('name1');
         $data2->getName()->willReturn('name2');
 
-        $this->addDataSet([$data1, $data2]);
+        $query = $this->withDataSet([$data1, $data2]);
 
-        $this->findDataByName('name1')->shouldBeEqualTo($data1);
-        $this->findDataByName('name2')->shouldBeEqualTo($data2);
+        $this->getDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name2')->shouldBeNull();
+
+        $query->getDataByName('name1')->shouldBeLike($data1);
+        $query->getDataByName('name2')->shouldBeLike($data2);
     }
 
     function it_should_return_null_when_data_is_not_in_the_set()
     {
-        $this->findDataByName('name1')->shouldBeNull();
+        $this->getDataByName('name1')->shouldBeNull();
     }
 
     function it_should_return_the_first_data_in_the_set()
@@ -227,9 +278,10 @@ class QuerySpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $query = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getFirstData()->shouldReturn($data1);
+        $this->getFirstData()->shouldBeNull();
+        $query->getFirstData()->shouldBeLike($data1);
     }
 
     function it_should_return_null_when_the_first_data_in_not_the_set()
@@ -243,9 +295,10 @@ class QuerySpec extends ObjectBehavior
         $data2 = Data::fromArray(['value' => 'value2']);
         $data3 = Data::fromArray(['value' => 'value3']);
 
-        $this->addDataSet([$data1, $data2, $data3]);
+        $query = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getLastData()->shouldReturn($data3);
+        $this->getLastData()->shouldBeNull();
+        $query->getLastData()->shouldBeLike($data3);
     }
 
     function it_should_return_null_when_the_last_data_in_not_the_set()
@@ -257,9 +310,9 @@ class QuerySpec extends ObjectBehavior
     {
         $data = new Data();
 
-        $this->addData($data);
-
-        $this->shouldHaveData();
+        $query = $this->withData($data);
+        $this->shouldNotHaveData();
+        $query->shouldHaveData();
     }
 
     function it_should_know_if_it_has_no_data()

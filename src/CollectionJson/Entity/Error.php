@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -13,8 +14,6 @@
 namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
-use CollectionJson\Validator\StringLike;
-use CollectionJson\Exception\WrongParameter;
 
 /**
  * Class Error
@@ -43,22 +42,36 @@ class Error extends BaseEntity
     protected $message;
 
     /**
-     * @param string $code
-     * @return \CollectionJson\Entity\Error
-     * @throws \DomainException
+     * Error constructor.
+     *
+     * @param string|null $code
+     * @param string|null $message
+     * @param string|null $title
      */
-    public function setCode($code)
+    public function __construct(string $code = null, string $message = null, string $title = null)
     {
-        if (!StringLike::isValid($code)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'code', StringLike::allowed());
-        }
-        $this->code = (string)$code;
-
-        return $this;
+        $this->code    = $code;
+        $this->message = $message;
+        $this->title   = $title;
     }
 
     /**
-     * @return string
+     * @param string $code
+     *
+     * @return Error
+     *
+     * @throws \DomainException
+     */
+    public function withCode(string $code): Error
+    {
+        $copy = clone $this;
+        $copy->code = $code;
+
+        return $copy;
+    }
+
+    /**
+     * @return string|null
      */
     public function getCode()
     {
@@ -67,21 +80,21 @@ class Error extends BaseEntity
 
     /**
      * @param string $message
-     * @return \CollectionJson\Entity\Error
+     *
+     * @return Error
+     *
      * @throws \DomainException
      */
-    public function setMessage($message)
+    public function withMessage(string $message): Error
     {
-        if (!StringLike::isValid($message)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'message', StringLike::allowed());
-        }
-        $this->message = (string)$message;
+        $copy = clone $this;
+        $copy->message = $message;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getMessage()
     {
@@ -90,21 +103,21 @@ class Error extends BaseEntity
 
     /**
      * @param string $title
-     * @return \CollectionJson\Entity\Error
+     *
+     * @return Error
+     *
      * @throws \DomainException
      */
-    public function setTitle($title)
+    public function withTitle(string $title): Error
     {
-        if (!StringLike::isValid($title)) {
-            throw WrongParameter::fromTemplate(self::getObjectType(), 'title', StringLike::allowed());
-        }
-        $this->title = (string)$title;
+        $copy = clone $this;
+        $copy->title = $title;
 
-        return $this;
+        return $copy;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTitle()
     {
@@ -114,7 +127,7 @@ class Error extends BaseEntity
     /**
      * {@inheritdoc}
      */
-    protected function getObjectData()
+    protected function getObjectData(): array
     {
         $data = [
             'code'    => $this->code,

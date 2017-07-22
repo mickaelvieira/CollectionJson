@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -12,47 +13,33 @@
 
 namespace CollectionJson;
 
+use Psr\Link\LinkProviderInterface;
+use Psr\Link\EvolvableLinkProviderInterface;
+
 /**
  * Class LinkAware
  * @package CollectionJson
  */
-interface LinkAware
+interface LinkAware extends LinkProviderInterface, EvolvableLinkProviderInterface
 {
-    /**
-     * @param \CollectionJson\Entity\Link|array $link
-     * @return mixed
-     */
-    public function addLink($link);
-
     /**
      * @param array $set
      * @return mixed
      */
-    public function addLinksSet(array $set);
+    public function withLinksSet(array $set);
 
     /**
-     * @return array
-     */
-    public function getLinksSet();
-
-    /**
-     * @param string $relation
-     * @return \CollectionJson\Entity\Link|null
-     */
-    public function findLinkByRelation($relation);
-
-    /**
-     * @return \CollectionJson\Entity\Link|null
+     * @return Entity\Link|null
      */
     public function getFirstLink();
 
     /**
-     * @return \CollectionJson\Entity\Link|null
+     * @return Entity\Link|null
      */
     public function getLastLink();
     
     /**
      * @return bool
      */
-    public function hasLinks();
+    public function hasLinks(): bool;
 }

@@ -11,16 +11,21 @@ Specification:
 
 ## Installation
 
-CollectionJson requires php >= 5.5
+CollectionJson requires php >= 7.0
 
 Install CollectionJson with [Composer](https://getcomposer.org/)
 
 ```json
 {
     "require": {
-        "mvieira/json-collection": "dev-master"
+        "mvieira/collection-json": "dev-master"
     }
 }
+```
+or
+
+```sh
+$ composer require mvieira/collection-json
 ```
 
 ## Contributing
@@ -36,15 +41,17 @@ The MIT License (MIT). Please see [License File](https://github.com/mickaelvieir
 ### Creating a collection
 
 ```php
-use CollectionJson\Entity\Collection;
-use CollectionJson\Entity\Item;
-
-$collection = new Collection();
-
-$item = new Item();
-$item->setHref('http://example.com/item/1');
-
-$collection->addItem($item);
+$collection = (new Collection())
+    ->withItem((new Item())
+        ->withHref('https://example.co/item/1')
+        ->withDataSet([
+            new Data('data 1'),
+            new Data('data 2', 'value 2')
+        ])
+        ->withLink(
+            new Link('https://example.co/item/1', Relation::ITEM)
+        )
+    );
 
 print json_encode($collection);
 ```
@@ -55,7 +62,24 @@ print json_encode($collection);
         "version": "1.0",
         "items": [
             {
-                "href": "http://example.com/item/1"
+                "data": [
+                    {
+                        "name": "data 1",
+                        "value": null
+                    },
+                    {
+                        "name": "data 2",
+                        "value": "value 2"
+                    }
+                ],
+                "href": "http:\/\/example.com\/item\/1",
+                "links": [
+                    {
+                        "href": "https:\/\/example.co\/item\/1",
+                        "rel": "item",
+                        "render": "link"
+                    }
+                ]
             }
         ]
     }
@@ -69,16 +93,22 @@ All entities ```Collection```, ```Data```, ```Error```, ```Item```, ```Link```, 
 ```php
 $data = Data::fromArray([
     'name' => 'email',
-    'value' => 'email value'
+    'value' => 'hello@example.co'
 ]);
 ```
 
-...or by using the mutators.
+...or by using the accessors (Note that entities are immutable)
 
 ```php
 $data = (new Data())
-    ->setName('email')
-    ->setValue('email value');
+    ->withName('email')
+    ->withValue('hello@example.co');
+```
+
+...or via the constructor
+
+```php
+$data = new Data('email', 'hello@example.co');
 ```
 
 ### Printing the data
@@ -196,55 +226,51 @@ $ php ./examples/client-collection.php
 
 ### Working with data and links
 
-In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement the same logic.
+In order to work with CollectionJson Arrays [Data](http://amundsen.com/media-types/collection/format/#arrays-data), [Links](http://amundsen.com/media-types/collection/format/#arrays-links), the API provides 2 interfaces that implement a similar logic.
 
 - The interface ```DataAware``` implemented by ```Item```, ```Query``` and ```Template``` entities,
-provides the methods ```addData```, ```addDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
+provides the methods ```withData```, ```withoutData```, ```withDataSet```, ```getDataSet```, ```getFirstData``` and ```getLastData```
 - The interface ```LinkAware``` implemented by ```Collection``` and ```Item``` entities,
-provides the methods```addLink```, ```addLinkSet```, ```getLinkSet```, ```getFirstLink``` and ```getLastLink```
+provides the methods ```withLink```, ```withoutLink```, ```withLinkSet```, ```getLinks```, ```getFirstLink``` and ```getLastLink```
 
 They allows you to add the corresponding entities to objects that implement them.
 
 ```php
-$item = new Item();
-
 // this...
-$item->addData([
-    'name' => 'email',
-    'value' => 'email value'
-]);
+$item = (new Item())
+    ->withData([
+        'name' => 'email',
+        'value' => 'email value'
+    ]);
 
 // ...is similar to 
 $data = Data::fromArray([
     'name' => 'email',
     'value' => 'email value'
 ]);
-$item->addData($data);
+
+$item = (new Item())
+    ->withData($data);
 
 // and that...
-$item->addDataSet([
-    [
-        'name' => 'email',
-        'value' => 'email value'
-    ],
-    [
-        'name' => 'tel',
-        'value' => 'tel value'
-    ]
-]);
+$item = (new Item())
+    ->withDataSet([
+        new Data('email', 'hello@example.co'),
+        new Data('tel', '0000000000')
+    ]);
 
 // ...is similar to 
 $data1 = Data::fromArray([
     'name' => 'email',
-    'value' => 'email value'
+    'value' => 'hello@example.co'
 ]);
 $data2 = Data::fromArray([
     'name' => 'tel',
-    'value' => 'tel value'
+    'value' => '0000000000'
 ]);
-$item->addDataSet([
-    $data1,
-    $data2
-]);
+$item = (new Item())
+    ->withDataSet([
+        $data1,
+        $data2
+    ]);
 ```
-

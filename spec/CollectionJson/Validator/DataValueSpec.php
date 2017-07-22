@@ -4,13 +4,14 @@ namespace spec\CollectionJson\Validator;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use CollectionJson\Validator\DataValue;
 
 class DataValueSpec extends ObjectBehavior
 {
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('CollectionJson\Validator\DataValue');
+        $this->shouldHaveType(DataValue::class);
     }
 
     function it_should_validate_a_boolean()
