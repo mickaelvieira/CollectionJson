@@ -34,7 +34,7 @@ interface DataAware
     public function withDataSet(array $set);
 
     /**
-     * @return array
+     * @return Entity\Data[]
      */
     public function getDataSet(): array;
 

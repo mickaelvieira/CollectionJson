@@ -49,7 +49,13 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
                 } elseif (method_exists($object, $wither)) {
                     $object = $object->$wither($value);
                 } else {
-                    throw new \DomainException(sprintf('Could not inject the entry "%s"', $key));
+                    throw new \DomainException(
+                        sprintf(
+                            'Invalid schema! Could not inject entry "%s" into entity "%s"',
+                            $key,
+                            get_class($object)
+                        )
+                    );
                 }
             }
         }
@@ -67,6 +73,11 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         $data = json_decode($json, true);
         $type = static::getObjectType();
 
+        if (!$data || json_last_error() !== JSON_ERROR_NONE) {
+            throw new \LogicException(sprintf('Invalid JSON: %s', json_last_error_msg()));
+        }
+
+        // unwrapping
         if (array_key_exists($type, $data)) {
             $data = $data[$type];
         }
@@ -95,18 +106,19 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     public function toArray(): array
     {
         $data = $this->getObjectData();
-        $data = $this->recursiveToArray($data);
         $data = $this->addWrapper($data);
 
-        return $data;
+        return $this->recursiveToArray($data);
     }
 
     /**
+     * @TODO this method should return a new entity
      * @return self
      */
     final public function wrap(): self
     {
         $this->wrapper = static::getObjectType();
+
         return $this;
     }
 

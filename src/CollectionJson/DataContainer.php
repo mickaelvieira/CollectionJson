@@ -67,7 +67,7 @@ trait DataContainer
     }
 
     /**
-     * @return array
+     * @return Data[]
      */
     public function getDataSet(): array
     {

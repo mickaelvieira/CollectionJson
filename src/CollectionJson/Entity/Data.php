@@ -62,6 +62,8 @@ class Data extends BaseEntity
         $this->prompt = $prompt;
     }
 
+    // @TODO add a __toString method
+
     /**
      * @param string $name
      *
