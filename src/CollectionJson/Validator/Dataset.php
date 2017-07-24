@@ -89,7 +89,7 @@ final class Dataset
      */
     public static function flatten(array $dataSet): array
     {
-        return array_reduce($dataSet, function($carry, Data $item) {
+        return array_reduce($dataSet, function ($carry, Data $item) {
             $carry[$item->getName()] = $item->getValue();
             return $carry;
         }, []);
