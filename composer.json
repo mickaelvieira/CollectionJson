@@ -30,6 +30,9 @@
         "satooshi/php-coveralls": "^1.0",
         "leanphp/phpspec-code-coverage": "^3.1"
     },
+    "suggest": {
+        "symfony/validator": "Adds DataSet validation support"
+    },
     "config": {
         "bin-dir": "bin"
     },
