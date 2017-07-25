@@ -274,3 +274,36 @@ $item = (new Item())
         $data2
     ]);
 ```
+
+### Validation
+
+it is now possible to validate the data entering your API by using the Symfony validator.
+
+```php
+use CollectionJson\Validator\Dataset as DatasetValidator;
+use Symfony\Component\Validator\Constraints;
+
+$constraints = [
+    'id' => [
+        new Constraints\NotBlank(),
+    ],
+    'url' => [
+        new Constraints\NotBlank(),
+        new Constraints\Url(),
+    ],
+    'email' => [
+        new Constraints\NotBlank(),
+        new Constraints\Email(),
+    ],
+];
+
+$template = (new Template())
+    ->withData(new Data('id', '123'))
+    ->withData(new Data('url', 'http://example.co'))
+    ->withData(new Data('email', 'test@example.co'));
+
+$errors = (new DatasetValidator())
+    ->validate($template->getDataSet(), $constraints);
+```
+
+It will return the list of errors.
