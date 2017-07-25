@@ -277,7 +277,7 @@ $item = (new Item())
 
 ### Validation
 
-it is now possible to validate the data entering your API by using the Symfony validator.
+it is now possible to validate the data entering your API by using the [Symfony validator](https://symfony.com/doc/current/components/validator.html).
 
 ```php
 use CollectionJson\Validator\Dataset as DatasetValidator;
