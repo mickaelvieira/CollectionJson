@@ -1,7 +1,7 @@
 # Collection Json
 
 [![Build Status](https://travis-ci.org/mickaelvieira/CollectionJson.svg?branch=master)](https://travis-ci.org/mickaelvieira/CollectionJson)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE.md)
 [![Coverage Status](https://coveralls.io/repos/github/mickaelvieira/CollectionJson/badge.svg?branch=master)](https://coveralls.io/github/mickaelvieira/CollectionJson?branch=master)
 
 PHP implementation of the Collection+JSON Media Type
@@ -34,7 +34,7 @@ Please see [CONTRIBUTING](https://github.com/mickaelvieira/CollectionJson/tree/m
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE.md) for more information.
 
 ## Documentation
 
