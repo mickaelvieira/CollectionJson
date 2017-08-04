@@ -1,12 +1,13 @@
 # Collection Json
 
+[![Software License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE.md)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mvieira/collection-json.svg)](https://packagist.org/packages/mvieira/collection-json)
 [![Build Status](https://travis-ci.org/mickaelvieira/CollectionJson.svg?branch=master)](https://travis-ci.org/mickaelvieira/CollectionJson)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE.md)
 [![Coverage Status](https://coveralls.io/repos/github/mickaelvieira/CollectionJson/badge.svg?branch=master)](https://coveralls.io/github/mickaelvieira/CollectionJson?branch=master)
 
 PHP implementation of the Collection+JSON Media Type
 
-Specification: 
+Specification:
 - [http://amundsen.com/media-types/collection/](http://amundsen.com/media-types/collection/)
 
 ## Installation
