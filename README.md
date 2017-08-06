@@ -35,7 +35,7 @@ Please see [CONTRIBUTING](https://github.com/mickaelvieira/CollectionJson/tree/m
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE.md) for more information.
 
 ## Documentation
 
