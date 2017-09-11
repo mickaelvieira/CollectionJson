@@ -217,7 +217,7 @@ echo json_encode($template);
 Examples are available in the directory ```./examples/```, you can execute them on the command line by running:
 
 ```sh
-$ ./bin/test-example
+$ make examples
 ```
 
 Or separately
