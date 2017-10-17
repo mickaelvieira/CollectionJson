@@ -23,6 +23,11 @@ get_version() {
   echo "$version"
 }
 
+ask_for_version_number() {
+    read -erp "Which version do you want to release: " number
+    echo "$number"
+}
+
 get_branch() {
     git branch | grep -E "^\*" | awk '{print $2}'
 }
@@ -64,7 +69,7 @@ main() {
     local repo="CollectionJson"
     local endpoint="https://api.github.com/repos/$owner/$repo/releases"
     local branch="$(get_branch)"
-    local version="$(get_version)"
+    local version="$(ask_for_version_number)"
     local credentials="$WD/.github/.access_token"
 
     [[ "$branch" != master ]] && error "Your are not on the master branch mate."
