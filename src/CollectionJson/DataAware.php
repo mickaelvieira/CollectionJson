@@ -46,14 +46,14 @@ interface DataAware
     public function getDataByName($name);
 
     /**
-     * @return Entity\Data|null
+     * @return Entity\Data
      */
-    public function getFirstData();
+    public function getFirstData(): Entity\Data;
 
     /**
-     * @return Entity\Data|null
+     * @return Entity\Data
      */
-    public function getLastData();
+    public function getLastData(): Entity\Data;
 
     /**
      * @return bool

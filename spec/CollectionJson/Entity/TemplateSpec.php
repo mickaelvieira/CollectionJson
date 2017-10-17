@@ -237,13 +237,7 @@ class TemplateSpec extends ObjectBehavior
 
         $template = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getFirstData()->shouldBeNull();
         $template->getFirstData()->shouldBeLike($data1);
-    }
-
-    function it_should_return_null_when_the_first_data_in_not_the_set()
-    {
-        $this->getFirstData()->shouldBeNull();
     }
 
     function it_should_return_the_last_data_in_the_set()
@@ -254,13 +248,7 @@ class TemplateSpec extends ObjectBehavior
 
         $template = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getLastData()->shouldBeNull();
         $template->getLastData()->shouldBeLike($data3);
-    }
-
-    function it_should_return_null_when_the_last_data_in_not_the_set()
-    {
-        $this->getLastData()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_data()

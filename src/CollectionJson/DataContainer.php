@@ -89,17 +89,17 @@ trait DataContainer
     }
 
     /**
-     * @return Data|null
+     * @return Data
      */
-    public function getFirstData()
+    public function getFirstData(): Data
     {
         return $this->data->first();
     }
 
     /**
-     * @return Data|null
+     * @return Data
      */
-    public function getLastData()
+    public function getLastData(): Data
     {
         return $this->data->last();
     }

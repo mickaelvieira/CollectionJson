@@ -647,13 +647,7 @@ class CollectionSpec extends ObjectBehavior
 
         $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getFirstLink()->shouldBeNull();
         $collection->getFirstLink()->shouldBeLike($link1);
-    }
-
-    function it_should_return_null_when_the_first_link_in_not_the_set()
-    {
-        $this->getFirstLink()->shouldBeNull();
     }
 
     function it_should_return_the_last_link_in_the_set()
@@ -664,13 +658,7 @@ class CollectionSpec extends ObjectBehavior
 
         $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getLastLink()->shouldBeNull();
         $collection->getLastLink()->shouldBeLike($link3);
-    }
-
-    function it_should_return_null_when_the_last_link_in_not_the_set()
-    {
-        $this->getLastLink()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_links()

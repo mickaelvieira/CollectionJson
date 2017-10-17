@@ -82,17 +82,17 @@ trait LinkContainer
     }
 
     /**
-     * @return Link|null
+     * @return Entity\Link
      */
-    public function getFirstLink()
+    public function getFirstLink(): Entity\Link
     {
         return $this->links->first();
     }
 
     /**
-     * @return Link|null
+     * @return Entity\Link
      */
-    public function getLastLink()
+    public function getLastLink(): Entity\Link
     {
         return $this->links->last();
     }
