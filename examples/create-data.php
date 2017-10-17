@@ -5,8 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use CollectionJson\Entity\Data;
 
-$data = (new Data())
-    ->withName('data name')
+$data = (new Data('data name'))
     ->withPrompt('data prompt')
     ->withValue('data value');
 

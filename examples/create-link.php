@@ -6,11 +6,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use CollectionJson\Entity\Link;
 use CollectionJson\Type;
 
-$link = (new Link())
+$link = (new Link('https://example.co', Type\Relation::ITEM))
     ->withName('link name')
-    ->withHref('https://example.co')
     ->withPrompt('prompt value')
-    ->withRel(Type\Relation::ITEM)
     ->withRender(Type\Render::IMAGE); // default Render::LINK
 
 echo json_encode($link, JSON_PRETTY_PRINT);
