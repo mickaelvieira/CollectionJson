@@ -347,7 +347,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_set_the_href_value()
     {
         $link = $this->withHref("htp://google.com");
-        $this->getHref()->shouldBeNull();
+        $this->hasHref()->shouldReturn(false);
         $link->getHref()->shouldBeEqualTo("htp://google.com");
     }
 
@@ -432,13 +432,8 @@ class CollectionSpec extends ObjectBehavior
         $item3 = new Item();
 
         $collection = $this->withItemsSet([$item1, $item2, $item3]);
-        $this->getFirstItem()->shouldBeNull();
+        $this->shouldNotHaveItems();
         $collection->getFirstItem()->shouldBeLike($item1);
-    }
-
-    function it_should_return_null_when_the_first_item_in_not_the_set()
-    {
-        $this->getFirstItem()->shouldBeNull();
     }
 
     function it_should_return_the_last_item_in_the_set()
@@ -448,13 +443,8 @@ class CollectionSpec extends ObjectBehavior
         $item3 = new Item();
 
         $collection = $this->withItemsSet([$item1, $item2, $item3]);
-        $this->getLastItem()->shouldBeNull();
+        $this->shouldNotHaveItems();
         $collection->getLastItem()->shouldBeLike($item3);
-    }
-
-    function it_should_return_null_when_the_last_item_in_not_the_set()
-    {
-        $this->getLastItem()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_items()
@@ -534,13 +524,8 @@ class CollectionSpec extends ObjectBehavior
         $query3 = new Query();
 
         $collection = $this->withQueriesSet([$query1, $query2, $query3]);
-        $this->getFirstQuery()->shouldBeNull();
+        $this->shouldNotHaveQueries();
         $collection->getFirstQuery()->shouldBeLike($query1);
-    }
-
-    function it_should_return_null_when_the_first_data_in_not_the_set()
-    {
-        $this->getFirstQuery()->shouldBeNull();
     }
 
     function it_should_return_the_last_data_in_the_set()
@@ -550,13 +535,8 @@ class CollectionSpec extends ObjectBehavior
         $query3 = new Query();
 
         $collection = $this->withQueriesSet([$query1, $query2, $query3]);
-        $this->getLastQuery()->shouldBeNull();
+        $this->shouldNotHaveQueries();
         $collection->getLastQuery()->shouldBeLike($query3);
-    }
-
-    function it_should_return_null_when_the_last_data_in_not_the_set()
-    {
-        $this->getLastQuery()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_queries()
@@ -681,7 +661,7 @@ class CollectionSpec extends ObjectBehavior
             ->withCode('error code');
 
         $collection = $this->withError($error);
-        $this->getError()->shouldBeNull();
+        $this->shouldNotHaveError();
         $collection->getError()->shouldBeAnInstanceOf(Error::class);
         $collection->getError()->getCode()->shouldBeEqualTo('error code');
     }
@@ -695,7 +675,7 @@ class CollectionSpec extends ObjectBehavior
         $collection->getError()->shouldBeAnInstanceOf(Error::class);
 
         $collection = $collection->withoutError();
-        $collection->getError()->shouldBeNull();
+        $collection->shouldNotHaveError();
     }
 
     function it_should_set_the_error_when_passing_an_array()
@@ -705,7 +685,7 @@ class CollectionSpec extends ObjectBehavior
             'title' => 'title code',
             'code' => 'error code',
         ]);
-        $this->getError()->shouldBeNull();
+        $this->shouldNotHaveError();
         $collection->getError()->shouldBeAnInstanceOf(Error::class);
         $collection->getError()->getMessage()->shouldBeEqualTo('message code');
         $collection->getError()->getTitle()->shouldBeEqualTo('title code');
@@ -738,7 +718,7 @@ class CollectionSpec extends ObjectBehavior
         $template = new Template();
 
         $collection = $this->withTemplate($template);
-        $this->getTemplate()->shouldBeNull();
+        $this->shouldNotHaveTemplate();
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
     }
 
@@ -750,7 +730,7 @@ class CollectionSpec extends ObjectBehavior
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
 
         $collection = $collection->withoutTemplate();
-        $collection->getTemplate()->shouldBeNull();
+        $collection->shouldNotHaveTemplate();
     }
 
     function it_should_set_the_template_when_passing_an_array()
@@ -763,7 +743,7 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getTemplate()->shouldBeNull();
+        $this->shouldNotHaveTemplate();
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
         $collection->getTemplate()->getDataSet()->shouldHaveCount(1);
     }

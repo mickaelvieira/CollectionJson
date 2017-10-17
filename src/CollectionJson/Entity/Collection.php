@@ -88,7 +88,7 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @param string $href
+     * @param string|Object $href
      *
      * @return Collection
      *
@@ -107,11 +107,19 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasHref(): bool
+    {
+        return is_string($this->href);
     }
 
     /**
@@ -132,7 +140,7 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @return Collection
      */
-    public function withoutItem($item)
+    public function withoutItem($item): Collection
     {
         $copy = clone $this;
         $copy->items = $this->items->without($item);
@@ -162,17 +170,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return Item|null
+     * @return Item
      */
-    public function getFirstItem()
+    public function getFirstItem(): Item
     {
         return $this->items->first();
     }
 
     /**
-     * @return Item|null
+     * @return Item
      */
-    public function getLastItem()
+    public function getLastItem(): Item
     {
         return $this->items->last();
     }
@@ -233,17 +241,17 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return Query|null
+     * @return Query
      */
-    public function getFirstQuery()
+    public function getFirstQuery(): Query
     {
         return $this->queries->first();
     }
 
     /**
-     * @return Query|null
+     * @return Query
      */
-    public function getLastQuery()
+    public function getLastQuery(): Query
     {
         return $this->queries->last();
     }
@@ -291,9 +299,9 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return Error|null
+     * @return Error
      */
-    public function getError()
+    public function getError(): Error
     {
         return $this->error;
     }
@@ -341,9 +349,9 @@ class Collection extends BaseEntity implements LinkAware
     }
 
     /**
-     * @return Template|null
+     * @return Template
      */
-    public function getTemplate()
+    public function getTemplate(): Template
     {
         return $this->template;
     }
