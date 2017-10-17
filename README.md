@@ -43,8 +43,7 @@ The MIT License (MIT). Please see [License File](https://github.com/mickaelvieir
 
 ```php
 $collection = (new Collection())
-    ->withItem((new Item())
-        ->withHref('https://example.co/item/1')
+    ->withItem((new Item('https://example.co/item/1'))
         ->withDataSet([
             new Data('data 1'),
             new Data('data 2', 'value 2')
@@ -101,8 +100,7 @@ $data = Data::fromArray([
 ...or by using the accessors (Note that entities are immutable)
 
 ```php
-$data = (new Data())
-    ->withName('email')
+$data = (new Data('email'))
     ->withValue('hello@example.co');
 ```
 
@@ -238,7 +236,7 @@ They allows you to add the corresponding entities to objects that implement them
 
 ```php
 // this...
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withData([
         'name' => 'email',
         'value' => 'email value'
@@ -250,11 +248,11 @@ $data = Data::fromArray([
     'value' => 'email value'
 ]);
 
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withData($data);
 
 // and that...
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withDataSet([
         new Data('email', 'hello@example.co'),
         new Data('tel', '0000000000')
@@ -269,7 +267,7 @@ $data2 = Data::fromArray([
     'name' => 'tel',
     'value' => '0000000000'
 ]);
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withDataSet([
         $data1,
         $data2
