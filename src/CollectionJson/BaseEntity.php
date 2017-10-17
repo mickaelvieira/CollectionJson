@@ -79,7 +79,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         $type = static::getObjectType();
 
         if (!$data || json_last_error() !== JSON_ERROR_NONE) {
-            throw new \LogicException(sprintf('Invalid JSON: %s', json_last_error_msg()));
+            throw new CollectionJsonException(sprintf('Invalid JSON: %s', json_last_error_msg()));
         }
 
         // unwrapping
