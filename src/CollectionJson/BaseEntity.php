@@ -35,7 +35,7 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     public static function fromArray(array $data)
     {
-        [$props, $data] = self::getRequiredParameters($data);
+        list($props, $data) = self::getRequiredParameters($data);
 
         $object = count($props) > 0
             ? new static(...$props)
