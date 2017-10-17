@@ -70,10 +70,8 @@ final class Dataset
 
             foreach ($violations as $violation) {
                 /** @var ConstraintViolationInterface $violation */
-                $errors[] = [
-                    'code'     => $violation->getCode(),
+                $errors[$name] = [
                     'message'  => $violation->getMessage(),
-                    'property' => $violation->getPropertyPath(),
                     'value'    => $violation->getInvalidValue(),
                 ];
             }
