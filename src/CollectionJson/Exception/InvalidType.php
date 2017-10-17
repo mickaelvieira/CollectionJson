@@ -17,7 +17,7 @@ namespace CollectionJson\Exception;
  * Class WrongType
  * @package CollectionJson\Exception
  */
-final class InvalidType extends \BadMethodCallException
+final class InvalidType extends CollectionJsonException
 {
     const TEMPLATE = 'Property [%s] must be of type [%s]';
 

@@ -20,6 +20,7 @@ use CollectionJson\LinkContainer;
 use CollectionJson\Validator\Uri;
 use CollectionJson\Exception\InvalidType;
 use CollectionJson\Exception\InvalidParameter;
+use CollectionJson\Exception\CollectionJsonException;
 
 /**
  * Class Collection
@@ -92,7 +93,7 @@ class Collection extends BaseEntity implements LinkAware
      *
      * @return Collection
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withHref($href): Collection
     {

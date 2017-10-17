@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace CollectionJson\Entity;
 
 use CollectionJson\BaseEntity;
+use CollectionJson\Exception\CollectionJsonException;
 
 /**
  * Class Error
@@ -60,7 +61,7 @@ class Error extends BaseEntity
      *
      * @return Error
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withCode(string $code): Error
     {
@@ -83,7 +84,7 @@ class Error extends BaseEntity
      *
      * @return Error
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withMessage(string $message): Error
     {
@@ -106,7 +107,7 @@ class Error extends BaseEntity
      *
      * @return Error
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withTitle(string $title): Error
     {

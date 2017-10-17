@@ -16,7 +16,7 @@ namespace CollectionJson\Entity;
 use CollectionJson\BaseEntity;
 use CollectionJson\Validator\DataValue;
 use CollectionJson\Exception\InvalidParameter;
-use CollectionJson\Exception\MissingProperty;
+use CollectionJson\Exception\CollectionJsonException;
 
 /**
  * Class Data
@@ -51,7 +51,7 @@ class Data extends BaseEntity
      * @param string|int|float|bool|null $value
      * @param string|null                $prompt
      */
-    public function __construct(string $name = null, $value = null, string $prompt = null)
+    public function __construct(string $name, $value = null, string $prompt = null)
     {
         if (!is_null($value) && !DataValue::isValid($value)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'value', DataValue::allowed());
@@ -62,14 +62,12 @@ class Data extends BaseEntity
         $this->prompt = $prompt;
     }
 
-    // @TODO add a __toString method
-
     /**
      * @param string $name
      *
      * @return Data
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withName(string $name): Data
     {
@@ -92,7 +90,7 @@ class Data extends BaseEntity
      *
      * @return Data
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withPrompt(string $prompt): Data
     {
@@ -115,7 +113,7 @@ class Data extends BaseEntity
      *
      * @return Data
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withValue($value): Data
     {
@@ -142,10 +140,6 @@ class Data extends BaseEntity
      */
     protected function getObjectData(): array
     {
-        if (is_null($this->name)) {
-            throw MissingProperty::fromTemplate(self::getObjectType(), 'name');
-        }
-
         $data = [
             'name'   => $this->name,
             'prompt' => $this->prompt,

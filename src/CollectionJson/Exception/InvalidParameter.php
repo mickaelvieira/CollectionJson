@@ -17,7 +17,7 @@ namespace CollectionJson\Exception;
  * Class WrongParameter
  * @package CollectionJson\Exception
  */
-final class InvalidParameter extends \DomainException
+final class InvalidParameter extends CollectionJsonException
 {
     const TEMPLATE = 'Property [%s] of entity [%s] can only have one of the following values [%s]';
 

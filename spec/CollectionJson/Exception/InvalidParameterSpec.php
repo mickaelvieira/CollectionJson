@@ -2,6 +2,7 @@
 
 namespace spec\CollectionJson\Exception;
 
+use CollectionJson\Exception\CollectionJsonException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use CollectionJson\Exception\InvalidParameter;
@@ -11,6 +12,7 @@ class InvalidParameterSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(InvalidParameter::class);
+        $this->shouldHaveType(CollectionJsonException::class);
     }
 
     function it_should_build_a_domain_exception()
