@@ -7,9 +7,7 @@ use CollectionJson\Entity\Query;
 use CollectionJson\Entity\Data;
 use CollectionJson\Type\Relation;
 
-$query = (new Query())
-    ->withHref('https://example.co')
-    ->withRel(Relation::SEARCH)
+$query = (new Query('https://example.co', Relation::SEARCH))
     ->withName('value')
     ->withPrompt('value')
     ->withData(new Data('data 1', true))

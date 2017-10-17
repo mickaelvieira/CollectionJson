@@ -347,15 +347,15 @@ class CollectionSpec extends ObjectBehavior
     function it_should_set_the_href_value()
     {
         $link = $this->withHref("htp://google.com");
-        $this->getHref()->shouldBeNull();
+        $this->hasHref()->shouldReturn(false);
         $link->getHref()->shouldBeEqualTo("htp://google.com");
     }
 
     function it_should_be_chainable()
     {
-        $link = new Link();
-        $item = new Item();
-        $query = new Query();
+        $link = new Link('http://example.com', 'item');
+        $item = new Item('http://example.com');
+        $query = new Query('http://example.com', 'item');
         $error = new Error();
         $template = new Template();
 
@@ -381,7 +381,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_add_an_item()
     {
-        $item = new Item();
+        $item = new Item('http://example.com');
 
         $collection = $this->withItem($item);
         $this->getItemsSet()->shouldHaveCount(0);
@@ -390,7 +390,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_remove_an_item()
     {
-        $item = new Item();
+        $item = new Item('http://example.com');
 
         $collection = $this->withItem($item);
         $collection->getItemsSet()->shouldHaveCount(1);
@@ -402,7 +402,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_item_has_the_wrong_type()
     {
         $this->shouldThrow(
-            new \BadMethodCallException('Property [item] must be of type [CollectionJson\Entity\Item]')
+            new \DomainException('Property [item] must be of type [CollectionJson\Entity\Item]')
         )->during('withItem', [new Template()]);
     }
 
@@ -417,8 +417,8 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_add_multiple_items()
     {
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
 
         $collection = $this->withItemsSet([$item1, $item2]);
         $this->getItemsSet()->shouldHaveCount(0);
@@ -427,39 +427,29 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_return_the_first_item_in_the_set()
     {
-        $item1 = new Item();
-        $item2 = new Item();
-        $item3 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
+        $item3 = new Item('http://example.com');
 
         $collection = $this->withItemsSet([$item1, $item2, $item3]);
-        $this->getFirstItem()->shouldBeNull();
+        $this->shouldNotHaveItems();
         $collection->getFirstItem()->shouldBeLike($item1);
-    }
-
-    function it_should_return_null_when_the_first_item_in_not_the_set()
-    {
-        $this->getFirstItem()->shouldBeNull();
     }
 
     function it_should_return_the_last_item_in_the_set()
     {
-        $item1 = new Item();
-        $item2 = new Item();
-        $item3 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
+        $item3 = new Item('http://example.com');
 
         $collection = $this->withItemsSet([$item1, $item2, $item3]);
-        $this->getLastItem()->shouldBeNull();
+        $this->shouldNotHaveItems();
         $collection->getLastItem()->shouldBeLike($item3);
-    }
-
-    function it_should_return_null_when_the_last_item_in_not_the_set()
-    {
-        $this->getLastItem()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_items()
     {
-        $item1 = new Item();
+        $item1 = new Item('http://example.com');
 
         $collection = $this->withItem($item1);
         $this->shouldNotHaveItems();
@@ -473,7 +463,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_add_a_query()
     {
-        $query = new Query();
+        $query = new Query('http://example.com', 'item');
         $collection = $this->withQuery($query);
         $this->getQueriesSet()->shouldHaveCount(0);
         $collection->getQueriesSet()->shouldHaveCount(1);
@@ -481,8 +471,8 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_remove_a_query()
     {
-        $query1 = new Query();
-        $query2 = new Query();
+        $query1 = new Query('http://example.com', 'item');
+        $query2 = new Query('http://example.com', 'item');
 
         $collection = $this->withQuery($query1)->withQuery($query2);
         $collection->getQueriesSet()->shouldHaveCount(2);
@@ -495,7 +485,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_query_has_the_wrong_type()
     {
         $this->shouldThrow(
-            new \BadMethodCallException('Property [query] must be of type [CollectionJson\Entity\Query]')
+            new \DomainException('Property [query] must be of type [CollectionJson\Entity\Query]')
         )->during('withQuery', [new Template()]);
     }
 
@@ -519,8 +509,8 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_add_multiple_queries()
     {
-        $query1 = new Query();
-        $query2 = new Query();
+        $query1 = new Query('http://example.com', 'item');
+        $query2 = new Query('http://example.com', 'item');
 
         $collection = $this->withQueriesSet([$query1, $query2]);
         $this->getQueriesSet()->shouldHaveCount(0);
@@ -529,39 +519,29 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_return_the_first_query_in_the_set()
     {
-        $query1 = new Query();
-        $query2 = new Query();
-        $query3 = new Query();
+        $query1 = new Query('http://example.com', 'item');
+        $query2 = new Query('http://example.com', 'item');
+        $query3 = new Query('http://example.com', 'item');
 
         $collection = $this->withQueriesSet([$query1, $query2, $query3]);
-        $this->getFirstQuery()->shouldBeNull();
+        $this->shouldNotHaveQueries();
         $collection->getFirstQuery()->shouldBeLike($query1);
-    }
-
-    function it_should_return_null_when_the_first_data_in_not_the_set()
-    {
-        $this->getFirstQuery()->shouldBeNull();
     }
 
     function it_should_return_the_last_data_in_the_set()
     {
-        $query1 = new Query();
-        $query2 = new Query();
-        $query3 = new Query();
+        $query1 = new Query('http://example.com', 'item');
+        $query2 = new Query('http://example.com', 'item');
+        $query3 = new Query('http://example.com', 'item');
 
         $collection = $this->withQueriesSet([$query1, $query2, $query3]);
-        $this->getLastQuery()->shouldBeNull();
+        $this->shouldNotHaveQueries();
         $collection->getLastQuery()->shouldBeLike($query3);
-    }
-
-    function it_should_return_null_when_the_last_data_in_not_the_set()
-    {
-        $this->getLastQuery()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_queries()
     {
-        $query = new Query();
+        $query = new Query('http://example.com', 'item');
 
         $collection = $this->withQuery($query);
         $this->shouldNotHaveQueries();
@@ -575,7 +555,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_add_a_link()
     {
-        $link = new Link();
+        $link = new Link('http://example.com', 'item');
 
         $collection = $this->withLink($link);
         $this->getLinks()->shouldHaveCount(0);
@@ -584,7 +564,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_remove_a_link()
     {
-        $link = new Link();
+        $link = new Link('http://example.com', 'item');
 
         $collection = $this->withLink($link);
         $collection->getLinks()->shouldHaveCount(1);
@@ -625,7 +605,7 @@ class CollectionSpec extends ObjectBehavior
 
     function it_should_add_a_link_set()
     {
-        $link1 = new Link();
+        $link1 = new Link('http://example.com', 'item');
 
         $collection = $this->withLinksSet([
             $link1,
@@ -647,13 +627,7 @@ class CollectionSpec extends ObjectBehavior
 
         $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getFirstLink()->shouldBeNull();
         $collection->getFirstLink()->shouldBeLike($link1);
-    }
-
-    function it_should_return_null_when_the_first_link_in_not_the_set()
-    {
-        $this->getFirstLink()->shouldBeNull();
     }
 
     function it_should_return_the_last_link_in_the_set()
@@ -664,18 +638,12 @@ class CollectionSpec extends ObjectBehavior
 
         $collection = $this->withLinksSet([$link1, $link2, $link3]);
 
-        $this->getLastLink()->shouldBeNull();
         $collection->getLastLink()->shouldBeLike($link3);
-    }
-
-    function it_should_return_null_when_the_last_link_in_not_the_set()
-    {
-        $this->getLastLink()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_links()
     {
-        $link = new Link();
+        $link = new Link('http://example.com', 'item');
 
         $collection = $this->withLink($link);
 
@@ -693,7 +661,7 @@ class CollectionSpec extends ObjectBehavior
             ->withCode('error code');
 
         $collection = $this->withError($error);
-        $this->getError()->shouldBeNull();
+        $this->shouldNotHaveError();
         $collection->getError()->shouldBeAnInstanceOf(Error::class);
         $collection->getError()->getCode()->shouldBeEqualTo('error code');
     }
@@ -707,7 +675,7 @@ class CollectionSpec extends ObjectBehavior
         $collection->getError()->shouldBeAnInstanceOf(Error::class);
 
         $collection = $collection->withoutError();
-        $collection->getError()->shouldBeNull();
+        $collection->shouldNotHaveError();
     }
 
     function it_should_set_the_error_when_passing_an_array()
@@ -717,7 +685,7 @@ class CollectionSpec extends ObjectBehavior
             'title' => 'title code',
             'code' => 'error code',
         ]);
-        $this->getError()->shouldBeNull();
+        $this->shouldNotHaveError();
         $collection->getError()->shouldBeAnInstanceOf(Error::class);
         $collection->getError()->getMessage()->shouldBeEqualTo('message code');
         $collection->getError()->getTitle()->shouldBeEqualTo('title code');
@@ -727,8 +695,8 @@ class CollectionSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_error_has_the_wrong_type()
     {
         $this->shouldThrow(
-            new \BadMethodCallException('Property [error] must be of type [CollectionJson\Entity\Error]')
-        )->during('withError', [new Query()]);
+            new \DomainException('Property [error] must be of type [CollectionJson\Entity\Error]')
+        )->during('withError', [new Query('http://example.com', 'item')]);
     }
 
     function it_should_know_if_it_has_an_error()
@@ -750,7 +718,7 @@ class CollectionSpec extends ObjectBehavior
         $template = new Template();
 
         $collection = $this->withTemplate($template);
-        $this->getTemplate()->shouldBeNull();
+        $this->shouldNotHaveTemplate();
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
     }
 
@@ -762,7 +730,7 @@ class CollectionSpec extends ObjectBehavior
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
 
         $collection = $collection->withoutTemplate();
-        $collection->getTemplate()->shouldBeNull();
+        $collection->shouldNotHaveTemplate();
     }
 
     function it_should_set_the_template_when_passing_an_array()
@@ -775,7 +743,7 @@ class CollectionSpec extends ObjectBehavior
                 ]
             ]
         ]);
-        $this->getTemplate()->shouldBeNull();
+        $this->shouldNotHaveTemplate();
         $collection->getTemplate()->shouldBeAnInstanceOf(Template::class);
         $collection->getTemplate()->getDataSet()->shouldHaveCount(1);
     }
@@ -798,7 +766,7 @@ class CollectionSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_template_has_the_wrong_type()
     {
         $this->shouldThrow(
-            new \BadMethodCallException('Property [template] must be of type [CollectionJson\Entity\Template]')
-        )->during('withTemplate', [new Query()]);
+            new \DomainException('Property [template] must be of type [CollectionJson\Entity\Template]')
+        )->during('withTemplate', [new Query('http://example.com', 'item')]);
     }
 }

@@ -1,12 +1,13 @@
 # Collection Json
 
+[![Software License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE.md)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mvieira/collection-json.svg)](https://packagist.org/packages/mvieira/collection-json)
 [![Build Status](https://travis-ci.org/mickaelvieira/CollectionJson.svg?branch=master)](https://travis-ci.org/mickaelvieira/CollectionJson)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/mickaelvieira/CollectionJson/blob/master/LICENSE)
 [![Coverage Status](https://coveralls.io/repos/github/mickaelvieira/CollectionJson/badge.svg?branch=master)](https://coveralls.io/github/mickaelvieira/CollectionJson?branch=master)
 
 PHP implementation of the Collection+JSON Media Type
 
-Specification: 
+Specification:
 - [http://amundsen.com/media-types/collection/](http://amundsen.com/media-types/collection/)
 
 ## Installation
@@ -34,7 +35,7 @@ Please see [CONTRIBUTING](https://github.com/mickaelvieira/CollectionJson/tree/m
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/mickaelvieira/CollectionJson/tree/master/LICENSE.md) for more information.
 
 ## Documentation
 
@@ -42,8 +43,7 @@ The MIT License (MIT). Please see [License File](https://github.com/mickaelvieir
 
 ```php
 $collection = (new Collection())
-    ->withItem((new Item())
-        ->withHref('https://example.co/item/1')
+    ->withItem((new Item('https://example.co/item/1'))
         ->withDataSet([
             new Data('data 1'),
             new Data('data 2', 'value 2')
@@ -100,8 +100,7 @@ $data = Data::fromArray([
 ...or by using the accessors (Note that entities are immutable)
 
 ```php
-$data = (new Data())
-    ->withName('email')
+$data = (new Data('email'))
     ->withValue('hello@example.co');
 ```
 
@@ -216,7 +215,7 @@ echo json_encode($template);
 Examples are available in the directory ```./examples/```, you can execute them on the command line by running:
 
 ```sh
-$ ./bin/test-example
+$ make examples
 ```
 
 Or separately
@@ -237,29 +236,29 @@ They allows you to add the corresponding entities to objects that implement them
 
 ```php
 // this...
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withData([
         'name' => 'email',
         'value' => 'email value'
     ]);
 
-// ...is similar to 
+// ...is similar to
 $data = Data::fromArray([
     'name' => 'email',
     'value' => 'email value'
 ]);
 
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withData($data);
 
 // and that...
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withDataSet([
         new Data('email', 'hello@example.co'),
         new Data('tel', '0000000000')
     ]);
 
-// ...is similar to 
+// ...is similar to
 $data1 = Data::fromArray([
     'name' => 'email',
     'value' => 'hello@example.co'
@@ -268,9 +267,42 @@ $data2 = Data::fromArray([
     'name' => 'tel',
     'value' => '0000000000'
 ]);
-$item = (new Item())
+$item = (new Item('https://example.co/item/1'))
     ->withDataSet([
         $data1,
         $data2
     ]);
 ```
+
+### Validation
+
+It is now possible to validate the data entering your API by using the [Symfony validator](https://symfony.com/doc/current/components/validator.html).
+
+```php
+use CollectionJson\Validator\Dataset as DatasetValidator;
+use Symfony\Component\Validator\Constraints;
+
+$constraints = [
+    'id' => [
+        new Constraints\NotBlank(),
+    ],
+    'url' => [
+        new Constraints\NotBlank(),
+        new Constraints\Url(),
+    ],
+    'email' => [
+        new Constraints\NotBlank(),
+        new Constraints\Email(),
+    ],
+];
+
+$template = (new Template())
+    ->withData(new Data('id', '123'))
+    ->withData(new Data('url', 'http://example.co'))
+    ->withData(new Data('email', 'test@example.co'));
+
+$errors = (new DatasetValidator())
+    ->validate($template->getDataSet(), $constraints);
+```
+
+It will return the list of errors.

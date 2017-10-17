@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -21,7 +21,7 @@ use CollectionJson\LinkContainer;
 use CollectionJson\DataContainer;
 use CollectionJson\Validator\Uri;
 use CollectionJson\Exception\InvalidParameter;
-use CollectionJson\Exception\MissingProperty;
+use CollectionJson\Exception\CollectionJsonException;
 
 /**
  * Class Item
@@ -52,7 +52,7 @@ class Item extends BaseEntity implements LinkAware, DataAware
      *
      * @param string|null $href
      */
-    public function __construct(string $href = null)
+    public function __construct(string $href)
     {
         if (is_string($href) && !Uri::isValid($href)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
@@ -68,16 +68,16 @@ class Item extends BaseEntity implements LinkAware, DataAware
      *
      * @return Item
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
-    public function withHref($href): Item
+    public function withHref(string $href): Item
     {
         if (!Uri::isValid($href)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
         }
 
         $copy = clone $this;
-        $copy->href = (string)$href;
+        $copy->href = $href;
 
 
         return $copy;
@@ -96,10 +96,6 @@ class Item extends BaseEntity implements LinkAware, DataAware
      */
     protected function getObjectData(): array
     {
-        if (is_null($this->href)) {
-            throw MissingProperty::fromTemplate(self::getObjectType(), 'href');
-        }
-
         $data = [
             'data'  => $this->getDataSet(),
             'href'  => $this->href,

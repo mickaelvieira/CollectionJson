@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -17,10 +17,10 @@ use Psr\Link\LinkInterface;
 use Psr\Link\EvolvableLinkInterface;
 
 use CollectionJson\BaseEntity;
-use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Validator\Render;
+use CollectionJson\Type\Render as RenderType;
 use CollectionJson\Exception\InvalidParameter;
-use CollectionJson\Exception\MissingProperty;
+use CollectionJson\Exception\CollectionJsonException;
 
 /**
  * Class Link
@@ -67,8 +67,12 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
      * @param string|array|null $rels
      * @param string|null       $name
      */
-    public function __construct(string $href = null, $rels = [], string $name = null)
+    public function __construct(string $href, $rels, string $name = null)
     {
+        if (!is_string($rels) && !is_array($rels)) {
+            throw new InvalidParameter('rels property must be of type string or array');
+        }
+
         if (is_string($rels)) {
             $rels = [
                 $rels
@@ -153,7 +157,7 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
      *
      * @return Link
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withName(string $name): Link
     {
@@ -176,7 +180,7 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
      *
      * @return Link
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withPrompt(string $prompt): Link
     {
@@ -199,7 +203,7 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
      *
      * @return Link
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withRender(string $render): Link
     {
@@ -260,14 +264,6 @@ class Link extends BaseEntity implements LinkInterface, EvolvableLinkInterface
      */
     protected function getObjectData(): array
     {
-        if (is_null($this->href)) {
-            throw MissingProperty::fromTemplate(self::getObjectType(), 'href');
-        }
-
-        if (empty($this->rels)) {
-            throw MissingProperty::fromTemplate(self::getObjectType(), 'rel');
-        }
-
         $data = [
             'href'   => $this->href,
             'name'   => $this->name,

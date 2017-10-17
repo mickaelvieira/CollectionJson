@@ -12,6 +12,7 @@ class LinkSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $this->shouldHaveType(Link::class);
         $this->shouldImplement(ArrayConvertible::class);
         $this->shouldImplement(\JsonSerializable::class);
@@ -20,11 +21,13 @@ class LinkSpec extends ObjectBehavior
 
     function it_s_not_templated()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $this->shouldNotBeTemplated();
     }
 
     function it_should_return_the_object_type()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $this::getObjectType()->shouldBeEqualTo('link');
     }
 
@@ -58,6 +61,7 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $this->withHref('http://example.com')->shouldHaveType(Link::class);
         $this->withRel('value')->shouldHaveType(Link::class);
         $this->withName('value')->shouldHaveType(Link::class);
@@ -84,20 +88,23 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_convert_the_rel_value_to_a_string()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withRel(true);
-        $this->getRels()->shouldHaveCount(0);
-        $link->getRels()->shouldBeEqualTo(['1']);
+        $this->getRels()->shouldBeEqualTo(['item']);
+        $link->getRels()->shouldBeEqualTo(['item', '1']);
     }
 
     function it_should_return_a_new_link_with_the_added_relation_type()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withRel('stylesheet');
-        $this->getRels()->shouldBeEqualTo([]);
-        $link->getRels()->shouldBeEqualTo(['stylesheet']);
+        $this->getRels()->shouldBeEqualTo(['item']);
+        $link->getRels()->shouldBeEqualTo(['item', 'stylesheet']);
     }
 
     function it_knows_when_it_has_a_relation_type()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withRel('stylesheet');
         $link->shouldHaveRel('stylesheet');
         $link->shouldNotHaveRel('canonical');
@@ -106,6 +113,7 @@ class LinkSpec extends ObjectBehavior
     function it_should_return_a_new_link_without_the_removed_relation_type()
     {
         $this->beConstructedThrough('fromArray', [[
+            'href' => 'http://example.com',
             'rel' => 'stylesheet'
         ]]);
 
@@ -116,12 +124,14 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_return_a_list_of_relations()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withRel('stylesheet');
-        $link->getRels()->shouldBeEqualTo(['stylesheet']);
+        $link->getRels()->shouldBeEqualTo(['item', 'stylesheet']);
     }
 
     function it_should_set_render_type()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withRender(Render::IMAGE);
         $this->getRender()->shouldBeEqualTo(Render::LINK);
         $link->getRender()->shouldBeEqualTo(Render::IMAGE);
@@ -129,11 +139,13 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_return_the_default_render_value()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $this->getRender()->shouldBeEqualTo('link');
     }
 
     function it_should_throw_an_exception_when_setting_an_incorrect_render_type()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $this->shouldThrow(new \DomainException(
             "Property [render] of entity [link] can only have one of the following values [link,image]"
         ))->during('withRender', ["Render this"]);
@@ -142,45 +154,19 @@ class LinkSpec extends ObjectBehavior
 
     function it_should_convert_the_prompt_value_to_a_string()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withPrompt(true);
         $link->getPrompt()->shouldBeEqualTo('1');
     }
 
-    function it_should_throw_an_exception_during_array_conversion_when_the_field_href_is_null()
-    {
-        $link = $this->withRel('Rel value');
-        $link->shouldThrow(new \DomainException('Property [href] of entity [link] is required'))->during('toArray');
-    }
-
-    function it_should_throw_an_exception_during_json_conversion_when_the_field_href_is_null()
-    {
-        $link = $this->withRel('Rel value');
-        $link->shouldThrow(
-            new \DomainException('Property [href] of entity [link] is required')
-        )->during('jsonSerialize');
-    }
-
-    function it_should_throw_an_exception_during_array_conversion_when_the_field_rel_is_null()
-    {
-        $link = $this->withHref('http://example.com');
-        $link->shouldThrow(new \DomainException('Property [rel] of entity [link] is required'))->during('toArray');
-    }
-
-    function it_should_throw_an_exception_during_json_conversion_when_the_field_rel_is_null()
-    {
-        $link = $this->withHref('http://example.com');
-        $link->shouldThrow(
-            new \DomainException('Property [rel] of entity [link] is required')
-        )->during('jsonSerialize');
-    }
-
     function it_should_not_return_null_values()
     {
+        $this->beConstructedWith('http://example.com', 'item');
         $link = $this->withRel('Rel value');
         $link = $link->withHref('http://example.com');
         $link->toArray()->shouldBeEqualTo([
             'href'   => 'http://example.com',
-            'rel'    => 'Rel value',
+            'rel'    => 'item,Rel value',
             'render' => 'link'
         ]);
     }

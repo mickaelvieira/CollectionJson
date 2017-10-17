@@ -1,5 +1,9 @@
 sudo: false # use container-based-infrastructure
 
+env:
+  global:
+    - MAKEFLAGS="-j 2"
+
 language: php
 
 php: [7.0, 7.1]
@@ -10,9 +14,9 @@ install:
 
 script:
   - mkdir -p build/logs
-  - php bin/phpcs --standard=PSR2 ./src/ --report=full
-  - php bin/phpspec run --format=pretty -v
-  - php bin/test-examples
+  - make lint
+  - make test
+  - make examples
 
 after_success:
   - travis_retry php bin/coveralls -v
@@ -20,4 +24,3 @@ after_success:
 cache:
     directories:
         - $HOME/.composer/cache
-

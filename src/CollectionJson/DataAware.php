@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -34,7 +34,7 @@ interface DataAware
     public function withDataSet(array $set);
 
     /**
-     * @return array
+     * @return Entity\Data[]
      */
     public function getDataSet(): array;
 
@@ -46,14 +46,14 @@ interface DataAware
     public function getDataByName($name);
 
     /**
-     * @return Entity\Data|null
+     * @return Entity\Data
      */
-    public function getFirstData();
+    public function getFirstData(): Entity\Data;
 
     /**
-     * @return Entity\Data|null
+     * @return Entity\Data
      */
-    public function getLastData();
+    public function getLastData(): Entity\Data;
 
     /**
      * @return bool

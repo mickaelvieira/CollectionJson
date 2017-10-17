@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -29,14 +29,14 @@ interface LinkAware extends LinkProviderInterface, EvolvableLinkProviderInterfac
     public function withLinksSet(array $set);
 
     /**
-     * @return Entity\Link|null
+     * @return Entity\Link
      */
-    public function getFirstLink();
+    public function getFirstLink(): Entity\Link;
 
     /**
-     * @return Entity\Link|null
+     * @return Entity\Link
      */
-    public function getLastLink();
+    public function getLastLink(): Entity\Link;
     
     /**
      * @return bool

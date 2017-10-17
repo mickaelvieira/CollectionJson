@@ -116,7 +116,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_be_chainable()
     {
-        $this->withData([])->shouldHaveType(Template::class);
+        $this->withData(['name' => 'my name'])->shouldHaveType(Template::class);
         $this->withDataSet([])->shouldHaveType(Template::class);
     }
 
@@ -127,7 +127,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_add_data_when_it_is_passed_as_an_object()
     {
-        $data = new Data();
+        $data = new Data('Name');
 
         $template = $this->withData($data);
         $this->getDataSet()->shouldHaveCount(0);
@@ -136,7 +136,7 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_remove_data()
     {
-        $data = new Data();
+        $data = new Data('Name');
 
         $template = $this->withData($data);
         $template->getDataSet()->shouldHaveCount(1);
@@ -148,13 +148,13 @@ class TemplateSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_data_has_the_wrong_type()
     {
         $this->shouldThrow(
-            new \BadMethodCallException('Property [data] must be of type [CollectionJson\Entity\Data]')
+            new \DomainException('Property [data] must be of type [CollectionJson\Entity\Data]')
         )->during('withData', [new Template()]);
     }
 
     function it_should_add_data_when_it_is_passed_as_an_array()
     {
-        $template = $this->withData(['value' => 'value 1']);
+        $template = $this->withData(['name' => 'name 1', 'value' => 'value 1']);
         $this->getDataSet()->shouldHaveCount(0);
         $template->getDataSet()->shouldHaveCount(1);
     }
@@ -163,7 +163,7 @@ class TemplateSpec extends ObjectBehavior
     {
         $data = (new Prophet())->prophesize(Data::class);
 
-        $template = $this->withDataSet([$data, ['value' => 'value 2']]);
+        $template = $this->withDataSet([$data, ['name' => 'name 2', 'value' => 'value 2']]);
         $this->getDataSet()->shouldHaveCount(0);
         $template->getDataSet()->shouldHaveCount(2);
     }
@@ -231,41 +231,29 @@ class TemplateSpec extends ObjectBehavior
 
     function it_should_return_the_first_data_in_the_set()
     {
-        $data1 = Data::fromArray(['value' => 'value1']);
-        $data2 = Data::fromArray(['value' => 'value2']);
-        $data3 = Data::fromArray(['value' => 'value3']);
+        $data1 = Data::fromArray(['name' => 'name 1', 'value' => 'value1']);
+        $data2 = Data::fromArray(['name' => 'name 2', 'value' => 'value2']);
+        $data3 = Data::fromArray(['name' => 'name 3', 'value' => 'value3']);
 
         $template = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getFirstData()->shouldBeNull();
         $template->getFirstData()->shouldBeLike($data1);
-    }
-
-    function it_should_return_null_when_the_first_data_in_not_the_set()
-    {
-        $this->getFirstData()->shouldBeNull();
     }
 
     function it_should_return_the_last_data_in_the_set()
     {
-        $data1 = Data::fromArray(['value' => 'value1']);
-        $data2 = Data::fromArray(['value' => 'value2']);
-        $data3 = Data::fromArray(['value' => 'value3']);
+        $data1 = Data::fromArray(['name' => 'name 1', 'value' => 'value1']);
+        $data2 = Data::fromArray(['name' => 'name 2', 'value' => 'value2']);
+        $data3 = Data::fromArray(['name' => 'name 3', 'value' => 'value3']);
 
         $template = $this->withDataSet([$data1, $data2, $data3]);
 
-        $this->getLastData()->shouldBeNull();
         $template->getLastData()->shouldBeLike($data3);
-    }
-
-    function it_should_return_null_when_the_last_data_in_not_the_set()
-    {
-        $this->getLastData()->shouldBeNull();
     }
 
     function it_should_know_if_it_has_data()
     {
-        $data = new Data();
+        $data = new Data('Name');
 
         $template = $this->withData($data);
         $this->shouldNotHaveData();

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -19,7 +19,7 @@ use CollectionJson\BaseEntity;
 use CollectionJson\Validator\Uri;
 use CollectionJson\DataContainer;
 use CollectionJson\Exception\InvalidParameter;
-use CollectionJson\Exception\MissingProperty;
+use CollectionJson\Exception\CollectionJsonException;
 
 /**
  * Class Query
@@ -66,7 +66,7 @@ class Query extends BaseEntity implements DataAware
      * @param string|null $name
      * @param string|null $prompt
      */
-    public function __construct(string $href = null, string $rel = null, string $name = null, string $prompt = null)
+    public function __construct(string $href, string $rel, string $name = null, string $prompt = null)
     {
         if (is_string($href) && !Uri::isValid($href)) {
             throw InvalidParameter::fromTemplate(self::getObjectType(), 'href', Uri::allowed());
@@ -111,7 +111,7 @@ class Query extends BaseEntity implements DataAware
      *
      * @return Query
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withName(string $name): Query
     {
@@ -134,7 +134,7 @@ class Query extends BaseEntity implements DataAware
      *
      * @return Query
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withPrompt(string $prompt): Query
     {
@@ -157,7 +157,7 @@ class Query extends BaseEntity implements DataAware
      *
      * @return Query
      *
-     * @throws \DomainException
+     * @throws CollectionJsonException
      */
     public function withRel(string $rel): Query
     {
@@ -180,12 +180,6 @@ class Query extends BaseEntity implements DataAware
      */
     protected function getObjectData(): array
     {
-        foreach (['href', 'rel'] as $property) {
-            if (is_null($this->$property)) {
-                throw MissingProperty::fromTemplate(self::getObjectType(), $property);
-            }
-        }
-
         $data = [
             'data'   => $this->getDataSet(),
             'href'   => $this->href,

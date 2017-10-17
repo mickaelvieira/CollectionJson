@@ -8,8 +8,7 @@ use CollectionJson\Entity\Data;
 use CollectionJson\Entity\Link;
 use CollectionJson\Type\Relation;
 
-$item = (new Item())
-    ->withHref('https://example.co/item/1')
+$item = (new Item('https://example.co/item/1'))
     ->withDataSet([
         new Data('data 1'),
         new Data('data 2', 'value 2')

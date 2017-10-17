@@ -31,14 +31,14 @@ class BagSpec extends ObjectBehavior
 
     function it_should_add_an_item_to_the_bag_link_set()
     {
-        $bag = $this->with(new Item());
+        $bag = $this->with(new Item('http://example.com'));
         $this->shouldHaveCount(0);
         $bag->shouldHaveCount(1);
     }
 
     function it_should_remove_an_item_from_the_bag_link_set()
     {
-        $item = new Item();
+        $item = new Item('http://example.com');
         $bag = $this->with($item);
         $this->shouldHaveCount(0);
         $bag->shouldHaveCount(1);
@@ -52,8 +52,8 @@ class BagSpec extends ObjectBehavior
 
     function it_should_not_blow_up_when_removing_an_unexisting_item_from_the_bag_link_set()
     {
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
         $bag = $this->with($item1);
         $this->shouldHaveCount(0);
         $bag->shouldHaveCount(1);
@@ -67,8 +67,8 @@ class BagSpec extends ObjectBehavior
 
     function it_is_clonable()
     {
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
 
         $copy = $this->with($item1)->with($item2);
 
@@ -83,8 +83,8 @@ class BagSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_item_is_of_the_wrong_type()
     {
         $this->shouldThrow(
-            new \BadMethodCallException('Property [item] must be of type [CollectionJson\Entity\Item]')
-        )->during('with', [new Query()]);
+            new \DomainException('Property [item] must be of type [CollectionJson\Entity\Item]')
+        )->during('with', [new Query('http://example.com', 'item')]);
     }
 
     function it_should_build_an_item_from_an_array()
@@ -98,15 +98,15 @@ class BagSpec extends ObjectBehavior
 
     function it_should_add_multiple_items_to_the_bag()
     {
-        $bag = $this->withSet([new Item(), ['href' => 'http://example.com']]);
+        $bag = $this->withSet([new Item('http://example.com'), ['href' => 'http://example.com']]);
         $this->shouldHaveCount(0);
         $bag->shouldHaveCount(2);
     }
 
     function it_should_return_the_set()
     {
-        $item1 = new Item();
-        $item2 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
 
         $bag = $this->with($item1);
         $bag = $bag->with($item2);
@@ -115,9 +115,9 @@ class BagSpec extends ObjectBehavior
 
     function it_should_return_the_first_element_in_the_set()
     {
-        $item1 = new Item();
-        $item2 = new Item();
-        $item3 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
+        $item3 = new Item('http://example.com');
 
         $bag = $this->withSet([$item1, $item2, $item3]);
 
@@ -132,9 +132,9 @@ class BagSpec extends ObjectBehavior
 
     function it_should_return_the_last_element_in_the_set()
     {
-        $item1 = new Item();
-        $item2 = new Item();
-        $item3 = new Item();
+        $item1 = new Item('http://example.com');
+        $item2 = new Item('http://example.com');
+        $item3 = new Item('http://example.com');
 
         $bag = $this->withSet([$item1, $item2, $item3]);
 

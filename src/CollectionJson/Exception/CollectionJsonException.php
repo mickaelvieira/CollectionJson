@@ -11,21 +11,12 @@ declare(strict_types = 1);
  * file that was distributed with this source code.
  */
 
-namespace CollectionJson\Type;
+namespace CollectionJson\Exception;
 
 /**
- * Class Render
- * @package CollectionJson\Type
+ * Class CollectionJsonException
+ * @package CollectionJson\Exception
  */
-final class Render
+class CollectionJsonException extends \DomainException
 {
-    /**
-     *
-     */
-    private function __construct()
-    {
-    }
-
-    const LINK  = 'link';
-    const IMAGE = 'image';
 }

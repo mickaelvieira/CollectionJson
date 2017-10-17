@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace CollectionJson;
 
+use CollectionJson\Exception\CollectionJsonException;
+
 use JsonSerializable;
-use CollectionJson\Exception\MissingProperty;
 
 /**
  * Class BaseEntity
@@ -34,7 +35,11 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
      */
     public static function fromArray(array $data)
     {
-        $object = new static();
+        list($props, $data) = self::getRequiredParameters($data);
+
+        $object = count($props) > 0
+            ? new static(...$props)
+            : new static();
 
         foreach ($data as $key => $value) {
             // version is a constant
@@ -49,7 +54,13 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
                 } elseif (method_exists($object, $wither)) {
                     $object = $object->$wither($value);
                 } else {
-                    throw new \DomainException(sprintf('Could not inject the entry "%s"', $key));
+                    throw new CollectionJsonException(
+                        sprintf(
+                            'Invalid schema! Could not inject entry "%s" into entity "%s"',
+                            $key,
+                            get_class($object)
+                        )
+                    );
                 }
             }
         }
@@ -67,6 +78,11 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
         $data = json_decode($json, true);
         $type = static::getObjectType();
 
+        if (!$data || json_last_error() !== JSON_ERROR_NONE) {
+            throw new CollectionJsonException(sprintf('Invalid JSON: %s', json_last_error_msg()));
+        }
+
+        // unwrapping
         if (array_key_exists($type, $data)) {
             $data = $data[$type];
         }
@@ -75,9 +91,40 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     }
 
     /**
-     * @return array
+     * @param array $data
      *
-     * @throws MissingProperty
+     * @return array
+     */
+    private static function getRequiredParameters(array $data): array
+    {
+        $method = new \ReflectionMethod(static::class, '__construct');
+        $params = $method->getParameters();
+
+        $required = array_filter($params, function (\ReflectionParameter $param) {
+            return !$param->isDefaultValueAvailable();
+        });
+
+        $props = [];
+        foreach ($required as $item) {
+            $name = $item->getName();
+            $prop = $name === 'rels' ? 'rel' : $name;
+
+            if (!array_key_exists($prop, $data)) {
+                throw new CollectionJsonException(
+                    sprintf('Property "%s" is missing to build "%s', $name, static::class)
+                );
+            }
+
+            $props[] = $data[$prop];
+
+            unset($data[$prop]);
+        }
+
+        return [$props, $data];
+    }
+
+    /**
+     * @return array
      */
     public function jsonSerialize(): array
     {
@@ -89,24 +136,23 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
 
     /**
      * @return array
-     *
-     * @throws MissingProperty
      */
     public function toArray(): array
     {
         $data = $this->getObjectData();
-        $data = $this->recursiveToArray($data);
         $data = $this->addWrapper($data);
 
-        return $data;
+        return $this->recursiveToArray($data);
     }
 
     /**
+     * @TODO this method should return a new entity
      * @return self
      */
     final public function wrap(): self
     {
         $this->wrapper = static::getObjectType();
+
         return $this;
     }
 
@@ -159,7 +205,6 @@ abstract class BaseEntity implements JsonSerializable, ArrayConvertible
     }
 
     /**
-     * @throws MissingProperty
      * @return array
      */
     abstract protected function getObjectData(): array;

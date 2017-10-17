@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of CollectionJson, a php implementation
@@ -67,7 +67,7 @@ trait DataContainer
     }
 
     /**
-     * @return array
+     * @return Data[]
      */
     public function getDataSet(): array
     {
@@ -89,17 +89,17 @@ trait DataContainer
     }
 
     /**
-     * @return Data|null
+     * @return Data
      */
-    public function getFirstData()
+    public function getFirstData(): Data
     {
         return $this->data->first();
     }
 
     /**
-     * @return Data|null
+     * @return Data
      */
-    public function getLastData()
+    public function getLastData(): Data
     {
         return $this->data->last();
     }
